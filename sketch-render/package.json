@@ -7,11 +7,14 @@
     "@types/node": "12.0.7",
     "@types/react": "16.8.19",
     "@types/react-dom": "16.8.4",
+    "add": "^2.0.6",
     "antd": "^3.19.2",
+    "node-sass": "^4.13.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-scripts": "3.0.1",
-    "typescript": "3.4.3"
+    "typescript": "3.4.3",
+    "yarn": "^1.19.1"
   },
   "scripts": {
     "start": "react-scripts start",
