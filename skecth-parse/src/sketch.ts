@@ -1,12 +1,10 @@
 import path from 'path';
 import fs from 'fs-extra';
-import rgbHex from 'rgb-hex';
 import unzipper from 'unzipper';
 import rd from 'rd';
 import { ISketchTree, ISketchType, IText, IBitmap, IRectangle, IShapeGroup, IArtboard } from '@/interface/ISketchTree';
 import {  getDefaultStyle, colorParser, parseArchive } from '@/util/utils';
 import { SketchClassType } from '@/constants';
-import { IBaseStyle } from '@/interface/IBaseStyle';
 import { IElement } from '@/interface/IElement';
 import { uploadQiuNiuFile } from '@/upload';
 const cwd = process.cwd();
@@ -32,7 +30,7 @@ export class Sketch {
 		console.log('解压完成。')
 		console.log('解析文件...')
 		const pages = await this.getPages();
-		pages.map((item) => this.parse(item));
+		await Promise.all(pages.map((item) => this.parse(item)));
 		console.log('解析完成。')
 	}
 
@@ -95,7 +93,7 @@ export class Sketch {
 			type: SketchClassType.ARTBOARD,
 			children: []
 		};
-		this.setStyle(element.style, artboard);
+		this.setStyle(artboard);
 		element.children = this.getChildren(artboard);
 		return element;
 	}
@@ -107,7 +105,7 @@ export class Sketch {
 			type: SketchClassType.ARTBOARD,
 			children: []
 		};
-		this.setStyle(element.style, artboard);
+		this.setStyle(artboard);
 		element.children = this.getChildren(artboard);
 		return element;
 	}
@@ -119,7 +117,7 @@ export class Sketch {
 			type: SketchClassType.GROUP,
 			children: []
 		};
-		this.setStyle(element.style, group);
+		this.setStyle(group);
 		element.children = this.getChildren(group);
 		return element;
 	}
@@ -131,7 +129,7 @@ export class Sketch {
 			type: SketchClassType.TEXT,
 			children: []
 		};
-		this.setStyle(element.style, item);
+		this.setStyle(item);
 
 		if (item.name) {
 			element.value = item.name
@@ -143,8 +141,8 @@ export class Sketch {
 
 		if (item.attributedString.archivedAttributedString) {
 			const parseStyle = parseArchive(item.attributedString.archivedAttributedString._archive, this.unit);
-			if (!parseStyle.lineHeight) {
-				parseStyle.lineHeight = element.style.height;
+			if (!parseStyle.lineHeight && element.style.height) {
+				parseStyle.lineHeight = element.style.height.toString();
 			}
 			if (parseStyle.content) {
 				element.value = parseStyle.content;
@@ -168,7 +166,7 @@ export class Sketch {
 		} else {
 			element.value = path.join(this.tempDir, item.image._ref + '.png');
 		}
-		this.setStyle(element.style, item);
+		this.setStyle(item);
 		return element;
 	}
 
@@ -179,7 +177,7 @@ export class Sketch {
 			type: SketchClassType.RECTANGLE,
 			children: []
 		};
-		this.setStyle(element.style, item);
+		this.setStyle(item);
 		return element;
 	}
 
@@ -187,8 +185,9 @@ export class Sketch {
 		return (Number(value) * this.dpi).toFixed(2) + this.unit;
 	}
 
-	setStyle(style: IBaseStyle, item: ISketchType) {
+	setStyle(item: ISketchType) {
 		const { x, y, width, height } = item.frame;
+		const style  = getDefaultStyle(this.unit);
 		style.left = this.unitConvert(x);
 		style.top = this.unitConvert(y);
 		style.width =  this.unitConvert(width);
@@ -206,11 +205,15 @@ export class Sketch {
 			const borderItem = item.style.borders[0]
 			if (borderItem.isEnabled) {
 				if (item._class == 'text') {
-					style.textStrokeWidth = this.unitConvert(borderItem.thickness) || 'none';
-					style.textStrokeColor = colorParser(borderItem.color);
+					if (this.unitConvert(borderItem.thickness)) {
+						// style.textStrokeWidth = this.unitConvert(borderItem.thickness)
+					}
+					// style.textStrokeColor = colorParser(borderItem.color);
 				} else {
 					style.borderColor = colorParser(borderItem.color);
-					style.borderWidth = this.unitConvert(borderItem.thickness) || 'none';
+					if (this.unitConvert(borderItem.thickness)) {
+						style.borderWidth = this.unitConvert(borderItem.thickness)
+					}
 					style.borderStyle = 'solid';
 				}
 

@@ -1,7 +1,7 @@
 import { SketchClassType } from '@/constants';
-import { IBaseStyle } from '@/interface/IBaseStyle';
 import { IColor } from '@/interface/ISketchTree';
 import { NSArchiveParser } from '@/util/NSArchiveParser';
+import React from 'react';
 const bplistParser = require('bplist-parser');
 export function isText(classType: string) {
 	return classType === SketchClassType.TEXT;
@@ -31,7 +31,11 @@ export function parseArchive(base64String: string, unit: string) {
 	const buf2 = Buffer.from(base64String, 'base64');
 	const obj = bplistParser.parseBuffer(buf2);
 	const nsParse = new NSArchiveParser(obj, unit);
-	return nsParse.getParseStyle();
+	const styles = nsParse.getParseStyle();
+	if (styles.underline && (styles.underline !== 'none')) {
+		styles['textDecoration'] = 'underline';
+	}
+	return styles;
 }
 
 export async function uploadImage(url: string) {
@@ -40,32 +44,10 @@ export async function uploadImage(url: string) {
 export function colorParser(color: IColor) {
 	return `rgba(${parseFloat((color.red * 255).toString())},${parseFloat((color.green * 255).toString())},${parseFloat((color.blue * 255).toString())},${color.alpha || 0})`;
 }
-export function getDefaultStyle(unit: string = ''): IBaseStyle {
+export function getDefaultStyle(unit: string = ''): React.CSSProperties {
 	return {
 		zIndex: 0,
 		position: 'absolute',
-		opacity: 1,
-		color: '#000',
-		fontSize: '14' + unit,
-		fontFamily: 'normal',
-		top: '0',
-		left: '0',
-		width: 'normal',
-		height: 'normal',
-		lineHeight: 'normal',
-		textDecoration: 'none',
-		bold: 'normal',
-		backgroundColor: 'transparent',
-		borderRadius: '0',
-		backgroundImage: '',
-		backgroundSize: '100%',
-		marginTop: '0',
-		borderColor: 'transparent',
-		borderWidth: '0',
-		borderStyle: 'none',
-		boxShadow: 'none',
-		textAlign: 'left',
-		overflow: 'visible',
-		whiteSpace: 'pre-wrap'
+		opacity: 1
 	};
 }

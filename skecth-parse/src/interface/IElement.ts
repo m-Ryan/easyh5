@@ -1,9 +1,8 @@
 import { SketchClassType } from '@/constants';
-import { IBaseStyle } from '@/interface/IBaseStyle';
 
 export interface IElement {
 	value: string;
-	style: IBaseStyle;
+	style: React.CSSProperties;
 	type: SketchClassType;
 	children: IElement[];
 }

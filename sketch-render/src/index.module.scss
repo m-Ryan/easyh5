@@ -1,4 +1,33 @@
-.sketch {
-  width: 750px;
-  transform: scale(0.5);
+.container {
+  background-color: #ececec;
+  min-height: 100vh;
+  padding-top: 100px;
+  padding-left: 100px;
+}
+
+.appWrap {
+  width: 375px;
+  height: 667px;
+  box-sizing: content-box;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ececec;
+  background-color: #fff;
+  .app {
+    position: relative;
+    overflow: hidden;
+    width: 750px;
+    min-height: 1334px;
+    height: auto;
+    transform: scale(0.5);
+    box-sizing: content-box;
+    transform-origin: left top;
+    * {
+      cursor: pointer;
+    }
+  }
+}
+
+.focus {
+  box-shadow: 0 0 1px red, 0 0 1px red, 0 0 1px red;
 }
