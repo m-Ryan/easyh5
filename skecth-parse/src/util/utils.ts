@@ -48,27 +48,6 @@ export function getDefaultStyle(unit: string = ''): React.CSSProperties {
 	return {
 		zIndex: 0,
 		position: 'absolute',
-		opacity: 1,
-		color: '#000',
-		fontSize: '14' + unit,
-		fontFamily: 'normal',
-		top: '0',
-		left: '0',
-		width: 'normal',
-		height: 'normal',
-		lineHeight: 'normal',
-		textDecoration: 'none',
-		backgroundColor: 'transparent',
-		borderRadius: '0',
-		backgroundImage: '',
 		backgroundSize: '100%',
-		marginTop: '0',
-		borderColor: 'transparent',
-		borderWidth: '0',
-		borderStyle: 'none',
-		boxShadow: 'none',
-		textAlign: 'left',
-		overflow: 'visible',
-		whiteSpace: 'pre-wrap'
 	};
 }

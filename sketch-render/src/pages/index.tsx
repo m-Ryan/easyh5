@@ -7,7 +7,7 @@ import { ISketchItem, SketchClassType } from '@/typings/ISketckItem';
 const onFocus = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
   const target = event.target as HTMLDivElement;
   target.classList.add(styles.focus);
-  console.log(target)
+  console.log(styles.focus, target.className)
 }
 
 const App: React.FC = () => {
@@ -17,9 +17,9 @@ const App: React.FC = () => {
 
       switch (item.type) {
         case SketchClassType.BITMAP:
-          return <img src={item.value} style={item.style} alt="" />;
+          return <img key={index} src={item.value} style={item.style} alt="" />;
         case SketchClassType.TEXT:
-          return <span style={item.style}>{item.value}</span>;
+          return <span key={index} style={item.style}>{item.value}</span>;
         default:
           return (
             <div onClick={onFocus} key={index} style={item.style}>

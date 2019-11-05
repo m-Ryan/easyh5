@@ -30,7 +30,7 @@ export class Sketch {
 		console.log('解压完成。')
 		console.log('解析文件...')
 		const pages = await this.getPages();
-		pages.map((item) => this.parse(item));
+		await Promise.all(pages.map((item) => this.parse(item)));
 		console.log('解析完成。')
 	}
 
