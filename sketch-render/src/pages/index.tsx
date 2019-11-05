@@ -3,11 +3,13 @@ import styles from './index.module.scss';
 import 'antd/dist/antd.css';
 import sketchJson from '../output.json';
 import { ISketchItem, SketchClassType } from '@/typings/ISketckItem';
+import { DragElement } from '@/components/react-use/use-mouse';
 
 const onFocus = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
   const target = event.target as HTMLDivElement;
   target.classList.add(styles.focus);
-  console.log(styles.focus, target.className)
+  console.log(target)
+  new DragElement({ element: target, initX: event.pageX, initY: event.pageY });
 }
 
 const App: React.FC = () => {
@@ -22,7 +24,7 @@ const App: React.FC = () => {
           return <span key={index} style={item.style}>{item.value}</span>;
         default:
           return (
-            <div onClick={onFocus} key={index} style={item.style}>
+            <div onMouseDown={onFocus} key={index} style={item.style}>
               {
                 item.children.length > 0
                   ? (

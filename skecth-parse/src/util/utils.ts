@@ -27,10 +27,10 @@ export function isPage(classType: string) {
 	return classType === SketchClassType.PAGE;
 }
 
-export function parseArchive(base64String: string, unit: string) {
+export function parseArchive(base64String: string) {
 	const buf2 = Buffer.from(base64String, 'base64');
 	const obj = bplistParser.parseBuffer(buf2);
-	const nsParse = new NSArchiveParser(obj, unit);
+	const nsParse = new NSArchiveParser(obj);
 	const styles = nsParse.getParseStyle();
 	if (styles.underline && (styles.underline !== 'none')) {
 		styles['textDecoration'] = 'underline';
@@ -44,10 +44,17 @@ export async function uploadImage(url: string) {
 export function colorParser(color: IColor) {
 	return `rgba(${parseFloat((color.red * 255).toString())},${parseFloat((color.green * 255).toString())},${parseFloat((color.blue * 255).toString())},${color.alpha || 0})`;
 }
-export function getDefaultStyle(unit: string = ''): React.CSSProperties {
+
+export function getDefaultStyle(unit: string = ''): DefaultType {
 	return {
 		zIndex: 0,
 		position: 'absolute',
 		backgroundSize: '100%',
 	};
+}
+
+type DefaultType = { 
+	zIndex: number;
+	position: 'absolute',
+	backgroundSize: string
 }

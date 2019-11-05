@@ -1,7 +1,6 @@
 import { colorParser } from '@/util/utils';
 
 export class NSArchiveParser {
-	private unit = '';
 	private styles = {
 		fontSize: 'normal',
 		fontFamily: 'normal',
@@ -11,8 +10,7 @@ export class NSArchiveParser {
 		textAlign: 'normal',
 		content: ''
 	};
-	constructor(archive: any, unit: string) {
-		this.unit = unit;
+	constructor(archive: any) {
 		this.parse(archive);
 	}
 
@@ -81,11 +79,11 @@ export class NSArchiveParser {
 			const align = value.NSAlignment;
 			this.styles.textAlign = align === 1 ? 'right' : align === 2 ? 'center' : 'left';
 			if(value.NSMaxLineHeight) {
-				this.styles.lineHeight = value.NSMaxLineHeight + this.unit;
+				this.styles.lineHeight = value.NSMaxLineHeight;
 			}
 		
 			if(value.NSMinLineHeight) {
-				this.styles.lineHeight = value.NSMinLineHeight + this.unit;
+				this.styles.lineHeight = value.NSMinLineHeight;
 			}
 		
 		}
@@ -98,9 +96,6 @@ export class NSArchiveParser {
 					alpha = parseFloat(colors[3]);
 			}
 				this.styles[current] = colorParser({ red: colors[0], green: colors[1], blue: colors[2], alpha: alpha });
-			}
-			if (type === 'NSFontSizeAttribute') {
-				this.styles[current] += this.unit;
 			}
 		}
 	}

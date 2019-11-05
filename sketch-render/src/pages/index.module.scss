@@ -24,6 +24,7 @@
     transform-origin: left top;
     * {
       cursor: pointer;
+      user-select: none;
     }
   }
 }

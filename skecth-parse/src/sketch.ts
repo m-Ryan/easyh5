@@ -30,7 +30,7 @@ export class Sketch {
 		console.log('解压完成。')
 		console.log('解析文件...')
 		const pages = await this.getPages();
-		await Promise.all(pages.map((item) => this.parse(item)));
+		await Promise.all(pages.map((item) => this.parse(item))).catch(error=>console.log(error));
 		console.log('解析完成。')
 	}
 
@@ -140,13 +140,15 @@ export class Sketch {
 		}
 
 		if (item.attributedString.archivedAttributedString) {
-			const parseStyle = parseArchive(item.attributedString.archivedAttributedString._archive, this.unit);
+			const parseStyle = parseArchive(item.attributedString.archivedAttributedString._archive);
 			if (!parseStyle.lineHeight && element.style.height) {
 				parseStyle.lineHeight = element.style.height.toString();
 			}
 			if (parseStyle.content) {
 				element.value = parseStyle.content;
 			}
+			parseStyle.fontSize = this.unitConvert(parseStyle.fontSize);
+			parseStyle.lineHeight = this.unitConvert(parseStyle.lineHeight);
 
 			delete parseStyle.content;
 			Object.assign(element.style, parseStyle);
@@ -185,7 +187,7 @@ export class Sketch {
 		return (Number(value) * this.dpi).toFixed(2) + this.unit;
 	}
 
-	setStyle(style: any, item: ISketchType) {
+	setStyle(style: React.CSSProperties, item: ISketchType) {
 		const { x, y, width, height } = item.frame;
 		style.left = this.unitConvert(x);
 		style.top = this.unitConvert(y);
@@ -204,11 +206,13 @@ export class Sketch {
 			const borderItem = item.style.borders[0]
 			if (borderItem.isEnabled) {
 				if (item._class == 'text') {
-					style.textStrokeWidth = this.unitConvert(borderItem.thickness) || 'none';
-					style.textStrokeColor = colorParser(borderItem.color);
+					// style.textStrokeWidth = this.unitConvert(borderItem.thickness) || 'none';
+					// style.textStrokeColor = colorParser(borderItem.color);
 				} else {
 					style.borderColor = colorParser(borderItem.color);
-					style.borderWidth = this.unitConvert(borderItem.thickness) || 'none';
+					if (borderItem.thickness) {
+						style.borderWidth = borderItem.thickness;
+					}
 					style.borderStyle = 'solid';
 				}
 
