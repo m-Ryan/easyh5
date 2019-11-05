@@ -1,7 +1,7 @@
-import { SketchClassType } from '@/constants';
-import { IColor } from '@/interface/ISketchTree';
 import { NSArchiveParser } from '@/util/NSArchiveParser';
 import React from 'react';
+import { SketchClassType } from '@/typings/ISketckItem';
+import { IColor } from '@/typings/ISketchTree';
 const bplistParser = require('bplist-parser');
 export function isText(classType: string) {
 	return classType === SketchClassType.TEXT;
@@ -48,6 +48,27 @@ export function getDefaultStyle(unit: string = ''): React.CSSProperties {
 	return {
 		zIndex: 0,
 		position: 'absolute',
-		opacity: 1
+		opacity: 1,
+		color: '#000',
+		fontSize: '14' + unit,
+		fontFamily: 'normal',
+		top: '0',
+		left: '0',
+		width: 'normal',
+		height: 'normal',
+		lineHeight: 'normal',
+		textDecoration: 'none',
+		backgroundColor: 'transparent',
+		borderRadius: '0',
+		backgroundImage: '',
+		backgroundSize: '100%',
+		marginTop: '0',
+		borderColor: 'transparent',
+		borderWidth: '0',
+		borderStyle: 'none',
+		boxShadow: 'none',
+		textAlign: 'left',
+		overflow: 'visible',
+		whiteSpace: 'pre-wrap'
 	};
 }

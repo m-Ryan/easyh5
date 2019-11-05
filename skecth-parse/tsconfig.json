@@ -14,7 +14,6 @@
     "skipLibCheck": true,
     "allowJs": true,
     "sourceMap": true,
-    "rootDir": "src",
     "forceConsistentCasingInFileNames": false,
     "noImplicitReturns": true,
     "noImplicitThis": true,
@@ -24,6 +23,7 @@
     "noUnusedLocals": false,
     "emitDecoratorMetadata": true,
     "removeComments": true,
+    "rootDir": "src",
     "baseUrl": ".",
     "paths": {
       "@/*": [

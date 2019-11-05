@@ -1,4 +1,4 @@
-import { SketchClassType } from '@/constants';
+import { SketchClassType } from "./ISketckItem";
 
 export interface IElement {
 	value: string;
