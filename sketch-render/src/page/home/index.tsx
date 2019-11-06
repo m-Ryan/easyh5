@@ -1,11 +1,20 @@
 import React from 'react';
-import { AppHeader } from '@/layout/app-header';
+import { AppHeader } from '@/components/app/app-header';
 import styles from './index.module.scss';
-import { AppMenu } from '@/layout/app-menu';
-import { AppPreview } from '@/components/app-preview';
+import { AppMenu } from '@/components/app/app-menu';
+import { AppPreview } from '@/components/app/app-preview';
+import { AppPropertyMenu } from '@/components/app/app-property-menu';
+import sketchJson from './output.json';
+import { observer } from 'mobx-react';
+import { modal } from '@/modal';
+import { ISketchItem } from '@/typings/ISketckItem';
 
+@observer
 export class Home extends React.Component {
 
+	componentDidMount() {
+		modal.app.setElements(sketchJson as ISketchItem[]);
+	}
 	render() {
 		return (
 			<div className={styles.container}>
@@ -20,7 +29,7 @@ export class Home extends React.Component {
 						</div>
           </div>
 					<div className={styles.rightMenu}>
-						<AppMenu />
+						<AppPropertyMenu />
 					</div>
 				</div>
 			</div>

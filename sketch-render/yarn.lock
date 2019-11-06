@@ -6935,6 +6935,23 @@ mkdirp@0.5.1, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0, mkd
   dependencies:
     minimist "0.0.8"
 
+mobx-react-lite@^1.4.2:
+  version "1.5.0"
+  resolved "https://registry.npm.taobao.org/mobx-react-lite/download/mobx-react-lite-1.5.0.tgz#a5867fa1114b19056cf8159e8d64766596ae85a0"
+  integrity sha1-pYZ/oRFLGQVs+BWejWR2ZZauhaA=
+
+mobx-react@^6.1.4:
+  version "6.1.4"
+  resolved "https://registry.npm.taobao.org/mobx-react/download/mobx-react-6.1.4.tgz#818e7991c321c05bd9b8156d94be17dad165501e"
+  integrity sha1-gY55kcMhwFvZuBVtlL4X2tFlUB4=
+  dependencies:
+    mobx-react-lite "^1.4.2"
+
+mobx@^5.14.2:
+  version "5.14.2"
+  resolved "https://registry.npm.taobao.org/mobx/download/mobx-5.14.2.tgz#608b8ee9bc9f9e406b48da676e677b150e901eba"
+  integrity sha1-YIuO6byfnkBrSNpnbmd7FQ6QHro=
+
 moment@2.x, moment@^2.24.0:
   version "2.24.0"
   resolved "https://registry.npm.taobao.org/moment/download/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"

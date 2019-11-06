@@ -1,7 +1,7 @@
 import React from 'react';
-import { AppHeader } from '@/layout/app-header';
+import { AppHeader } from '@/components/app/app-header';
 import styles from './index.module.scss';
-import { AppMenu } from '@/layout/app-menu';
+import { AppMenu } from '@/components/app/app-menu';
 interface IProps {
 	children: React.ReactNode;
 }
