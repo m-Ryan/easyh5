@@ -16,12 +16,9 @@
   .app {
     position: relative;
     overflow: hidden;
-    width: 750px;
-    min-height: 1334px;
+    width: 375px;
+    min-height: 667px;
     height: auto;
-    transform: scale(0.5);
-    box-sizing: content-box;
-    transform-origin: left top;
     * {
       cursor: pointer;
       user-select: none;

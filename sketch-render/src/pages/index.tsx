@@ -3,12 +3,42 @@ import styles from './index.module.scss';
 import 'antd/dist/antd.css';
 import sketchJson from '../output.json';
 import { ISketchItem, SketchClassType } from '@/typings/ISketckItem';
-import { DragElement } from '@/components/react-use/use-mouse';
+import { unitConver } from '@/util/utils';
+import { IElement } from '@/typings/IElement';
+import { DragElement } from '@/components/drag-element';
+
+const sketchElements = sketchJson as IElement[];
+
+const tranformStyle = (child: IElement) => {
+  const style = child.style;
+  for (let key in style) {
+    style[key] = unitConver(style[key], { times: 0.5 })
+  }
+  child.children.forEach(item => {
+    tranformStyle(item);
+  })
+}
+
+sketchElements.forEach(item => {
+  tranformStyle(item); 
+});
+
+
 
 const onFocus = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
   const target = event.target as HTMLDivElement;
-  target.classList.add(styles.focus);
-  console.log(target)
+  const renderStyleArr = target.style.cssText.split('; ').map(item=> {
+    const css = item.split(': ');
+    return {
+      [css[0]]: css[1]
+    }
+  });
+  const renderStyleObject: React.CSSProperties = {}
+  renderStyleArr.forEach(item=> {
+    Object.assign(renderStyleObject, item);
+  })
+
+  console.log(renderStyleArr, renderStyleObject)
   new DragElement({ element: target, initX: event.pageX, initY: event.pageY });
 }
 
@@ -19,9 +49,9 @@ const App: React.FC = () => {
 
       switch (item.type) {
         case SketchClassType.BITMAP:
-          return <img key={index} src={item.value} style={item.style} alt="" />;
+          return <img onMouseDown={onFocus} key={index} src={item.value} style={item.style} alt="" />;
         case SketchClassType.TEXT:
-          return <span key={index} style={item.style}>{item.value}</span>;
+          return <span onMouseDown={onFocus} key={index} style={item.style}>{item.value}</span>;
         default:
           return (
             <div onMouseDown={onFocus} key={index} style={item.style}>
@@ -33,7 +63,7 @@ const App: React.FC = () => {
                   : null
               }
               {
-                item.value ? <span>{item.value}</span> : null
+                item.value ? <span style={{}} onMouseDown={onFocus}>{item.value}</span> : null
               }
             </div>
           )
@@ -46,7 +76,7 @@ const App: React.FC = () => {
       <div className={styles.appWrap}>
         <div className={styles.app}>
           {
-            renderItem(sketchJson as any)
+            renderItem(sketchElements)
           }
         </div>
       </div>
