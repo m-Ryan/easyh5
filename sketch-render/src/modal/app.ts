@@ -50,10 +50,8 @@ export class App {
   setTargetStyle = <T extends keyof React.CSSProperties>(property: T, value: any) => {
     if (this.targetElement) {
       const element = getElementById(this.elements, this.targetElement.id);
-      console.log('111element', element)
       if (element) {
         if (_.isNumber(parseFloat(value))) {
-          console.log('parseFloat(value.toString())')
           element.style[property] = parseFloat(value.toString()) as any;
           this.targetElement.style[property] = parseFloat(value.toString()) as any;
         } else {
