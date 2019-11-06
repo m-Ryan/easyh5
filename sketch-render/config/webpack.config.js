@@ -128,12 +128,12 @@ module.exports = function(webpackEnv) {
           },
         }
       );
-      if (preProcessor.indexOf('less-loader') !== -1) {
+      if (preProcessor.indexOf('sass-loader') !== -1) {
         loaders.push({
           loader: 'sass-resources-loader',
           options: {
               resources: [
-                  path.resolve(__dirname, '../src/assets/styles/common.less'),
+                  path.resolve(__dirname, '../src/assets/styles/common.scss'),
               ]
           }
         })

@@ -1,7 +1,6 @@
 import React from 'react';
 import styles from './index.module.scss';
-import 'antd/dist/antd.css';
-import sketchJson from '../output.json';
+import sketchJson from './output.json';
 import { ISketchItem, SketchClassType } from '@/typings/ISketckItem';
 import { unitConver } from '@/util/utils';
 import { IElement } from '@/typings/IElement';
@@ -25,8 +24,8 @@ sketchElements.forEach(item => {
 
 
 
-const onFocus = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-  const target = event.target as HTMLDivElement;
+const onFocus = <T extends HTMLElement>(event: React.MouseEvent<T, MouseEvent>) => {
+  const target = event.target as HTMLElement;
   const renderStyleArr = target.style.cssText.split('; ').map(item=> {
     const css = item.split(': ');
     return {
@@ -42,7 +41,7 @@ const onFocus = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
   new DragElement({ element: target, initX: event.pageX, initY: event.pageY });
 }
 
-const App: React.FC = () => {
+export const AppPreview =()=> {
 
   const renderItem = (parents: ISketchItem[]) => {
     return parents.map((item, index) => {
@@ -84,4 +83,3 @@ const App: React.FC = () => {
   );
 }
 
-export default App;

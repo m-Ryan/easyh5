@@ -1,24 +1,21 @@
-.container {
-  background-color: #ececec;
-  min-height: 100vh;
-  padding-top: 100px;
-  padding-left: 100px;
-}
-
 .appWrap {
-  width: 375px;
-  height: 667px;
   box-sizing: content-box;
   padding: 10px;
   border-radius: 10px;
   border: 1px solid #ececec;
   background-color: #fff;
+  height: 667px;
+  width: 375px;
+  box-sizing: content-box;
   .app {
     position: relative;
-    overflow: hidden;
     width: 375px;
-    min-height: 667px;
-    height: auto;
+    height: 667px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+      width: 0px;
+    }
     * {
       cursor: pointer;
       user-select: none;

@@ -1,0 +1,9 @@
+.container {
+  background-color: #fff;
+  :global {
+    .ant-menu-item-selected {
+      color: #fff;
+    }
+  }
+}
+

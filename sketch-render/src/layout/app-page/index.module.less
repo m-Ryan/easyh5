@@ -1,0 +1,28 @@
+.container {
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  .wrap {
+    height: calc(100vh - 60px);
+    overflow: hidden;
+    display: flex;
+    .menu {
+      width: 240px;
+      background: #fff;
+      border-right: 1px solid #e8e8e8;
+    }
+    .contentWrap {
+      width: calc(100% - 240px);
+      overflow-x: hidden;
+      overflow-y: auto;
+      background-color: #f2f2f2;
+      padding: 20px;
+    }
+    .content {
+      background: #fff;
+      padding: 20px;
+      border-radius: 6px;
+      min-height: 100%;
+    }
+  }
+}
