@@ -10,14 +10,14 @@ export interface IElementItem extends ISketchItem {
 
 export class App {
   @observable elements: IElementItem[] = [];
-  @observable targetElement: IElementItem | null = null;
+  @observable targetId: number = 0;
 
   @action
   setElements = (data: ISketchItem | ISketchItem[]) => {
     let id = 0;
 
     const tranformStyle = (child: ISketchItem) => {
-      child['id'] = id;
+      child['id'] = ++id;
       const style = child.style;
       for (let key in style) {
         style[key] = unitConver(style[key], { times: 0.5 })
@@ -36,35 +36,35 @@ export class App {
     this.elements = data as IElementItem[];
   }
 
-  setTargetElement = (target: IElementItem) => {
-    console.log('set', target)
-    this.targetElement = target;
+  setTargetId = (targetId: number) => {
+    console.log(targetId)
+    this.targetId = targetId;
   }
 
   @computed 
   get targetStyle() {
-    return this.targetElement ? this.targetElement.style : {};
+    const target = getElementById(this.elements, this.targetId);
+    if (target) {
+      return target.style;
+    }
+    return {};
   }
 
   @action
   setTargetStyle = <T extends keyof React.CSSProperties>(property: T, value: any) => {
-    if (this.targetElement) {
-      const element = getElementById(this.elements, this.targetElement.id);
+    const element = getElementById(this.elements, this.targetId);
       if (element) {
         if (_.isNumber(parseFloat(value))) {
           element.style[property] = parseFloat(value.toString()) as any;
-          this.targetElement.style[property] = parseFloat(value.toString()) as any;
         } else {
           element.style[property] = value;
-          this.targetElement.style[property] = value;
         }
         this.elements = [...this.elements];
       }
-    }
   }
 }
 
-const getElementById = (child: IElementItem[], id: number): ISketchItem | null => {
+const getElementById = (elements: IElementItem[], id: number): ISketchItem | null => {
   let target: IElementItem | null = null
   const findById = (element: IElementItem) => {
     if (element.id === id) {
@@ -75,7 +75,6 @@ const getElementById = (child: IElementItem[], id: number): ISketchItem | null =
       findById(item);
     });
   }
-  child.forEach(item=>findById(item));
-  console.log('target', !!target, target)
+  elements.forEach(item=>findById(item));
   return target;
 }

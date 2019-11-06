@@ -1,43 +1,37 @@
 import styles from './index.module.scss';
+import _ from 'lodash';
 interface IOptions {
-  element: HTMLElement
-  initX: number;
-  initY: number;
+	element: HTMLElement;
+	initX: number;
+	initY: number;
+	onMove: (x: number, y: number) => void;
+	onEnd?: () => void;
 }
 
-export class DragElement {
-  private initX = 0;
-  private initY = 0;
-  private initLeft = 0;
-  private initTop = 0;
-  private element: HTMLElement
-  constructor(options: IOptions) {
-    this.element = options.element;
-    this.element.draggable = false;
-    this.element.classList.add(styles.focus);
-    const { top, left } = window.getComputedStyle(this.element);
-    this.initX = options.initX;
-    this.initY = options.initY;
-    this.initTop = parseFloat(top || '0');
-    this.initLeft = parseFloat(left || '0');
-    document.addEventListener('mousemove', this.onTouchMove);
-    document.addEventListener('mouseup', this.onTouchEnd);
+export function onDrag(options: IOptions) {
+	const element = options.element;
+	element.draggable = false;
+	element.classList.add(styles.focus);
+	const { top, left } = window.getComputedStyle(element);
+	const initX = options.initX;
+	const initY = options.initY;
+	const initTop = parseFloat(top || '0');
+	const initLeft = parseFloat(left || '0');
 
-  }
+	const onTouchMove = _.debounce((event: MouseEvent) => {
+		event.stopPropagation();
+		let offsetX = event.pageX - initX;
+		let offsetY = event.pageY - initY;
+    options.onMove(initLeft + offsetX, initTop + offsetY);
+	});
 
-  onTouchMove = (event: MouseEvent) => {
-    event.stopPropagation();
-    const element = this.element;
-    let offsetX = event.pageX - this.initX;
-    let offsetY = event.pageY - this.initY;
-    element.style.left = this.initLeft + offsetX + 'px';
-    element.style.top = this.initTop + offsetY + 'px';
-  }
+	const onTouchEnd = (event: MouseEvent) => {
+		element.classList.remove(styles.focus);
+		document.removeEventListener('mousemove', onTouchMove);
+    document.removeEventListener('mouseup', onTouchEnd);
+    options.onEnd && options.onEnd();
+	};
 
-  onTouchEnd = (event: MouseEvent) => {
-    this.element.classList.remove(styles.focus);
-    document.removeEventListener('mousemove', this.onTouchMove);
-    document.removeEventListener('mouseup', this.onTouchEnd);
-  }
-
+	document.addEventListener('mousemove', onTouchMove);
+	document.addEventListener('mouseup', onTouchEnd);
 }

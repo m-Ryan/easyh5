@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './index.module.scss';
 import { SketchClassType } from '@/typings/ISketckItem';
-import { DragElement } from '@/components/drag-element';
+import { onDrag } from '@/components/drag-element';
 import {observer} from 'mobx-react';
 import { modal } from '@/modal';
 import { IElementItem } from '@/modal/app';
@@ -9,8 +9,16 @@ import { IElementItem } from '@/modal/app';
 const onFocus = (event: any, item: IElementItem) => {
   event.stopPropagation();
   const target = event.target as HTMLElement;
-  new DragElement({ element: target, initX: event.pageX, initY: event.pageY });
-  modal.app.setTargetElement(item);
+  onDrag({ 
+    element: target, 
+    initX: event.pageX, 
+    initY: event.pageY,
+    onMove: (x, y)=> {
+      modal.app.setTargetStyle('left', x);
+      modal.app.setTargetStyle('top', y);
+    }
+  });
+  modal.app.setTargetId(item.id);
 }
 
 export const AppPreview = observer(()=> {
