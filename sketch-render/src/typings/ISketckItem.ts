@@ -1,16 +1,16 @@
 export interface ISketchItem { 
   value: string; 
   style: React.CSSProperties; 
-  type: SketchClassType; 
+  type: ElementType; 
   children: ISketchItem[]; 
 }
 
-export enum SketchClassType {
+export enum ElementType {
 	ARTBOARD = 'artboard',
 	GROUP = 'group',
-	TEXT = 'text',
-	BITMAP = 'bitmap',
 	SHAPE_GROUP = 'shapeGroup',
 	RECTANGLE = 'rectangle',
-	PAGE = 'page'
+	PAGE = 'page',
+	TEXT = 'text',
+	BITMAP = 'bitmap',
 }

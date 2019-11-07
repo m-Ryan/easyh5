@@ -1,38 +1,37 @@
-import React from 'react';
-import { AppHeader } from '@/components/app/app-header';
+import React, { useEffect } from 'react';
 import styles from './index.module.scss';
-import { AppMenu } from '@/components/app/app-menu';
-import { AppPreview } from '@/components/app/app-preview';
-import { AppPropertyMenu } from '@/components/app/app-property-menu';
 import sketchJson from './output.json';
-import { observer } from 'mobx-react';
-import { modal } from '@/modal';
 import { ISketchItem } from '@/typings/ISketckItem';
+import { AppState } from '@/store';
+import { useSelector, useDispatch } from 'react-redux'
+import { useAppDispatch } from '@/store/reducers';
+import { IElementItem } from '@/store/app';
 
-@observer
-export class Home extends React.Component {
+export function Home() {
+	const article = useSelector((state: AppState) => state.article);
+	const dispatch = useAppDispatch()
 
-	componentDidMount() {
-		modal.app.setElements(sketchJson as ISketchItem[]);
-	}
-	render() {
-		return (
-			<div className={styles.container}>
-				<AppHeader />
-				<div className={styles.wrap}>
-					<div className={styles.leftMenu}>
-						<AppMenu />
-					</div>
-					<div className={styles.contentWrap}>
-            <div className={styles.content}>
-							<AppPreview />
-						</div>
-          </div>
-					<div className={styles.rightMenu}>
-						<AppPropertyMenu />
+	useEffect(()=> {
+		dispatch('ARTICLE_SET_STATE', sketchJson as IElementItem[])
+	})
+
+	console.log(article);
+	return (
+		<div className={styles.container}>
+			{/* <AppHeader /> */}
+			<div className={styles.wrap}>
+				{/* <div className={styles.leftMenu}>
+					<AppMenu />
+				</div>
+				<div className={styles.contentWrap}>
+					<div className={styles.content}>
+						<AppPreview />
 					</div>
 				</div>
+				<div className={styles.rightMenu}>
+					<AppPropertyMenu app={app} />
+				</div> */}
 			</div>
-		);
-	}
+		</div>
+	);
 }
