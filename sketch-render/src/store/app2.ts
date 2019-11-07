@@ -1,3 +1,5 @@
+export let a = 1;
+
 // import { observable, action, computed } from "mobx";
 // import { unitConver } from "@/util/utils";
 // import { ISketchItem } from "@/typings/ISketckItem";

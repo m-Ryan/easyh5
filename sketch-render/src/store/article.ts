@@ -10,21 +10,17 @@ export function article(
   action: { type: ArticleType, payload: IElementItem[] }
 ): any {
   switch (action.type) {
-    case 'ARTICLE_SET_STATE' : 
-    console.log(action.payload)
+    case ArticleType.ARTICLE_SET_STATE : 
     return action.payload;
     default:
       return state
   }
 }
 
-export type ArticleType = 'ARTICLE_SET_STATE';
-
-export type ArticleTypeMap = {
-  ARTICLE_SET_STATE: IElementItem[] 
+export enum ArticleType {
+  ARTICLE_SET_STATE = 'ARTICLE_SET_STATE'
 }
 
-export type ArticleAction<T extends ArticleType> = {
-  type: T,
-  action: ArticleTypeMap[T]
+export type ArticleTypeMap = {
+  [ArticleType.ARTICLE_SET_STATE]: IElementItem[] 
 }

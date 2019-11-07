@@ -1,4 +1,4 @@
-import { configureStore, getDefaultMiddleware, combineReducers } from 'redux-starter-kit'
+import { configureStore, getDefaultMiddleware } from 'redux-starter-kit'
 import { createLogger } from 'redux-logger';
 import thunkMiddleware from 'redux-thunk'
 import { rootReducer } from './reducers';
