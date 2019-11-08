@@ -1,19 +1,20 @@
 import { combineReducers } from "redux";
 import { useDispatch } from "react-redux";
-import { article, ArticleTypeMap, ArticleType } from "./article";
-import { UserTypeMap, user, UserType } from './user';
+import { article, ArticleAction } from "./article";
+import { user, UserAction } from './user';
 
 export const rootReducer = combineReducers({
   article,
   user
 })
 
-export type ReducerType = ArticleType | UserType;
-export interface ReducerMap extends ArticleTypeMap , UserTypeMap {
+export type ReducerActions = ArticleAction | UserAction
 
-}
+// 创建action类型
+export type CrateAction<T extends string, P extends any> = { type: T, payload: P};
+export type AppState = ReturnType<typeof rootReducer>;
 
 export function useAppDispatch() {
   const dispatch = useDispatch();
-  return <T extends ReducerType, K extends ReducerMap>(type: T, payload: K[T])=>dispatch({ type, payload });
+  return <T extends ReducerActions>(action: T)=>dispatch(action);
 }

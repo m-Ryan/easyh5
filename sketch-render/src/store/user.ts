@@ -1,10 +1,12 @@
+import { CrateAction } from "./reducers";
+
 export type IUser = { name: string}
 export function user(
   state = null,
   action: { type: UserType, payload:IUser }
 ): any {
   switch (action.type) {
-    case UserType.SET_STATE : 
+    case UserType.USER_SET_STATE : 
     return action.payload;
     default:
       return state
@@ -12,9 +14,8 @@ export function user(
 }
 
 export enum UserType {
-  SET_STATE = 'SET_STATE'
+  USER_SET_STATE = 'USER_SET_STATE'
 }
 
-export type UserTypeMap = {
-  [UserType.SET_STATE]: IUser
-}
+export type UserAction = 
+  CrateAction<UserType.USER_SET_STATE, IUser>

@@ -1,21 +1,25 @@
 import React, { useEffect } from 'react';
 import styles from './index.module.scss';
 import sketchJson from './output.json';
-import { AppState } from '@/store';
 import { useSelector } from 'react-redux'
-import { useAppDispatch } from '@/store/reducers';
-import { IElementItem } from '@/store/article';
-import { ArticleType } from '../../store/article';
-import { ReducerType } from '../../store/reducers';
-import { UserType } from '../../store/user';
+import { useAppDispatch, AppState } from '@/store/reducers';
+import { ArticleType } from '@/store/article';
+import { UserType } from '@/store/user';
+import { ISketchItem } from '@/typings/ISketckItem';
 
 export function Home() {
 	const article = useSelector((state: AppState) => state.article);
 	const dispatch = useAppDispatch()
 
 	useEffect(()=> {
-		// dispatch(ArticleType.ARTICLE_SET_STATE, sketchJson as IElementItem[])
-		const data = dispatch(UserType.SET_STATE,{ name: 'ryan'});
+		const data = dispatch({
+			type: ArticleType.ARTICLE_SET_STATE,
+			payload: sketchJson as ISketchItem[]
+		});
+	dispatch({
+			type: UserType.USER_SET_STATE,
+			payload: { name: 'aa'}
+		});
 		console.log(data)
 	})
 

@@ -14,3 +14,9 @@ export enum ElementType {
 	TEXT = 'text',
 	BITMAP = 'bitmap',
 }
+
+export interface IElementItem extends ISketchItem {
+  id: number;
+  children: IElementItem[];
+  link?: string;
+}

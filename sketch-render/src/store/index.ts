@@ -4,7 +4,7 @@ import thunkMiddleware from 'redux-thunk'
 import { rootReducer } from './reducers';
 const loggerMiddleware = createLogger();
 
-export type AppState = ReturnType<typeof rootReducer>
+
 
 export function configureAppStore() {
   const store = configureStore({
