@@ -11,7 +11,6 @@ import { AppPreview } from '@/components/app/app-preview';
 import { AppPropertyMenu } from '@/components/app/app-property-menu';
 
 export function Home() {
-	const article = useSelector((state: AppState) => state.article);
 	const dispatch = useAppDispatch()
 
 	useEffect(()=> {
@@ -21,7 +20,6 @@ export function Home() {
 		});
 	}, [])
 
-	console.log(article);
 	return (
 		<div className={styles.container}>
 			<AppHeader />

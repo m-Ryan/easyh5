@@ -3,6 +3,7 @@ import { CrateAction, useAppDispatch, AppDispatch } from "./reducers";
 import { unitConver } from "@/util/utils";
 import { DragElement } from "@/components/drag-element";
 import { createSelector } from 'reselect';
+import { link } from "fs";
 
 
 export enum ArticleType {
@@ -12,6 +13,7 @@ export enum ArticleType {
   ARTICLE_SET_VALUE = 'ARTICLE_SET_VALUE',
   ARTICLE_SET_STYLE = 'ARTICLE_SET_STYLE',
   ARTICLE_SET_LINK = 'ARTICLE_SET_LINK',
+  ARTICLE_DELETE_ITEM = 'ARTICLE_DELETE_ITEM',
 }
 
 // @observable elements: IElementItem[] = [];
@@ -30,6 +32,7 @@ export type ArticleAction =
   CrateAction<ArticleType.ARTICLE_SET_VALUE, string> |
   CrateAction<ArticleType.ARTICLE_SET_STYLE, [keyof React.CSSProperties, any]> |
   CrateAction<ArticleType.ARTICLE_SET_LINK, string> |
+  CrateAction<ArticleType.ARTICLE_DELETE_ITEM, null> |
   CrateAction<ArticleType.ARTICLE_ADD_ITEM, IElementItem>;
 
 
@@ -58,6 +61,8 @@ export function article(
       return seValue(state, action.payload);
     case ArticleType.ARTICLE_SET_LINK:
       return setLink(state, action.payload);
+    case ArticleType.ARTICLE_DELETE_ITEM:
+      return deleteItem(state);
     case ArticleType.ARTICLE_SET_STYLE:
       return setTargetStyle(state, action.payload[0], action.payload[1]);
     default:
@@ -150,6 +155,19 @@ function setLink(state: ArticleState, value: string) {
     element.link = value;
   }
   return { ...state }
+}
+
+function deleteItem(state: ArticleState) {
+  const id = state.targetId;
+  const deleteById = (element: IElementItem) => {
+    element.children = element.children.filter(item => deleteById(item));
+    if (element.id === id) {
+      return false;
+    }
+    return true;
+  }
+  state.list = state.list.filter(item=>deleteById(item))
+  return { ...state };
 }
 
 /**

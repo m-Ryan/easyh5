@@ -1,19 +1,36 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './index.module.scss';
 import { Input, Popover, Select, Radio, Icon } from 'antd';
 import { ElementType, IElementItem } from '@/typings/ISketckItem';
 import './animate.scss';
 import { Text } from './components/text';
 import { Bitmap } from './components/bitmap';
-import { AppState, useAppDispatch, useAppSelector } from '@/store/reducers';
+import { useAppDispatch, useAppSelector } from '@/store/reducers';
 import { ArticleType, getTarget } from '@/store/article';
 const Option = Select.Option;
 
 export const AppPropertyMenu = function () {
   const dispatch = useAppDispatch();
   const article = useAppSelector(state => state.article);
-  const target = getTarget(article);
-  if (!target) return null;
+	const target = getTarget(article);
+
+	const onDelete = (event: KeyboardEvent)=> {
+		if (event.keyCode === 46) {
+			dispatch({
+				type: ArticleType.ARTICLE_DELETE_ITEM,
+				payload: null
+			})
+		}
+	}
+	
+	useEffect(()=> {
+		document.addEventListener('keyup', onDelete);
+		return ()=> {
+			document.removeEventListener('keyup', onDelete);
+		}
+	})
+
+	if (!target) return null;
 
   const onInputChange = <T extends keyof React.CSSProperties>(event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const target = event.target;

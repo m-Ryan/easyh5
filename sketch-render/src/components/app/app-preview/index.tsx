@@ -2,13 +2,14 @@ import React from 'react';
 import styles from './index.module.scss';
 
 import { ElementType, IElementItem } from '@/typings/ISketckItem';
-import { useAppDispatch, useAppSelector } from '@/store/reducers';
-import { ArticleType, asyncSetTarget } from '@/store/article';
+import { useAppDispatch, AppState } from '@/store/reducers';
+import { asyncSetTarget } from '@/store/article';
+import { useSelector } from 'react-redux';
 
 
 export const AppPreview = ()=> {
-  
-  const list = useAppSelector(state => state.article.list);
+  const article = useSelector((state: AppState) => state.article);
+  const list = article.list;
   const dispatch = useAppDispatch()
 
   const onFocus = (event: React.MouseEvent<any, MouseEvent>, item: IElementItem) => {
