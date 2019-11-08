@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import styles from './index.module.scss';
 interface IOptions {
   element: HTMLElement
@@ -28,13 +29,13 @@ export class DragElement {
 
   }
 
-  private onTouchMove = (event: MouseEvent) => {
+  private onTouchMove = _.debounce((event: MouseEvent) => {
     event.stopPropagation();
     let offsetX = event.pageX - this.initX;
     let offsetY = event.pageY - this.initY;
 		this.onMove(this.initLeft + offsetX, this.initTop + offsetY)
   }
-
+)
 	private onTouchEnd = (event: MouseEvent) => {
     document.removeEventListener('mousemove', this.onTouchMove);
     document.removeEventListener('mouseup', this.onTouchEnd);

@@ -1,8 +1,8 @@
 import { ISketchItem, IElementItem } from "@/typings/ISketckItem";
-import { CrateAction } from "./reducers";
+import { CrateAction, useAppDispatch, AppDispatch } from "./reducers";
 import { unitConver } from "@/util/utils";
 import { DragElement } from "@/components/drag-element";
-import { CSSProperties } from "react";
+import { createSelector } from 'reselect';
 
 
 export enum ArticleType {
@@ -25,12 +25,19 @@ export type ArticleState = {
 }
 
 export type ArticleAction =
-  CrateAction<ArticleType.ARTICLE_SET_STATE, ISketchItem[]|IElementItem[]> |
-  CrateAction<ArticleType.ARTICLE_SET_TARGET, { targetId: number, event: React.MouseEvent<any, MouseEvent> }> |
+  CrateAction<ArticleType.ARTICLE_SET_STATE, ISketchItem[] | IElementItem[]> |
+  CrateAction<ArticleType.ARTICLE_SET_TARGET, { targetId: number, dragElement: DragElement }> |
   CrateAction<ArticleType.ARTICLE_SET_VALUE, string> |
-  CrateAction<ArticleType.ARTICLE_SET_STYLE, [ keyof React.CSSProperties, any]> |
+  CrateAction<ArticleType.ARTICLE_SET_STYLE, [keyof React.CSSProperties, any]> |
   CrateAction<ArticleType.ARTICLE_SET_LINK, string> |
   CrateAction<ArticleType.ARTICLE_ADD_ITEM, IElementItem>;
+
+
+export const getTarget = (state: ArticleState) => {
+  if (!state.targetId) return null;
+  const target = getElementById(state.list, state.targetId);
+  return target;
+}
 
 export function article(
   state: ArticleState = {
@@ -38,7 +45,7 @@ export function article(
     targetId: 0,
     dragElement: null
   },
-  action: ArticleAction
+  action: ArticleAction,
 ): ArticleState {
   if (!state) return state;
 
@@ -82,8 +89,10 @@ function setElements(state: ArticleState, data: ISketchItem[] | IElementItem[]):
   data.forEach(item => {
     tranformStyle(item)
   })
-  state.list = data as IElementItem[]
-  return { ...state };
+  return {
+    ...state,
+    list: data as IElementItem[]
+  };
 }
 
 /**
@@ -125,21 +134,14 @@ function seValue(state: ArticleState, value: string) {
  * @param state 
  * @param param1 
  */
-function setTarget<T extends HTMLElement>(state: ArticleState, { targetId, event }: { targetId: number, event: React.MouseEvent<T, MouseEvent> }) {
-  if (state.dragElement) {
-    state.dragElement.destory();
+function setTarget(state: ArticleState, { targetId, dragElement }: { targetId: number, dragElement: DragElement }) {
+  const newState = { ...state };
+  if (newState.dragElement) {
+    newState.dragElement.destory();
   }
-  state.targetId = targetId;
-  state.dragElement = new DragElement({
-    element: event.target as HTMLElement,
-    initX: event.pageX,
-    initY: event.pageY,
-    onMove: (x, y) => {
-      setTargetStyle(state, 'left', x);
-      setTargetStyle(state, 'top', y);
-    }
-  });
-  return { ...state }
+  newState.targetId = targetId;
+  newState.dragElement = dragElement;
+  return newState;
 }
 
 function setLink(state: ArticleState, value: string) {
@@ -168,4 +170,32 @@ function getElementById(elements: IElementItem[], id: number): IElementItem | nu
   }
   elements.forEach(item => findById(item));
   return target;
+}
+
+
+export function asyncSetTarget({ targetId, event }: { targetId: number, event: React.MouseEvent<any, MouseEvent> }) {
+  return function (dispatch: AppDispatch) {
+    const dragElement = new DragElement({
+      element: event.target as HTMLElement,
+      initX: event.pageX,
+      initY: event.pageY,
+      onMove: (x, y) => {
+        dispatch({
+          type: ArticleType.ARTICLE_SET_STYLE,
+          payload: ['left', x]
+        })
+        dispatch({
+          type: ArticleType.ARTICLE_SET_STYLE,
+          payload: ['top', y]
+        })
+      }
+    });
+    return dispatch({
+      type: ArticleType.ARTICLE_SET_TARGET,
+      payload: {
+        targetId,
+        dragElement
+      }
+    })
+  }
 }

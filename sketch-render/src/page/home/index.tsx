@@ -4,31 +4,29 @@ import sketchJson from './output.json';
 import { useSelector } from 'react-redux'
 import { useAppDispatch, AppState } from '@/store/reducers';
 import { ArticleType } from '@/store/article';
-import { UserType } from '@/store/user';
 import { ISketchItem } from '@/typings/ISketckItem';
+import { AppHeader } from '@/components/app/app-header';
+import { AppMenu } from '@/components/app/app-menu';
+import { AppPreview } from '@/components/app/app-preview';
+import { AppPropertyMenu } from '@/components/app/app-property-menu';
 
 export function Home() {
 	const article = useSelector((state: AppState) => state.article);
 	const dispatch = useAppDispatch()
 
 	useEffect(()=> {
-		const data = dispatch({
+		dispatch({
 			type: ArticleType.ARTICLE_SET_STATE,
 			payload: sketchJson as ISketchItem[]
 		});
-	dispatch({
-			type: UserType.USER_SET_STATE,
-			payload: { name: 'aa'}
-		});
-		console.log(data)
-	})
+	}, [])
 
 	console.log(article);
 	return (
 		<div className={styles.container}>
-			{/* <AppHeader /> */}
+			<AppHeader />
 			<div className={styles.wrap}>
-				{/* <div className={styles.leftMenu}>
+				<div className={styles.leftMenu}>
 					<AppMenu />
 				</div>
 				<div className={styles.contentWrap}>
@@ -37,8 +35,8 @@ export function Home() {
 					</div>
 				</div>
 				<div className={styles.rightMenu}>
-					<AppPropertyMenu app={app} />
-				</div> */}
+					<AppPropertyMenu />
+				</div>
 			</div>
 		</div>
 	);
