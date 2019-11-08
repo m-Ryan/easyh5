@@ -1,14 +1,12 @@
 import { combineReducers } from "redux";
 import { useDispatch, useSelector } from "react-redux";
 import { article, ArticleAction } from "./article";
-import { user, UserAction } from './user';
 
 export const rootReducer = combineReducers({
   article,
-  user
 })
 
-export type ReducerActions = ArticleAction | UserAction
+export type ReducerActions = ArticleAction;
 
 // 创建action类型
 export type CrateAction<T extends string, P extends any> = { type: T, payload: P};
