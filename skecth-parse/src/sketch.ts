@@ -90,7 +90,7 @@ export class Sketch {
 		const element: IElement = {
 			value: '',
 			style: getDefaultStyle(this.unit),
-			type: SketchClassType.ARTBOARD,
+			type: SketchClassType.GROUP,
 			children: []
 		};
 		this.setStyle(element.style, artboard);
@@ -102,7 +102,7 @@ export class Sketch {
 		const element: IElement = {
 			value: '',
 			style: getDefaultStyle(this.unit),
-			type: SketchClassType.ARTBOARD,
+			type: SketchClassType.GROUP,
 			children: []
 		};
 		this.setStyle(element.style, artboard);
@@ -176,7 +176,7 @@ export class Sketch {
 		const element: IElement = {
 			value: '',
 			style: getDefaultStyle(this.unit),
-			type: SketchClassType.RECTANGLE,
+			type: SketchClassType.GROUP,
 			children: []
 		};
 		this.setStyle(element.style, item);
