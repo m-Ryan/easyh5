@@ -6,6 +6,7 @@
   width: 104px;
   height: 104px;
   box-sizing: content-box;
+
   .info {
     position: relative;
     height: 100%;
@@ -60,4 +61,15 @@
       }
     }
   }
+}
+
+.upload {
+  border: 1px dotted;
+  width: 104px;
+  height: 104px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  cursor: pointer;
 }

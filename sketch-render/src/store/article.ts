@@ -2,8 +2,12 @@ import { ISketchItem, IElementItem } from "@/typings/ISketckItem";
 import { CrateAction, useAppDispatch, AppDispatch } from "./reducers";
 import { unitConver } from "@/util/utils";
 import { DragElement } from "@/components/drag-element";
-import { createSelector } from 'reselect';
-import { link } from "fs";
+
+export type ArticleState = {
+  list: IElementItem[];
+  targetId: number;
+  dragElement: DragElement | null;
+}
 
 
 export enum ArticleType {
@@ -14,16 +18,6 @@ export enum ArticleType {
   ARTICLE_SET_STYLE = 'ARTICLE_SET_STYLE',
   ARTICLE_SET_LINK = 'ARTICLE_SET_LINK',
   ARTICLE_DELETE_ITEM = 'ARTICLE_DELETE_ITEM',
-}
-
-// @observable elements: IElementItem[] = [];
-// @observable targetId: number = 0;
-// @observable dragElement: DragElement|null = null;
-
-export type ArticleState = {
-  list: IElementItem[];
-  targetId: number;
-  dragElement: DragElement | null;
 }
 
 export type ArticleAction =
