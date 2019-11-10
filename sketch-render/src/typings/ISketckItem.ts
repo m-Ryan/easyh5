@@ -1,4 +1,5 @@
-export interface ISketchItem { 
+export interface ISketchItem {
+  id?: number;
   value: string; 
   style: React.CSSProperties; 
   type: ElementType; 
@@ -6,11 +7,7 @@ export interface ISketchItem {
 }
 
 export enum ElementType {
-	ARTBOARD = 'artboard',
 	GROUP = 'group',
-	SHAPE_GROUP = 'shapeGroup',
-	RECTANGLE = 'rectangle',
-	PAGE = 'page',
 	TEXT = 'text',
 	BITMAP = 'bitmap',
 }

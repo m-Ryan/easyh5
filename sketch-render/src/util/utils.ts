@@ -1,3 +1,5 @@
+import { ElementType } from "@/typings/ISketckItem";
+
 export function unitConver(declaration: string, options: ICssRulesOptions) {
 	const { originUnit = 'px', replaceUnit = 'px', precision = 2, times = 1 } = options;
 	if (typeof declaration !== 'string') {
@@ -26,4 +28,20 @@ export function getCookie(key: string) {
 		}
   });
   return value;
+}
+
+export function getDefaultStyle(type?: ElementType): React.CSSProperties {
+	const style: React.CSSProperties = {
+		zIndex: 0,
+		position: 'absolute',
+		backgroundSize: '100%',
+		left: '0px',
+		top: '0px'
+	};
+
+	if (type === ElementType.TEXT) {
+		style.width = '250px';
+		style.height = '18px';
+	}
+	return style;
 }

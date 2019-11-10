@@ -45,7 +45,7 @@ export function colorParser(color: IColor) {
 	return `rgba(${parseFloat((color.red * 255).toString())},${parseFloat((color.green * 255).toString())},${parseFloat((color.blue * 255).toString())},${color.alpha || 0})`;
 }
 
-export function getDefaultStyle(unit: string = ''): DefaultType {
+export function getDefaultStyle(): DefaultType {
 	return {
 		zIndex: 0,
 		position: 'absolute',
