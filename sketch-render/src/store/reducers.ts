@@ -14,7 +14,7 @@ export type AppState = ReturnType<typeof rootReducer>;
 
 export function useAppDispatch() {
   const dispatch = useDispatch();
-  return <T extends ReducerActions>(action: ((args: any)=>any)|T)=>dispatch(action);
+  return <T extends ReducerActions>(action: ((dispatch: typeof useAppDispatch, getStore: ()=>AppState)=>any)|T)=>dispatch(action);
 }
 
 export function useAsyncAppDispatch() {
@@ -27,4 +27,3 @@ export function useAppSelector<T extends any>(fn: (state: AppState, equalityFn?:
 }
 
 export type AppDispatch = ReturnType<typeof useAppDispatch>
-

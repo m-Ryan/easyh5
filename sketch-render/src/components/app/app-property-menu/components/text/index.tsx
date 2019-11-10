@@ -3,6 +3,7 @@ import styles from './index.module.scss';
 import { Input, Popover, Radio } from 'antd';
 import { SketchPicker, ColorResult } from 'react-color';
 import { IElementItem } from '@/typings/ISketckItem';
+import _ from 'lodash';
 
 type IProps = {
   target: IElementItem;
@@ -10,6 +11,8 @@ type IProps = {
   onChangeValue: (value: string)=>void;
   onChangeLink: (value: string)=>void;
 }
+
+const changeColor = _.debounce((color: ColorResult, onChangeStyle: IProps['onChangeStyle']) => onChangeStyle('color', `rgba(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b}, ${color.rgb.a})`))
 
 export function Text(props: IProps) {
   const { target, onChangeValue, onChangeStyle } = props;
@@ -48,7 +51,7 @@ export function Text(props: IProps) {
       <div className={styles.listItem}>
         <div className={styles.key}>颜色：</div>
         <Popover
-          content={<SketchPicker onChange={(color: ColorResult) => onChangeStyle('color', color.hex)} />}
+          content={<SketchPicker color={style.color} onChange={(color: ColorResult)=>changeColor(color, onChangeStyle)}  />}
           title="文本颜色"
           trigger="click"
         >

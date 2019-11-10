@@ -1,5 +1,5 @@
 import { ISketchItem, IElementItem } from "@/typings/ISketckItem";
-import { CrateAction, useAppDispatch, AppDispatch } from "./reducers";
+import { CrateAction, useAppDispatch, AppDispatch, AppState } from './reducers';
 import { unitConver } from "@/util/utils";
 import { DragElement } from "@/components/drag-element";
 
@@ -186,7 +186,8 @@ function getElementById(elements: IElementItem[], id: number): IElementItem | nu
 
 
 export function asyncSetTarget({ targetId, event }: { targetId: number, event: React.MouseEvent<any, MouseEvent> }) {
-  return function (dispatch: AppDispatch) {
+  return function (dispatch: AppDispatch, getStore: ()=>AppState) {
+    const store = getStore();
     const dragElement = new DragElement({
       element: event.target as HTMLElement,
       initX: event.pageX,
@@ -202,6 +203,9 @@ export function asyncSetTarget({ targetId, event }: { targetId: number, event: R
         })
       }
     });
+    if (store.article.dragElement && (store.article.dragElement.element === event.target)) {
+      return;
+    }
     return dispatch({
       type: ArticleType.ARTICLE_SET_TARGET,
       payload: {

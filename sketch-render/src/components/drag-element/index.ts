@@ -12,7 +12,7 @@ export class DragElement {
   private initY = 0;
   private initLeft = 0;
   private initTop = 0;
-  private element: HTMLElement
+  public element: HTMLElement
   private onMove:  (x: number, y: number) =>void
   constructor(options: IOptions) {
 		this.element = options.element;
