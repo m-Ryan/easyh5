@@ -1,4 +1,4 @@
-import { ElementType } from "@/typings/ISketckItem";
+import { NodeType } from "@/typings/ISketckItem";
 
 export function unitConver(declaration: string, options: ICssRulesOptions) {
 	const { originUnit = 'px', replaceUnit = 'px', precision = 2, times = 1 } = options;
@@ -23,14 +23,15 @@ export function getCookie(key: string) {
 	let value = '';
 	document.cookie.split(';').forEach((item) => {
 		const name = item.split('=')[0];
-		if (name === key) {
-			value = item.split('=')[1];
+		if (name.trim() === key) {
+			value = item.replace(`${name}=`, '');
+			console.log(value)
 		}
   });
   return value;
 }
 
-export function getDefaultStyle(type?: ElementType): React.CSSProperties {
+export function getDefaultStyle(type?: NodeType): React.CSSProperties {
 	const style: React.CSSProperties = {
 		zIndex: 0,
 		position: 'absolute',
@@ -39,9 +40,19 @@ export function getDefaultStyle(type?: ElementType): React.CSSProperties {
 		top: '0px'
 	};
 
-	if (type === ElementType.TEXT) {
+	if (type === NodeType.TEXT) {
 		style.width = '250px';
 		style.height = '18px';
 	}
+
+	if (type === NodeType.BITMAP) {
+		style.width = '250px';
+	}
+
+	if (type === NodeType.GROUP) {
+		style.width = '100px';
+		style.height = '100px';
+	}
+
 	return style;
 }

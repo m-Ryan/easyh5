@@ -1,36 +1,21 @@
 import React, { useEffect } from 'react';
 import styles from './index.module.scss';
-import { Input, Popover, Select, Radio, Icon, Button } from 'antd';
-import { ElementType, IElementItem } from '@/typings/ISketckItem';
+import { Input, Popover, Select, Radio, Icon, Button, message, Popconfirm } from 'antd';
+import { NodeType, IElementItem } from '@/typings/ISketckItem';
 import './animate.scss';
 import { Text } from './components/text';
 import { Bitmap } from './components/bitmap';
 import { useAppDispatch, useAppSelector } from '@/store/reducers';
-import { ArticleType, getTarget } from '@/store/article';
+import { ArticleType, getTarget, asyncAddItem } from '@/store/article';
 import { Shape } from './components/shape/index';
-import { asyncAddText } from '../../../store/article';
+import { Uploader } from '@/util/uploader';
+import services from '@/services';
 const Option = Select.Option;
 
-export const AppPropertyMenu = function() {
+export const AppPropertyMenu = function () {
 	const dispatch = useAppDispatch();
 	const article = useAppSelector((state) => state.article);
 	const target = getTarget(article);
-
-	const onDelete = (event: KeyboardEvent) => {
-		if (event.keyCode === 46) {
-			dispatch({
-				type: ArticleType.ARTICLE_DELETE_ITEM,
-				payload: null
-			});
-		}
-	};
-
-	useEffect(() => {
-		document.addEventListener('keyup', onDelete);
-		return () => {
-			document.removeEventListener('keyup', onDelete);
-		};
-	});
 
 	if (!target) return null;
 
@@ -42,7 +27,7 @@ export const AppPropertyMenu = function() {
 		const value = target.value;
 		dispatch({
 			type: ArticleType.ARTICLE_SET_STYLE,
-			payload: [ property, value ]
+			payload: [property, value]
 		});
 	};
 
@@ -63,17 +48,48 @@ export const AppPropertyMenu = function() {
 	const onChangeStyle = <T extends keyof React.CSSProperties>(property: T, value: string) => {
 		dispatch({
 			type: ArticleType.ARTICLE_SET_STYLE,
-			payload: [ property, value ]
+			payload: [property, value]
 		});
 	};
 
-	const addText = ()=> {
-		dispatch(asyncAddText())
+	const addText = () => {
+		dispatch(asyncAddItem({ type: NodeType.TEXT, payload: null }))
 	}
+
+	const addBitmap = () => {
+		const uploader = new Uploader(
+			services.common.uploadByQiniu,
+			{
+				accept: 'image'
+			}
+		)
+
+		uploader.on('success', (urls) => {
+			dispatch(asyncAddItem({ type: NodeType.BITMAP, payload: urls[0] }))
+		})
+
+		uploader.on('error', (errMsg) => {
+			message.error(errMsg);
+		})
+
+		uploader.chooseFile();
+	}
+
+	const addShape = () => {
+		dispatch(asyncAddItem({ type: NodeType.GROUP, payload: null }))
+	}
+
+	const deleteItem = () => {
+		dispatch({
+			type: ArticleType.ARTICLE_DELETE_ITEM,
+			payload: null
+		});
+	};
+
 
 	const renderSpecialProperty = (target: IElementItem) => {
 		switch (target.type) {
-			case ElementType.TEXT:
+			case NodeType.TEXT:
 				return (
 					<Text
 						target={target}
@@ -82,7 +98,7 @@ export const AppPropertyMenu = function() {
 						onChangeLink={onChangeLink}
 					/>
 				);
-			case ElementType.BITMAP:
+			case NodeType.BITMAP:
 				return (
 					<Bitmap
 						target={target}
@@ -91,7 +107,7 @@ export const AppPropertyMenu = function() {
 						onChangeLink={onChangeLink}
 					/>
 				);
-			case ElementType.GROUP:
+			case NodeType.GROUP:
 				return (
 					<Shape
 						target={target}
@@ -171,15 +187,23 @@ export const AppPropertyMenu = function() {
 						<Button className={styles.insertItem} onClick={addText}>
 							<Icon type="font-size" /> 文本
 						</Button>
-						<Button className={styles.insertItem}>
+						<Button className={styles.insertItem} onClick={addBitmap}>
 							<Icon type="picture" /> 图片
 						</Button>
-						<Button className={styles.insertItem}>
+						<Button className={styles.insertItem} onClick={addShape}>
 							<Icon type="block" /> 形状
 						</Button>
-						<Button className={styles.insertItem}>
-						<Icon type="delete" /> 删除
+						<Popconfirm
+							title="你确定要删除吗"
+							onConfirm={deleteItem}
+							okText="确定"
+							cancelText="取消"
+						>
+							<Button className={styles.insertItem}>
+								<Icon type="delete" /> 删除
 						</Button>
+						</Popconfirm>
+
 					</div>
 					{/* 专有属性 */}
 					{renderSpecialProperty(target)}

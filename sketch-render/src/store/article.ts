@@ -1,5 +1,5 @@
-import { ISketchItem, IElementItem, ElementType } from "@/typings/ISketckItem";
-import { CrateAction, useAppDispatch, AppDispatch, AppState } from './reducers';
+import { ISketchItem, IElementItem, NodeType } from "@/typings/ISketckItem";
+import { CrateAction, AppDispatch, AppState } from './reducers';
 import { unitConver, getDefaultStyle } from '@/util/utils';
 import { DragElement } from "@/components/drag-element";
 
@@ -32,7 +32,7 @@ export type ArticleAction =
   CrateAction<ArticleType.ARTICLE_SET_STYLE, [keyof React.CSSProperties, any]> |
   CrateAction<ArticleType.ARTICLE_SET_LINK, string> |
   CrateAction<ArticleType.ARTICLE_DELETE_ITEM, null> |
-  CrateAction<ArticleType.ARTICLE_ADD_ITEM, { child: IElementItem }> ;
+  CrateAction<ArticleType.ARTICLE_ADD_ITEM, { child: IElementItem }>;
 
 
 export const getTarget = (state: ArticleState) => {
@@ -182,7 +182,7 @@ function deleteItem(state: ArticleState) {
     }
     return true;
   }
-  state.list = state.list.filter(item=>deleteById(item))
+  state.list = state.list.filter(item => deleteById(item))
   return { ...state };
 }
 
@@ -211,7 +211,7 @@ function getElementById(elements: IElementItem[], id: number): IElementItem | nu
  * @param param0 
  */
 export function asyncSetTarget({ targetId, event }: { targetId: number, event: React.MouseEvent<any, MouseEvent> }) {
-  return function (dispatch: AppDispatch, getStore: ()=>AppState) {
+  return function (dispatch: AppDispatch, getStore: () => AppState) {
     const store = getStore();
     const dragElement = new DragElement({
       element: event.target as HTMLElement,
@@ -239,37 +239,91 @@ export function asyncSetTarget({ targetId, event }: { targetId: number, event: R
   }
 }
 
-export function asyncAddText() {
-  return function (dispatch: AppDispatch, getStore: ()=>AppState) {
+export function asyncAddItem(action: CreateElementAction) {
+  return function (dispatch: AppDispatch, getStore: () => AppState) {
     const store = getStore();
     const parent = store.article.dragElement ? store.article.dragElement.element : null;
     if (parent) {
-      const addElement = document.createElement('span');
+      const { element, nodeItem } = createItem(action);
       const { zIndex, position, backgroundSize, left, top } = getDefaultStyle();
-      addElement.style.zIndex = zIndex!.toString();
-      addElement.style.position = position!;
-      addElement.style.top = top!.toString();
-      addElement.style.left = left!.toString();
-      addElement.style.backgroundSize = backgroundSize!.toString();
-      parent.appendChild(addElement);
+      element.style.zIndex = zIndex!.toString();
+      element.style.position = position!;
+      element.style.top = top!.toString();
+      element.style.left = left!.toString();
+      element.style.backgroundSize = backgroundSize!.toString();
+      parent.appendChild(element);
 
       dispatch({
         type: ArticleType.ARTICLE_ADD_ITEM,
         payload: {
-          child: crateText()
+          child: nodeItem
         }
       })
     }
+  }
+}
+
+function createItem(action: CreateElementAction) {
+  switch (action.type) {
+    case NodeType.TEXT:
+      return crateText();
+    case NodeType.BITMAP:
+      return crateBitmap(action.payload);
+    case NodeType.GROUP:
+      return crateGroup();
 
   }
 }
 
-function crateText(): IElementItem {
+function crateText(): CreateElement {
   return {
-    id:  ++elementId,
-    type: ElementType.TEXT,
-    value: '新增文本',
-    style: getDefaultStyle(ElementType.TEXT),
-    children: []
+    element: document.createElement('span'),
+    nodeItem: {
+      id: ++elementId,
+      type: NodeType.TEXT,
+      value: '新增文本',
+      style: getDefaultStyle(NodeType.TEXT),
+      children: []
+    }
   }
 }
+
+function crateBitmap(url: string): CreateElement {
+  return {
+    element: document.createElement('img'),
+    nodeItem: {
+      id: ++elementId,
+      type: NodeType.BITMAP,
+      value: url,
+      style: getDefaultStyle(NodeType.BITMAP),
+      children: []
+    }
+  }
+}
+
+function crateGroup(): CreateElement {
+  return {
+    element: document.createElement('div'),
+    nodeItem: {
+      id: ++elementId,
+      type: NodeType.GROUP,
+      value: '',
+      style: getDefaultStyle(NodeType.GROUP),
+      children: [ crateText().nodeItem ]
+    }
+  }
+}
+
+
+type CreateElement = {
+  element: HTMLElement,
+  nodeItem: IElementItem
+}
+
+
+type CrateNodeAction<T extends NodeType, P extends any> = { type: T, payload: P };
+
+type CreateElementAction = 
+  CrateNodeAction<NodeType.TEXT, null > |
+  CrateNodeAction<NodeType.GROUP, null > |
+  CrateNodeAction<NodeType.BITMAP, string>;

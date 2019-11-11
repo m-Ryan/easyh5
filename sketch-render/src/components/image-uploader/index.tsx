@@ -25,8 +25,8 @@ export function ImageUploader({ url, onRemove, onSuccess }: ImageUploaderProps) 
 			onSuccess(urls[0]);
 		})
 		
-		uploader.on('error', ()=> {
-			message.error('上传失败');
+		uploader.on('error', (errMsg)=> {
+			message.error(errMsg);
 		})
 
 		uploader.chooseFile();

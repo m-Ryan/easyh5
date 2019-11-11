@@ -2,11 +2,11 @@ export interface ISketchItem {
   id?: number;
   value: string; 
   style: React.CSSProperties; 
-  type: ElementType; 
+  type: NodeType; 
   children: ISketchItem[]; 
 }
 
-export enum ElementType {
+export enum NodeType {
 	GROUP = 'group',
 	TEXT = 'text',
 	BITMAP = 'bitmap',

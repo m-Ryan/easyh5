@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './index.module.scss';
 
-import { ElementType, IElementItem } from '@/typings/ISketckItem';
+import { NodeType, IElementItem } from '@/typings/ISketckItem';
 import { useAppDispatch, AppState } from '@/store/reducers';
 import { asyncSetTarget } from '@/store/article';
 import { useSelector } from 'react-redux';
@@ -20,9 +20,9 @@ export const AppPreview = ()=> {
     return parents.map((item, index) => {
 
       switch (item.type) {
-        case ElementType.BITMAP:
+        case NodeType.BITMAP:
           return <img onMouseDown={(event)=>onFocus(event, item)} key={index} src={item.value} style={{...item.style}} alt="" />;
-        case ElementType.TEXT:
+        case NodeType.TEXT:
           return <span onMouseDown={(event)=>onFocus(event, item)} key={index} style={{...item.style}}>{item.value}</span>;
         default:
           return (
