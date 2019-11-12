@@ -1,6 +1,6 @@
 import { NSArchiveParser } from '@/util/NSArchiveParser';
 import React from 'react';
-import { SketchClassType } from '@/typings/ISketckItem';
+import { SketchClassType, INodeStyle } from '@/typings/ISketckItem';
 import { IColor } from '@/typings/ISketchTree';
 const bplistParser = require('bplist-parser');
 export function isText(classType: string) {
@@ -32,7 +32,7 @@ export function parseArchive(base64String: string) {
 	const obj = bplistParser.parseBuffer(buf2);
 	const nsParse = new NSArchiveParser(obj);
 	const styles = nsParse.getParseStyle();
-	if (styles.underline && (styles.underline !== 'none')) {
+	if (styles['underline'] && (styles['underline'] !== 'none')) {
 		styles['textDecoration'] = 'underline';
 	}
 	return styles;
@@ -45,16 +45,15 @@ export function colorParser(color: IColor) {
 	return `rgba(${parseFloat((color.red * 255).toString())},${parseFloat((color.green * 255).toString())},${parseFloat((color.blue * 255).toString())},${color.alpha || 0})`;
 }
 
-export function getDefaultStyle(): DefaultType {
+export function getDefaultStyle(): INodeStyle {
 	return {
 		zIndex: 0,
 		position: 'absolute',
 		backgroundSize: '100%',
+		left: 0,
+		top: 0,
+		width: 0,
+		height: 0,
+		opacity: 1,
 	};
-}
-
-type DefaultType = { 
-	zIndex: number;
-	position: 'absolute',
-	backgroundSize: string
 }

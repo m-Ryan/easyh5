@@ -1,14 +1,14 @@
 import React from 'react';
 import styles from './index.module.scss';
-import { Popover, Radio, Input } from 'antd';
+import { Popover, Input } from 'antd';
 import { SketchPicker, ColorResult } from 'react-color';
-import { IElementItem } from '@/typings/ISketckItem';
+import { INodeItem, INodeStyle } from '@/typings/ISketckItem';
 import { ImageUploader } from '@/components/image-uploader';
 import _ from 'lodash';
 
 type IProps = {
-	target: IElementItem;
-	onChangeStyle: <T extends keyof React.CSSProperties>(property: T, value: string) => void;
+	target: INodeItem;
+	onChangeStyle: <T extends keyof INodeStyle>(property: T, value: string) => void;
 	onChangeValue: (text: string) => void;
 	onChangeLink: (value: string) => void;
 };

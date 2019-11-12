@@ -1,10 +1,11 @@
 import React from 'react';
 import styles from './index.module.scss';
 
-import { NodeType, IElementItem } from '@/typings/ISketckItem';
+import { NodeType, INodeItem, INodeStyle } from '@/typings/ISketckItem';
 import { useAppDispatch, AppState } from '@/store/reducers';
-import { asyncSetTarget } from '@/store/article';
+import { ArticleType } from '@/store/article';
 import { useSelector } from 'react-redux';
+import { Bitmap } from './components/bitmap';
 
 
 export const AppPreview = ()=> {
@@ -12,21 +13,43 @@ export const AppPreview = ()=> {
   const list = article.list;
   const dispatch = useAppDispatch()
 
-  const onFocus = (event: React.MouseEvent<any, MouseEvent>, item: IElementItem) => {
-    event.stopPropagation();
-    dispatch(asyncSetTarget({ targetId: item.id, event }))
+  const onFocus = (item: INodeItem) => {
+    dispatch({
+      type: ArticleType.ARTICLE_SET_TARGET,
+      payload: {
+        targetId: item.id
+      }
+    })
   }
-  const renderItem = (parents: IElementItem[]) => {
+
+  const onChangeStyle = <T extends keyof INodeStyle>(property: T, value: any) => {
+		dispatch({
+			type: ArticleType.ARTICLE_SET_STYLE,
+			payload: [property, value]
+		});
+  };
+  
+  const onResizeStop = (width: number, height: number)=>{ 
+    onChangeStyle('width', width);
+    onChangeStyle('height', height);
+  };
+
+	const onDragStop = (left: number, top: number)=> {
+    onChangeStyle('left', left);
+    onChangeStyle('top', top);
+  };
+
+  const renderItem = (parents: INodeItem[]) => {
     return parents.map((item, index) => {
 
       switch (item.type) {
         case NodeType.BITMAP:
-          return <img onMouseDown={(event)=>onFocus(event, item)} key={index} src={item.value} style={{...item.style}} alt="" />;
+          return <Bitmap onFocus={onFocus} onDragStop={onDragStop} onResizeStop={onResizeStop} key={index} element={item} />;
         case NodeType.TEXT:
-          return <span onMouseDown={(event)=>onFocus(event, item)} key={index} style={{...item.style}}>{item.value}</span>;
+          return <span key={index} style={{...item.style}}>{item.value}</span>;
         default:
           return (
-            <div onMouseDown={(event)=>onFocus(event, item)} key={index} style={{...item.style}}>
+            <div key={index} style={{...item.style}}>
               {
                 item.children.length > 0
                   ? (

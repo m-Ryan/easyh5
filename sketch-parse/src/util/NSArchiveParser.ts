@@ -5,7 +5,6 @@ export class NSArchiveParser {
 		fontSize: 'normal',
 		fontFamily: 'normal',
 		color: 'normal',
-		underline: 'normal',
 		lineHeight: '',
 		textAlign: 'normal',
 		content: ''

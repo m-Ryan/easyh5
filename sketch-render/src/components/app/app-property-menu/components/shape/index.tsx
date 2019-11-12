@@ -1,14 +1,13 @@
 import React from 'react';
 import styles from './index.module.scss';
-import { Popover, Radio, Input } from 'antd';
+import { Popover, Input } from 'antd';
 import { SketchPicker, ColorResult } from 'react-color';
-import { IElementItem } from '@/typings/ISketckItem';
-import { ImageUploader } from '@/components/image-uploader';
+import { INodeItem, INodeStyle } from '@/typings/ISketckItem';
 import _ from 'lodash';
 
 type IProps = {
-	target: IElementItem;
-	onChangeStyle: <T extends keyof React.CSSProperties>(property: T, value: string) => void;
+	target: INodeItem;
+	onChangeStyle: <T extends keyof INodeStyle>(property: T, value: string) => void;
 	onChangeValue: (text: string) => void;
 	onChangeLink: (value: string) => void;
 };
@@ -18,7 +17,6 @@ const changeColor = _.debounce((color: ColorResult, onChangeStyle: IProps['onCha
 export function Shape(props: IProps) {
 	const { target, onChangeStyle, onChangeValue } = props;
 	const style = target.style;
-	const value = target.value;
 	return (
 		<div className={styles.property}>
 			<div className={styles.listItem}>

@@ -5,22 +5,17 @@ import rd from 'rd';
 import { ISketchTree, ISketchType, IText, IBitmap, IRectangle, IShapeGroup, IArtboard } from '@/typings/ISketchTree';
 import {  getDefaultStyle, colorParser, parseArchive } from '@/util/utils';
 import { uploadQiuNiuFile } from '@/upload';
-import { IElement } from '@/typings/IElement';
-import { SketchClassType } from '@/typings/ISketckItem';
+import { SketchClassType, INodeItem, INodeStyle, NodeType } from '@/typings/ISketckItem';
 const cwd = process.cwd();
-
+let nodeId = 0;
 export class Sketch {
 	private filePath = '';
 	private tempDir = path.join(cwd, 'sketch-tmp');
 	private outputJson = path.join(cwd, 'public','output.json');
-	private dpi: number;
-	private unit: string;
 	private zIndex: number = 1;
 	private images: string[] = [];
-	constructor(filePath: string, dpi: number = 1, unit = 'px') {
+	constructor(filePath: string) {
 		this.filePath = filePath;
-		this.dpi = dpi;
-		this.unit = unit;
 		this.init();
 	}
 
@@ -83,14 +78,15 @@ export class Sketch {
 					return null;
 				}
 			})
-			.filter((item) => !!item) as IElement[];
+			.filter((item) => !!item) as INodeItem[];
 	}
 
 	getPage(artboard: IArtboard | IShapeGroup) {
-		const element: IElement = {
+		const element: INodeItem = {
+			id: ++nodeId,
 			value: '',
-			style: getDefaultStyle(this.unit),
-			type: SketchClassType.GROUP,
+			style: getDefaultStyle(),
+			type: NodeType.BOX,
 			children: []
 		};
 		this.setStyle(element.style, artboard);
@@ -99,10 +95,11 @@ export class Sketch {
 	}
 
 	getArtboard(artboard: IArtboard | IShapeGroup) {
-		const element: IElement = {
+		const element: INodeItem = {
+			id: ++nodeId,
 			value: '',
-			style: getDefaultStyle(this.unit),
-			type: SketchClassType.GROUP,
+			style: getDefaultStyle(),
+			type: NodeType.BOX,
 			children: []
 		};
 		this.setStyle(element.style, artboard);
@@ -111,10 +108,11 @@ export class Sketch {
 	}
 
 	getGroup(group: IShapeGroup) {
-		const element: IElement = {
+		const element: INodeItem = {
+			id: ++nodeId,
 			value: '',
-			style: getDefaultStyle(this.unit),
-			type: SketchClassType.GROUP,
+			style: getDefaultStyle(),
+			type: NodeType.BOX,
 			children: []
 		};
 		this.setStyle(element.style, group);
@@ -123,10 +121,11 @@ export class Sketch {
 	}
 
 	getText(item: IText) {
-		const element: IElement = {
+		const element: INodeItem = {
+			id: ++nodeId,
 			value: '',
-			style: getDefaultStyle(this.unit),
-			type: SketchClassType.TEXT,
+			style: getDefaultStyle(),
+			type: NodeType.TEXT,
 			children: []
 		};
 		this.setStyle(element.style, item);
@@ -147,8 +146,8 @@ export class Sketch {
 			if (parseStyle.content) {
 				element.value = parseStyle.content;
 			}
-			parseStyle.fontSize = this.unitConvert(parseStyle.fontSize);
-			parseStyle.lineHeight = this.unitConvert(parseStyle.lineHeight);
+			parseStyle.fontSize = parseStyle.fontSize;
+			parseStyle.lineHeight = parseStyle.lineHeight;
 
 			delete parseStyle.content;
 			Object.assign(element.style, parseStyle);
@@ -157,10 +156,11 @@ export class Sketch {
 	}
 
 	getBitmap(item: IBitmap) {
-		const element: IElement = {
+		const element: INodeItem = {
+			id: ++nodeId,
 			value: '',
-			style: getDefaultStyle(this.unit),
-			type: SketchClassType.BITMAP,
+			style: getDefaultStyle(),
+			type: NodeType.BITMAP,
 			children: []
 		};
 		if (item.image._ref.endsWith('.png')) {
@@ -173,26 +173,23 @@ export class Sketch {
 	}
 
 	getRectangle(item: IRectangle) {
-		const element: IElement = {
+		const element: INodeItem = {
+			id: ++nodeId,
 			value: '',
-			style: getDefaultStyle(this.unit),
-			type: SketchClassType.GROUP,
+			style: getDefaultStyle(),
+			type: NodeType.BOX,
 			children: []
 		};
 		this.setStyle(element.style, item);
 		return element;
 	}
 
-	unitConvert(value: string | number) {
-		return (Number(value) * this.dpi).toFixed(2) + this.unit;
-	}
-
-	setStyle(style: React.CSSProperties, item: ISketchType) {
+	setStyle(style: INodeStyle, item: ISketchType) {
 		const { x, y, width, height } = item.frame;
-		style.left = this.unitConvert(x);
-		style.top = this.unitConvert(y);
-		style.width =  this.unitConvert(width);
-		style.height = this.unitConvert(height);
+		style.left = x;
+		style.top = y;
+		style.width =  width;
+		style.height = height;
 		style.zIndex = this.zIndex++;
 
 		if (item.fixedRadius) {
@@ -238,7 +235,7 @@ export class Sketch {
 		}
 	}
 
-	async uploadImages(item: IElement) {
+	async uploadImages(item: INodeItem) {
 		if (item.style.backgroundImage) {
 			let url = await uploadQiuNiuFile(item.style.backgroundImage);
 			item.style.backgroundImage = `url(${url})`;

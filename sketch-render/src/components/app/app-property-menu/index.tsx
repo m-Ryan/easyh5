@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import styles from './index.module.scss';
-import { Input, Popover, Select, Radio, Icon, Button, message, Popconfirm } from 'antd';
-import { NodeType, IElementItem } from '@/typings/ISketckItem';
+import { Input, Popover, Select, Icon, Button, message, Popconfirm } from 'antd';
+import { NodeType, INodeItem, INodeStyle } from '@/typings/ISketckItem';
 import './animate.scss';
 import { Text } from './components/text';
 import { Bitmap } from './components/bitmap';
@@ -19,7 +19,7 @@ export const AppPropertyMenu = function () {
 
 	if (!target) return null;
 
-	const onInputChange = <T extends keyof React.CSSProperties>(
+	const onInputChange = <T extends keyof INodeStyle>(
 		event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
 	) => {
 		const target = event.target;
@@ -45,7 +45,7 @@ export const AppPropertyMenu = function () {
 		});
 	};
 
-	const onChangeStyle = <T extends keyof React.CSSProperties>(property: T, value: string) => {
+	const onChangeStyle = <T extends keyof INodeStyle>(property: T, value: string) => {
 		dispatch({
 			type: ArticleType.ARTICLE_SET_STYLE,
 			payload: [property, value]
@@ -76,7 +76,7 @@ export const AppPropertyMenu = function () {
 	}
 
 	const addShape = () => {
-		dispatch(asyncAddItem({ type: NodeType.GROUP, payload: null }))
+		dispatch(asyncAddItem({ type: NodeType.BOX, payload: null }))
 	}
 
 	const deleteItem = () => {
@@ -87,7 +87,7 @@ export const AppPropertyMenu = function () {
 	};
 
 
-	const renderSpecialProperty = (target: IElementItem) => {
+	const renderSpecialProperty = (target: INodeItem) => {
 		switch (target.type) {
 			case NodeType.TEXT:
 				return (
@@ -107,7 +107,7 @@ export const AppPropertyMenu = function () {
 						onChangeLink={onChangeLink}
 					/>
 				);
-			case NodeType.GROUP:
+			case NodeType.BOX:
 				return (
 					<Shape
 						target={target}

@@ -21,3 +21,7 @@ $primary-color: #001529;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
 }
+
+.drag-box-outline {
+    outline: rgb(188, 188, 188) dashed 1px;
+}

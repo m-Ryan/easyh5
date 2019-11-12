@@ -1,12 +1,10 @@
-import { ISketchItem, IElementItem, NodeType } from "@/typings/ISketckItem";
+import { INodeItem, NodeType, INodeStyle } from "@/typings/ISketckItem";
 import { CrateAction, AppDispatch, AppState } from './reducers';
-import { unitConver, getDefaultStyle } from '@/util/utils';
-import { DragElement } from "@/components/drag-element";
+import { unitConver, getDefaultStyle, addStyle } from '@/util/utils';
 
 export type ArticleState = {
-  list: IElementItem[];
+  list: INodeItem[];
   targetId: number;
-  dragElement: DragElement | null;
 }
 
 // 作为查找的唯一id
@@ -26,13 +24,13 @@ export enum ArticleType {
 }
 
 export type ArticleAction =
-  CrateAction<ArticleType.ARTICLE_SET_STATE, ISketchItem[] | IElementItem[]> |
-  CrateAction<ArticleType.ARTICLE_SET_TARGET, { targetId: number, dragElement: DragElement }> |
+  CrateAction<ArticleType.ARTICLE_SET_STATE, INodeItem[]> |
+  CrateAction<ArticleType.ARTICLE_SET_TARGET, { targetId: number }> |
   CrateAction<ArticleType.ARTICLE_SET_VALUE, string> |
-  CrateAction<ArticleType.ARTICLE_SET_STYLE, [keyof React.CSSProperties, any]> |
+  CrateAction<ArticleType.ARTICLE_SET_STYLE, [keyof INodeStyle, any]> |
   CrateAction<ArticleType.ARTICLE_SET_LINK, string> |
   CrateAction<ArticleType.ARTICLE_DELETE_ITEM, null> |
-  CrateAction<ArticleType.ARTICLE_ADD_ITEM, { child: IElementItem }>;
+  CrateAction<ArticleType.ARTICLE_ADD_ITEM, { child: INodeItem }>;
 
 
 export const getTarget = (state: ArticleState) => {
@@ -45,7 +43,6 @@ export function article(
   state: ArticleState = {
     list: [],
     targetId: 0,
-    dragElement: null
   },
   action: ArticleAction,
 ): ArticleState {
@@ -76,9 +73,9 @@ export function article(
  * 设置state
  * @param data 
  */
-function setElements(state: ArticleState, data: ISketchItem[] | IElementItem[]): ArticleState {
+function setElements(state: ArticleState, data: INodeItem[] | INodeItem[]): ArticleState {
 
-  const tranformStyle = (child: ISketchItem) => {
+  const tranformStyle = (child: INodeItem) => {
     child['id'] = ++elementId;
     const style = child.style;
     for (let key in style) {
@@ -97,7 +94,7 @@ function setElements(state: ArticleState, data: ISketchItem[] | IElementItem[]):
   })
   return {
     ...state,
-    list: data as IElementItem[]
+    list: data as INodeItem[]
   };
 }
 
@@ -106,12 +103,11 @@ function setElements(state: ArticleState, data: ISketchItem[] | IElementItem[]):
  * @param state 
  * @param param1 
  */
-export function addItem(state: ArticleState, { child }: { child: IElementItem }) {
+export function addItem(state: ArticleState, { child }: { child: INodeItem }) {
   const element = getElementById(state.list, state.targetId);
   if (element) {
     element.children.push(child);
   }
-  state.dragElement = null;
   state.targetId = child.id;
   return { ...state };
 }
@@ -122,16 +118,21 @@ export function addItem(state: ArticleState, { child }: { child: IElementItem })
  * @param property 
  * @param value 
  */
-function setTargetStyle<T extends keyof React.CSSProperties>(state: ArticleState, property: T, value: any) {
+function setTargetStyle<T extends keyof INodeStyle>(state: ArticleState, property: T, value: any) {
   const element = getElementById(state.list, state.targetId);
   const formatValue = value.toString().trim();
   if (element) {
-
     // 如果是数字字符串必须转成数字
     if (/^\d+$/.test(formatValue)) {
-      element.style[property] = Number(formatValue) as React.CSSProperties[T];
+      element.style = {
+        ...element.style,
+        [property]: Number(formatValue) as INodeStyle[T]
+      }
     } else {
-      element.style[property] = value;
+      element.style = {
+        ...element.style,
+        [property]: value
+      }
     }
   }
   return { ...state };
@@ -155,14 +156,9 @@ function seValue(state: ArticleState, value: string) {
  * @param state 
  * @param param1 
  */
-function setTarget(state: ArticleState, { targetId, dragElement }: { targetId: number, dragElement: DragElement }) {
-  const newState = { ...state };
-  if (newState.dragElement) {
-    newState.dragElement.destory();
-  }
-  newState.targetId = targetId;
-  newState.dragElement = dragElement;
-  return newState;
+function setTarget(state: ArticleState, { targetId }: { targetId: number }) {
+  state.targetId = targetId;
+  return { ...state };
 }
 
 function setLink(state: ArticleState, value: string) {
@@ -175,7 +171,7 @@ function setLink(state: ArticleState, value: string) {
 
 function deleteItem(state: ArticleState) {
   const id = state.targetId;
-  const deleteById = (element: IElementItem) => {
+  const deleteById = (element: INodeItem) => {
     element.children = element.children.filter(item => deleteById(item));
     if (element.id === id) {
       return false;
@@ -191,9 +187,9 @@ function deleteItem(state: ArticleState) {
  * @param elements 
  * @param id 
  */
-function getElementById(elements: IElementItem[], id: number): IElementItem | null {
-  let target: IElementItem | null = null
-  const findById = (element: IElementItem) => {
+function getElementById(elements: INodeItem[], id: number): INodeItem | null {
+  let target: INodeItem | null = null
+  const findById = (element: INodeItem) => {
     if (element.id === id) {
       target = element;
       return;
@@ -206,52 +202,18 @@ function getElementById(elements: IElementItem[], id: number): IElementItem | nu
   return target;
 }
 
-/**
- * 设置当前选中的元素
- * @param param0 
- */
-export function asyncSetTarget({ targetId, event }: { targetId: number, event: React.MouseEvent<any, MouseEvent> }) {
-  return function (dispatch: AppDispatch, getStore: () => AppState) {
-    const store = getStore();
-    const dragElement = new DragElement({
-      element: event.target as HTMLElement,
-      onMove: (x, y) => {
-        dispatch({
-          type: ArticleType.ARTICLE_SET_STYLE,
-          payload: ['left', x]
-        })
-        dispatch({
-          type: ArticleType.ARTICLE_SET_STYLE,
-          payload: ['top', y]
-        })
-      }
-    });
-    if (store.article.dragElement && (store.article.dragElement.element === event.target)) {
-      return;
-    }
-    return dispatch({
-      type: ArticleType.ARTICLE_SET_TARGET,
-      payload: {
-        targetId,
-        dragElement
-      }
-    })
-  }
-}
 
 export function asyncAddItem(action: CreateElementAction) {
   return function (dispatch: AppDispatch, getStore: () => AppState) {
-    const store = getStore();
-    const parent = store.article.dragElement ? store.article.dragElement.element : null;
-    if (parent) {
-      const { element, nodeItem } = createItem(action);
+    const { element, nodeItem } = createItem(action);
       const { zIndex, position, backgroundSize, left, top } = getDefaultStyle();
-      element.style.zIndex = zIndex!.toString();
-      element.style.position = position!;
-      element.style.top = top!.toString();
-      element.style.left = left!.toString();
-      element.style.backgroundSize = backgroundSize!.toString();
-      parent.appendChild(element);
+      addStyle(element, {
+        'zIndex': zIndex!.toString(),
+        position: position!,
+        top: top!.toString(),
+        left: left!.toString(),
+        backgroundSize: backgroundSize!.toString(),
+      })
 
       dispatch({
         type: ArticleType.ARTICLE_ADD_ITEM,
@@ -259,7 +221,6 @@ export function asyncAddItem(action: CreateElementAction) {
           child: nodeItem
         }
       })
-    }
   }
 }
 
@@ -269,7 +230,7 @@ function createItem(action: CreateElementAction) {
       return crateText();
     case NodeType.BITMAP:
       return crateBitmap(action.payload);
-    case NodeType.GROUP:
+    case NodeType.BOX:
       return crateGroup();
 
   }
@@ -306,9 +267,9 @@ function crateGroup(): CreateElement {
     element: document.createElement('div'),
     nodeItem: {
       id: ++elementId,
-      type: NodeType.GROUP,
+      type: NodeType.BOX,
       value: '',
-      style: getDefaultStyle(NodeType.GROUP),
+      style: getDefaultStyle(NodeType.BOX),
       children: [ crateText().nodeItem ]
     }
   }
@@ -317,7 +278,7 @@ function crateGroup(): CreateElement {
 
 type CreateElement = {
   element: HTMLElement,
-  nodeItem: IElementItem
+  nodeItem: INodeItem
 }
 
 
@@ -325,5 +286,5 @@ type CrateNodeAction<T extends NodeType, P extends any> = { type: T, payload: P 
 
 type CreateElementAction = 
   CrateNodeAction<NodeType.TEXT, null > |
-  CrateNodeAction<NodeType.GROUP, null > |
+  CrateNodeAction<NodeType.BOX, null > |
   CrateNodeAction<NodeType.BITMAP, string>;

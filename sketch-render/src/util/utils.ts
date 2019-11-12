@@ -1,4 +1,4 @@
-import { NodeType } from "@/typings/ISketckItem";
+import { NodeType, INodeStyle } from "@/typings/ISketckItem";
 
 export function unitConver(declaration: string, options: ICssRulesOptions) {
 	const { originUnit = 'px', replaceUnit = 'px', precision = 2, times = 1 } = options;
@@ -31,28 +31,38 @@ export function getCookie(key: string) {
   return value;
 }
 
-export function getDefaultStyle(type?: NodeType): React.CSSProperties {
-	const style: React.CSSProperties = {
+export function getDefaultStyle(type?: NodeType): INodeStyle {
+	const style: INodeStyle = {
 		zIndex: 0,
 		position: 'absolute',
 		backgroundSize: '100%',
-		left: '0px',
-		top: '0px'
+		left: 0,
+		top: 0,
+		width: 0,
+		height: 0,
+		opacity: 1
 	};
 
 	if (type === NodeType.TEXT) {
-		style.width = '250px';
-		style.height = '18px';
+		style.width = 250;
+		style.height = 18;
 	}
 
 	if (type === NodeType.BITMAP) {
-		style.width = '250px';
+		style.width = 250;
+		style.height = 250;
 	}
 
-	if (type === NodeType.GROUP) {
-		style.width = '100px';
-		style.height = '100px';
+	if (type === NodeType.BOX) {
+		style.width = 100;
+		style.height = 100;
 	}
 
 	return style;
+}
+
+export function addStyle(element: HTMLElement, styles: Partial<CSSStyleDeclaration>) {
+	Object.keys(styles).forEach(key=> {
+		element.style[key] = styles[key];
+	})
 }
