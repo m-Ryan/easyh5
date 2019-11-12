@@ -19,6 +19,7 @@ const tranformProperty = [
 	'borderWidth',
 	'lineHeight'
 ]
+
 const tranformScale = (nodeList: INodeItem[], scale: number = 1) => {
 	nodeList.forEach(item=> {
 		for(let property in item.style) {
@@ -35,8 +36,7 @@ const tranformScale = (nodeList: INodeItem[], scale: number = 1) => {
 
 export function Home() {
 	const dispatch = useAppDispatch()
-	tranformScale(sketchJson as any[], 0.5);
-	console.log(sketchJson)
+	// tranformScale(sketchJson as any[], 0.5);
 	useEffect(()=> {
 		dispatch({
 			type: ArticleType.ARTICLE_SET_STATE,

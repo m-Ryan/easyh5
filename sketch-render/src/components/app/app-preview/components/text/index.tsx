@@ -6,12 +6,14 @@ type IProps = {
 	element: INodeItem
 };
 
-export function Bitmap(props: IProps) {
+export function Text(props: IProps) {
 	const { element } = props;
+	const style = element.style;
+
 	return (
 
 		<DragNodeConnect {...props}>
-			<img src={element.value} alt="" />
+			<span>{element.value}</span>
 		</DragNodeConnect>
 
 	);

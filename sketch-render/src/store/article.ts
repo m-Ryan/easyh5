@@ -4,7 +4,7 @@ import { unitConver, getDefaultStyle, addStyle } from '@/util/utils';
 
 export type ArticleState = {
   list: INodeItem[];
-  targetId: number;
+  focusId: number;
 }
 
 // 作为查找的唯一id
@@ -25,7 +25,7 @@ export enum ArticleType {
 
 export type ArticleAction =
   CrateAction<ArticleType.ARTICLE_SET_STATE, INodeItem[]> |
-  CrateAction<ArticleType.ARTICLE_SET_TARGET, { targetId: number }> |
+  CrateAction<ArticleType.ARTICLE_SET_TARGET, { focusId: number }> |
   CrateAction<ArticleType.ARTICLE_SET_VALUE, string> |
   CrateAction<ArticleType.ARTICLE_SET_STYLE, [keyof INodeStyle, any]> |
   CrateAction<ArticleType.ARTICLE_SET_LINK, string> |
@@ -34,15 +34,15 @@ export type ArticleAction =
 
 
 export const getTarget = (state: ArticleState) => {
-  if (!state.targetId) return null;
-  const target = getElementById(state.list, state.targetId);
+  if (!state.focusId) return null;
+  const target = getElementById(state.list, state.focusId);
   return target;
 }
 
 export function article(
   state: ArticleState = {
     list: [],
-    targetId: 0,
+    focusId: 0,
   },
   action: ArticleAction,
 ): ArticleState {
@@ -104,11 +104,11 @@ function setElements(state: ArticleState, data: INodeItem[] | INodeItem[]): Arti
  * @param param1 
  */
 export function addItem(state: ArticleState, { child }: { child: INodeItem }) {
-  const element = getElementById(state.list, state.targetId);
+  const element = getElementById(state.list, state.focusId);
   if (element) {
     element.children.push(child);
   }
-  state.targetId = child.id;
+  state.focusId = child.id;
   return { ...state };
 }
 
@@ -119,7 +119,7 @@ export function addItem(state: ArticleState, { child }: { child: INodeItem }) {
  * @param value 
  */
 function setTargetStyle<T extends keyof INodeStyle>(state: ArticleState, property: T, value: any) {
-  const element = getElementById(state.list, state.targetId);
+  const element = getElementById(state.list, state.focusId);
   const formatValue = value.toString().trim();
   if (element) {
     // 如果是数字字符串必须转成数字
@@ -144,7 +144,7 @@ function setTargetStyle<T extends keyof INodeStyle>(state: ArticleState, propert
  * @param value 
  */
 function seValue(state: ArticleState, value: string) {
-  const element = getElementById(state.list, state.targetId);
+  const element = getElementById(state.list, state.focusId);
   if (element) {
     element.value = value;
   }
@@ -156,13 +156,13 @@ function seValue(state: ArticleState, value: string) {
  * @param state 
  * @param param1 
  */
-function setTarget(state: ArticleState, { targetId }: { targetId: number }) {
-  state.targetId = targetId;
+function setTarget(state: ArticleState, { focusId }: { focusId: number }) {
+  state.focusId = focusId;
   return { ...state };
 }
 
 function setLink(state: ArticleState, value: string) {
-  const element = getElementById(state.list, state.targetId);
+  const element = getElementById(state.list, state.focusId);
   if (element) {
     element.link = value;
   }
@@ -170,7 +170,7 @@ function setLink(state: ArticleState, value: string) {
 }
 
 function deleteItem(state: ArticleState) {
-  const id = state.targetId;
+  const id = state.focusId;
   const deleteById = (element: INodeItem) => {
     element.children = element.children.filter(item => deleteById(item));
     if (element.id === id) {
