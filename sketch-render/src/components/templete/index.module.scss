@@ -1,0 +1,55 @@
+.container {
+  .switchTab {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .appWrap {
+    position: relative;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ececec;
+    background-color: #fff;
+    height: 677px;
+    width: 385px;
+    max-height: 80vh;
+    box-sizing: content-box;
+    .appWrapBorder {
+      overflow-x: hidden;
+      overflow-y: auto;
+      width: 100%;
+      height: 100%;
+    }
+
+    .app {
+     
+      position: relative;
+      width: 100%;
+      height: 100%;
+      box-shadow: 0 0 1px #ccc;
+      border: 5px solid transparent;
+
+      &::-webkit-scrollbar {
+        width: 0px;
+      }
+
+      * {
+        cursor: pointer;
+        user-select: none;
+        background-repeat: no-repeat;
+        background-size: '100%';
+        &::-webkit-scrollbar {
+          width: 0px;
+        }
+      }
+
+    }
+  }
+ 
+}
+
+
+.focus {
+  box-shadow: 0 0 1px red, 0 0 1px red, 0 0 1px red;
+}

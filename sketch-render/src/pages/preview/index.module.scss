@@ -1,0 +1,22 @@
+.app {
+  background: #fff;
+  overflow-x: hidden;
+  max-width: $max-page-size;
+  min-height: 100vh;
+  position: relative;
+  margin: 0 auto;
+  -webkit-tap-highlight-color: transparent;
+  * {
+    background-repeat: no-repeat;
+    background-size: '100%';
+    &::-webkit-scrollbar {
+      width: 0px;
+    }
+  }
+}
+
+.noScrollBar {
+  &::-webkit-scrollbar {
+    width: 0px;
+  }
+}

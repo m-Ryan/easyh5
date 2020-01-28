@@ -1,0 +1,44 @@
+.container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: #f0f2f5;
+  display: flex;
+  justify-content: center;
+  padding-top: 100px;
+  .content {
+    text-align: center;
+    .logo {
+      img {
+        height: 50px;
+      }
+    }
+    .slogan {
+      margin: 10px 0;
+      color: rgba(0,0,0,.45);
+      font-size: 14px;
+    }
+    .title {
+      margin: 40px 0 20px 0;
+      color: rgba(0,0,0,.85);
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .loginForm {
+      input {
+        background-color: #fff !important;
+        height: 38px;
+        font-size: 16px;
+        width: 365px;
+        &:-webkit-autofill {
+          box-shadow: 0 0 0px 1000px white inset;
+      }
+      }
+    }
+
+    .loginBtn {
+      width: 365px;
+    }
+  }
+}

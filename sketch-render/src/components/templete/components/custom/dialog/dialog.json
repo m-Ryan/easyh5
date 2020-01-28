@@ -1,0 +1,54 @@
+{
+  "type": "dialog",
+  "id": "",
+  "data": {
+    "value": {
+      "title": "弹窗",
+      "uid": 0,
+      "maskClose": true
+    }
+  },
+  "style": {
+    "zIndex": "9999",
+    "backgroundSize": "100%",
+    "opacity": "1",
+    "position": "absolute",
+    "left": "50%",
+    "top": 0,
+    "transform": "translate(-50%, 0)",
+    "width": "375px",
+    "height": "667px",
+    "transformOrigin": "187.5px 333.5px",
+    "backgroundColor": "rgba(0, 0, 0, 0.8)",
+    "fontSize": "12px",
+    "color": "rgb(0, 0, 0)",
+    "lineHeight": "normal",
+    "display": "flex",
+    "alignItems": "center",
+    "justifyContent": "center",
+    "flexDirection": "column"
+  },
+  "children": [
+    {
+      "id": "1",
+      "type": "block",
+      "data": {
+        "value": ""
+      },
+      "style": {
+        "zIndex": 1,
+        "position": "relative",
+        "backgroundSize": "100%",
+        "left": 0,
+        "top": 0,
+        "width": 350,
+        "height": 200,
+        "opacity": 1,
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+        "fontSize": 14,
+        "borderRadius": 20
+      },
+      "children":[]
+    }
+  ]
+}

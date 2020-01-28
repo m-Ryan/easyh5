@@ -1,0 +1,7 @@
+node_modules
+dist
+.history
+yarn-error.log
+sketch-tmp
+public
+test

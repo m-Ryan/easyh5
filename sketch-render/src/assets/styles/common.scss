@@ -1,0 +1,89 @@
+$primary-color: #417505;
+$max-page-size: 480px;
+
+.textover-flow {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.textover-flow-2 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.textover-flow-3 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.drag-box-outline {
+    outline: rgb(188, 188, 188) dashed 1px;
+}
+
+.mobile-view-size {
+    background: #555;
+    -webkit-tap-highlight-color: transparent;
+    overflow-x: hidden;
+    max-width: $max-page-size;
+    min-height: 100vh;
+    position: relative;
+    margin: 0 auto;
+    
+    * {
+      background-repeat: no-repeat;
+      background-size: '100%';
+      &::-webkit-scrollbar {
+        width: 0px;
+      }
+    }
+  
+    .app {
+      background: #fff;
+      overflow-x: hidden;
+      max-width: $max-page-size;
+      min-height: 100vh;
+      position: relative;
+      margin: 0 auto;
+    }
+  
+  }
+
+.mobile-editor-view-size {
+    background: #555;
+    -webkit-tap-highlight-color: transparent;
+    overflow-x: hidden;
+    min-height: 100vh;
+    position: relative;
+    margin: 0 auto;
+    * {
+      background-repeat: no-repeat;
+      background-size: '100%';
+      &::-webkit-scrollbar {
+        width: 0px;
+      }
+    }
+  
+    .app {
+      background: #fff;
+      overflow-x: hidden;
+      max-width: $max-page-size;
+      min-height: 100vh;
+      position: relative;
+      margin: 0 auto;
+    }
+  
+  }
+
+  body {
+      margin: 0;
+      * {
+        list-style: none;
+      }
+  }

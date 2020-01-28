@@ -1,0 +1,58 @@
+.property {
+  .title {
+    margin: 30px 0px 20px;
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  .listItem {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    .key {
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .value {
+      width: 100px;
+      text-align: center;
+      margin-right: 10px;
+    }
+  }
+
+  .select {
+    width: 80px !important;
+  }
+
+  .link {
+    color: $primary-color;
+    cursor: pointer;
+    margin-right: 25px;
+  }
+
+  .textArea {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .uploadList {
+    width: 100%;
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+.colorBoard {
+  height: 20px;
+  width: 20px;
+  padding: 4px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 0;
+  cursor: pointer;
+  display: inline-block;
+}
