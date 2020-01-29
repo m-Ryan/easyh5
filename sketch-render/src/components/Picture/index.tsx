@@ -9,7 +9,11 @@ export function Picture(props: IPictureProps) {
     <picture
       {...{ ...props }}
       {...{
-        src: undefined
+        src: undefined,
+        style: {
+          display: 'block',
+          ...props.style
+        }
       }}
     >
       <source type="image/webp" srcSet={props.src + '?imageView2/3/q/70/w/750/format/webp'} />
