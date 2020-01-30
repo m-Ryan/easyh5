@@ -23,7 +23,8 @@ const create = (): CreateElement<IText> => {
         ...{
           width: 375,
           height: 'auto',
-          color: '#000'
+          color: '#000',
+          display: 'inline-block'
         }
       },
       children: []
