@@ -11,7 +11,7 @@ export function Main(props: IProps) {
   const { element } = props;
   return (
     <DragNode {...props}>
-      <Picture src={element.data.value} />
+      <img src={element.data.value+'?imageView2/3/q/70/w/750/format/webp'} />
     </DragNode>
   );
 }
