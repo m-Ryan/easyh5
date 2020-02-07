@@ -47,7 +47,11 @@ export class Sketch {
 
 		const layers = sketchJson.layers;
 		parsePages = layers.map((item) => {
-			return this.getGroup(item as any);
+			const root = this.getGroup(item as any);
+				// 父级不需要偏移
+				root.style.left = 0;
+				root.style.top = 0;
+				return root;
 		});
 
 		await Promise.all(parsePages.map((page) => this.uploadImages(page)));
@@ -81,25 +85,6 @@ export class Sketch {
 				}
 			})
 			.filter((item) => !!item) as INodeItem[];
-	}
-
-	getPage(artboard: IArtboard | IShapeGroup) {
-		const element: INodeItem = {
-			id: ++nodeId,
-			data: {
-				value: ''
-			},
-			style: getDefaultStyle(),
-			type: NodeType.BLOCK,
-			children: []
-		};
-		this.setStyle(element.style, artboard);
-
-		// 父级不需要偏移
-		element.style.left = 0;
-		element.style.top = 0;
-		element.children = this.getChildren(artboard);
-		return element;
 	}
 
 	getArtboard(artboard: IArtboard | IShapeGroup) {
