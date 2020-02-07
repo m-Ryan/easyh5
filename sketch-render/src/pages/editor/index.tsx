@@ -10,7 +10,7 @@ import { AppContainer } from '@/components/templete';
 import { useSetEditorDocumentSize } from '@/components/react-use/useSetEditorDocumentSize';
 
 export function Editor() {
-  const { setTarget, focusElement, focusId } = useSelector('article');
+  const { setTarget, focusElement, focusId, initData } = useSelector('article');
 
   useSetEditorDocumentSize();
 
@@ -19,7 +19,6 @@ export function Editor() {
   const onSetBulr = useCallback(async () => {
     setTarget('')
   }, [setTarget]);
-
 
   return (
     <div className={styles.container}>

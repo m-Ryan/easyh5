@@ -1,5 +1,6 @@
 import { request } from './axios.config';
 import { getCookie } from '../util/utils';
+import { INodeItem } from '../components/templete/templete.type';
 const QI_NIUI_KEY = 'qiniuConfig';
 
 type QiniuConfig = { origin: string; token: string };
@@ -31,7 +32,7 @@ export const common = {
   postSketchToJson(file: File | Blob) {
     const data = new FormData();
     data.append('file', file);
-    return request.post<string>('/parse/sketch-json', data);
+    return request.post<INodeItem[][]>('/parse/sketch-json', data);
   },
   uploadByUrl(url: string) {
     return request.get<string>('/api/upload/user/upload-by-url', {

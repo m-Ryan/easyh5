@@ -13,14 +13,14 @@ export type UploaderEventMap = {
 	start: () => void;
 	progress: (urls: string[]) => void;
 	error: (errMsg: string) => void;
-	success: (urls: string[]) => void;
+	success: (urls: any[]) => void;
 };
 
 type UploaderEventMapHandle = {
 	[K in keyof UploaderEventMap]: UploaderEventMap[K][];
 };
 
-type UploaderServer = (file: File) => Promise<string>;
+type UploaderServer = (file: File) => Promise<any>;
 
 export class Uploader {
 	private options: UploaderOption;

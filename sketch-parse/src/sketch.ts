@@ -94,6 +94,10 @@ export class Sketch {
 			children: []
 		};
 		this.setStyle(element.style, artboard);
+
+		// 父级不需要偏移
+		element.style.left = 0;
+		element.style.top = 0;
 		element.children = this.getChildren(artboard);
 		return element;
 	}

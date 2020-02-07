@@ -14,11 +14,13 @@ import { Loading } from '@/components/loading';
 import { Picture } from '@/components/Picture';
 import { Uploader } from '@/util/uploader';
 import { UploaderSketch } from '@/pages/home/components/uploader-sketch';
+import { useSelector } from '@/modal';
 
 export function Home() {
 
   const [templete, setTemplete] = useState<ListResponse<IArticle> & { loading: boolean }>({ list: [], count: 0, loading: false })
   const history = useHistory();
+  const { initData } = useSelector('article');
 
   useEffect(() => {
     const getTemplete = async () => {
@@ -57,9 +59,7 @@ export function Home() {
     }
   }, [])
 
-  const onSuccessUpload = useCallback(()=> {
 
-  }, [])
 
 
   const renderTemplete = (item: IArticle) => {
@@ -108,7 +108,7 @@ export function Home() {
         <div className={styles.contentWrap}>
           <AppTitle title={'模板'} aside={
             <div>
-              <UploaderSketch onSuccess={onSuccessUpload} />
+              
               <Button><Link to={'/editor'}>新建</Link></Button>
             </div>
           }></AppTitle>

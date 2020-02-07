@@ -9,6 +9,14 @@ module.exports = function(app) {
 			// },
 			secure: false,
 			changeOrigin: true
-		})
+		}),
+		proxy('/parse', {
+			target: 'http://h5.maocanhua.cn/',
+			// "pathRewrite": {
+			//   "^/api": "/"
+			// },
+			secure: false,
+			changeOrigin: true
+		}),
 	);
 };
