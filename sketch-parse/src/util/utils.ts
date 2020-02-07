@@ -1,6 +1,6 @@
-import { NSArchiveParser } from '@/util/NSArchiveParser';
-import { SketchClassType, INodeStyle } from '@/typings/ISketckItem';
-import { IColor } from '@/typings/ISketchTree';
+import { NSArchiveParser } from '../util/NSArchiveParser';
+import { SketchClassType, INodeStyle } from '../typings/ISketckItem';
+import { IColor } from '../typings/ISketchTree';
 const bplistParser = require('bplist-parser');
 export function isText(classType: string) {
 	return classType === SketchClassType.TEXT;

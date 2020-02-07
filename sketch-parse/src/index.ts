@@ -1,4 +1,4 @@
-import { Sketch } from '@/sketch';
+import { Sketch } from './sketch';
 
 import koa from 'koa';
 import koaRouter from 'koa-router';

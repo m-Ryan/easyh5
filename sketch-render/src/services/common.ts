@@ -28,6 +28,11 @@ export const common = {
     );
     return origin + '/' + res.key;
   },
+  postSketchToJson(file: File | Blob) {
+    const data = new FormData();
+    data.append('file', file);
+    return request.post<string>('/parse/sketch-json', data);
+  },
   uploadByUrl(url: string) {
     return request.get<string>('/api/upload/user/upload-by-url', {
       params: {

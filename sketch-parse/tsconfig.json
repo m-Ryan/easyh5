@@ -24,12 +24,7 @@
     "emitDecoratorMetadata": true,
     "removeComments": true,
     "rootDir": "src",
-    "baseUrl": ".",
-    "paths": {
-      "@/*": [
-        "src/*"
-      ]
-    }
+    "baseUrl": "."
   },
   "include": ["src/**/**/*", "typings/*"]
 }

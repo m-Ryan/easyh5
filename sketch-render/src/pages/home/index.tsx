@@ -12,6 +12,8 @@ import { QrCode } from '@/components/qrcode';
 import { getPublishPath } from '@/util/utils';
 import { Loading } from '@/components/loading';
 import { Picture } from '@/components/Picture';
+import { Uploader } from '@/util/uploader';
+import { UploaderSketch } from '@/pages/home/components/uploader-sketch';
 
 export function Home() {
 
@@ -54,6 +56,11 @@ export function Home() {
       message.error(error.message);
     }
   }, [])
+
+  const onSuccessUpload = useCallback(()=> {
+
+  }, [])
+
 
   const renderTemplete = (item: IArticle) => {
 
@@ -99,7 +106,12 @@ export function Home() {
           <AppMenu />
         </div>
         <div className={styles.contentWrap}>
-          <AppTitle title={'模板'} aside={<Button><Link to={'/editor'}>新建</Link></Button>}></AppTitle>
+          <AppTitle title={'模板'} aside={
+            <div>
+              <UploaderSketch onSuccess={onSuccessUpload} />
+              <Button><Link to={'/editor'}>新建</Link></Button>
+            </div>
+          }></AppTitle>
           <div className={styles.content}>
             <Loading loading={templete.loading}>
               {

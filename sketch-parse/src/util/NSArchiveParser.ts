@@ -1,4 +1,4 @@
-import { colorParser } from '@/util/utils';
+import { colorParser } from '../util/utils';
 
 export class NSArchiveParser {
 	private styles = {

@@ -2,10 +2,10 @@ import path from 'path';
 import fs from 'fs-extra';
 import unzipper from 'unzipper';
 import rd from 'rd';
-import { ISketchTree, ISketchType, IText, IBitmap, IRectangle, IShapeGroup, IArtboard } from '@/typings/ISketchTree';
-import {  getDefaultStyle, colorParser, parseArchive } from '@/util/utils';
-import { uploadQiuNiuFile } from '@/upload';
-import { SketchClassType, INodeItem, INodeStyle, NodeType } from '@/typings/ISketckItem';
+import { ISketchTree, ISketchType, IText, IBitmap, IRectangle, IShapeGroup, IArtboard } from './typings/ISketchTree';
+import {  getDefaultStyle, colorParser, parseArchive } from './util/utils';
+import { uploadQiuNiuFile } from './upload';
+import { SketchClassType, INodeItem, INodeStyle, NodeType } from './typings/ISketckItem';
 const cwd = process.cwd();
 let nodeId = 0;
 export class Sketch {
