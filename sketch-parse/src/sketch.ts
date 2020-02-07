@@ -9,30 +9,31 @@ import { SketchClassType, INodeItem, INodeStyle, NodeType } from '@/typings/ISke
 const cwd = process.cwd();
 let nodeId = 0;
 export class Sketch {
-	private filePath = '';
+	private file: File;
 	private tempDir = path.join(cwd, 'sketch-tmp');
 	private outputJson = path.join(cwd, 'public','output.json');
 	private zIndex: number = 1;
 	private images: string[] = [];
-	constructor(filePath: string) {
-		this.filePath = filePath;
-		this.init();
+	constructor(file: File) {
+		this.file = file;
 	}
 
-	async init() {
+	async parseData() {
 		console.log('正在解压...')
 		await this.unzip();
 		console.log('解压完成。')
 		console.log('解析文件...')
 		const pages = await this.getPages();
-		await Promise.all(pages.map((item) => this.parse(item))).catch(error=>console.log(error));
-		console.log('解析完成。')
+		const parsePages = await Promise.all(pages.map((item) => this.parse(item))).catch(error=>console.log(error));
+		console.log('解析完成。');
+		console.log(parsePages)
+		return parsePages;
 	}
 
 	// 解压 sketch
 	async unzip() {
 		fs.removeSync(this.tempDir);
-		return fs.createReadStream(this.filePath).pipe(unzipper.Extract({ path: this.tempDir })).promise();
+		return fs.createReadStream(this.file['path']).pipe(unzipper.Extract({ path: this.tempDir })).promise();
 	}
 
 	async getPages() {
@@ -50,7 +51,7 @@ export class Sketch {
 		});
 
 		await Promise.all(parsePages.map((page) => this.uploadImages(page)));
-		fs.writeFileSync(this.outputJson, JSON.stringify(parsePages), 'utf8');
+		return parsePages;
 	}
 
 	getChildren(group: IArtboard | IShapeGroup) {
@@ -133,7 +134,11 @@ export class Sketch {
 			data: {
 				value: ''
 			},
-			style: getDefaultStyle(),
+			style: {
+				...getDefaultStyle(),
+				width: 'auto',
+				display: 'inline-block'
+			},
 			type: NodeType.TEXT,
 			children: []
 		};

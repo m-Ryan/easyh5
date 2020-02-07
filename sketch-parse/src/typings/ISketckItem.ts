@@ -31,7 +31,7 @@ export interface INodeStyle {
   backgroundSize: string; 
   left: number; 
   top: number; 
-  width: number; 
+  width: number|string; 
   height: number; 
   opacity: number; 
   backgroundColor?: string; 
@@ -50,4 +50,5 @@ export interface INodeStyle {
   borderRadius?: React.CSSProperties['borderRadius']; 
   transform?: React.CSSProperties['transform'];
   overflow: React.CSSProperties['overflow'];
+  display?: string
 } 
