@@ -7,7 +7,7 @@
   "scripts": {
     "format": "prettier --write \"src/**/*.ts\"",
     "start": "nodemon",
-    "build": "ts-node -r tsconfig-paths/register src/index.ts"
+    "build": "tsc&&pm2 start dist/index.js --name sketch-parse"
   },
   "dependencies": {
     "@types/koa": "^2.11.0",
