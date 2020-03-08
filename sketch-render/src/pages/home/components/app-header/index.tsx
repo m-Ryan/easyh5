@@ -8,12 +8,6 @@ import { UserStorage } from '@/util/user-storage';
 export function AppHeader() {
   const [ account, setAccount ] = useState<IUser | null>(null);
 
-  useEffect(() => {
-    UserStorage.getAccount().then((account) => {
-      setAccount(account);
-    });
-  }, []);
-
   const logout = () => {
     UserStorage.logout();
   };

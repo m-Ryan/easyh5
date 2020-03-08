@@ -6,9 +6,6 @@ export const user = {
       phone,
       password
     });
-  },
-  getAccount() {
-    return request.get<IUser>('/api/user/user/info');
   }
 };
 

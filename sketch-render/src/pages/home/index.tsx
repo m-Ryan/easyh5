@@ -12,15 +12,11 @@ import { QrCode } from '@/components/qrcode';
 import { getPublishPath } from '@/util/utils';
 import { Loading } from '@/components/loading';
 import { Picture } from '@/components/Picture';
-import { Uploader } from '@/util/uploader';
-import { UploaderSketch } from '@/pages/home/components/uploader-sketch';
-import { useSelector } from '@/modal';
 
 export function Home() {
 
   const [templete, setTemplete] = useState<ListResponse<IArticle> & { loading: boolean }>({ list: [], count: 0, loading: false })
   const history = useHistory();
-  const { initData } = useSelector('article');
 
   useEffect(() => {
     const getTemplete = async () => {

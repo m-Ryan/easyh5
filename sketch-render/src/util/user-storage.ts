@@ -28,6 +28,7 @@ export class UserStorage {
       account = data;
     }
     window.sessionStorage.setItem(sessionKey, JSON.stringify(account));
+    window.localStorage.setItem(tokenKey, account.token);
     return account;
   }
 

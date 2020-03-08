@@ -8,6 +8,7 @@ import { CustomComponentType, NodeType, IComponentActionMapKey } from '@/compone
 import { IDialog } from '@/components/templete/components/custom/dialog';
 import { unlockContaier, isIOS, isAndroid } from '../util/utils';
 import { APP_EDITOR_CONTAINER_ID } from '@/constants';
+import { useImmerState } from '.';
 
 const defaultState = {
   title: '草稿',
@@ -21,7 +22,7 @@ const defaultState = {
 };
 
 export function useArticle() {
-  const [state, setState] = useState<ArticleState>(defaultState);
+  const [state, setState] = useImmerState<ArticleState>(defaultState);
   const [dialogId, setDialogId] = useState(0);
 
 
@@ -61,32 +62,6 @@ export function useArticle() {
    */
 
   /**
-   * 触发元素更新
-   */
-  const forceUpdate = useCallback((element: INodeItem, newState: ArticleState) => {
-    if (element.parent) {
-      const parent = element.parent;
-      const index = parent.children.findIndex(item => item.id === element.id);
-      if (index !== undefined) {
-        parent.children[index] = {
-          ...element
-        }
-        parent.children = [...parent.children];
-      }
-    } else {
-      // 没有parent 说明是顶层元素
-      element.style = {
-        ...element.style
-      }
-      element.data = {
-        ...element.data
-      }
-    }
-    newState.list = [...newState.list];
-  }, [])
-
-
-  /**
    * 初始化数据
    */
   const initData = useCallback((data: Partial<ArticleState> & { list: INodeItem[] }) => {
@@ -108,7 +83,7 @@ export function useArticle() {
       }
 
       const setElementParent = (child: INodeItem, parent: INodeItem | null) => {
-        child.parent = parent;
+        child.parentId = parent ? parent.id : '-1';
         child.children.forEach(item => {
           setElementParent(item, child);
         });
@@ -137,10 +112,7 @@ export function useArticle() {
 
       newState.list = list;
       newState.loading = false;
-
-      return {
-        ...newState
-      }
+      return newState;
     })
   }, [setState])
 
@@ -159,64 +131,64 @@ export function useArticle() {
    */
   const addItem = useCallback((action: CreateElementAction, parentNodeId?: string) => {
 
-    setState((newState) => {
-      const { nodeItem } = createItem(action);
-      let element: INodeItem|null = null;
+    // setState((newState) => {
+    //   const { nodeItem } = createItem(action);
+    //   let element: INodeItem|null = null;
 
-      // 弹窗的话
-      if (nodeItem.type === CustomComponentType.Dialog) {
-        (nodeItem as IDialog).data.value.uid = Math.max(0, ...dialogList.map((item: IDialog)=>item.data.value.uid)) + 1;
-        (nodeItem as IDialog).data.value.title = "弹窗-" + (nodeItem as IDialog).data.value.uid;
-        element = newState.list[0];
-      } else {
-        element =  getElementById(newState.list, parentNodeId || newState.focusId);
-      }
-      if (!element) {
-        element = newState.list[0];
-      }
-      if (!(Object.values(CustomComponentType).includes(element.type as any)) && (element.type !== NodeType.BLOCK)) {
-        if (element.parent) {
-          element = element.parent!;
-        }
+    //   // 弹窗的话
+    //   if (nodeItem.type === CustomComponentType.Dialog) {
+    //     (nodeItem as IDialog).data.value.uid = Math.max(0, ...dialogList.map((item: IDialog)=>item.data.value.uid)) + 1;
+    //     (nodeItem as IDialog).data.value.title = "弹窗-" + (nodeItem as IDialog).data.value.uid;
+    //     element = newState.list[0];
+    //   } else {
+    //     element =  getElementById(newState.list, parentNodeId || newState.focusId);
+    //   }
+    //   if (!element) {
+    //     element = newState.list[0];
+    //   }
+    //   if (!(Object.values(CustomComponentType).includes(element.type as any)) && (element.type !== NodeType.BLOCK)) {
+    //     if (element.parentId) {
+    //       element = element.parentId!;
+    //     }
 
-      }
+    //   }
 
-      setElementId(nodeItem, element);
+    //   setElementId(nodeItem, element);
 
-      nodeItem.parent = element;
-      // nodeItem.style.zIndex = Math.max(...[...newState.list[0].children.map(item => Number(item.style.zIndex) || 0), 0]) + 1;
-      newState.focusId = nodeItem.id;
-      element.children = [...element.children, nodeItem];
-      newState.list = [...newState.list];
-      return {
-        ...newState
-      }
-    })
-  }, [dialogList])
+    //   nodeItem.parent = element;
+    //   // nodeItem.style.zIndex = Math.max(...[...newState.list[0].children.map(item => Number(item.style.zIndex) || 0), 0]) + 1;
+    //   newState.focusId = nodeItem.id;
+    //   element.children = [...element.children, nodeItem];
+    //   newState.list = [...newState.list];
+    //   return {
+    //     ...newState
+    //   }
+    // })
+  }, [])
 
   /**
    * 同级移动,交换位置
    */
   const switchPosition = useCallback((num: number) => {
 
-    setState((newState) => {
-      const element = getElementById(newState.list, newState.focusId);
-      if (!element) return newState;
-      if (element.parent) {
-        const index = element.parent.children.findIndex(item => item === element);
-        const siblingNode = element.parent.children[index + num];
-        if (siblingNode) {
-          element.parent.children[index] = siblingNode;
-          element.parent.children[index + num] = element;
-          element.parent.children = [...element.parent.children];
-        }
-      }
-      newState.list = [...newState.list];
-      return {
-        ...newState
-      }
-    })
-  }, [setState])
+    // setState((newState) => {
+    //   const element = getElementById(newState.list, newState.focusId);
+    //   if (!element) return newState;
+    //   if (element.parent) {
+    //     const index = element.parent.children.findIndex(item => item === element);
+    //     const siblingNode = element.parent.children[index + num];
+    //     if (siblingNode) {
+    //       element.parent.children[index] = siblingNode;
+    //       element.parent.children[index + num] = element;
+    //       element.parent.children = [...element.parent.children];
+    //     }
+    //   }
+    //   newState.list = [...newState.list];
+    //   return {
+    //     ...newState
+    //   }
+    // })
+  }, [])
 
   /**
    * focus到子节点
@@ -228,9 +200,7 @@ export function useArticle() {
       if (element.children.length) {
         newState.focusId = element.children[0].id;
       }
-      return {
-        ...newState
-      }
+      return newState
     })
   }, [setState])
 
@@ -238,61 +208,61 @@ export function useArticle() {
    * focus到父节点
    */
   const setFocusParent = useCallback(() => {
-    setState((newState) => {
-      const element = getElementById(newState.list, newState.focusId);
-      if (!element) return newState;
-      if (element.parent) {
-        newState.focusId = element.parent.id;
-      }
-      return {
-        ...newState
-      }
-    })
-  }, [setState])
+    // setState((newState) => {
+    //   const element = getElementById(newState.list, newState.focusId);
+    //   if (!element) return newState;
+    //   if (element.parent) {
+    //     newState.focusId = element.parent.id;
+    //   }
+    //   return {
+    //     ...newState
+    //   }
+    // })
+  }, [])
 
   /**
    * focus到兄弟节点
    */
   const setFocusNextSibling = useCallback((num: number) => {
-    setState((newState) => {
-      const element = getElementById(newState.list, newState.focusId);
-      if (!element) return newState;
-      if (element.parent) {
-        const index = element.parent.children.findIndex(item => item === element);
-        const siblingNode = element.parent[index + num];
-        if (siblingNode) {
-          newState.focusId = siblingNode.id;
-        }
-      }
+    // setState((newState) => {
+    //   const element = getElementById(newState.list, newState.focusId);
+    //   if (!element) return newState;
+    //   if (element.parent) {
+    //     const index = element.parent.children.findIndex(item => item === element);
+    //     const siblingNode = element.parent[index + num];
+    //     if (siblingNode) {
+    //       newState.focusId = siblingNode.id;
+    //     }
+    //   }
 
-      newState.list = [...newState.list];
-      return {
-        ...newState
-      }
-    })
-  }, [setState])
+    //   newState.list = [...newState.list];
+    //   return {
+    //     ...newState
+    //   }
+    // })
+  }, [])
 
   /**
    * 复制一项
    */
   const copyItem = useCallback(() => {
 
-    setState((newState) => {
+    // setState((newState) => {
 
-      const element = getElementById(newState.list, newState.focusId)!;
-      if (element.parent) {
-        const nodeItem = _.cloneDeep(element);
-        nodeItem.id = element.parent.id + '_' + _.uniqueId();
-        nodeItem.parent = element.parent;
-        newState.focusId = nodeItem.id;
-        element.parent.children = [...element.parent.children, nodeItem];
-        forceUpdate(element.parent, newState);
-      }
-      return {
-        ...newState
-      }
-    })
-  }, [forceUpdate])
+    //   const element = getElementById(newState.list, newState.focusId)!;
+    //   if (element.parent) {
+    //     const nodeItem = _.cloneDeep(element);
+    //     nodeItem.id = element.parent.id + '_' + _.uniqueId();
+    //     nodeItem.parent = element.parent;
+    //     newState.focusId = nodeItem.id;
+    //     element.parent.children = [...element.parent.children, nodeItem];
+    //     forceUpdate(element.parent, newState);
+    //   }
+    //   return {
+    //     ...newState
+    //   }
+    // })
+  }, [])
 
   /**
    * 更新一项
@@ -304,13 +274,10 @@ export function useArticle() {
       if (element) {
         delete newItem.id;
         Object.assign(element, newItem);
-        forceUpdate(element, newState);
       }
-      return {
-        ...newState
-      }
+      return newState
     })
-  }, [forceUpdate])
+  }, [ setState])
 
   /**
    * 更新样式
@@ -333,13 +300,10 @@ export function useArticle() {
             [property]: value
           };
         }
-        forceUpdate(element, newState);
       }
-      return {
-        ...newState
-      }
+      return newState
     })
-  }, [forceUpdate])
+  }, [setState])
 
   /**
    * 更新标题
@@ -348,9 +312,7 @@ export function useArticle() {
 
     setState((newState) => {
       newState.title = title
-      return {
-        ...newState
-      }
+      return newState
     })
 
   }, [setState])
@@ -362,9 +324,7 @@ export function useArticle() {
 
     setState((newState) => {
       newState.picture = picture
-      return {
-        ...newState
-      }
+      return newState
     })
 
   }, [setState])
@@ -380,13 +340,10 @@ export function useArticle() {
         element.data = {
           value
         }
-        forceUpdate(element, newState);
       }
-      return {
-        ...newState
-      }
+      return newState
     })
-  }, [forceUpdate])
+  }, [setState])
 
   /**
    * 更新特定元素的值
@@ -400,13 +357,10 @@ export function useArticle() {
           ...element.data,
           value
         }
-        forceUpdate(element, newState);
       }
-      return {
-        ...newState
-      }
+      return newState
     })
-  }, [forceUpdate])
+  }, [setState])
 
   /**
    * 更新链接
@@ -420,13 +374,10 @@ export function useArticle() {
           ...element.data,
           link
         }
-        forceUpdate(element, newState);
       }
-      return {
-        ...newState
-      }
+      return newState
     })
-  }, [forceUpdate])
+  }, [setState])
 
   /**
    * 更新动作
@@ -440,11 +391,10 @@ export function useArticle() {
           ...element.data,
           action: payload
         }
-        forceUpdate(element, newState);
       }
       return { ...newState };
     })
-  }, [forceUpdate])
+  }, [setState])
 
   /**
    * 更新变量
@@ -460,11 +410,10 @@ export function useArticle() {
           ...element.data,
           variable: payload
         }
-        forceUpdate(element, newState);
       }
       return { ...newState };
     })
-  }, [forceUpdate])
+  }, [setState])
 
   /**
    * 更新变量值
@@ -506,7 +455,7 @@ export function useArticle() {
         ]
       }
     })
-  }, [])
+  }, [setState])
 
   /**
    * 通过变量获取元素
@@ -537,23 +486,19 @@ export function useArticle() {
       };
       newState.focusId = '0';
       newState.list = newState.list.filter(item => deleteById(item));
-      return {
-        ...newState
-      }
+      return newState
     })
   }, [setState])
 
   const setData = useCallback((data: Partial<ArticleState>) => {
     setState((newState) => {
-      return {
-        ...newState,
-        ...data
-      }
+      // Object.assign(newState, data);
+      return newState;
     })
-  }, [])
+  }, [setState])
 
   const setDialogShow = useCallback((id: number)=> {
-    setDialogId(id);
+    setDialogId(()=>id);
     let ele = document.body;
     if (isAndroid()) {
       ele = document.documentElement;
@@ -568,8 +513,7 @@ export function useArticle() {
     } else {
       unlockContaier(ele);
     }
-  }, [state.isEditor])
-
+  }, [setDialogId, state.isEditor])
 
   return {
     ...state,
@@ -707,7 +651,7 @@ export function getPostTemplete(list: ArticleState['list']) {
 
   const deleteByDeep = (listArr: INodeItem[]) => {
     listArr.forEach(item => {
-      delete item.parent;
+      delete item.parentId;
       deleteByDeep(item.children);
     })
   }
@@ -719,7 +663,7 @@ export function getPostTemplete(list: ArticleState['list']) {
 const setElementId = (child: INodeItem, parent: INodeItem|null) => {
   child.id = parent ? (parent.id + '_' + _.uniqueId()) : _.uniqueId();
   child.children.forEach((item) => {
-    item.parent = child;
+    item.parentId = child.id;
     setElementId(item, child);
   });
 };

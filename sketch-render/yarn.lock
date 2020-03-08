@@ -4782,6 +4782,11 @@ immer@^4.0.1:
   version "4.0.2"
   resolved "https://registry.npm.taobao.org/immer/download/immer-4.0.2.tgz#9ff0fcdf88e06f92618a5978ceecb5884e633559"
 
+immer@^6.0.1:
+  version "6.0.1"
+  resolved "https://registry.npm.taobao.org/immer/download/immer-6.0.1.tgz#7af35e35753d9da6bc9123f0cc99f7e8f2e10681"
+  integrity sha1-evNeNXU9naa8kSPwzJn36PLhBoE=
+
 immutable@^3.7.4:
   version "3.8.2"
   resolved "https://registry.npm.taobao.org/immutable/download/immutable-3.8.2.tgz#c2439951455bb39913daf281376f1530e104adf3"

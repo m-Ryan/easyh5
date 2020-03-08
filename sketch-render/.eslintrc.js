@@ -39,6 +39,7 @@ module.exports = {
         "no-mixed-spaces-and-tabs": 0,
         "no-invalid-this": 0,
         "guard-for-in": 0,
+        "linebreak-style": "off"
     }
 };
 // 0 = off, 1 = warn, 2 = error

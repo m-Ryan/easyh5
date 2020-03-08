@@ -14,7 +14,7 @@ export interface INodeItem<T extends any = any> {
 		action?: string;
 		variable?: string;
 	};
-	parent?: INodeItem | null;
+	parentId?: string;
 	children: INodeItem<any>[];
 }
 
