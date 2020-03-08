@@ -1,18 +1,13 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import { useArticle } from './useArticle';
-import { useDialog } from './useDialog';
 import { UserStorage } from '../util/user-storage';
 import { message } from 'antd';
-import { createReactionStore } from './reaction/Reaction';
+import { createReactionStore } from './reaction';
 
-type StoreType = {
-  article: ReturnType<typeof useArticle>;
-  dialog: ReturnType<typeof useDialog>;
-}
 export const { Provider, useStore, useSelector, useImmerState } = createReactionStore({
   article: useArticle
 }, {
-  debug: false
+  debug: true
 });
 
 export function StoreProvider( { children }: { children: React.ReactNode}) {
@@ -30,7 +25,7 @@ export function StoreProvider( { children }: { children: React.ReactNode}) {
   if (!hasLogin) return null;
 
   return (
-    <Provider >
+    <Provider>
       { children }
     </Provider>
   )
