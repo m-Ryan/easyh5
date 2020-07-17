@@ -27,7 +27,7 @@ export interface INodeItem {
 
 export interface INodeStyle { 
   zIndex: number; 
-  position: React.CSSProperties['position']; 
+  position: CSSStyleDeclaration['position']; 
   backgroundSize: string; 
   left: number; 
   top: number; 
@@ -44,11 +44,11 @@ export interface INodeStyle {
   color?: string; 
   underline?: number; 
   lineHeight?: number|string; 
-	textAlign?: React.CSSProperties['textAlign'];
-	textDecoration?: React.CSSProperties['textDecoration'];
-	fontWeight?: React.CSSProperties['fontWeight']; 
-  borderRadius?: React.CSSProperties['borderRadius']; 
-  transform?: React.CSSProperties['transform'];
-  overflow: React.CSSProperties['overflow'];
+	textAlign?: CSSStyleDeclaration['textAlign'];
+	textDecoration?: CSSStyleDeclaration['textDecoration'];
+	fontWeight?: CSSStyleDeclaration['fontWeight']; 
+  borderRadius?: number; 
+  transform?: CSSStyleDeclaration['transform'];
+  overflow: CSSStyleDeclaration['overflow'];
   display?: string
 } 
