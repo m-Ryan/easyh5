@@ -131,64 +131,59 @@ export function useArticle() {
    */
   const addItem = useCallback((action: CreateElementAction, parentNodeId?: string) => {
 
-    // setState((newState) => {
-    //   const { nodeItem } = createItem(action);
-    //   let element: INodeItem|null = null;
+    setState((newState) => {
+      const { nodeItem } = createItem(action);
+      let element: INodeItem;
 
-    //   // 弹窗的话
-    //   if (nodeItem.type === CustomComponentType.Dialog) {
-    //     (nodeItem as IDialog).data.value.uid = Math.max(0, ...dialogList.map((item: IDialog)=>item.data.value.uid)) + 1;
-    //     (nodeItem as IDialog).data.value.title = "弹窗-" + (nodeItem as IDialog).data.value.uid;
-    //     element = newState.list[0];
-    //   } else {
-    //     element =  getElementById(newState.list, parentNodeId || newState.focusId);
-    //   }
-    //   if (!element) {
-    //     element = newState.list[0];
-    //   }
-    //   if (!(Object.values(CustomComponentType).includes(element.type as any)) && (element.type !== NodeType.BLOCK)) {
-    //     if (element.parentId) {
-    //       element = element.parentId!;
-    //     }
+      // 弹窗的话
+      if (nodeItem.type === CustomComponentType.Dialog) {
+        (nodeItem as IDialog).data.value.uid = Math.max(0, ...dialogList.map((item: IDialog)=>item.data.value.uid)) + 1;
+        (nodeItem as IDialog).data.value.title = "弹窗-" + (nodeItem as IDialog).data.value.uid;
+        element = newState.list[0];
+      } else {
+        element =  getElementById(newState.list, parentNodeId || newState.focusId)!;
+      }
+      if (!element) {
+        element = newState.list[0];
+      }
+      if (!(Object.values(CustomComponentType).includes(element.type as any)) && (element.type !== NodeType.BLOCK)) {
+        if (element.parentId) {
+          element = getElementById(newState.list, element.parentId)!;
+        }
 
-    //   }
+      }
 
-    //   setElementId(nodeItem, element);
+      setElementId(nodeItem, element);
 
-    //   nodeItem.parent = element;
-    //   // nodeItem.style.zIndex = Math.max(...[...newState.list[0].children.map(item => Number(item.style.zIndex) || 0), 0]) + 1;
-    //   newState.focusId = nodeItem.id;
-    //   element.children = [...element.children, nodeItem];
-    //   newState.list = [...newState.list];
-    //   return {
-    //     ...newState
-    //   }
-    // })
-  }, [])
+      nodeItem.parentId = element.id;
+      // nodeItem.style.zIndex = Math.max(...[...newState.list[0].children.map(item => Number(item.style.zIndex) || 0), 0]) + 1;
+      newState.focusId = nodeItem.id;
+      element.children.push(nodeItem)
+      return newState;
+    })
+  }, [dialogList, setState])
 
   /**
    * 同级移动,交换位置
    */
   const switchPosition = useCallback((num: number) => {
 
-    // setState((newState) => {
-    //   const element = getElementById(newState.list, newState.focusId);
-    //   if (!element) return newState;
-    //   if (element.parent) {
-    //     const index = element.parent.children.findIndex(item => item === element);
-    //     const siblingNode = element.parent.children[index + num];
-    //     if (siblingNode) {
-    //       element.parent.children[index] = siblingNode;
-    //       element.parent.children[index + num] = element;
-    //       element.parent.children = [...element.parent.children];
-    //     }
-    //   }
-    //   newState.list = [...newState.list];
-    //   return {
-    //     ...newState
-    //   }
-    // })
-  }, [])
+    setState((newState) => {
+      const element = getElementById(newState.list, newState.focusId);
+      if (!element) return newState;
+      const parent = getElementById(newState.list,element.parentId);
+      if (parent) {
+        const index = parent.children.findIndex(item => item === element);
+        const siblingNode = parent.children[index + num];
+        if (siblingNode) {
+          parent.children[index] = siblingNode;
+          parent.children[index + num] = element;
+        }
+      }
+      // newState.list = [...newState.list];
+      return newState
+    })
+  }, [setState])
 
   /**
    * focus到子节点
@@ -208,61 +203,56 @@ export function useArticle() {
    * focus到父节点
    */
   const setFocusParent = useCallback(() => {
-    // setState((newState) => {
-    //   const element = getElementById(newState.list, newState.focusId);
-    //   if (!element) return newState;
-    //   if (element.parent) {
-    //     newState.focusId = element.parent.id;
-    //   }
-    //   return {
-    //     ...newState
-    //   }
-    // })
-  }, [])
+    setState((newState) => {
+      const element = getElementById(newState.list, newState.focusId);
+      if (!element) return newState;
+      const parent = getElementById(newState.list, element.parentId);
+      if (parent) {
+        newState.focusId = parent.id;
+      }
+      return newState
+    })
+  }, [setState])
 
   /**
    * focus到兄弟节点
    */
   const setFocusNextSibling = useCallback((num: number) => {
-    // setState((newState) => {
-    //   const element = getElementById(newState.list, newState.focusId);
-    //   if (!element) return newState;
-    //   if (element.parent) {
-    //     const index = element.parent.children.findIndex(item => item === element);
-    //     const siblingNode = element.parent[index + num];
-    //     if (siblingNode) {
-    //       newState.focusId = siblingNode.id;
-    //     }
-    //   }
-
-    //   newState.list = [...newState.list];
-    //   return {
-    //     ...newState
-    //   }
-    // })
-  }, [])
+    setState((newState) => {
+      const element = getElementById(newState.list, newState.focusId);
+      if (!element) return newState;
+      const parent = getElementById(newState.list, element.parentId);
+      if (parent) {
+        const index = parent.children.findIndex(item => item === element);
+        const siblingNode = parent[index + num];
+        if (siblingNode) {
+          newState.focusId = siblingNode.id;
+        }
+      }
+    
+      return newState
+    })
+  }, [setState])
 
   /**
    * 复制一项
    */
   const copyItem = useCallback(() => {
 
-    // setState((newState) => {
+    setState((newState) => {
 
-    //   const element = getElementById(newState.list, newState.focusId)!;
-    //   if (element.parent) {
-    //     const nodeItem = _.cloneDeep(element);
-    //     nodeItem.id = element.parent.id + '_' + _.uniqueId();
-    //     nodeItem.parent = element.parent;
-    //     newState.focusId = nodeItem.id;
-    //     element.parent.children = [...element.parent.children, nodeItem];
-    //     forceUpdate(element.parent, newState);
-    //   }
-    //   return {
-    //     ...newState
-    //   }
-    // })
-  }, [])
+      const element = getElementById(newState.list, newState.focusId)!;
+      const parent = getElementById(newState.list, element.parentId);
+      if (parent) {
+        const nodeItem = _.cloneDeep(element);
+        nodeItem.id = parent.id + '_' + _.uniqueId();
+        nodeItem.parentId = parent.id;
+        newState.focusId = nodeItem.id;
+        parent.children.push(nodeItem)
+      }
+      return newState
+    })
+  }, [setState])
 
   /**
    * 更新一项
@@ -272,8 +262,7 @@ export function useArticle() {
     setState((newState) => {
       const element = getElementById(newState.list, newState.focusId);
       if (element) {
-        delete newItem.id;
-        Object.assign(element, newItem);
+        Object.assign(element, { newItem, id: element.id });
       }
       return newState
     })
@@ -392,7 +381,7 @@ export function useArticle() {
           action: payload
         }
       }
-      return { ...newState };
+      return newState;
     })
   }, [setState])
 
@@ -411,7 +400,7 @@ export function useArticle() {
           variable: payload
         }
       }
-      return { ...newState };
+      return newState;
     })
   }, [setState])
 
@@ -448,12 +437,7 @@ export function useArticle() {
           }
         });
       })
-      return {
-        ...newState,
-        list: [
-          ...newState.list
-        ]
-      }
+      return newState;
     })
   }, [setState])
 
@@ -577,7 +561,8 @@ function createItem(action: CreateElementAction) {
    * @param elements
    * @param id
    */
-function getElementById(elements: INodeItem[], id: string): INodeItem | null {
+function getElementById(elements: INodeItem[], id?: string): INodeItem | null {
+  if (!id) return null;
   const ids = id.split('_');
   let findElement: INodeItem | undefined = elements[0];
   let currentId = ids.shift();
