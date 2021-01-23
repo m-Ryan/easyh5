@@ -1,0 +1,24 @@
+.showPoint {
+  height: 1.2em;
+  overflow: hidden;
+  .wrap {
+    transform: translateY(0);
+    transition: transform 1s ease-out;
+  }
+  .pointItem {
+    line-height: 1.2em;
+  }
+}
+
+
+@keyframes scale {
+  0% {
+    transform: scale(1);
+  }
+  60% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

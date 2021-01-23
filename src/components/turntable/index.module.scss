@@ -1,0 +1,19 @@
+.container {
+  font-size: 14px;
+  color: #FFFFFF;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  width: 100%;
+  position: relative;
+  .maskPoint {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    cursor: pointer;
+  }
+  canvas {
+    width: 100%;
+  }
+}

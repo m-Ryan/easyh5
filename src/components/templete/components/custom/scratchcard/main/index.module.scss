@@ -1,0 +1,26 @@
+.container {
+  font-size: 14px;
+  color: #FFFFFF;
+  letter-spacing: 0;
+  text-align: center;
+  line-height: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  .timeTime {
+    background: #FFFFFF;
+    border-radius: 2px;
+    border-radius: 2px;
+    height: 20px;
+    width: 20px;
+    font-size: 14px;
+    color: #F44336;
+    text-align: center;
+    line-height: 14px;
+    margin: 0 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
