@@ -3,17 +3,34 @@ import _ from 'lodash';
 import { DragNode } from '../../../../drag-node';
 import { INodeItem } from '@/components/templete/templete.type';
 import { IBox } from '../../block';
+import { useField, FieldArray, FormikProps, Formik } from 'formik';
+import { RenderEditorItem } from '@/components/templete/RenderEditor/components/RenderEditorItem';
 type IProps = {
-	element: IBox;
-  renderItem: React.FunctionComponent<{ list: INodeItem[] }>
+  index: string;
 };
 
 export function Main(props: IProps) {
-  const { element, renderItem } = props;
+  const name = `content.${props.index}`;
+  const [field] = useField<INodeItem<IBox>>(name);
   return (
-    <DragNode {...props}>
+    <DragNode name={name}>
       <div>
-        {element.children.length > 0 ? <props.renderItem list={element.children} /> : null}
+        <FieldArray
+          name={name}
+          render={arrayHelpers => {
+
+            return (
+              <>
+                {
+                  field.value.children.map((item, index) => {
+                    const childIndex = `${props.index}.children.[${index}]`;
+                    return <RenderEditorItem key={childIndex} index={childIndex} />;
+                  })
+                }
+              </>
+            );
+          }}
+        />
       </div>
     </DragNode>
   );

@@ -7,8 +7,7 @@ import React, {
 } from 'react';
 import styles from './index.module.scss';
 
-import { Radio, Button, message, Icon, Tooltip, Popconfirm } from 'antd';
-import { useSelector } from '@/modal';
+import { Radio, Button, message, Tooltip, Popconfirm } from 'antd';
 import _ from 'lodash';
 
 type SideBarItem = {
@@ -16,7 +15,7 @@ type SideBarItem = {
   title: string;
   method: () => void;
   confirm?: boolean;
-}
+};
 
 export const SideBar = () => {
   const { copyItem, switchPosition, deleteItem, focusElement, setFocusParent, setFocusSon } = useSelector('article');
@@ -68,8 +67,8 @@ export const SideBar = () => {
           deleteItem();
         }
       }
-    ]
-  }, [copyItem, deleteItem, focusElement, setFocusParent, setFocusSon, switchPosition])
+    ];
+  }, [copyItem, deleteItem, focusElement, setFocusParent, setFocusSon, switchPosition]);
 
 
   return useMemo(() => {
@@ -100,7 +99,7 @@ export const SideBar = () => {
 
                 </Tooltip>
               </li>
-            )
+            );
           })
         }
 

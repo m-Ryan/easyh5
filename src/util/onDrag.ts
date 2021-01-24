@@ -9,9 +9,9 @@ export const onDrag = ({
   onMove,
   onEnd
 }: {
-	event: TouchEvent | MouseEvent;
-	onMove: (x: number, y: number) => void;
-	onEnd?: () => void;
+  event: TouchEvent | MouseEvent;
+  onMove: (x: number, y: number) => void;
+  onEnd?: () => void;
 }) => {
   event.preventDefault();
   event.stopPropagation();

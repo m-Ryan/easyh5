@@ -1,32 +1,38 @@
-import { useAppSelector } from '@/selectors/useAppSelector';
+import { useAppSelector } from '@/hooks/useAppSelector';
 import user from '@/store/user';
-import template, { fetchTemplateById, TEMPLATE_FETCH_VY_ID } from '@/store/template';
+import template, { TEMPLATE_FETCH_VY_ID } from '@/store/template';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './index.module.scss';
-import { useLoading } from '@/selectors/useLoading';
+import { useLoading } from '@/hooks/useLoading';
 import Frame from '@/components/Frame';
 import templateList from '@/store/templateList';
 import { Loading } from '@/components/loading';
+import { Button } from 'antd';
+import { CardItem } from './components/CardItem';
+import { Stack } from '@/components/Stack';
 
 export default function Home() {
-    const dispatch = useDispatch()
-    const userState = useAppSelector('template');
-    const allLoadins = useAppSelector('loading');
-    const loading = useLoading(templateList.loadings.fetch)
+    const dispatch = useDispatch();
+    const list = useAppSelector('templateList');
+    const loading = useLoading(templateList.loadings.fetch);
 
     useEffect(() => {
-        dispatch(templateList.actions.fetch(undefined))
-    }, [])
+        dispatch(templateList.actions.fetch(undefined));
+    }, []);
 
 
     return (
-        <Frame breadcrumb={{ link: '/', title: "数据模板" }}>
+        <Frame title="数据模板" primaryAction={<Button>新建</Button>}>
             <Loading loading={loading}>
-                1111
+                <Stack>
+                    {
+                        list.map(item => <CardItem data={item} key={item.article_id} />)
+                    }
+                </Stack>
             </Loading>
         </Frame>
-    )
+    );
 }
 
 

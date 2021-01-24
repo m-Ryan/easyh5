@@ -58,19 +58,10 @@ $base-font-size: 10px;
 @mixin stack-spacing($spacing: base) {
   margin-top: -1 * spacing($spacing);
   margin-left: -1 * spacing($spacing);
-  &:first-child{
-    margin-top: 0;
-    margin-left: 0;
-  }
-
   > .Item {
     margin-top: spacing($spacing);
     margin-left: spacing($spacing);
     max-width: 100%;
-    &:first-child{
-      margin-top: 0;
-      margin-left: 0;
-    }
   }
 }
 

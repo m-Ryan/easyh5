@@ -11,22 +11,22 @@ import { NodeType, CustomComponentType } from '../constants';
 import { Dialog } from './custom/dialog';
 
 export const componentMap = {
-  Countdown,
-  Dialog,
-  SliderNumber,
-  Swiper,
   Text,
   Bitmap,
   Box,
-  Turntable,
-  Scratchcard
+  // Turntable,
+  // Scratchcard,
+  // Countdown,
+  // Dialog,
+  // SliderNumber,
+  // Swiper,
 };
 
 export type CreateElementAction =
-	| CrateNodeAction<NodeType.TEXT>
-	| CrateNodeAction<NodeType.BLOCK>
-	| CrateNodeAction<NodeType.BITMAP, string>
-	| CrateNodeAction<CustomComponentType.Countdown, number>
-	| CrateNodeAction<CustomComponentType.SliderNumber, string>
-	| CrateNodeAction<CustomComponentType.Turntable, string>
-	| CrateNodeAction<CustomComponentType.Scratchcard, string>
+  | CrateNodeAction<NodeType.TEXT>
+  | CrateNodeAction<NodeType.BLOCK>
+  | CrateNodeAction<NodeType.BITMAP, string>;;
+	// | CrateNodeAction<CustomComponentType.Countdown, number>
+	// | CrateNodeAction<CustomComponentType.SliderNumber, string>
+	// | CrateNodeAction<CustomComponentType.Turntable, string>
+	// | CrateNodeAction<CustomComponentType.Scratchcard, string>

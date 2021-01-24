@@ -1,7 +1,8 @@
 {
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "cross-env TS_NODE_PROJECT=\"tsconfig-for-webpack-config.json\" webpack serve --open --config script/webpack.dev.config.ts"
+    "start": "cross-env NODE_ENV=development TS_NODE_PROJECT=\"tsconfig-for-webpack-config.json\" webpack serve --open --config script/webpack.dev.config.ts",
+    "build": "cross-env NODE_ENV=production TS_NODE_PROJECT=\"tsconfig-for-webpack-config.json\" webpack --config script/webpack.pro.config.ts"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
@@ -12,6 +13,7 @@
     "@babel/preset-typescript": "^7.12.7",
     "@types/node": "^14.14.22",
     "@types/react": "^17.0.0",
+    "@types/react-beautiful-dnd": "^13.0.0",
     "@types/react-dom": "^17.0.0",
     "@types/react-redux": "^7.1.16",
     "@types/react-router-dom": "^5.1.7",
@@ -29,6 +31,7 @@
     "postcss-preset-env": "^6.7.0",
     "sass": "^1.32.5",
     "sass-loader": "^10.1.1",
+    "sass-resources-loader": "^2.1.1",
     "style-loader": "^2.0.0",
     "transform-class-properties": "^1.0.0-beta",
     "ts-node": "^9.1.1",
@@ -40,9 +43,18 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.5.0",
+    "@types/lodash": "^4.14.168",
+    "@types/react-color": "^3.0.4",
     "antd": "^4.10.3",
     "axios": "^0.21.1",
+    "dayjs": "^1.10.4",
+    "dom-to-image": "^2.6.0",
+    "formik": "^2.2.6",
+    "lodash": "^4.17.20",
+    "qrcode-generator": "^1.4.4",
     "react": "^17.0.1",
+    "react-beautiful-dnd": "^13.0.0",
+    "react-color": "^2.19.3",
     "react-dom": "^17.0.1",
     "react-redux": "^7.2.2",
     "react-router-dom": "^5.2.0"

@@ -1,0 +1,28 @@
+.container {
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  .wrap {
+    height: calc(100vh - 60px);
+    overflow: hidden;
+    display: flex;
+    .leftMenu {
+      width: 302px;
+      background: #fff;
+      font-size: 0;
+    }
+    .rightMenu {
+      width: 350px;
+      background: #fff;
+      border-right: 1px solid #e8e8e8;
+    }
+    .contentWrap {
+      flex: 1;
+      padding: 20px;
+      background-color: #f5f5f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}

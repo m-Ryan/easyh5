@@ -6,6 +6,7 @@ import Home from '@/pages/home';
 import store from '@/store';
 import 'antd/dist/antd.css';
 import '@/styles/common.scss';
+import Editor from './pages/editor';
 
 export default function App() {
   return (
@@ -13,10 +14,11 @@ export default function App() {
       <Page>
         <BrowserRouter>
           <Switch>
-            <Route exact component={Home}></Route>
+            <Route path="/" exact component={Home}></Route>
+            <Route path="/editor" component={Editor}></Route>
           </Switch>
         </BrowserRouter>
       </Page>
     </Provider>
-  )
+  );
 }

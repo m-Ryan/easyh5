@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import styles from './index.module.scss';
-import { Icon, Modal, message, Spin, Input } from 'antd';
+import { Modal, message, Spin, Input } from 'antd';
 import { Uploader } from '@/util/uploader';
 import services from '../../services/index';
 
@@ -44,7 +44,7 @@ export function ImageUploader({
 
   const onChangeUrl = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     onSuccess([event.target.value]);
-  }, [onSuccess])
+  }, [onSuccess]);
 
   const onPaste = useCallback(async (e: React.ClipboardEvent<HTMLInputElement>) => {
     const clipboardData = e.clipboardData!;
@@ -58,15 +58,15 @@ export function ImageUploader({
           return;
         }
         message.loading('正在上传粘贴图片');
-        const url = await services.common.uploadByQiniu(blob)
+        const url = await services.common.uploadByQiniu(blob);
         onSuccess([url]);
         message.destroy();
       }
     }
-  }, [onSuccess])
+  }, [onSuccess]);
 
- 
-  const renderContent = useMemo(()=> {
+
+  const renderContent = useMemo(() => {
     if (loading) {
       return (
         <div className={styles['upload']} onClick={onUpload}>
@@ -74,7 +74,7 @@ export function ImageUploader({
         </div>
       );
     }
-  
+
     if (!url) {
       return (
         <div className={styles['upload']} onClick={onUpload}>
@@ -83,7 +83,7 @@ export function ImageUploader({
         </div>
       );
     }
-  
+
     return (
       <div className={styles['container']}>
         <div className={styles['info']}>
@@ -103,12 +103,12 @@ export function ImageUploader({
           <img alt="预览图" style={{ width: '100%' }} src={url} />
         </Modal>
       </div>
-    )
-  }, [loading, onRemove, onUpload, preview, url])
+    );
+  }, [loading, onRemove, onUpload, preview, url]);
 
   return (
     <div className={styles.wrap}>
-      { renderContent }
+      { renderContent}
       <div className={styles.urlInput}>
         <span>图片地址：</span><Input onChange={onChangeUrl} onPaste={onPaste} style={{ width: 200 }} value={url} />
       </div>

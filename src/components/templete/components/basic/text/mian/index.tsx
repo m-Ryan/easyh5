@@ -2,16 +2,18 @@ import React from 'react';
 import _ from 'lodash';
 import { DragNode } from '../../../../drag-node';
 import { IText } from '../../text';
+import { useField } from 'formik';
+import { INodeItem } from '@/components/templete/templete.type';
 type IProps = {
-	element: IText;
+  index: string;
 };
 
 export function Main(props: IProps) {
-  const { element } = props;
-
+  const name = `content.${props.index}`;
+  const [field, meta, helpers] = useField<INodeItem<IText>>(name);
   return (
-    <DragNode {...props}>
-      <span>{element.data.value}</span>
+    <DragNode name={name}>
+      <span>{field.value.data.value}</span>
     </DragNode>
   );
 }

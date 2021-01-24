@@ -7,24 +7,23 @@ const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 
 interface FrameProps {
-  breadcrumb: {
-    link?: string;
-    title: string
-  }
-  children: React.ReactNode
+  title: string;
+  breadcrumb?: React.ReactElement;
+  primaryAction?: React.ReactElement;
+  children: React.ReactElement
 }
 
-export default function Frame({ children, breadcrumb }: FrameProps) {
+export default function Frame({ children, title, primaryAction, breadcrumb }: FrameProps) {
   return (
     <Layout>
-      <Header className="header">
+      <Header>
         <Stack alignment="center">
           <h1 style={{ color: 'white' }}>营销H5</h1>
         </Stack>
 
       </Header>
       <Layout>
-        <Sider width={200} className="site-layout-background">
+        <Sider width={200}>
           <Menu
             mode="inline"
             defaultSelectedKeys={['1']}
@@ -38,20 +37,32 @@ export default function Frame({ children, breadcrumb }: FrameProps) {
         </Sider>
         <Layout style={{ padding: 24 }}>
           <Stack vertical>
-            <Breadcrumb>
-              <Breadcrumb.Item>
-                {breadcrumb.link ? <Link to={breadcrumb.link}><h3><strong>{breadcrumb.title}</strong></h3></Link> : breadcrumb.title}
-              </Breadcrumb.Item>
-            </Breadcrumb>
-            <Content
-              style={{
-                padding: 24,
-                margin: 0,
-                backgroundColor: '#fff'
-              }}
-            >
-              {children}
-            </Content>
+            {
+              breadcrumb && (
+                <Breadcrumb>
+                  <Breadcrumb.Item>
+                    {breadcrumb}
+                  </Breadcrumb.Item>
+                </Breadcrumb>
+              )
+            }
+
+            <Stack distribution="equalSpacing" alignment="center">
+              <Stack.Item><h2><strong>{title}</strong></h2></Stack.Item>
+              <Stack.Item>{primaryAction}</Stack.Item>
+            </Stack>
+
+            <Stack.Item>
+              <Content
+                style={{
+                  padding: 24,
+                  margin: 0,
+                  backgroundColor: '#fff'
+                }}
+              >
+                {children}
+              </Content>
+            </Stack.Item>
           </Stack>
         </Layout>
       </Layout>

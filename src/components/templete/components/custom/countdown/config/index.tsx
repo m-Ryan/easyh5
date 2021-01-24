@@ -7,21 +7,21 @@ import _ from 'lodash';
 import { ICountdown } from '../../countdown';
 
 type IProps = {
-	target: ICountdown;
-	onChangeStyle: <T extends keyof INodeStyle>(
-		property: T,
-		value: string | number
-	) => void;
-	onChangeValue: (text: string) => void;
-	onChangeLink: (value: string) => void;
+  target: ICountdown;
+  onChangeStyle: <T extends keyof INodeStyle>(
+    property: T,
+    value: string | number
+  ) => void;
+  onChangeValue: (text: string) => void;
+  onChangeLink: (value: string) => void;
 };
 
 const changeColor = _.debounce(
-    (color: ColorResult, onChangeStyle: IProps['onChangeStyle']) =>
-      onChangeStyle(
-          'backgroundColor',
-          `rgba(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b}, ${color.rgb.a})`
-      )
+  (color: ColorResult, onChangeStyle: IProps['onChangeStyle']) =>
+    onChangeStyle(
+      'backgroundColor',
+      `rgba(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b}, ${color.rgb.a})`
+    )
 );
 
 export function Config(props: IProps) {
