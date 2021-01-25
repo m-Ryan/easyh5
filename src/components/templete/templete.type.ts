@@ -5,7 +5,6 @@ export type IComponentMap = typeof componentActionMap;
 export type IComponentMapAction<T extends keyof IComponentMap = any> = IComponentMap[T]['actions'];
 export type IComponentMapVariable<T extends keyof IComponentMap = any> = IComponentMap[T]['variable'];
 export interface INodeItem<T extends any = any> {
-	id: string;
 	style: INodeStyle;
 	type: NodeType | CustomComponentType;
 	data: {
@@ -14,7 +13,6 @@ export interface INodeItem<T extends any = any> {
 		action?: string;
 		variable?: string;
 	};
-	parentId?: string;
 	children: INodeItem<any>[];
 }
 

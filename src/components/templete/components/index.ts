@@ -3,6 +3,7 @@ import { SliderNumber } from './custom/slider-number';
 import { Text } from './basic/text';
 import { Box } from './basic/block';
 import { Bitmap } from './basic/bitmap';
+import { Section } from './basic/Section';
 import { Swiper } from './custom/swiper';
 import { Turntable } from './custom/turntable';
 import { Scratchcard } from './custom/scratchcard';
@@ -14,6 +15,7 @@ export const componentMap = {
   Text,
   Bitmap,
   Box,
+  Section
   // Turntable,
   // Scratchcard,
   // Countdown,
@@ -25,7 +27,8 @@ export const componentMap = {
 export type CreateElementAction =
   | CrateNodeAction<NodeType.TEXT>
   | CrateNodeAction<NodeType.BLOCK>
-  | CrateNodeAction<NodeType.BITMAP, string>;;
+  | CrateNodeAction<NodeType.BITMAP, string>
+  | CrateNodeAction<NodeType.SECTION, string>;;
 	// | CrateNodeAction<CustomComponentType.Countdown, number>
 	// | CrateNodeAction<CustomComponentType.SliderNumber, string>
 	// | CrateNodeAction<CustomComponentType.Turntable, string>

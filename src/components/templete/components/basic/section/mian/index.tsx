@@ -12,8 +12,6 @@ export function Main(props: IProps) {
   const name = props.index;
   const [field, meta, helpers] = useField<INodeItem<IText>>(name);
   return (
-    <DragNode name={name}>
-      <span>{field.value.data.value}</span>
-    </DragNode>
+    <section>{field.value.data.value}</section>
   );
 }

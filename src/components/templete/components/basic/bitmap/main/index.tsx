@@ -12,7 +12,7 @@ type IProps = {
 };
 
 export function Main(props: IProps) {
-  const name = `content.${props.index}`;
+  const name = props.index;
   const [field, meta, helpers] = useField<INodeItem<IBitmap>>(name);
 
   return (

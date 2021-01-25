@@ -9,13 +9,14 @@ export interface RenderEditorProps {
 }
 
 export function RenderEditorItem(props: RenderEditorProps) {
-  const name = `content.${props.index}`;
+  const name = props.index;
 
   const [field] = useField<INodeItem>(name);
 
   const Component = Object.values(componentMap).find(child => {
     return child.type === field.value.type;
   });
+
   if (Component) {
 
     return <Component.Main index={props.index} />;

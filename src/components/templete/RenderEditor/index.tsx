@@ -3,7 +3,7 @@ import { RenderEditorItem } from './components/RenderEditorItem';
 
 export const RenderEditor = () => {
 
-  return <RenderEditorItem index={'[0]'} />;
+  return <RenderEditorItem index={'content.[0]'} />;
 };
 
 

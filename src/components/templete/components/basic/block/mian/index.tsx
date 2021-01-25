@@ -10,7 +10,7 @@ type IProps = {
 };
 
 export function Main(props: IProps) {
-  const name = `content.${props.index}`;
+  const name = props.index;
   const [field] = useField<INodeItem<IBox>>(name);
   return (
     <DragNode name={name}>

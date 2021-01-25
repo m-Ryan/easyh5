@@ -33,6 +33,8 @@ export const DragNode = ({
   return React.createElement(children.type, {
     ...children.props,
     onMouseDown,
+    ['data-node-type']: element.type,
+    ['data-node-idx']: name,
     style: {
       ...(children.props.style || {}),
       ...element.style,

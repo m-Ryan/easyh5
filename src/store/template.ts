@@ -10,9 +10,14 @@ import createSliceState from './common/createSliceState';
 
 export const TEMPLATE_FETCH_VY_ID = 'template/fetchByIdStatus';
 
+export interface ITemplate extends Omit<IArticle, 'content'> {
+  content: INodeItem[];
+  focusIdx: string;
+}
+
 export default createSliceState({
   name: 'template',
-  initialState: null as IArticle | null,
+  initialState: null as ITemplate | null,
   reducers: {
     set: (state, action) => state,
   },
@@ -21,7 +26,7 @@ export default createSliceState({
       const data = await article.getArticle(id);
       const content = unZipStyle(JSON.parse(data.content.content) as INodeItem[]);
       await tranformOutSitePicture(content);
-      return { ...data, content, focusIdx: '0' };
+      return { ...data, content, focusIdx: 'content.[0]' };
     }
   }
 });

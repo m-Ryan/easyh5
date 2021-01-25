@@ -9,9 +9,9 @@ import { Formik } from 'formik';
 import _ from 'lodash';
 import { UploaderSketch } from '../../pages/editor/components/uploader-sketch/index';
 import { IArticle } from '@/services/article';
+import { ITemplate } from '@/store/template';
 
 interface Props {
-  data: IArticle | null;
   loading?: boolean;
 }
 export const AppContainer = (props: Props) => {
@@ -155,62 +155,33 @@ export const AppContainer = (props: Props) => {
   // );
 
 
-  if (!props.data) {
-    return (
-      <Loading color={PRIMARY_COLOR} loading={Boolean(props.loading)}>
-        <div className={styles.container}></div>
-      </Loading>
-    );
-  }
-
   return (
-    <Formik
-      initialValues={props.data}
 
-      onSubmit={(values, { setSubmitting }) => {
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
-          setSubmitting(false);
-        }, 400);
-      }}
-    >
-      {({
-        values,
-        errors,
-        touched,
-        handleChange,
-        handleBlur,
-        handleSubmit,
-        isSubmitting,
-        /* and other goodies */
-      }) => (
-        <div className={styles.container}>
-          <div className={styles.switchTab}>
-            <Radio.Group>
-              <Radio.Button value={true}>编辑</Radio.Button>
-              <Radio.Button value={false}>预览</Radio.Button>
-            </Radio.Group>
+    <div className={styles.container}>
+      <div className={styles.switchTab}>
+        <Radio.Group>
+          <Radio.Button value={true}>编辑</Radio.Button>
+          <Radio.Button value={false}>预览</Radio.Button>
+        </Radio.Group>
 						&emsp;
               <UploaderSketch onSuccess={() => { }} />
 						&emsp;
               <Button ghost type="primary" >
-              保存
+          保存
               </Button>
-          </div>
-          <div className={styles.appWrap}>
-            <div className={styles.appWrapBorder}>
-              <div id={APP_EDITOR_CONTAINER_ID} className={styles.app}>
-                <Loading color={PRIMARY_COLOR} loading={Boolean(props.loading)}>
-                  <RenderEditor />
-                </Loading>
-              </div>
-            </div>
-            {/* <SideBar /> */}
-            {/* <DialogBar /> */}
+      </div>
+      <div className={styles.appWrap}>
+        <div className={styles.appWrapBorder}>
+          <div id={APP_EDITOR_CONTAINER_ID} className={styles.app}>
+            <Loading color={PRIMARY_COLOR} loading={Boolean(props.loading)}>
+              <RenderEditor />
+            </Loading>
           </div>
         </div>
-      )}
-    </Formik>
+        {/* <SideBar /> */}
+        {/* <DialogBar /> */}
+      </div>
+    </div>
 
   );
 };

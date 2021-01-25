@@ -1,15 +1,16 @@
 export enum NodeType {
-	BLOCK = 'block',
-	TEXT = 'text',
-	BITMAP = 'bitmap',
-	PLAIN_TEXT = 'plain_text'
+  SECTION = 'section',
+  BLOCK = 'block',
+  TEXT = 'text',
+  BITMAP = 'bitmap',
+  PLAIN_TEXT = 'plain_text'
 }
 
 export enum CustomComponentType {
-	VideoPlayer = 'video',
-	SliderNumber = 'sliderNumber',
-	Swiper = 'swiper',
-	Turntable = 'turntable',
+  VideoPlayer = 'video',
+  SliderNumber = 'sliderNumber',
+  Swiper = 'swiper',
+  Turntable = 'turntable',
   Scratchcard = 'scratchcard',
   // 可修改的
   Countdown = 'countdown',
@@ -46,13 +47,13 @@ export const none = {
 };
 
 /**
- * 
+ *
  */
 export const common = {
   name: 'common',
   comment: '通用',
   actions: [
-    
+
   ],
   variable: []
 };
@@ -92,7 +93,7 @@ export const example1 = {
       comment: '刮卡回调'
     }
   ]
-  
+
 };
 
 export const example2 = {
@@ -131,4 +132,4 @@ export const componentActionMap = {
 export type IComponentActionMap = typeof componentActionMap;
 
 export type IComponentActionMapKey = keyof IComponentActionMap;
-export type IComponentActionMapActionKey = keyof IComponentActionMap[keyof IComponentActionMap]['actions']
+export type IComponentActionMapActionKey = keyof IComponentActionMap[keyof IComponentActionMap]['actions'];

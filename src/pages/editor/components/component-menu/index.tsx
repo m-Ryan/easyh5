@@ -1,31 +1,42 @@
 import React from 'react';
 import styles from './index.module.scss';
 import { Collapse } from 'antd';
-import { PreviewComponent } from './components/preview-component/index';
+import { PreviewComponent } from './components/preview-component';
 import { NodeType, CustomComponentType } from '@/components/templete/constants';
+import { SnippetsOutlined, PictureOutlined, LayoutOutlined } from '@ant-design/icons';
 
 const { Panel } = Collapse;
 
-export const ComponentMenu = function() {
+interface Props {
+
+}
+
+export const ComponentMenu = function (props: Props) {
+
   return (
     <div className={styles.container}>
       <Collapse className={styles.collapse} defaultActiveKey={['1', '2', '3']}>
         <Panel header="基础组件" key="1">
           <div className={styles.list}>
             <PreviewComponent
+              text="编组组件"
+              type={NodeType.SECTION}
+              icon={<SnippetsOutlined />}
+            />
+            <PreviewComponent
               text="文本组件"
               type={NodeType.TEXT}
-              icon="snippets"
+              icon={<SnippetsOutlined />}
             />
             <PreviewComponent
               text="图片组件"
               type={NodeType.BITMAP}
-              icon="picture"
+              icon={<PictureOutlined />}
             />
             <PreviewComponent
               text="图形组件"
               type={NodeType.BLOCK}
-              icon="layout"
+              icon={<LayoutOutlined />}
             />
           </div>
         </Panel>
