@@ -1,4 +1,4 @@
-import { NodeType } from '@/components/templete/constants';
+import { BlockType } from '@/components/templete/constants';
 import { unZipStyle } from '@/components/templete/style-tranform';
 import { INodeItem } from '@/components/templete/templete.type';
 import { ASSET_DOMAIN } from '@/constants';
@@ -9,6 +9,7 @@ import { getImageFile } from '@/util/utils';
 import createSliceState from './common/createSliceState';
 
 export const TEMPLATE_FETCH_VY_ID = 'template/fetchByIdStatus';
+import mockData from './template.json';
 
 export interface ITemplate extends Omit<IArticle, 'content'> {
   content: INodeItem[];
@@ -23,10 +24,11 @@ export default createSliceState({
   },
   effects: {
     fetchById: async (state, id: number) => {
-      const data = await article.getArticle(id);
-      const content = unZipStyle(JSON.parse(data.content.content) as INodeItem[]);
-      await tranformOutSitePicture(content);
-      return { ...data, content, focusIdx: 'content.[0]' };
+      // const data = await article.getArticle(id);
+      // const content = unZipStyle(JSON.parse(data.content.content) as INodeItem[]);
+      // await tranformOutSitePicture(content);
+      // return { ...data, content, focusIdx: 'content.[0]' };
+      return mockData as any as ITemplate;
     }
   }
 });
@@ -34,7 +36,7 @@ export default createSliceState({
 const tranformOutSitePicture = async (list: INodeItem[]) => {
   await Promise.all(list.map(async (item) => {
     const value = item.data.value;
-    if (item.type === NodeType.BITMAP) {
+    if (item.type === BlockType.BITMAP) {
       if (!value.startsWith(ASSET_DOMAIN)) {
         if (value.startsWith('data:image')) {
           item.data.value = await services.common.uploadByQiniu(await getImageFile(value));

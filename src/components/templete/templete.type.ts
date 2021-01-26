@@ -1,12 +1,13 @@
-import { componentActionMap, CustomComponentType, NodeType } from "./constants";
+import { componentActionMap, CustomComponentType, BlockType } from "./constants";
 
-export type IComponentMap = typeof componentActionMap;
+export type IBlocksMap = typeof componentActionMap;
 
-export type IComponentMapAction<T extends keyof IComponentMap = any> = IComponentMap[T]['actions'];
-export type IComponentMapVariable<T extends keyof IComponentMap = any> = IComponentMap[T]['variable'];
+export type IBlocksMapAction<T extends keyof IBlocksMap = any> = IBlocksMap[T]['actions'];
+export type IBlocksMapVariable<T extends keyof IBlocksMap = any> = IBlocksMap[T]['variable'];
 export interface INodeItem<T extends any = any> {
 	style: INodeStyle;
-	type: NodeType | CustomComponentType;
+	type: BlockType | CustomComponentType;
+	rank: number;
 	data: {
 		value: T;
 		link?: string;

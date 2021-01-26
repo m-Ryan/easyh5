@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 // import { INodeItem } from '@/components/templete/templete.type';
-// import { componentMap } from '../components';
-// import { NodeType } from '../constants';
+// import { BlocksMap } from '../components';
+// import { BlockType } from '../constants';
 // import { useSelector } from '@/modal';
 // import { actionBus } from '../actionBus';
 // import { getTextFormat } from '@/modal/useArticle';
@@ -33,11 +33,11 @@ import React, { useState, useCallback } from 'react';
 //     <>
 //       {
 //         list.map((item, index) => {
-//           const component = Object.values(componentMap).find(child => {
+//           const component = Object.values(BlocksMap).find(child => {
 //             return child.type === item.type;
 //           });
 //           if (component) {
-//             if (component.type === NodeType.BLOCK) {
+//             if (component.type === BlockType.BLOCK) {
 //               return React.createElement(component.Preview as any, {
 //                 element: item,
 //                 renderItem: RenderPreviewItem,

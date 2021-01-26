@@ -1,10 +1,19 @@
-export enum NodeType {
+export enum BLOCK_LEVEL {
+  low = 1, // Text、Image
+  medium = 5, // Box
+  heigh = 10, // Section
+  highest = 100 // Page
+}
+
+export enum BlockType {
   SECTION = 'section',
-  BLOCK = 'block',
+  BOX = 'box',
   TEXT = 'text',
   BITMAP = 'bitmap',
   PLAIN_TEXT = 'plain_text'
 }
+
+
 
 export enum CustomComponentType {
   VideoPlayer = 'video',

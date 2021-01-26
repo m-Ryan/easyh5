@@ -1,9 +1,9 @@
 import React from 'react';
 import _ from 'lodash';
-import { IText } from '../../text';
+import { IText } from '..';
 type IProps = {
-	element: IText;
-	onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+  element: IText;
+  onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 };
 
 export function Preview(props: IProps) {

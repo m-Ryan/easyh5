@@ -46,7 +46,7 @@ var nodeStylePropertys = [
 var id = 1;
 function tranformDIYComponent(element) {
 
-  if (element.nodeType === 3) {
+  if (element.BlockType === 3) {
     return;
   }
 
@@ -74,7 +74,7 @@ function tranformDIYComponent(element) {
       const object = {
         type,
         id: id++,
-        data: {value },
+        data: { value },
         style: {
           zIndex: 1,
           backgroundSize: '100%',
@@ -160,7 +160,7 @@ function tranformDIYComponent(element) {
       if (property === 'display' && (computedStyle[property] === 'block' && box.type === 'box' || (computedStyle[property] === 'inline' && box.type !== 'box'))) {
         return
       }
-      
+
       box.style[property] = computedStyle[property];
     });
 
@@ -203,7 +203,7 @@ var container = document.querySelector('.MidAutumn');
 // 处理纯文本
 var textTranform = (ele) => {
   const parentNode = ele.parentNode;
-  if (ele.nodeType === 3 && ele.textContent.trim() && (parentNode['tagName'].toLocaleLowerCase() !== 'span' || parentNode.childNodes.length > 1)) {
+  if (ele.BlockType === 3 && ele.textContent.trim() && (parentNode['tagName'].toLocaleLowerCase() !== 'span' || parentNode.childNodes.length > 1)) {
     const text = document.createElement('span');
     text.textContent = ele.textContent;
     parentNode.replaceChild(text, ele);
@@ -219,7 +219,7 @@ const tranformScale = (nodeList) => {
 
   function conver(declaration, scale) {
     const pattern = new RegExp(`\\b(\\d+(\\.\\d+)?)(px)\\b`, 'mig');
-    const fixProperty =  declaration.toString().replace(pattern, function(group1, group2, group3, group4) {
+    const fixProperty = declaration.toString().replace(pattern, function (group1, group2, group3, group4) {
       const newText = parseFloat((Number(group2) * scale).toFixed(2)) + 'px';
       return newText;
     });

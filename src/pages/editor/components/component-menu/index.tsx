@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './index.module.scss';
 import { Collapse } from 'antd';
 import { PreviewComponent } from './components/preview-component';
-import { NodeType, CustomComponentType } from '@/components/templete/constants';
+import { BlockType, CustomComponentType } from '@/components/templete/constants';
 import { SnippetsOutlined, PictureOutlined, LayoutOutlined } from '@ant-design/icons';
 
 const { Panel } = Collapse;
@@ -20,22 +20,22 @@ export const ComponentMenu = function (props: Props) {
           <div className={styles.list}>
             <PreviewComponent
               text="编组组件"
-              type={NodeType.SECTION}
+              type={BlockType.SECTION}
               icon={<SnippetsOutlined />}
             />
             <PreviewComponent
               text="文本组件"
-              type={NodeType.TEXT}
+              type={BlockType.TEXT}
               icon={<SnippetsOutlined />}
             />
             <PreviewComponent
               text="图片组件"
-              type={NodeType.BITMAP}
+              type={BlockType.BITMAP}
               icon={<PictureOutlined />}
             />
             <PreviewComponent
               text="图形组件"
-              type={NodeType.BLOCK}
+              type={BlockType.BLOCK}
               icon={<LayoutOutlined />}
             />
           </div>

@@ -4,9 +4,7 @@ import { INodeItem } from '@/components/templete/templete.type';
 import _ from 'lodash';
 import { Main } from './Main';
 import { BlockType } from '@/components/templete/constants';
-
-export type IText = INodeItem<string>;
-const type = BlockType.TEXT;
+import config from './c';
 
 const create = () => {
   return {
@@ -25,7 +23,7 @@ const create = () => {
   };
 };
 
-export const Section = {
+export const Page = {
   Config,
   Main,
   Preview,

@@ -43,7 +43,7 @@ var nodeStylePropertys = [
 var id = 1;
 function tranformDIYComponent(element) {
 
-  if (element.nodeType === 3) {
+  if (element.BlockType === 3) {
     return;
   }
 
@@ -51,7 +51,7 @@ function tranformDIYComponent(element) {
     return;
   }
 
-  if (element.tagName.toLocaleLowerCase().indexOf('style')!== -1 || element.tagName.toLocaleLowerCase().indexOf('javascript')!== -1) {
+  if (element.tagName.toLocaleLowerCase().indexOf('style') !== -1 || element.tagName.toLocaleLowerCase().indexOf('javascript') !== -1) {
     return;
   }
 
@@ -68,7 +68,7 @@ function tranformDIYComponent(element) {
           value: ''
         },
         style: {
-       
+
         },
         children: []
       }
@@ -167,12 +167,12 @@ var textTranform = (ele) => {
     return;
   }
 
-  if (parentNode.tagName.toLocaleLowerCase().indexOf('style')!== -1 || parentNode.tagName.toLocaleLowerCase().indexOf('javascript')!== -1) {
+  if (parentNode.tagName.toLocaleLowerCase().indexOf('style') !== -1 || parentNode.tagName.toLocaleLowerCase().indexOf('javascript') !== -1) {
     return;
   }
 
 
-  if (ele.nodeType === 3 && ele.textContent.trim() && (parentNode['tagName'].toLocaleLowerCase() !== 'span' || parentNode.childNodes.length > 1)) {
+  if (ele.BlockType === 3 && ele.textContent.trim() && (parentNode['tagName'].toLocaleLowerCase() !== 'span' || parentNode.childNodes.length > 1)) {
     const text = document.createElement('span-text');
     text.textContent = ele.textContent;
     parentNode.replaceChild(text, ele);
@@ -191,7 +191,7 @@ const tranformScale = (nodeList) => {
       return declaration * scale;
     }
     const pattern = new RegExp(`\\b(\\d+(\\.\\d+)?)(px)\\b`, 'mig');
-    const fixProperty =  declaration.replace(pattern, function(group1, group2, group3, group4) {
+    const fixProperty = declaration.replace(pattern, function (group1, group2, group3, group4) {
       const newText = parseFloat((Number(group2) * scale).toFixed(2)) + 'px';
       return newText;
     });

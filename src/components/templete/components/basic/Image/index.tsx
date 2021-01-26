@@ -1,30 +1,27 @@
 import { Config } from './Panel';
-import { Preview } from './preview';
+import { Main } from './Main';
+import { Preview } from './Preview';
 import { INodeItem } from '@/components/templete/templete.type';
-import { CreateElement } from '@/components/templete/components/basic/Box/node_modules/@/modal/useArticle';
 import _ from 'lodash';
 import { getDefaultStyle } from '@/util/utils';
-import { Main } from './Main';
 import { BlockType } from '@/components/templete/constants';
 
-export type IText = INodeItem<string>;
-const type = BlockType.TEXT;
+export type IBitmap = INodeItem<string>;
+const type = BlockType.BITMAP;
 
-const create = (): CreateElement<IText> => {
+const create = (url: string) => {
   return {
     nodeItem: {
       id: _.uniqueId(),
       type,
       data: {
-        value: '新增文本'
+        value: url || 'http://assets.maocanhua.cn/FkWeSH88STspyZduGtyjYMt4InP4'
       },
       style: {
         ...getDefaultStyle(),
         ...{
           width: 375,
-          height: 'auto',
-          color: '#000',
-          display: 'inline-block'
+          height: 200
         }
       },
       children: []
@@ -32,7 +29,7 @@ const create = (): CreateElement<IText> => {
   };
 };
 
-export const Text = {
+export const Bitmap = {
   Config,
   Main,
   Preview,
