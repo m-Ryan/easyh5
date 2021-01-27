@@ -12,7 +12,7 @@ export function Main(props: IProps) {
   const [field] = useField<INodeItem<any>>(name);
   return (
 
-    <section>
+    <section style={field.value.style} data-node-type={field.value.type} data-node-idx={name}>
       <FieldArray
         name={name}
         render={arrayHelpers => {

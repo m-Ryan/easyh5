@@ -10,7 +10,6 @@ export type IBox = INodeItem<string>;
 const create = (style: Partial<INodeStyle> = {}) => {
   return {
     nodeItem: {
-      id: _.uniqueId(),
       type: config.type,
       data: {
         value: ''

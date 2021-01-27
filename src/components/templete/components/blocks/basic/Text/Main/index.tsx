@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
-import { DragNode } from '../../../../drag-node';
-import { IText } from '../../Text';
+import { DragNode } from '../../../../../drag-node';
+import { IText } from '..';
 import { useField } from 'formik';
 import { INodeItem } from '@/components/templete/templete.type';
 type IProps = {
@@ -12,6 +12,8 @@ export function Main(props: IProps) {
   const name = props.index;
   const [field, meta, helpers] = useField<INodeItem<IText>>(name);
   return (
-    <section>{field.value.data.value}</section>
+    <DragNode name={name}>
+      <span>{field.value.data.value}</span>
+    </DragNode>
   );
 }

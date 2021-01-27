@@ -5,6 +5,7 @@ import { useField, useFormikContext } from 'formik';
 import { INodeItem } from '@/components/templete/templete.type';
 import { get } from 'lodash';
 import { BlockType } from '@/components/templete/constants';
+import { useTemplate } from '@/components/templete/hooks/useTemplate';
 
 type PreviewComponentProps = {
   icon: JSX.Element;
@@ -13,6 +14,7 @@ type PreviewComponentProps = {
 };
 
 export function PreviewComponent(props: PreviewComponentProps) {
+  const { addBlock, } = useTemplate();
   const [draging, setDraging] = useState(false);
   const [{ value: focusIdx }, , { setValue: setFocusIdx }] = useField<string>('focusIdx');
 
@@ -37,9 +39,12 @@ export function PreviewComponent(props: PreviewComponentProps) {
 
       const onDrop = (ev: DragEvent) => {
         const target = ev.target as HTMLElement;
-        const insertElement = get(values, target.getAttribute('data-node-idx') || '');
-        if (insertElement && insertElement.type === BlockType.SECTION) {
+        const parentIdx = target.getAttribute('data-node-idx') || '';
+        const parent = get(values, parentIdx);
+        if (parent) {
           ev.preventDefault();
+          addBlock(type, parentIdx);
+
         }
         setDraging(false);
 
@@ -48,7 +53,7 @@ export function PreviewComponent(props: PreviewComponentProps) {
       const onDragOver = (ev: DragEvent) => {
         const target = ev.target as HTMLElement;
         const insertElement = get(values, target.getAttribute('data-node-idx') || '') as INodeItem || null;
-        if (insertElement && insertElement.type === BlockType.SECTION) {
+        if (insertElement) {
           ev.preventDefault();
         }
       };
@@ -74,20 +79,4 @@ export function PreviewComponent(props: PreviewComponentProps) {
       <h3 className={styles.title}>{text}</h3>
     </div>
   );
-}
-
-
-function getNearestInsertelement(params: {
-  type: BlockType;
-  list: INodeItem[];
-  idx?: string;
-}) {
-  const { type, list, idx } = params;
-  if (!idx) {
-    return null;
-  }
-
-  switch (type) {
-
-  }
 }

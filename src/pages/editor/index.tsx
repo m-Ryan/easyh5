@@ -13,6 +13,7 @@ import template from '@/store/template';
 import { useAppSelector } from '@/hooks/useAppSelector';
 import { useLoading } from '@/hooks/useLoading';
 import { Formik } from 'formik';
+import { ConfigurationPanel } from '@/components/templete/components/ConfigurationPanel';
 
 export default function Editor() {
   const dispatch = useDispatch();
@@ -70,7 +71,7 @@ export default function Editor() {
               </div>
             </div>
             <div className={styles.rightMenu}>
-              {/* {focusElement && <ConfigMenu target={focusElement} key={focusId} />} */}
+              <ConfigurationPanel />
             </div>
           </div>
         </div>

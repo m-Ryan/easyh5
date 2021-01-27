@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 
 import { useField, FieldArray, FormikProps, Formik } from 'formik';
-import { DragNode } from '../../../../drag-node';
+import { DragNode } from '../../../../../drag-node';
 import { IBitmap } from '..';
 import { Picture } from '@/components/Picture';
 import { INodeItem } from '@/components/templete/templete.type';

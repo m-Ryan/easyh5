@@ -1,4 +1,4 @@
 export default {
-  type: 'BOX',
+  type: 'box',
   rank: 10
 }

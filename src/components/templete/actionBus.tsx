@@ -1,5 +1,5 @@
 import EventEmitter from 'eventemitter3';
-import { getTextFormat } from '@/components/templete/components/basic/Section/node_modules/@/components/templete/components/basic/Image/node_modules/@/components/templete/components/basic/Box/node_modules/@/modal/useArticle';
+import { getTextFormat } from '@/components/templete/components/blocks/basic/Section/node_modules/@/components/templete/components/basic/Image/node_modules/@/components/templete/components/basic/Box/node_modules/@/modal/useArticle';
 import { IComponentActionMapKey } from './constants';
 
 export const actionBus = new class {

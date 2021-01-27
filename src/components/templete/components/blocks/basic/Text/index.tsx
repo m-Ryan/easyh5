@@ -1,7 +1,7 @@
 import { Config } from './Panel';
 import { Preview } from './preview';
 import { INodeItem } from '@/components/templete/templete.type';
-import { CreateElement } from '@/components/templete/components/basic/Box/node_modules/@/modal/useArticle';
+import { CreateElement } from '@/components/templete/components/blocks/basic/Box/node_modules/@/modal/useArticle';
 import _ from 'lodash';
 import { getDefaultStyle } from '@/util/utils';
 import { Main } from './Main';

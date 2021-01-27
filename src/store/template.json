@@ -20,82 +20,15 @@
       },
       "style": {
         "zIndex": 1,
-        "position": "absolute",
+        "position": "relative",
         "backgroundSize": "100%",
-        "left": 0,
-        "top": 1,
         "width": 375,
         "height": 667,
         "opacity": 1,
         "backgroundColor": "#fff",
         "fontSize": 14
       },
-      "children": [
-        {
-          "id": "2_4",
-          "type": "text",
-          "data": {
-            "value": "sadasda"
-          },
-          "style": {
-            "zIndex": 1,
-            "position": "relative",
-            "backgroundSize": "100%",
-            "left": 0,
-            "top": 0,
-            "width": 375,
-            "height": "auto",
-            "opacity": 1,
-            "fontSize": 14,
-            "color": "#000",
-            "display": "inline-block"
-          },
-          "children": [],
-          "parentId": "2"
-        },
-        {
-          "id": "2_6",
-          "type": "bitmap",
-          "data": {
-            "value": "http://assets.maocanhua.cn/FkWeSH88STspyZduGtyjYMt4InP4"
-          },
-          "style": {
-            "zIndex": 1,
-            "position": "relative",
-            "backgroundSize": "100%",
-            "left": 0,
-            "top": 0,
-            "width": 375,
-            "height": 200,
-            "opacity": 1,
-            "fontSize": 14
-          },
-          "children": [],
-          "parentId": "2"
-        },
-        {
-          "id": "2_8",
-          "type": "block",
-          "data": {
-            "value": ""
-          },
-          "style": {
-            "zIndex": 1,
-            "position": "relative",
-            "backgroundSize": "100%",
-            "left": 0,
-            "top": 0,
-            "width": 375,
-            "height": 100,
-            "opacity": 1,
-            "backgroundColor": "rgba(248, 231, 28, 1)",
-            "fontSize": 14
-          },
-          "children": [],
-          "parentId": "2"
-        }
-      ],
-      "parentId": "-1"
+      "children": []
     }
   ],
   "tags": [

@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-import { DragNode } from '../../../../drag-node';
+import { DragNode } from '../../../../../drag-node';
 import { INodeItem } from '@/components/templete/templete.type';
 import { IBox } from '..';
 import { useField, FieldArray, FormikProps, Formik } from 'formik';
