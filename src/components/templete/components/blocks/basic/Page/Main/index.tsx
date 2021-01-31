@@ -4,25 +4,24 @@ import { INodeItem } from '@/components/templete/templete.type';
 import { useField, FieldArray, FormikProps, Formik } from 'formik';
 import { RenderEditorItem } from '@/components/templete/RenderEditor/components/RenderEditorItem';
 type IProps = {
-  index: string;
+  idx: string;
 };
 
 export function Main(props: IProps) {
-  const name = props.index;
-  const [field] = useField<INodeItem<any>>(name);
+  const [field] = useField<INodeItem<any>>(props.idx);
   return (
 
-    <section style={field.value.style} data-node-type={field.value.type} data-node-idx={name}>
+    <section style={field.value.style} data-node-type={field.value.type} data-node-idx={props.idx}>
       <FieldArray
-        name={name}
+        name={props.idx}
         render={arrayHelpers => {
 
           return (
             <>
               {
-                field.value.children.map((item, index) => {
-                  const childIndex = `${props.index}.children.[${index}]`;
-                  return <RenderEditorItem key={childIndex} index={childIndex} />;
+                field.value.children.map((item, idx) => {
+                  const childIndex = `${props.idx}.children.[${idx}]`;
+                  return <RenderEditorItem key={childIndex} idx={childIndex} />;
                 })
               }
             </>

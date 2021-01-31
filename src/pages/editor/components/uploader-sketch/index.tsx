@@ -1,4 +1,4 @@
-import { Button, message } from "antd";
+import { Button, message } from 'antd';
 import React, { useState, useCallback } from 'react';
 import { Uploader } from '@/util/uploader';
 import services from '@/services';

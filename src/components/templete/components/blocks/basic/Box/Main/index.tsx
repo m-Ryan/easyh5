@@ -24,7 +24,7 @@ export function Main(props: IProps) {
                 {
                   field.value.children.map((item, index) => {
                     const childIndex = `${props.index}.children.[${index}]`;
-                    return <RenderEditorItem key={childIndex} index={childIndex} />;
+                    return <RenderEditorItem key={childIndex} idx={childIndex} />;
                   })
                 }
               </>

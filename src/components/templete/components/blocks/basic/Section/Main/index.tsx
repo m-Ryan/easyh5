@@ -1,17 +1,33 @@
 import React from 'react';
 import _ from 'lodash';
-import { DragNode } from '../../../../../drag-node';
-import { IText } from '../../Text';
+import { useTemplate } from '@/components/templete/hooks/useTemplate';
+import { RenderEditorItem } from '@/components/templete/RenderEditor/components/RenderEditorItem';
+import Draggable from '@/components/templete/components/Draggable';
 import { useField } from 'formik';
 import { INodeItem } from '@/components/templete/templete.type';
+
 type IProps = {
-  index: string;
+  idx: string;
 };
 
 export function Main(props: IProps) {
-  const name = props.index;
-  const [field, meta, helpers] = useField<INodeItem<IText>>(name);
+  const [{ value },] = useField<INodeItem<{}>>(props.idx);
+
   return (
-    <section style={field.value.style}>{field.value.data.value}</section>
+
+    <Draggable idx={props.idx} data={value}>
+      <section
+        style={{ ...value.style }}
+      >
+        {
+          value.children.map((_, index) => {
+            const childIndex = `${props.idx}.children.[${index}]`;
+            return <RenderEditorItem key={childIndex} idx={childIndex} />;
+          })
+        }
+      </section>
+    </Draggable>
   );
 }
+
+

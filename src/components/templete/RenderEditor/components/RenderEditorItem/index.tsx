@@ -3,23 +3,20 @@ import React from 'react';
 
 import { useField, FieldArray, FormikProps } from 'formik';
 import { BlocksMap } from '@/components/templete/components/blocks';
+import { findBlockByType } from '@/components/templete/utils/findBlockByType';
 
 export interface RenderEditorProps {
-  index: string;
+  idx: string;
 }
 
 export function RenderEditorItem(props: RenderEditorProps) {
-  const name = props.index;
 
-  const [field] = useField<INodeItem>(name);
+  const [field] = useField<INodeItem>(props.idx);
 
-  const Component = Object.values(BlocksMap).find(child => {
-    return child.config.type === field.value.type;
-  });
+  const block = findBlockByType(field.value.type);
 
-  if (Component) {
-
-    return <Component.Main index={props.index} />;
+  if (block) {
+    return <block.Main idx={props.idx} />;
   }
   return null;
 }

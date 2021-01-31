@@ -65,7 +65,7 @@ export function PreviewComponent(props: PreviewComponentProps) {
         ele.removeEventListener('drop', onDrop);
       };
     },
-    [draging]
+    [draging, addBlock, values, type]
   );
 
   return (

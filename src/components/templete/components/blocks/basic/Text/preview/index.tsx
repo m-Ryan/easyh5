@@ -1,12 +1,13 @@
 import React from 'react';
 import _ from 'lodash';
-import { IText } from '..';
+import { IText } from '../config';
+
 type IProps = {
   element: IText;
   onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 };
 
-export function Preview(props: IProps) {
+export default function Preview(props: IProps) {
   const { element, onClick } = props;
 
   return (

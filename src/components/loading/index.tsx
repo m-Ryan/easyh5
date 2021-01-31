@@ -1,6 +1,6 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState } from 'react';
 import { LoadingOutlined } from '@ant-design/icons';
-import { PRIMARY_COLOR } from "@/constants";
+import { PRIMARY_COLOR } from '@/constants';
 
 type LoadingProps = {
   loading: boolean;

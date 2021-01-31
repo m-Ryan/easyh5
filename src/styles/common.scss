@@ -21,3 +21,13 @@ body {
     opacity: 1;
   }
 }
+
+.block-selected {
+  outline: 2px solid #3b97e3 !important;
+  outline-offset: -3px !important;
+}
+
+.block-hover {
+    outline: 1px solid #3b97e3;
+    outline-offset: -1px;
+  }

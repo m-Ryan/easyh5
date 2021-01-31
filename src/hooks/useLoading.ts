@@ -1,5 +1,5 @@
-import loading from "@/store/common/loading";
-import { useAppSelector } from "./useAppSelector";
+import loading from '@/store/common/loading';
+import { useAppSelector } from './useAppSelector';
 
 export function useLoading(keys: string | string[]) {
   const loadings = useAppSelector('loading');

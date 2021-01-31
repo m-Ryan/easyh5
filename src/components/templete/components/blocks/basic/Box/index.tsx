@@ -1,4 +1,4 @@
-import { Panel } from './Panel';
+import Panel from './Panel';
 import { Preview } from './Preview';
 import { INodeStyle, INodeItem } from '@/components/templete/templete.type';
 import _ from 'lodash';
@@ -9,22 +9,20 @@ import config from './config';
 export type IBox = INodeItem<string>;
 const create = (style: Partial<INodeStyle> = {}) => {
   return {
-    nodeItem: {
-      type: config.type,
-      data: {
-        value: ''
+    type: config.type,
+    data: {
+      value: ''
+    },
+    style: {
+      ...getDefaultStyle(),
+      ...{
+        width: 375,
+        height: 100,
+        backgroundColor: '#ccc'
       },
-      style: {
-        ...getDefaultStyle(),
-        ...{
-          width: 375,
-          height: 100,
-          backgroundColor: '#ccc'
-        },
-        ...style
-      },
-      children: []
-    }
+      ...style
+    },
+    children: []
   };
 };
 

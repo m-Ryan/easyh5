@@ -2,12 +2,7 @@ import React, { useCallback, useEffect } from 'react';
 import styles from './index.module.scss';
 import { Header } from '@/pages/editor/components/header';
 import { ComponentMenu } from '@/pages/editor/components/component-menu';
-import { ConfigMenu } from '@/pages/editor/components/config-menu';
-import { getLocationParamValue } from '@/util/utils';
-// import { useSelector } from '@/modal';
-import { useTemplete } from '@/components/react-use/useTemplete';
 import { AppContainer } from '@/components/templete';
-import { useSetEditorDocumentSize } from '@/components/react-use/useSetEditorDocumentSize';
 import { useDispatch, useSelector } from 'react-redux';
 import template from '@/store/template';
 import { useAppSelector } from '@/hooks/useAppSelector';
@@ -20,7 +15,6 @@ export default function Editor() {
 
   const templateData = useAppSelector('template');
   const loading = useLoading(template.loadings.fetchById);
-  console.log(templateData);
 
   // const { setTarget, focusElement, focusId, initData } = useSelector('article');
 
@@ -34,7 +28,7 @@ export default function Editor() {
 
   useEffect(() => {
     dispatch(template.actions.fetchById(420));
-  }, []);
+  }, [dispatch]);
 
   if (!templateData) return null;
 

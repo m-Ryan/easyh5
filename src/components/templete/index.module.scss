@@ -36,7 +36,6 @@
 
       * {
         cursor: pointer;
-        user-select: none;
         background-repeat: no-repeat;
         background-size: 100%;
         &::-webkit-scrollbar {
@@ -49,7 +48,3 @@
 
 }
 
-
-.focus {
-  box-shadow: 0 0 1px red, 0 0 1px red, 0 0 1px red;
-}

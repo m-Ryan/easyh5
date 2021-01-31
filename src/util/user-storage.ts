@@ -14,7 +14,7 @@ export class UserStorage {
       } else {
 
         try {
-          const { data } = await axios.get<IUser>(`/api/user/user/info`, {
+          const { data } = await axios.get<IUser>('/api/user/user/info', {
             headers: {
               authorization: token
             }

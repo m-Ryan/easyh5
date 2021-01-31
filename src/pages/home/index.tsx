@@ -3,7 +3,6 @@ import user from '@/store/user';
 import template, { TEMPLATE_FETCH_VY_ID } from '@/store/template';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import styles from './index.module.scss';
 import { useLoading } from '@/hooks/useLoading';
 import Frame from '@/components/Frame';
 import templateList from '@/store/templateList';
@@ -19,7 +18,7 @@ export default function Home() {
 
     useEffect(() => {
         dispatch(templateList.actions.fetch(undefined));
-    }, []);
+    }, [dispatch]);
 
 
     return (

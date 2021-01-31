@@ -1,4 +1,15 @@
-import { componentActionMap, CustomComponentType, BlockType } from "./constants";
+import { componentActionMap, CustomComponentType, BlockType, BLOCK_LEVEL } from './constants';
+
+export interface IBlock {
+	Panel: () => JSX.Element;
+	Main: (props: any) => JSX.Element;
+	Preview: (props: any) => JSX.Element;
+	config: {
+		type: string;
+		rank: BLOCK_LEVEL;
+	};
+	create: (payload: any) => INodeItem;
+}
 
 export type IBlocksMap = typeof componentActionMap;
 

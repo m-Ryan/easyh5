@@ -1,19 +1,18 @@
 import React from 'react';
 import _ from 'lodash';
-import { DragNode } from '../../../../../drag-node';
-import { IText } from '..';
 import { useField } from 'formik';
 import { INodeItem } from '@/components/templete/templete.type';
+import Moveable from '@/components/templete/components/Moveable';
 type IProps = {
-  index: string;
+  idx: string;
 };
 
 export function Main(props: IProps) {
-  const name = props.index;
-  const [field, meta, helpers] = useField<INodeItem<IText>>(name);
+  const [{ value },] = useField<INodeItem<{}>>(props.idx);
   return (
-    <DragNode name={name}>
-      <span>{field.value.data.value}</span>
-    </DragNode>
+    <Moveable idx={props.idx} data={value}>
+      <span>{value.data.value}</span>
+    </Moveable>
+
   );
 }

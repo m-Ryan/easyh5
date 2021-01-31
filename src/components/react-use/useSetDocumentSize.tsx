@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect } from 'react';
 import { PAGE_MAX_WIDTH, NORMAL_WIDTH } from '@/constants';
 
 const className = 'mobile-view-size';

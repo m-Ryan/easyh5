@@ -1,4 +1,4 @@
-import { request } from "./axios.config";
+import { request } from './axios.config';
 
 export const user = {
   login(phone: string, password: string) {

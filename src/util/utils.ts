@@ -95,17 +95,17 @@ export function getLocationParamValue(key: string): string | undefined {
  */
 export function isNumber(num: any): num is number {
   if (typeof num !== 'string' && typeof num !== 'number') return false;
-  return new RegExp("^(\\-|\\+)?\\d+(\\.\\d+)?$").test(num.toString());
+  return new RegExp('^(\\-|\\+)?\\d+(\\.\\d+)?$').test(num.toString());
 }
 
-export function classnames(...rest: string[]) {
+export function classnames(...rest: any[]) {
   return rest.filter(item => typeof item === 'string').join(' ');
 }
 
 export function previewLoadImage(url: string): Promise<HTMLImageElement> {
   return new Promise(resolve => {
     const img = new Image();
-    img.setAttribute("crossOrigin", 'Anonymous');
+    img.setAttribute('crossOrigin', 'Anonymous');
     img.src = url;
     img.onload = () => resolve(img);
     img.onerror = () => resolve(img);
@@ -132,7 +132,7 @@ export function previewLoadImageList(
     list.map(item => {
       return new Promise<HTMLImageElement>(resolve => {
         const img = new Image();
-        img.setAttribute("crossOrigin", 'Anonymous');
+        img.setAttribute('crossOrigin', 'Anonymous');
         img.src = item;
         img.onload = () => resolve(img);
         img.onerror = () => resolve(img);
@@ -172,7 +172,7 @@ export function easeInOutCubic(pos: number) {
 
 export function getStyleBgImg(url: string) {
   if (url === 'none') return '';
-  return url.replace(/(.*)(http(.*))\)/, '$2').replace(`"`, '').replace(`'`, '');
+  return url.replace(/(.*)(http(.*))\)/, '$2').replace('"', '').replace('\'', '');
 }
 
 export function setStyleBgImg(url: string) {
@@ -256,33 +256,23 @@ export function unlockContaier(id: string | HTMLElement) {
 }
 
 
-/**
- *
- * @param styleStr html string <div ></div>
- */
-export const replaceToReactStyle = (styleStr: string) => {
-  const tempStyleList: any[] = [];
-  let count = 1;
-  const htmlCOntent = styleStr
-    .replace(/\s+data\-node\-type\=\"(.*?)\"/mg, '')
-    .replace(/\s+data\-node\-id\=\"(.*?)\"/mg, '')
-    .replace(/\<img (.*?)>/mg, '<img $1/>')
-    .replace(/style="(.*?)"/mg, (str, g1) => {
-      const mask = count++;
-      tempStyleList.push(`
-    .sty_${mask} {
-      ${g1}
-    }
-  `);
-      return `className={styles.sty_${mask}}`;
+export function PromiseEach(promiseLikes: PromiseLike<any>[]) {
+  const datas = [];
+  let count = 0;
+  return new Promise((resolve) => {
+    promiseLikes.forEach(async (promiseLike) => {
+      try {
+        const data = await promiseLike;
+        datas.push(data);
+      } catch (error) {
+        datas.push(error);
+      }
+      finally {
+        count++;
+        if (count === promiseLikes.length) {
+          resolve(true);
+        }
+      }
     });
-
-  console.log(htmlCOntent);
-  console.log('-----------------------');
-  console.log('-----------------------');
-  console.log('-----------------------');
-  console.log('-----------------------');
-  console.log(tempStyleList.join(''));
-};
-
-window['replaceToReactStyle'] = replaceToReactStyle;
+  });
+}
