@@ -1,4 +1,4 @@
-import * as ISketckItem from '@/components/templete/templete.type';
+import * as ISketckItem from '@VisualEditor/typings';
 import qRCode from 'qrcode-generator';
 import _ from 'lodash';
 import qs from 'qs';

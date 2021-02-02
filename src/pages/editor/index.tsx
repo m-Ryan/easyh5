@@ -1,30 +1,20 @@
 import React, { useCallback, useEffect } from 'react';
 import styles from './index.module.scss';
 import { Header } from '@/pages/editor/components/header';
-import { ComponentMenu } from '@/pages/editor/components/component-menu';
-import { AppContainer } from '@/components/templete';
-import { useDispatch, useSelector } from 'react-redux';
+import { AppContainer } from '@VisualEditor';
+import { useDispatch } from 'react-redux';
 import template from '@/store/template';
 import { useAppSelector } from '@/hooks/useAppSelector';
 import { useLoading } from '@/hooks/useLoading';
 import { Formik } from 'formik';
-import { ConfigurationPanel } from '@/components/templete/components/ConfigurationPanel';
+import { ConfigurationPanel } from '@VisualEditor/components/ConfigurationPanel';
+import { ToolPanel } from '@VisualEditor/components/ToolPanel';
 
 export default function Editor() {
   const dispatch = useDispatch();
 
   const templateData = useAppSelector('template');
   const loading = useLoading(template.loadings.fetchById);
-
-  // const { setTarget, focusElement, focusId, initData } = useSelector('article');
-
-  // useSetEditorDocumentSize();
-
-  // useTemplete(getLocationParamValue('id'), true);
-
-  // const onSetBulr = useCallback(async () => {
-  //   setTarget('')
-  // }, [setTarget]);
 
   useEffect(() => {
     dispatch(template.actions.fetchById(420));
@@ -57,7 +47,7 @@ export default function Editor() {
           <Header />
           <div className={styles.wrap}>
             <div className={styles.leftMenu}>
-              <ComponentMenu />
+              <ToolPanel />
             </div>
             <div className={styles.contentWrap} >
               <div className={styles.content} onClick={e => e.stopPropagation()}>

@@ -24,6 +24,12 @@
     "jsx": "react",
     "baseUrl": "src",
     "paths": {
+      "@VisualEditor": [
+        "./components/VisualEditor",
+      ],
+      "@VisualEditor/*": [
+        "./components/VisualEditor/*",
+      ],
       "@/*": [
         "./*"
       ]

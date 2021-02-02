@@ -20,7 +20,8 @@ export function getBasicConfiguration(config: Partial<webpack.Configuration>) {
       modules: ['node_modules', 'src'],
       extensions: ['.tsx', '.ts', '.js'],
       alias: {
-        '@': path.resolve('src')
+        '@VisualEditor': path.resolve('src/components/VisualEditor'),
+        '@': path.resolve('src'),
       },
     },
     module: {

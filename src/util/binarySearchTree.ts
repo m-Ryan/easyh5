@@ -1,4 +1,4 @@
-import { INodeItem } from '@/components/templete/templete.type';
+import { INodeItem } from '@VisualEditor/typings';
 
 export class TreeNode {
   public key: string;
@@ -146,7 +146,7 @@ export class BinarySearchTree {
         return null;
       }
       if (key < node.key) { // {3}
-        node.left = removeNode(node.left, key); // {4} 
+        node.left = removeNode(node.left, key); // {4}
         return node; // {5}
       } else if (key > node.key) { // {6}
         node.right = removeNode(node.right, key); // {7}

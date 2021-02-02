@@ -1,6 +1,6 @@
-import { BlockType } from '@/components/templete/constants';
-import { unZipStyle } from '@/components/templete/style-tranform';
-import { INodeItem } from '@/components/templete/templete.type';
+import { BlockType } from '@VisualEditor/constants';
+import { unZipStyle } from '@VisualEditor/style-tranform';
+import { INodeItem } from '@VisualEditor/typings';
 import { ASSET_DOMAIN } from '@/constants';
 import services from '@/services';
 import { article, IArticle } from '@/services/article';
