@@ -1,19 +1,17 @@
 import { BlockType } from '@VisualEditor/constants';
 import { IBox } from '.';
 
-
 export function createInstance(): IBox {
   return {
     type: BlockType.BOX,
     data: {
-      value: ''
+      value: '',
     },
     style: {
-      width: 375,
-      height: 100,
+      width: 'auto',
+      height: '100px',
       backgroundColor: '#fafafa',
     },
-    children: []
+    children: [],
   };
-
 }

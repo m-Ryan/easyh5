@@ -4,14 +4,13 @@ export function createInstance() {
   return {
     type: BlockType.SECTION,
     data: {
-      value: ''
+      value: '',
     },
     style: {
-      width: 375,
+      width: '100%',
       height: 100,
       backgroundColor: '#fafafa',
     },
-    children: []
+    children: [],
   };
-
 }

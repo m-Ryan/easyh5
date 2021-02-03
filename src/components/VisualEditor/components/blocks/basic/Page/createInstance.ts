@@ -4,15 +4,16 @@ export function createInstance() {
   return {
     type: BlockType.PAGE,
     data: {
-      value: ''
+      value: '',
     },
     style: {
-      width: 375,
-      height: 100,
+      width: '100%',
+      height: 'auto',
+      minHeight: '100%',
       backgroundColor: '#fff',
-      position: 'relative'
+      position: 'relative',
+      fontSize: '14px',
     },
-    children: []
+    children: [],
   };
-
 }
