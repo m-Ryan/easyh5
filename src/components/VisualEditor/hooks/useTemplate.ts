@@ -1,14 +1,16 @@
 import { useFormik, useFormikContext } from 'formik';
 import { BlockType } from '../constants';
-import { get, set, } from 'lodash';
+import { get, set } from 'lodash';
 import { INodeItem } from '../typings';
 import { BlocksMap } from '../components/blocks';
 import { useCallback } from 'react';
 import { ITemplate } from '@/store/template';
 
-function createItem<T extends any>(type: BlockType, payload?: T): INodeItem {
-
-  const component = Object.values(BlocksMap).find(item => {
+function createItem<T extends INodeItem>(
+  type: BlockType,
+  payload?: T
+): INodeItem {
+  const component = Object.values(BlocksMap).find((item) => {
     return item.type === type;
   });
   if (component) {
@@ -18,14 +20,12 @@ function createItem<T extends any>(type: BlockType, payload?: T): INodeItem {
 }
 
 export function useTemplate() {
-
-  const { values, setValues, getFieldHelpers, } = useFormikContext<ITemplate>();
+  const { values, setValues, getFieldHelpers } = useFormikContext<ITemplate>();
 
   const focusIdx = values.focusIdx;
   const focusBlock = get(values, focusIdx) as INodeItem | null;
 
   const addBlock = (type: BlockType, parentIdx: string) => {
-
     const parent = get(values, parentIdx) as INodeItem | null;
     if (!parent) {
       throw new Error('无效节点');
@@ -37,10 +37,7 @@ export function useTemplate() {
     setValues(values);
   };
 
-
-  const removeBlock = () => {
-
-  };
+  const removeBlock = () => {};
 
   const getValueByIdx = <T extends any>(idx: string): INodeItem<T> | null => {
     return get(values, idx);
@@ -56,36 +53,36 @@ export function useTemplate() {
     return get(values, parentIdx);
   };
 
-  const swapByIdx = (sourceIdx: string, destinationIdx: string) => {
-
+  const moveByIdx = (sourceIdx: string, destinationIdx: string) => {
     const sourceIndex = Number(sourceIdx.match(/\.\[(\d+)\]$/)?.[1]);
     const destinationIndex = Number(destinationIdx.match(/\.\[(\d+)\]$/)?.[1]);
 
     const sourceParentIdx = sourceIdx.match(/(.*)\.children\.\[\d+\]$/)?.[1];
-    const destinationParentIdx = destinationIdx.match(/(.*)\.children\.\[\d+\]$/)?.[1];
+    const destinationParentIdx = destinationIdx.match(
+      /(.*)\.children\.\[\d+\]$/
+    )?.[1];
 
     if (!sourceParentIdx || !destinationParentIdx) {
       throw new Error('未找到父级');
     }
 
-    if (sourceParentIdx !== destinationParentIdx) {
-      throw new Error('必须是同一个父级');
-    }
+    const sourceParent = get(values, sourceParentIdx) as INodeItem;
+    const destinationParent = get(values, sourceParentIdx) as INodeItem;
 
-    const parent = get(values, sourceParentIdx) as INodeItem;
-
-    const [removed] = parent.children.splice(Number(sourceIndex), 1);
-    parent.children.splice(Number(destinationIndex), 0, removed);
+    const [removed] = sourceParent.children.splice(Number(sourceIndex), 1);
+    destinationParent.children.splice(Number(destinationIndex), 0, removed);
 
     set(values, sourceParentIdx, parent);
     set(values, 'focusIdx', destinationIdx);
     setValues(values);
   };
 
-  const setFocusIdx = useCallback((idx: string) => {
-    getFieldHelpers('focusIdx').setValue(idx);
-  }, [getFieldHelpers]);
-
+  const setFocusIdx = useCallback(
+    (idx: string) => {
+      getFieldHelpers('focusIdx').setValue(idx);
+    },
+    [getFieldHelpers]
+  );
 
   return {
     getValueByIdx,
@@ -95,8 +92,7 @@ export function useTemplate() {
     focusIdx,
     focusBlock,
     setFocusIdx,
-    swapByIdx,
-    getParentByIdx
+    moveByIdx,
+    getParentByIdx,
   };
-
 }

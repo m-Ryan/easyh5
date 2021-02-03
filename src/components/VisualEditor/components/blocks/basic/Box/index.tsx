@@ -5,13 +5,12 @@ import { createInstance } from './createInstance';
 import { INodeItem } from '@VisualEditor/typings';
 import { BlockType } from '@VisualEditor/constants';
 
-export type IBox = INodeItem<string>;
-
+export type IBox = INodeItem<null>;
 
 export const Box = {
   type: BlockType.BOX,
   Edit,
   Preview,
   Panel,
-  createInstance
+  createInstance,
 };
