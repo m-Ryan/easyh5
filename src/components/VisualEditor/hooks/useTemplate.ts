@@ -37,7 +37,7 @@ export function useTemplate() {
     setValues(values);
   };
 
-  const removeBlock = () => {};
+  const removeBlock = () => { };
 
   const getValueByIdx = <T extends any>(idx: string): INodeItem<T> | null => {
     return get(values, idx);
@@ -72,7 +72,8 @@ export function useTemplate() {
     const [removed] = sourceParent.children.splice(Number(sourceIndex), 1);
     destinationParent.children.splice(Number(destinationIndex), 0, removed);
 
-    set(values, sourceParentIdx, parent);
+    set(values, sourceParentIdx, sourceParent);
+    set(values, destinationParentIdx, destinationParent);
     set(values, 'focusIdx', destinationIdx);
     setValues(values);
   };

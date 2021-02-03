@@ -1,10 +1,10 @@
 import React from 'react';
 import { Stack } from '@/components/Stack';
 import { useTemplate } from '@VisualEditor/hooks/useTemplate';
-import { WidthHeight } from '@VisualEditor/components/ConfigurationPanel/components/WidthHeight';
 import { Padding } from '@VisualEditor/components/ConfigurationPanel/components/Padding';
-import { Background } from '@VisualEditor/components/ConfigurationPanel/components/Background';
 import Font from '@VisualEditor/components/ConfigurationPanel/components/Font';
+import { Margin } from '@VisualEditor/components/ConfigurationPanel/components/Margin';
+import { Position } from '@VisualEditor/components/ConfigurationPanel/components/Position';
 
 export function Panel() {
   const { focusBlock } = useTemplate();
@@ -14,6 +14,9 @@ export function Panel() {
   return (
     <Stack vertical>
       <Font />
+      <Padding />
+      <Margin />
+      <Position />
     </Stack>
   );
 }
