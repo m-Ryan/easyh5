@@ -1,17 +1,16 @@
 import { Panel } from './Panel';
-import { Preview } from './Preview';
-import { Edit } from './Edit';
+import { Renderer } from './Renderer';
+import { Editor } from './Editor';
 import { createInstance } from './createInstance';
 import { INodeItem } from '@VisualEditor/typings';
 import { BlockType } from '@VisualEditor/constants';
 
 export type IPage = INodeItem<null>;
 
-
 export const Page = {
   type: BlockType.PAGE,
-  Edit,
-  Preview,
+  Editor,
+  Renderer,
   Panel,
-  createInstance
+  createInstance,
 };

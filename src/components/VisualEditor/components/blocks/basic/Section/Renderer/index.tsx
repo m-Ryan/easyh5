@@ -9,18 +9,14 @@ type IProps = {
   idx: string;
 };
 
-export function Edit(props: IProps) {
+export function Renderer(props: IProps) {
   const [field] = useField<INodeItem<ISection>>(props.idx);
   return (
-    <Draggable data={field.value} idx={props.idx}>
-      <div>
-        {
-          field.value.children.map((_, index) => {
-            const childIndex = `${props.idx}.children.[${index}]`;
-            return <EditorItem key={childIndex} idx={childIndex} />;
-          })
-        }
-      </div>
-    </Draggable>
+    <div style={field.value.style}>
+      {field.value.children.map((_, index) => {
+        const childIndex = `${props.idx}.children.[${index}]`;
+        return <EditorItem key={childIndex} idx={childIndex} />;
+      })}
+    </div>
   );
 }

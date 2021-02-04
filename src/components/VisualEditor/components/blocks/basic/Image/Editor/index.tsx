@@ -8,7 +8,7 @@ type IProps = {
   idx: string;
 };
 
-export function Edit(props: IProps) {
+export function Editor(props: IProps) {
   const [field] = useField<INodeItem<IImage>>(props.idx);
   return (
     <Moveable idx={props.idx}>

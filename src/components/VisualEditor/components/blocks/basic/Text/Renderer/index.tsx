@@ -7,12 +7,7 @@ type IProps = {
   idx: string;
 };
 
-export function Edit(props: IProps) {
-  const [{ value },] = useField<INodeItem<{}>>(props.idx);
-  return (
-    <Moveable idx={props.idx}>
-      <span>{value.data.value}</span>
-    </Moveable>
-
-  );
+export function Renderer(props: IProps) {
+  const [{ value }] = useField<INodeItem<{}>>(props.idx);
+  return <span style={value.style}>{value.data.value}</span>;
 }

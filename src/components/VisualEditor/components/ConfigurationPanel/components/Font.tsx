@@ -11,7 +11,7 @@ import { TextStyle } from '@/components/TextStyle';
 import { TextAlign } from './TextAlign';
 import { getOptionsByStringArray } from '@VisualEditor/utils/getOptionsByStringArray';
 import { Animation } from './Animation';
-import { Link } from './LInk';
+import { Link } from './Link';
 
 const whiteSpaceListOptions = getOptionsByStringArray([
   'inherit',

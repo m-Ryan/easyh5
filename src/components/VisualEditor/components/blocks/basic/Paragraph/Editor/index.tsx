@@ -8,19 +8,16 @@ type IProps = {
   idx: string;
 };
 
-export function Edit(props: IProps) {
+export function Editor(props: IProps) {
   const [{ value }] = useField<INodeItem<{}>>(props.idx);
   return (
     <Moveable idx={props.idx}>
       <p>
-        {
-          value.children.map((_, index) => {
-            const childIndex = `${props.idx}.children.[${index}]`;
-            return <EditorItem key={childIndex} idx={childIndex} />;
-          })
-        }
+        {value.children.map((_, index) => {
+          const childIndex = `${props.idx}.children.[${index}]`;
+          return <EditorItem key={childIndex} idx={childIndex} />;
+        })}
       </p>
     </Moveable>
-
   );
 }

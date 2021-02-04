@@ -1,5 +1,5 @@
 {
-  "typescript.tsdk": "node_modules\\typescript\\lib",
+  "typescript.tsdk": "node_modules/typescript/lib",
   // 自动 import 语句中路径的首选样式。
   //  - auto: 推断最短的路径类型。
   //  - relative: 相对于文件位置。

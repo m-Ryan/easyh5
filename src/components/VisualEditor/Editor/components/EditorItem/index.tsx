@@ -9,13 +9,12 @@ export interface EditorProps {
 }
 
 export function EditorItem(props: EditorProps) {
-
   const [field] = useField<INodeItem>(props.idx);
 
   const block = findBlockByType(field.value.type);
 
   if (block) {
-    return <block.Edit idx={props.idx} />;
+    return <block.Editor idx={props.idx} />;
   }
   return null;
 }

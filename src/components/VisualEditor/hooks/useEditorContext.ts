@@ -1,4 +1,4 @@
-import { useFormik, useFormikContext } from 'formik';
+import { useFormikContext } from 'formik';
 import { BlockType } from '../constants';
 import { get, set } from 'lodash';
 import { INodeItem } from '../typings';
@@ -37,7 +37,7 @@ export function useEditorContext() {
     setValues(values);
   };
 
-  const removeBlock = () => { };
+  const removeBlock = () => {};
 
   const getValueByIdx = <T extends any>(idx: string): INodeItem<T> | null => {
     return get(values, idx);

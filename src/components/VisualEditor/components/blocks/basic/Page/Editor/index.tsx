@@ -8,18 +8,14 @@ type IProps = {
   idx: string;
 };
 
-export function Edit(props: IProps) {
+export function Editor(props: IProps) {
   const [field] = useField<INodeItem<IPage>>(props.idx);
   return (
-
     <main>
-      {
-        field.value.children.map((item, index) => {
-          const childIndex = `${props.idx}.children.[${index}]`;
-          return <EditorItem key={childIndex} idx={childIndex} />;
-        })
-      }
+      {field.value.children.map((item, index) => {
+        const childIndex = `${props.idx}.children.[${index}]`;
+        return <EditorItem key={childIndex} idx={childIndex} />;
+      })}
     </main>
-
   );
 }
