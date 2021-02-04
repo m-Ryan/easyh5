@@ -1,10 +1,10 @@
 import React, { useCallback } from 'react';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
-import { useTemplate } from '../hooks/useTemplate';
+import { useEditorContext } from '../hooks/useEditorContext';
 import { EditorItem } from './components/EditorItem';
 
 export const Editor = () => {
-  const { moveByIdx } = useTemplate();
+  const { moveByIdx } = useEditorContext();
 
   const onDragEnd = useCallback(
     (result: DropResult) => {

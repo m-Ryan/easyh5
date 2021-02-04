@@ -1,11 +1,17 @@
-import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
 import styles from './index.module.scss';
 import { PREVIEW_COMPONENT_DATA_TYPE } from '@/constants';
 import { useField, useFormikContext } from 'formik';
 import { INodeItem } from '@VisualEditor/typings';
 import { get } from 'lodash';
 import { BlockType } from '@VisualEditor/constants';
-import { useTemplate } from '@VisualEditor/hooks/useTemplate';
+import { useEditorContext } from '@VisualEditor/hooks/useEditorContext';
 
 type BlockIconProps = {
   icon: JSX.Element;
@@ -14,7 +20,7 @@ type BlockIconProps = {
 };
 
 export function BlockIcon(props: BlockIconProps) {
-  const { addBlock, } = useTemplate();
+  const { addBlock } = useEditorContext();
   const [draging, setDraging] = useState(false);
 
   const { values } = useFormikContext<INodeItem[]>();
@@ -25,45 +31,43 @@ export function BlockIcon(props: BlockIconProps) {
     setDraging(true);
   };
 
+  useEffect(() => {
+    if (!draging) return;
+    const ele = document.getElementById('app-editor-container');
+    if (!ele) {
+      return;
+    }
 
-  useEffect(
-    () => {
-      if (!draging) return;
-      const ele = document.getElementById('app-editor-container');
-      if (!ele) {
-        return;
+    const onDrop = (ev: DragEvent) => {
+      const target = ev.target as HTMLElement;
+      const parentIdx = target.getAttribute('data-node-idx') || '';
+      const parent = get(values, parentIdx);
+      if (parent) {
+        ev.preventDefault();
+        addBlock(type, parentIdx);
       }
+      setDraging(false);
+    };
 
-      const onDrop = (ev: DragEvent) => {
-        const target = ev.target as HTMLElement;
-        const parentIdx = target.getAttribute('data-node-idx') || '';
-        const parent = get(values, parentIdx);
-        if (parent) {
-          ev.preventDefault();
-          addBlock(type, parentIdx);
+    const onDragOver = (ev: DragEvent) => {
+      const target = ev.target as HTMLElement;
+      const insertElement =
+        (get(
+          values,
+          target.getAttribute('data-node-idx') || ''
+        ) as INodeItem) || null;
+      if (insertElement) {
+        ev.preventDefault();
+      }
+    };
 
-        }
-        setDraging(false);
-
-      };
-
-      const onDragOver = (ev: DragEvent) => {
-        const target = ev.target as HTMLElement;
-        const insertElement = get(values, target.getAttribute('data-node-idx') || '') as INodeItem || null;
-        if (insertElement) {
-          ev.preventDefault();
-        }
-      };
-
-      ele.addEventListener('dragover', onDragOver);
-      ele.addEventListener('drop', onDrop);
-      return () => {
-        ele.removeEventListener('dragover', onDragOver);
-        ele.removeEventListener('drop', onDrop);
-      };
-    },
-    [draging, addBlock, values, type]
-  );
+    ele.addEventListener('dragover', onDragOver);
+    ele.addEventListener('drop', onDrop);
+    return () => {
+      ele.removeEventListener('dragover', onDragOver);
+      ele.removeEventListener('drop', onDrop);
+    };
+  }, [draging, addBlock, values, type]);
 
   return (
     <div

@@ -1,6 +1,6 @@
-import React, { useMemo } from 'react';;
+import React, { useMemo } from 'react';
 import { Stack } from '@/components/Stack';
-import { useTemplate } from '@VisualEditor/hooks/useTemplate';
+import { useEditorContext } from '@VisualEditor/hooks/useEditorContext';
 import { RadioGroupField } from '@/components/Form';
 
 const textAlignOptions = [
@@ -19,12 +19,17 @@ const textAlignOptions = [
 ];
 
 export function TextAlign() {
-  const { focusIdx } = useTemplate();
+  const { focusIdx } = useEditorContext();
 
   return useMemo(() => {
     return (
-      <Stack >
-        <RadioGroupField label="对齐方式" name={`${focusIdx}.style.textAlign`} options={textAlignOptions} inline />
+      <Stack>
+        <RadioGroupField
+          label='对齐方式'
+          name={`${focusIdx}.style.textAlign`}
+          options={textAlignOptions}
+          inline
+        />
       </Stack>
     );
   }, [focusIdx]);

@@ -19,7 +19,7 @@ function createItem<T extends INodeItem>(
   throw new Error('没有匹配的组件');
 }
 
-export function useTemplate() {
+export function useEditorContext() {
   const { values, setValues, getFieldHelpers } = useFormikContext<ITemplate>();
 
   const focusIdx = values.focusIdx;

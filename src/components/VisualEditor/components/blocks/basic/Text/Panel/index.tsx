@@ -1,11 +1,11 @@
 import React from 'react';
 import { Stack } from '@/components/Stack';
-import { useTemplate } from '@VisualEditor/hooks/useTemplate';
+import { useEditorContext } from '@VisualEditor/hooks/useEditorContext';
 import Font from '@VisualEditor/components/ConfigurationPanel/components/Font';
 import { Position } from '@VisualEditor/components/ConfigurationPanel/components/Position';
 
 export function Panel() {
-  const { focusBlock } = useTemplate();
+  const { focusBlock } = useEditorContext();
 
   if (!focusBlock) return null;
 
