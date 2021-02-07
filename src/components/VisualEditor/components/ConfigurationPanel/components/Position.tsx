@@ -4,6 +4,9 @@ import { Stack } from '@/components/Stack';
 import { useEditorContext } from '@VisualEditor/hooks/useEditorContext';
 import { TextStyle } from '@/components/TextStyle';
 import { getOptionsByStringArray } from '@VisualEditor/utils/getOptionsByStringArray';
+import { Collapse } from 'antd';
+
+const { Panel } = Collapse;
 
 const positionOptions = getOptionsByStringArray([
   'static',
@@ -15,36 +18,36 @@ const positionOptions = getOptionsByStringArray([
 export function Position() {
   const { focusIdx } = useEditorContext();
 
-  return useMemo(() => {
-    return (
-      <Stack vertical spacing='extraTight'>
-        <TextStyle variation='strong' size={'large'}>
-          定位
-        </TextStyle>
+  return (
+    <Panel header={<TextStyle size={'large'}>定位</TextStyle>} key="Position">
+      <Stack vertical spacing="extraTight">
+
         <SelectField
-          label='定位方式'
+          label="定位方式"
           name={`${focusIdx}.style.position`}
           options={positionOptions}
           inline
         />
         <Stack wrap={false}>
           <Stack.Item fill>
-            <TextField label='上' name={`${focusIdx}.style.top`} inline />
+            <TextField label="上" name={`${focusIdx}.style.top`} inline />
           </Stack.Item>
           <Stack.Item fill>
-            <TextField label='下' name={`${focusIdx}.style.bottom`} inline />
+            <TextField label="下" name={`${focusIdx}.style.bottom`} inline />
           </Stack.Item>
         </Stack>
 
         <Stack wrap={false}>
           <Stack.Item fill>
-            <TextField label='左' name={`${focusIdx}.style.left`} inline />
+            <TextField label="左" name={`${focusIdx}.style.left`} inline />
           </Stack.Item>
           <Stack.Item fill>
-            <TextField label='右' name={`${focusIdx}.style.right`} inline />
+            <TextField label="右" name={`${focusIdx}.style.right`} inline />
           </Stack.Item>
         </Stack>
       </Stack>
-    );
-  }, [focusIdx]);
+    </Panel>
+
+  );
+
 }

@@ -15,7 +15,6 @@ export function QrCode({ url, logo }: { url: string, logo?: string }) {
     crateCode()
   }, [url, logo])
 
-
   return (
     <Loading loading={!codeImg}>
       <img style={{ height: '100%', width: '100%' }} src={codeImg} />

@@ -23,13 +23,13 @@ export function CardItem(props: CardItemProps) {
       <div className={styles.mask}>
         <div className={styles.qrcode}><QrCode url={`/preview?id=${data.article_id}`} logo={'http://assets.maocanhua.cn/FuPYsNk512cqHpUPqGCLdJMflZEz'} /></div>
         <div className={styles.listBottom}>
-          <div className={styles.listItem}  >
+          <div className={styles.listItem}>
             <EditOutlined />&nbsp;编辑
-        </div>
+          </div>
           <div className={styles.listItem}>
             <CopyOutlined />&nbsp;复制
 
-        </div>
+          </div>
           <div className={styles.listItem}>
             <Popconfirm
               title="您确定要删除吗?"
@@ -38,7 +38,7 @@ export function CardItem(props: CardItemProps) {
               cancelText="取消"
             >
               <DeleteOutlined />&nbsp;删除
-          </Popconfirm>
+            </Popconfirm>
 
           </div>
         </div>

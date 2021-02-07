@@ -20,7 +20,6 @@ export default function Home() {
         dispatch(templateList.actions.fetch(undefined));
     }, [dispatch]);
 
-
     return (
         <Frame title="数据模板" primaryAction={<Button>新建</Button>}>
             <Loading loading={loading}>
@@ -33,5 +32,4 @@ export default function Home() {
         </Frame>
     );
 }
-
 

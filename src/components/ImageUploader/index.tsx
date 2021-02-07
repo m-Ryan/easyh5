@@ -123,7 +123,7 @@ function ImageUploader({
           (
             <div className={styles['upload']} onClick={onUpload}>
               <PlusOutlined />
-              <div className="ant-upload-text">Upload</div>
+              <div className='ant-upload-text'>Upload</div>
             </div>
           )
         }
@@ -131,7 +131,6 @@ function ImageUploader({
     </div>
   );
 }
-
 
 interface ImageUploaderItemProps {
   index: number;
@@ -148,8 +147,8 @@ function ImageUploaderItem(props: ImageUploaderItemProps) {
     return (
       <div className={styles['item']}>
         <div className={classnames(styles['info'])}>
-          <img src={LOADING_ICON} alt="加载中" />
-          <div className={styles['btn-wrap']}></div>
+          <img src={LOADING_ICON} alt='加载中' />
+          <div className={styles['btn-wrap']} />
         </div>
       </div>
     );
@@ -157,9 +156,9 @@ function ImageUploaderItem(props: ImageUploaderItemProps) {
     return (
       <div className={classnames(styles['item'], styles.error)}>
         <div className={classnames(styles['info'])}>
-          <img src={ERROR_ICON} alt="上传失败" />
+          <img src={ERROR_ICON} alt='上传失败' />
           <div className={styles['btn-wrap']}>
-            <a title="移除" onClick={() => remove(index)}>
+            <a title='移除' onClick={() => remove(index)}>
               <DeleteOutlined />
             </a>
           </div>
@@ -170,12 +169,12 @@ function ImageUploaderItem(props: ImageUploaderItemProps) {
     return (
       <div className={styles['item']}>
         <div className={classnames(styles['info'])}>
-          <img src={value.status === 'done' ? value.url : ERROR_ICON} alt="标题图：" />
+          <img src={value.status === 'done' ? value.url : ERROR_ICON} alt='标题图：' />
           <div className={styles['btn-wrap']}>
-            <a title="预览" onClick={() => setPreview(true)}>
+            <a title='预览' onClick={() => setPreview(true)}>
               <EyeOutlined />
             </a>
-            <a title="移除" onClick={() => remove(index)}>
+            <a title='移除' onClick={() => remove(index)}>
               <DeleteOutlined />
             </a>
           </div>
@@ -183,12 +182,11 @@ function ImageUploaderItem(props: ImageUploaderItemProps) {
         </div>
 
         <Modal visible={preview} footer={null} onCancel={() => setPreview(false)}>
-          <img alt="预览图" style={{ width: '100%' }} src={value.url} />
+          <img alt='预览图' style={{ width: '100%' }} src={value.url} />
         </Modal>
       </div>
     );
   }
-
 
 }
 

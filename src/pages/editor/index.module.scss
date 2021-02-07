@@ -10,11 +10,13 @@
       width: 302px;
       background: #fff;
       font-size: 0;
+      overflow: overlay;
     }
     .rightMenu {
       width: 350px;
       background: #fff;
       border-right: 1px solid #e8e8e8;
+      overflow: auto;
     }
     .contentWrap {
       flex: 1;

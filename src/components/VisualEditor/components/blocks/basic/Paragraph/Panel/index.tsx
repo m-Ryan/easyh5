@@ -5,18 +5,22 @@ import { Padding } from '@VisualEditor/components/ConfigurationPanel/components/
 import Font from '@VisualEditor/components/ConfigurationPanel/components/Font';
 import { Margin } from '@VisualEditor/components/ConfigurationPanel/components/Margin';
 import { Position } from '@VisualEditor/components/ConfigurationPanel/components/Position';
-
+import { Collapse } from 'antd';
+import { TextStyle } from '@/components/TextStyle';
 export function Panel() {
   const { focusBlock } = useEditorContext();
 
   if (!focusBlock) return null;
 
   return (
-    <Stack vertical>
+    <Collapse accordion>
+      <Collapse.Panel header={<TextStyle size={'large'}>外边距</TextStyle>} key='111' />
       <Font />
       <Padding />
       <Margin />
       <Position />
-    </Stack>
+
+    </Collapse>
+
   );
 }

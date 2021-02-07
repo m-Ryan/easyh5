@@ -34,14 +34,14 @@ export function ColorPicker(props: ColorPickerProps) {
 
   return (
     <Popover
-      content={
+      content={(
         <SketchPicker
           color={color}
           onChange={onChangeColor}
         />
-      }
+      )}
       title={props.label}
-      trigger="click"
+      trigger='click'
     >
       <div style={{
         display: 'inline-block',
@@ -63,7 +63,8 @@ export function ColorPicker(props: ColorPickerProps) {
         height: '100%',
         textAlign: 'center',
         backgroundColor: value
-      }} />
+      }}
+      />
         <DownOutlined />
       </div>
     </Popover>

@@ -4,13 +4,13 @@ import styles from './index.module.scss';
 export function Header() {
   return (
     <div className={styles.container}>
-      <div className={styles.leftSide}></div>
+      <div className={styles.leftSide} />
       <div className={styles.rightSide}>
         <div className={styles.userpannel}>
           <div className={styles.avatar}>
             <img
               src={'http://assets.maocanhua.cn/FrIHg7SNAUqOU1WAlLGz6uCmHBiD'}
-              alt=""
+              alt=''
             />
           </div>
         </div>

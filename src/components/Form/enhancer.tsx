@@ -15,9 +15,6 @@ interface Props {
   onChangeAdapter?: (value: any) => any;
 }
 
-
-
-
 let primaryId = 0;
 export default function enhancer<P, T extends React.FC<P>>(Component: T, changeAdapter: (e: any) => any) {
   return (props: Props & P) => {
@@ -34,13 +31,12 @@ export default function enhancer<P, T extends React.FC<P>>(Component: T, changeA
       hepler.setTouched(newVal !== initialValue);
     }, [initialValue, hepler, onChangeAdapter]);
 
-
     const id = useMemo(() => {
       return `enhancer-${primaryId++}`;
     }, []);
 
     return (
-      <Stack vertical spacing="extraTight">
+      <Stack vertical spacing='extraTight'>
         <Stack spacing={inline ? undefined : 'extraTight'}
           wrap={false}
           vertical={!inline}
@@ -53,7 +49,8 @@ export default function enhancer<P, T extends React.FC<P>>(Component: T, changeA
             </label>
           </Stack.Item>
           <Stack.Item fill={inline}>
-            <Component {...rest} id={id} name={name} value={field.value}
+            <Component {...rest} id={id}
+name={name} value={field.value}
               onChange={onChange}
             />
           </Stack.Item>

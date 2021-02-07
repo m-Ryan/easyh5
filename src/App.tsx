@@ -14,8 +14,8 @@ export default function App() {
       <Page>
         <BrowserRouter>
           <Switch>
-            <Route path="/" exact component={Home}></Route>
-            <Route path="/editor" component={Editor}></Route>
+            <Route path='/' exact component={Home} />
+            <Route path='/editor' component={Editor} />
           </Switch>
         </BrowserRouter>
       </Page>

@@ -10,7 +10,7 @@ export function ConfigurationPanel() {
   const block = value && findBlockByType(value.type);
 
   return (
-    <Card title='模板属性'>
+    <Card bodyStyle={{ padding: 0 }} title='模板属性'>
       <Stack vertical>{block && <block.Panel />}</Stack>
     </Card>
   );
