@@ -5,12 +5,17 @@ $max-page-size: 480px;
   box-sizing: border-box;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin: 0;
 }
 
 body {
-  color: rgba(0,0,0,.65);
+  color: rgba(0, 0, 0, 0.65);
   font-size: 14px;
 }
 
@@ -28,6 +33,6 @@ body {
 }
 
 .block-hover {
-    outline: 1px solid #3b97e3;
-    outline-offset: -1px;
-  }
+  outline: 1px solid #3b97e3;
+  outline-offset: -1px;
+}

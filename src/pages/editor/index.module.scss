@@ -21,8 +21,25 @@
       padding: 20px;
       background-color: #f5f5f5;
       display: flex;
-      align-items: center;
       justify-content: center;
     }
   }
+}
+
+.switchTab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.appWrap {
+  position: relative;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ececec;
+  background-color: #fff;
+  height: 677px;
+  width: 385px;
+  max-height: 80vh;
+  box-sizing: content-box;
 }

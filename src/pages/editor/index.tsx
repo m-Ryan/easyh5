@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import styles from './index.module.scss';
 import { Header } from '@/pages/editor/components/header';
 import { useDispatch } from 'react-redux';
@@ -10,9 +10,10 @@ import { ConfigurationPanel } from '@VisualEditor/components/ConfigurationPanel'
 import { ToolPanel } from '@VisualEditor/components/ToolPanel';
 import { Button, Radio } from 'antd';
 import { APP_EDITOR_CONTAINER_ID } from '@/constants';
-import { Editor as VisualEditor } from '@VisualEditor';
+import { Editor as VisualEditor, Renderer } from '@VisualEditor';
 
 export default function Editor() {
+  const [preview, setPreview] = useState(false);
   const dispatch = useDispatch();
 
   const templateData = useAppSelector('template');
@@ -57,19 +58,18 @@ export default function Editor() {
               >
                 <div className={styles.container}>
                   <div className={styles.switchTab}>
-                    <Radio.Group>
-                      <Radio.Button value={true}>编辑</Radio.Button>
-                      <Radio.Button value={false}>预览</Radio.Button>
+                    <Radio.Group
+                      value={preview}
+                      onChange={(e) => setPreview(e.target.value)}
+                    >
+                      <Radio.Button value={false}>编辑</Radio.Button>
+                      <Radio.Button value={true}>预览</Radio.Button>
                     </Radio.Group>
-
-                    <Button ghost type='primary'>
-                      保存
-                    </Button>
                   </div>
                   <div className={styles.appWrap}>
                     <div className={styles.appWrapBorder}>
                       <div id={APP_EDITOR_CONTAINER_ID} className={styles.app}>
-                        <VisualEditor />
+                        {preview ? <Renderer /> : <VisualEditor />}
                       </div>
                     </div>
                     {/* <SideBar /> */}

@@ -33,15 +33,21 @@ export const Editor = () => {
   );
 
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
-      <Droppable droppableId='droppable'>
-        {(provided) => (
-          <div ref={provided.innerRef} {...provided.droppableProps}>
-            <EditorItem idx={'content.[0]'} />
-            {provided.placeholder}
-          </div>
-        )}
-      </Droppable>
-    </DragDropContext>
+    <div id='VisualEditorEditMode'>
+      <DragDropContext onDragEnd={onDragEnd}>
+        <Droppable droppableId='droppable'>
+          {(provided) => (
+            <div
+              style={{ width: '100%' }}
+              ref={provided.innerRef}
+              {...provided.droppableProps}
+            >
+              <EditorItem idx={'content.[0]'} />
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
+      </DragDropContext>
+    </div>
   );
 };

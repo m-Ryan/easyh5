@@ -6,5 +6,9 @@ export interface EditorProps {
 }
 
 export function Renderer() {
-  return <RenderItem idx={'content.[0]'} />;
+  return (
+    <div id='VisualEditorRenderMode '>
+      <RenderItem idx={'content.[0]'} />
+    </div>
+  );
 }
