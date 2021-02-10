@@ -3,10 +3,12 @@
   width: 100%;
   overflow: hidden;
   .wrap {
-    height: calc(100vh - 60px);
+     height: calc(100vh - 60px);
     overflow: hidden;
     display: flex;
+    background-color: #f5f5f5;
     .leftMenu {
+      height: calc(100vh - 60px);
       width: 302px;
       background: #fff;
       font-size: 0;
@@ -15,34 +17,15 @@
     .rightMenu {
       width: 350px;
       background: #fff;
+      height: calc(100vh - 60px);
       border-right: 1px solid #e8e8e8;
       overflow: auto;
     }
-    .contentWrap {
-      flex: 1;
+    .content {
       padding: 20px;
-      background-color: #f5f5f5;
-      display: flex;
-      justify-content: center;
     }
   }
+
+
 }
 
-.switchTab {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.appWrap {
-  position: relative;
-  padding: 10px;
-  border-radius: 10px;
-  border: 1px solid #ececec;
-  background-color: #fff;
-  height: 677px;
-  width: 375px;
-  max-height: 80vh;
-  box-sizing: content-box;
-  overflow: hidden;
-}

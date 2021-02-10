@@ -13,6 +13,7 @@ import { APP_EDITOR_CONTAINER_ID } from '@/constants';
 import { Editor as VisualEditor, Renderer } from '@VisualEditor';
 import { useQuery } from '@/hooks/useQuery';
 import { useHistory } from 'react-router-dom';
+import { Stack } from '@/components/Stack';
 
 export default function Editor() {
   const [preview, setPreview] = useState(false);
@@ -61,46 +62,43 @@ export default function Editor() {
       enableReinitialize
       onSubmit={onSave}
     >
-      {({
-        handleSubmit,
-      }) => (
-        <div className={styles.container}>
-          <Header backUrl="/" title={templateData.title}
-            extra={(
-              <>
-                <Button type="primary" onClick={() => setPreview(p => !p)}> {preview ? '取消预览' : '预览'}</Button>
-                <Button loading={isSubmitting} type="primary" onClick={() => handleSubmit()}>保存</Button>
-              </>
-            )}
-          />
-          <div className={styles.wrap}>
-            <div className={styles.leftMenu}>
-              <ToolPanel />
-            </div>
-            <div className={styles.contentWrap}>
-              <div
-                className={styles.content}
-              >
-                <div className={styles.container}>
+      {
+        ({
+          handleSubmit,
+        }) => (
+          <div className={styles.container}>
+            <Header backUrl="/" title={templateData.title}
+              extra={(
+                <>
+                  <Button type="primary" onClick={() => setPreview(p => !p)}> {preview ? '取消预览' : '预览'}</Button>
+                  <Button loading={isSubmitting} type="primary" onClick={() => handleSubmit()}>保存</Button>
+                </>
+              )}
+            />
+            <div className={styles.wrap}>
+              <Stack.Item fill>
+                <Stack distribution="equalSpacing">
+                  <div className={styles.leftMenu}>
+                    <ToolPanel />
+                  </div>
+                  <Stack.Item fill>
 
-                  <div className={styles.appWrap}>
-                    <div className={styles.appWrapBorder}>
-                      <div id={APP_EDITOR_CONTAINER_ID} className={styles.app}>
+                    <Stack alignment="center" distribution="center">
+                      <div className={styles.content}>
                         {preview ? <Renderer /> : <VisualEditor />}
                       </div>
-                    </div>
-                    {/* <SideBar /> */}
-                    {/* <DialogBar /> */}
+                    </Stack>
+                  </Stack.Item>
+                  <div className={styles.rightMenu}>
+                    <ConfigurationPanel />
                   </div>
-                </div>
-              </div>
+                </Stack>
+              </Stack.Item>
             </div>
-            <div className={styles.rightMenu}>
-              <ConfigurationPanel />
-            </div>
+
           </div>
-        </div>
-      )}
+        )
+      }
     </Formik>
 
   );

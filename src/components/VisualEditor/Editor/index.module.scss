@@ -1,0 +1,13 @@
+.app {
+  position: relative;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ececec;
+  background-color: #fff;
+  max-height: 80vh;
+  box-sizing: content-box;
+
+  li {
+    list-style: none;
+  }
+}

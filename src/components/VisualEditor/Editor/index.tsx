@@ -2,6 +2,8 @@ import React, { useCallback } from 'react';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 import { useEditorContext } from '../hooks/useEditorContext';
 import { EditorItem } from './components/EditorItem';
+import { ToolBar } from './components/ToolBar';
+import styles from './index.module.scss';
 
 export const Editor = () => {
   const { moveByIdx } = useEditorContext();
@@ -33,7 +35,7 @@ export const Editor = () => {
   );
 
   return (
-    <div id='VisualEditorEditMode'>
+    <div id='VisualEditorEditMode' className={styles.app}>
       <DragDropContext onDragEnd={onDragEnd}>
         <Droppable droppableId='droppable'>
           {(provided) => (
@@ -48,6 +50,7 @@ export const Editor = () => {
           )}
         </Droppable>
       </DragDropContext>
+      <ToolBar />
     </div>
   );
 };
