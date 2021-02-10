@@ -1,16 +1,42 @@
 import React from 'react';
-import { Stack } from '@/components/Stack';
 import { WidthHeight } from '@VisualEditor/components/ConfigurationPanel/components/WidthHeight';
 import { Padding } from '@VisualEditor/components/ConfigurationPanel/components/Padding';
 import { Background } from '@VisualEditor/components/ConfigurationPanel/components/Background';
+import { Margin } from '@VisualEditor/components/ConfigurationPanel/components/Margin';
+import { Extra } from '@VisualEditor/components/ConfigurationPanel/components/Extra';
+import { CollapsePanels } from '@VisualEditor/components/CollapsePanels';
 
 export function Panel() {
 
   return (
-    <Stack vertical>
-      <WidthHeight />
-      <Padding />
-      <Background />
-    </Stack>
+    <CollapsePanels options={[
+      {
+        title: '宽高',
+        children: <WidthHeight />,
+        active: true
+      },
+      {
+        title: '边距',
+        children: (
+          <>
+            <Padding />
+            <Margin />
+          </>
+        ),
+        active: true,
+      },
+      {
+        title: '背景',
+        children: <Background />,
+        active: true,
+      },
+      {
+        title: '额外',
+        children: <Extra />,
+        active: true,
+      },
+    ]}
+    />
   );
+
 }

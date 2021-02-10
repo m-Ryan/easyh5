@@ -8,6 +8,7 @@ import { BlockType } from '@VisualEditor/constants';
 export type IText = INodeItem<string>;
 
 export const Text = {
+  name: '文本',
   type: BlockType.TEXT,
   Editor,
   Renderer,

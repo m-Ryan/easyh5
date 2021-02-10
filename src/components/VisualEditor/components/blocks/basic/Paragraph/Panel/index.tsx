@@ -1,26 +1,39 @@
 import React from 'react';
-import { Stack } from '@/components/Stack';
-import { useEditorContext } from '@VisualEditor/hooks/useEditorContext';
 import { Padding } from '@VisualEditor/components/ConfigurationPanel/components/Padding';
 import Font from '@VisualEditor/components/ConfigurationPanel/components/Font';
 import { Margin } from '@VisualEditor/components/ConfigurationPanel/components/Margin';
 import { Position } from '@VisualEditor/components/ConfigurationPanel/components/Position';
-import { Collapse } from 'antd';
-import { TextStyle } from '@/components/TextStyle';
-export function Panel() {
-  const { focusBlock } = useEditorContext();
+import { Extra } from '@VisualEditor/components/ConfigurationPanel/components/Extra';
+import { CollapsePanels } from '@VisualEditor/components/CollapsePanels';
 
-  if (!focusBlock) return null;
+export function Panel() {
 
   return (
-    <Collapse accordion>
-      <Collapse.Panel header={<TextStyle size={'large'}>外边距</TextStyle>} key='111' />
-      <Font />
-      <Padding />
-      <Margin />
-      <Position />
-
-    </Collapse>
-
+    <CollapsePanels options={[
+      {
+        title: '字体',
+        children: <Font />,
+        active: true
+      },
+      {
+        title: '边距',
+        children: (
+          <>
+            <Padding />
+            <Margin />
+          </>
+        )
+      },
+      {
+        title: '位置',
+        children: <Position />
+      },
+      {
+        title: '额外',
+        children: <Extra />
+      },
+    ]}
+    />
   );
+
 }

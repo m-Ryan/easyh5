@@ -8,6 +8,7 @@ import { BlockType } from '@VisualEditor/constants';
 export type IPage = INodeItem<null>;
 
 export const Page = {
+  name: '页面',
   type: BlockType.PAGE,
   Editor,
   Renderer,

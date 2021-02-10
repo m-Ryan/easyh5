@@ -47,6 +47,7 @@ export default function Moveable(props: MoveableProps) {
     style: {
       ...(children.props.style || {}),
       ...block.style,
+      cursor: 'grab'
     },
     className: isFocus ? 'block-selected' : undefined,
   });

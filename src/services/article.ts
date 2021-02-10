@@ -10,7 +10,7 @@ export const article = {
       }
     });
   },
-  async getArticleList(page: number, size: number, categoryId: number = 56): Promise<ListResponse<IArticle>> {
+  async getArticleList(page: number, size: number, categoryId: number = CATEGORY_ID): Promise<ListResponse<IArticle>> {
     return request.get<ListResponse<IArticle>>('/api/article/user/list', {
       params: {
         page,
@@ -19,22 +19,20 @@ export const article = {
       }
     });
   },
-  async addArticle(title: string, content: string, picture: string): Promise<IArticle> {
+  async addArticle(data: { title: string, content: string, picture: string; }): Promise<IArticle> {
     return request.post<IArticle>('/api/article/user/create-article', {
-      title,
-      content,
       summary: '这个人很懒，什么都没有写',
-      picture ,
+      ...data,
       category_id: CATEGORY_ID,
       tags: [74],
       secret: 0
     });
   },
-  async updateArticle(id: number, options: {title?: string, content?: string, picture?: string, summary?: string}): Promise<IArticle> {
+  async updateArticle(id: number, options: { title?: string, content?: string, picture?: string, summary?: string; }): Promise<IArticle> {
     return request.post<IArticle>('/api/article/user/update-article', {
+      ...options,
       article_id: id,
       tags: [74],
-      ...options
     });
   },
   async deleteArticle(id: number): Promise<string> {
@@ -60,7 +58,7 @@ export interface IArticle {
   article_id: number;
   writer_id: number;
   category_id: number;
-  tags: {tag_id: number}[]; // 由于懒得写接口，这个接口是拿之前的，其实不需要数组
+  tags: { tag_id: number; }[]; // 由于懒得写接口，这个接口是拿之前的，其实不需要数组
   picture: string;
   writer: IUser;
   title: string;

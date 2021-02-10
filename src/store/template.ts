@@ -1,16 +1,15 @@
 import { BlockType } from '@VisualEditor/constants';
-import { unZipStyle } from '@VisualEditor/style-tranform';
 import { INodeItem } from '@VisualEditor/typings';
 import { ASSET_DOMAIN } from '@/constants';
 import services from '@/services';
 import { article, IArticle } from '@/services/article';
-import { delay } from '@/util/delay';
 import { getImageFile } from '@/util/utils';
 import createSliceState from './common/createSliceState';
 
 export const TEMPLATE_FETCH_VY_ID = 'template/fetchByIdStatus';
 import mockData from './template.json';
-
+import { cloneDeep } from 'lodash';
+import { message } from 'antd';
 export interface ITemplate extends Omit<IArticle, 'content'> {
   content: INodeItem[];
   focusIdx: string;
@@ -24,19 +23,39 @@ export default createSliceState({
   },
   effects: {
     fetchById: async (state, id: number) => {
-      // const data = await article.getArticle(id);
-      // const content = unZipStyle(JSON.parse(data.content.content) as INodeItem[]);
-      // await tranformOutSitePicture(content);
-      // return { ...data, content, focusIdx: 'content.[0]' };
-      return mockData as any as ITemplate;
-    }
+      const data = await article.getArticle(id);
+      const content = JSON.parse(data.content.content) as INodeItem[];
+      await tranformOutSitePicture(content);
+      return { ...data, content, focusIdx: 'content.[0]' };
+    },
+    fetchDefaultTemplate: async (state) => {
+      return cloneDeep(mockData) as any as ITemplate;
+    },
+    create: async (state, payload: { template: ITemplate, success: (id: number) => void; }) => {
+      const data = await article.addArticle({ ...payload.template, content: JSON.stringify(payload.template.content) });
+      payload.success(data.article_id);
+      return { ...data, content: payload.template.content, focusIdx: payload.template.focusIdx };
+    },
+    updateById: async (state, payload: { id: number, template: ITemplate; success: () => void; }) => {
+      await article.updateArticle(payload.id, {
+        ...payload.template,
+        content: JSON.stringify(payload.template.content)
+      });
+      payload.success();
+      return { ...payload.template };
+    },
+    removeById: async (state, payload: { id: number; success: () => void; }) => {
+      await article.deleteArticle(payload.id);
+      payload.success();
+      message.success('删除成功');
+    },
   }
 });
 
 const tranformOutSitePicture = async (list: INodeItem[]) => {
   await Promise.all(list.map(async (item) => {
     const value = item.data.value;
-    if (item.type === BlockType.BITMAP) {
+    if (item.type === BlockType.IMAGE) {
       if (!value.startsWith(ASSET_DOMAIN)) {
         if (value.startsWith('data:image')) {
           item.data.value = await services.common.uploadByQiniu(await getImageFile(value));

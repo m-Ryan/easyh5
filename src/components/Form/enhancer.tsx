@@ -12,13 +12,14 @@ interface Props {
   distribution?: StackProps['distribution'];
   helpText?: React.ReactNode;
   inline?: boolean;
+  valueAdapter?: (value: any) => any;
   onChangeAdapter?: (value: any) => any;
 }
 
 let primaryId = 0;
-export default function enhancer<P, T extends React.FC<P>>(Component: T, changeAdapter: (e: any) => any) {
+export default function enhancer<P, T extends React.FC<P>>(Component: T, changeAdapter: (e: any) => any,) {
   return (props: Props & P) => {
-    const { name, onChangeAdapter, inline, label, lableHidden, helpText, alignment, distribution, ...rest } = props;
+    const { name, onChangeAdapter, valueAdapter, inline, label, lableHidden, helpText, alignment, distribution, ...rest } = props;
     const [field, meta, hepler] = useField(name);
     const initialValue = meta.initialValue;
 
@@ -40,17 +41,20 @@ export default function enhancer<P, T extends React.FC<P>>(Component: T, changeA
         <Stack spacing={inline ? undefined : 'extraTight'}
           wrap={false}
           vertical={!inline}
-          alignment={alignment}
+          alignment={alignment ? alignment : (inline ? 'center' : undefined)}
           distribution={distribution}
         >
           <Stack.Item>
             <label className={lableHidden ? styles['label-hidden'] : undefined} htmlFor={id}>
-              <span style={{ fontSize: 16 }}>{label}</span>
+              <span style={{ fontSize: 14 }}>{label}</span>
             </label>
           </Stack.Item>
           <Stack.Item fill={inline}>
-            <Component {...rest} id={id}
-name={name} value={field.value}
+            <Component
+              {...rest}
+              id={id}
+              name={name}
+              value={valueAdapter ? valueAdapter(field.value) : field.value}
               onChange={onChange}
             />
           </Stack.Item>

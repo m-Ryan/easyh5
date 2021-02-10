@@ -2,7 +2,6 @@ import React, { useMemo } from 'react';
 import { TextField } from '@/components/Form';
 import { Stack } from '@/components/Stack';
 import { useEditorContext } from '@VisualEditor/hooks/useEditorContext';
-import { InputNumberAdapter } from '@VisualEditor/utils/InputNumberAdapter';
 
 export function WidthHeight() {
   const { focusIdx } = useEditorContext();
@@ -15,7 +14,6 @@ export function WidthHeight() {
             label='宽'
             name={`${focusIdx}.style.width`}
             inline
-            onChangeAdapter={InputNumberAdapter}
           />
         </Stack.Item>
         <Stack.Item fill>
@@ -23,7 +21,6 @@ export function WidthHeight() {
             label='高'
             name={`${focusIdx}.style.height`}
             inline
-            onChangeAdapter={InputNumberAdapter}
           />
         </Stack.Item>
       </Stack>

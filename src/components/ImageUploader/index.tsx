@@ -12,7 +12,7 @@ const ERROR_ICON = 'http://assets.maocanhua.cn/FvIaPNdMk32QDYBmaVJF1S6Q0MAW';
 const LOADING_ICON = 'http://assets.maocanhua.cn/Fi_vI4vyLhTM-Tp6ivq4dR_ieGHk';
 
 export interface ImageUploaderProps {
-  urls?: string | string[];
+  value?: string | string[];
   count?: number;
   onChange?: (url: string[]) => void;
 }
@@ -23,6 +23,7 @@ function ImageUploader({
 }: ImageUploaderProps) {
   const [isUploading, setIsUploading] = useState(false);
   const { values, setValues, touched } = useFormikContext<UploadItem[]>();
+
   const ref = useRef<string[]>([]);
 
   useEffect(() => {
@@ -86,6 +87,7 @@ function ImageUploader({
             if (pastePicture.idx === item.idx) {
               return {
                 ...item,
+                url,
                 status: 'done'
               };
             }
@@ -192,5 +194,8 @@ function ImageUploaderItem(props: ImageUploaderItemProps) {
 
 export default withFormik<ImageUploaderProps, UploadItem[]>({
   handleSubmit: () => { },
-  mapPropsToValues: (props) => (Array.isArray(props.urls) ? props.urls : []).map(item => ({ url: item, status: 'done', idx: '' }))
+  mapPropsToValues: (props) => {
+    const value = props.value ? Array.isArray(props.value) ? props.value : [props.value] : [];
+    return value.map(item => ({ url: item, status: 'done', idx: '' }));
+  }
 })(ImageUploader);

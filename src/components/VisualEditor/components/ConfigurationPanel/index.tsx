@@ -1,4 +1,5 @@
 import { Stack } from '@/components/Stack';
+import { TextStyle } from '@/components/TextStyle';
 import { Card } from 'antd';
 import React from 'react';
 import { useEditorContext } from '../../hooks/useEditorContext';
@@ -9,9 +10,14 @@ export function ConfigurationPanel() {
   const value = getValueByIdx(focusIdx);
   const block = value && findBlockByType(value.type);
 
+  if (!block) return null;
+
   return (
-    <Card bodyStyle={{ padding: 0 }} title='模板属性'>
-      <Stack vertical>{block && <block.Panel />}</Stack>
+    <Card
+      bodyStyle={{ padding: 0, backgroundColor: '#fff' }}
+      title={<TextStyle variation="strong" size="large">{block.name}属性</TextStyle>}
+    >
+      <Stack vertical>{<block.Panel />}</Stack>
     </Card>
   );
 }

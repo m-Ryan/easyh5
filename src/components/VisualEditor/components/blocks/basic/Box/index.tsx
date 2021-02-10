@@ -8,6 +8,7 @@ import { BlockType } from '@VisualEditor/constants';
 export type IBox = INodeItem<null>;
 
 export const Box = {
+  name: '容器',
   type: BlockType.BOX,
   Editor,
   Renderer,

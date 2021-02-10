@@ -8,6 +8,7 @@ import { BlockType } from '@VisualEditor/constants';
 export type ISection = INodeItem<null>;
 
 export const Section = {
+  name: '编组',
   type: BlockType.SECTION,
   Editor,
   Renderer,

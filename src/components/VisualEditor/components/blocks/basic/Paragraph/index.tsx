@@ -8,6 +8,7 @@ import { BlockType } from '@VisualEditor/constants';
 export type IParagraph = INodeItem<string>;
 
 export const Paragraph = {
+  name: '文本段落',
   type: BlockType.PARAGRAPH,
   Editor,
   Renderer,

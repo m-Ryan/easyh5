@@ -8,7 +8,7 @@ export const createInstance: CreateInstance<IText> = (payload = {}) => {
     {
       type: BlockType.TEXT,
       data: {
-        value: '纯文本',
+        value: '可视化编辑器是MediaWiki扩展程序',
       },
       style: {
         width: '100%',
@@ -17,6 +17,7 @@ export const createInstance: CreateInstance<IText> = (payload = {}) => {
         fontFamily: 'inherit',
         fontWeight: 'inherit',
         fontStyle: 'inherit',
+        display: 'inline',
         fontSize: 14,
         left: 0,
         top: 0,

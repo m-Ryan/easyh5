@@ -20,9 +20,9 @@ export const ToolPanel = function () {
               icon={<GroupOutlined />}
             />
             <BlockIcon
-              text="文本"
-              type={BlockType.TEXT}
-              icon={<FontSizeOutlined />}
+              text="容器"
+              type={BlockType.BOX}
+              icon={<LayoutOutlined />}
             />
             <BlockIcon
               text="文段"
@@ -30,14 +30,14 @@ export const ToolPanel = function () {
               icon={<SnippetsOutlined />}
             />
             <BlockIcon
+              text="文本"
+              type={BlockType.TEXT}
+              icon={<FontSizeOutlined />}
+            />
+            <BlockIcon
               text="图片"
               type={BlockType.IMAGE}
               icon={<PictureOutlined />}
-            />
-            <BlockIcon
-              text="图形"
-              type={BlockType.BOX}
-              icon={<LayoutOutlined />}
             />
           </div>
         </Panel>

@@ -6,7 +6,7 @@ import Home from '@/pages/home';
 import store from '@/store';
 import 'antd/dist/antd.css';
 import '@/styles/common.scss';
-import Editor from './pages/editor';
+import Editor from '@/pages/editor';
 
 export default function App() {
   return (

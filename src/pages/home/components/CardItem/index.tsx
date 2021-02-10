@@ -1,11 +1,15 @@
 import { Picture } from '@/components/Picture';
 import { IArticle } from '@/services/article';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { CopyOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
 import styles from './index.module.scss';
 import { QrCode } from '@/components/qrcode';
 import { Popconfirm } from 'antd';
+import { Link } from 'react-router-dom';
+import template from '@/store/template';
+import { useDispatch } from 'react-redux';
+import templateList from '@/store/templateList';
 
 interface CardItemProps {
   data: IArticle;
@@ -13,6 +17,16 @@ interface CardItemProps {
 
 export function CardItem(props: CardItemProps) {
   const { data } = props;
+  const dispatch = useDispatch();
+
+  const onDelete = useCallback(() => {
+    dispatch(template.actions.removeById({
+      id: data.article_id, success() {
+        dispatch(templateList.actions.fetch(undefined));
+      }
+    }));
+  }, [data, dispatch]);
+
   return (
     <div key={data.article_id} className={styles.templeteItem}>
       <Picture className={styles.previewImg} src={data.picture} />
@@ -24,7 +38,7 @@ export function CardItem(props: CardItemProps) {
         <div className={styles.qrcode}><QrCode url={`/preview?id=${data.article_id}`} logo={'http://assets.maocanhua.cn/FuPYsNk512cqHpUPqGCLdJMflZEz'} /></div>
         <div className={styles.listBottom}>
           <div className={styles.listItem}>
-            <EditOutlined />&nbsp;编辑
+            <Link to={`/editor?id=${data.article_id}`}><EditOutlined />&nbsp;编辑</Link>
           </div>
           <div className={styles.listItem}>
             <CopyOutlined />&nbsp;复制
@@ -33,7 +47,7 @@ export function CardItem(props: CardItemProps) {
           <div className={styles.listItem}>
             <Popconfirm
               title="您确定要删除吗?"
-              // onConfirm={() => onConfirm(data.article_id)}
+              onConfirm={onDelete}
               okText="确定"
               cancelText="取消"
             >

@@ -4,8 +4,8 @@ import { Stack } from '@/components/Stack';
 import { useEditorContext } from '@VisualEditor/hooks/useEditorContext';
 import { TextStyle } from '@/components/TextStyle';
 
-const onChangeAdapter = (url: string) => {
-  return url ? `url(${url})` : undefined;
+const onChangeAdapter = (url: string[]) => {
+  return url ? `url(${url[0]})` : undefined;
 };
 
 export function Background() {
@@ -27,6 +27,7 @@ export function Background() {
           label='背景图'
           name={`${focusIdx}.style.backgroundImage`}
           inline
+          valueAdapter={((text: string) => text?.replace(/url\((.*)?\)/, '$1'))}
           onChangeAdapter={onChangeAdapter}
         />
       </Stack>

@@ -1,17 +1,7 @@
 {
-  "article_id": 420,
-  "title": "草稿",
+  "title": "新建模板",
   "summary": "这个人很懒，什么都没有写",
   "picture": "http://assets.maocanhua.cn/FoUhk-Y2Km0_p_8tY75DcRJVIRee",
-  "category_id": 56,
-  "origin_source": "",
-  "readcount": 223,
-  "user_id": 77,
-  "secret": 0,
-  "level": 10,
-  "created_at": 1611478259,
-  "updated_at": 1611478259,
-  "deleted_at": 0,
   "content": [
     {
       "type": "page",
@@ -52,18 +42,6 @@
           "children": []
         }
       ]
-    }
-  ],
-  "tags": [
-    {
-      "tag_id": 74,
-      "name": "券包",
-      "picture": "http://assets.maocanhua.cn/Fqpjw0PHvSPy4sh0giFmkpuxgKhU",
-      "desc": "券包",
-      "created_at": 1576227276,
-      "user_id": 77,
-      "updated_at": 0,
-      "deleted_at": 0
     }
   ],
   "focusIdx": "content.[0]"

@@ -8,6 +8,7 @@ import { BlockType } from '@VisualEditor/constants';
 export type IImage = INodeItem<string>;
 
 export const Image = {
+  name: '图片',
   type: BlockType.IMAGE,
   Editor,
   Renderer,
