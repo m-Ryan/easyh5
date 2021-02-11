@@ -15,9 +15,19 @@ export function ConfigurationPanel() {
   return (
     <Card
       bodyStyle={{ padding: 0, backgroundColor: '#fff' }}
-      title={<TextStyle variation="strong" size="large">{block.name}属性</TextStyle>}
+      title={(
+        <TextStyle variation='strong' size='large'>
+          {block.name}属性
+        </TextStyle>
+      )}
     >
-      <Stack vertical>{<block.Panel />}</Stack>
+      <Stack vertical>
+        {<block.Panel />}
+        <Stack.Item />
+        <Stack.Item />
+        <Stack.Item />
+        <Stack.Item />
+      </Stack>
     </Card>
   );
 }

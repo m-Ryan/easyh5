@@ -8,7 +8,9 @@ export const createInstance: CreateInstance<IPage> = (payload) => {
     {
       type: BlockType.PAGE,
       data: {
-        value: null,
+        value: {
+          title: '页面一',
+        },
       },
       style: {
         width: '100%',

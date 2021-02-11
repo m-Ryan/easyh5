@@ -5,7 +5,7 @@ import { createInstance } from './createInstance';
 import { INodeItem } from '@VisualEditor/typings';
 import { BlockType } from '@VisualEditor/constants';
 
-export type IPage = INodeItem<null>;
+export type IPage = INodeItem<{ title: string }>;
 
 export const Page = {
   name: '页面',
