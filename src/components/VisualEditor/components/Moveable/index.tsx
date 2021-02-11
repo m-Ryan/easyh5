@@ -1,6 +1,7 @@
 import React, { useCallback, useMemo, useEffect, ReactElement } from 'react';
 import { onDrag } from '@/util/onDrag';
 import { useEditorContext } from '../../hooks/useEditorContext';
+import { useBlockFocus } from '@VisualEditor/hooks/useBlockFocus';
 
 interface MoveableProps {
   children: React.ReactElement;
@@ -14,6 +15,7 @@ export default function Moveable(props: MoveableProps) {
     getValueByIdx,
     setValueByIdx,
   } = useEditorContext();
+  useBlockFocus(idx);
   const block = getValueByIdx(idx)!;
   const isFocus = focusIdx === idx;
 
@@ -24,24 +26,16 @@ export default function Moveable(props: MoveableProps) {
     onDrag({
       event,
       onMove(diffX, diffY) {
-        block.style.left = newStyle.left + diffX;
-        block.style.top = newStyle.top + diffY;
+        block.style.left = Number(newStyle.left) + diffX;
+        block.style.top = Number(newStyle.top) + diffY;
         setValueByIdx(idx, block);
       },
     });
   };
 
-  const stopPropagation = (
-    event: React.MouseEvent<HTMLDivElement, MouseEvent>
-  ) => {
-    event.stopPropagation();
-  };
-
   return React.createElement(children.type, {
     ...children.props,
     onMouseDown,
-    onMouseOver: stopPropagation,
-    onClick: stopPropagation,
     ['data-node-type']: block.type,
     ['data-node-idx']: idx,
     style: {

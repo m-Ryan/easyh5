@@ -33,7 +33,7 @@ export function BlockIcon(props: BlockIconProps) {
 
   useEffect(() => {
     if (!draging) return;
-    const ele = document.getElementById('app-editor-container');
+    const ele = document.getElementById('VisualEditorEditMode');
     if (!ele) {
       return;
     }

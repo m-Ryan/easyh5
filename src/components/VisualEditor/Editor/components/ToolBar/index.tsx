@@ -7,24 +7,26 @@ import React, {
 } from 'react';
 import styles from './index.module.scss';
 
-import { Radio, Button, message, Tooltip, Popconfirm } from 'antd';
-import { UpOutlined, DownOutlined, UpSquareOutlined, DownSquareOutlined, CopyOutlined, CloseOutlined } from '@ant-design/icons';
-import _, { cloneDeep } from 'lodash';
+import { Tooltip, Popconfirm } from 'antd';
+import { UpOutlined, DownOutlined, UpSquareOutlined, DownSquareOutlined, CopyOutlined, CloseOutlined, BorderOuterOutlined } from '@ant-design/icons';
 import { useEditorContext } from '@VisualEditor/hooks/useEditorContext';
+import { Stack } from '@/components/Stack';
 
 type SideBarItem = {
   icon: React.ReactNode;
   title: string;
   method: () => void;
   confirm?: boolean;
+  toolTip?: React.ReactNode;
 };
 
 export const ToolBar = () => {
 
   const { moveByIdx, getSiblingIdx, focusBlock, copyBlock, removeBlock, focusIdx, setFocusIdx, getParentIdx, isExistBlock } = useEditorContext();
 
-  const sidebarList = useMemo((): SideBarItem[] => {
-
+  const sidebarList = useMemo(() => {
+    if (!focusBlock) return [];
+    const hasChildren = focusBlock.children.length > 0;
     return [
       {
         icon: <UpOutlined />,
@@ -51,16 +53,18 @@ export const ToolBar = () => {
 
         }
       },
-      {
+      hasChildren && {
         icon: <DownSquareOutlined />,
         title: '选中子级',
-        method() {
-          const idx = `${focusIdx}.children.[0]`;
-          const childBlock = isExistBlock(idx);
-          if (childBlock) {
-            setFocusIdx(idx);
+        toolTip: (
+          <Stack>            {
+            focusBlock.children.map((item, index) => {
+              return <Tooltip key={index} placement="topLeft" title={`选中子节点 ${index + 1}`}><BorderOuterOutlined onClick={() => setFocusIdx(`${focusIdx}.children.[${index}]`)} /></Tooltip>;
+            })
           }
-        }
+          </Stack>
+        ),
+        method() { }
       },
       {
         icon: <CopyOutlined />,
@@ -77,8 +81,8 @@ export const ToolBar = () => {
           removeBlock(focusIdx);
         }
       }
-    ];
-  }, [copyBlock, focusIdx, getParentIdx, getSiblingIdx, isExistBlock, moveByIdx, removeBlock, setFocusIdx]);
+    ].filter(item => !!item) as SideBarItem[];
+  }, [copyBlock, focusBlock, focusIdx, getParentIdx, getSiblingIdx, moveByIdx, removeBlock, setFocusIdx]);
 
   return useMemo(() => {
     return (
@@ -88,7 +92,7 @@ export const ToolBar = () => {
           sidebarList.map(item => {
             return (
               <li key={item.title} className={styles.barItem}>
-                <Tooltip placement="right" title={item.title}>
+                <Tooltip placement="right" title={item.toolTip || item.title}>
                   {
                     item.confirm
                       ? (

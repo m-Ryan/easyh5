@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 import { useEditorContext } from '../hooks/useEditorContext';
 import { EditorItem } from './components/EditorItem';
@@ -6,7 +6,7 @@ import { ToolBar } from './components/ToolBar';
 import styles from './index.module.scss';
 
 export const Editor = () => {
-  const { moveByIdx } = useEditorContext();
+  const { moveByIdx, setFocusIdx } = useEditorContext();
 
   const onDragEnd = useCallback(
     (result: DropResult) => {

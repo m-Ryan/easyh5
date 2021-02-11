@@ -1,3 +1,4 @@
+import { useBlockFocus } from '@VisualEditor/hooks/useBlockFocus';
 import React, { useEffect, useRef } from 'react';
 import { Draggable as ReactDraggable } from 'react-beautiful-dnd';
 import { useEditorContext } from '../../hooks/useEditorContext';
@@ -10,39 +11,8 @@ export interface DraggableProps {
 export default function Draggable(props: DraggableProps) {
   const { idx, children, data } = props;
   const id = Number(props.idx.match(/\.\[(\d+)\]$/)?.[1]);
-  const { focusIdx, setFocusIdx } = useEditorContext();
-
-  const onClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    event.stopPropagation();
-    const ele = document.querySelector(
-      `[data-node-idx="${idx}"]`
-    ) as HTMLDivElement;
-    if (ele) {
-      setFocusIdx(idx);
-    }
-  };
-
-  useEffect(() => {
-    const ele = document.querySelector(
-      `[data-node-idx="${idx}"]`
-    ) as HTMLDivElement;
-    if (!ele) return;
-    if (idx !== focusIdx) {
-      ele.classList.remove('block-selected');
-    } else {
-      ele.classList.add('block-selected');
-    }
-  }, [focusIdx, idx]);
-
-  const onMouseOver = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    const target = event.target as HTMLElement;
-    target.classList.add('block-hover');
-  };
-
-  const onMouseOut = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    const target = event.target as HTMLElement;
-    target.classList.remove('block-hover');
-  };
+  const { focusIdx } = useEditorContext();
+  useBlockFocus(idx);
 
   return (
     <ReactDraggable
@@ -56,9 +26,6 @@ export default function Draggable(props: DraggableProps) {
           ref={draggableProvided.innerRef}
           {...draggableProvided.draggableProps}
           {...draggableProvided.dragHandleProps}
-          onClick={onClick}
-          onMouseOver={onMouseOver}
-          onMouseOut={onMouseOut}
         >
           {React.createElement(children.type, {
             ...children.props,
