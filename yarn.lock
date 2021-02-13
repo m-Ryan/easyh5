@@ -1262,6 +1262,11 @@
   dependencies:
     source-map "^0.6.1"
 
+"@types/uuid@^8.3.0":
+  version "8.3.0"
+  resolved "https://registry.npm.taobao.org/@types/uuid/download/@types/uuid-8.3.0.tgz#215c231dff736d5ba92410e6d602050cce7e273f"
+  integrity sha1-IVwjHf9zbVupJBDm1gIFDM5+Jz8=
+
 "@types/webpack-dev-server@^3.11.1":
   version "3.11.1"
   resolved "https://registry.npm.taobao.org/@types/webpack-dev-server/download/@types/webpack-dev-server-3.11.1.tgz#f8f4dac1da226d530bd15a1d5dc34b23ba766ccb"

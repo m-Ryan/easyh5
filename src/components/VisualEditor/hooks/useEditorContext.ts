@@ -30,13 +30,21 @@ export function useEditorContext() {
   };
 
   const addBlock = (type: BlockType, parentIdx: string) => {
-    const parent = get(values, parentIdx) as INodeItem | null;
+    let parent = get(values, parentIdx) as INodeItem | null;
+    const child = createItem(type);
+    if (type === BlockType.DIALOG) {
+      parentIdx = 'content.[0]';
+      parent = get(values, parentIdx);
+      set(values, 'dialogUid', child.data.value.uid);
+    }
     if (!parent) {
       throw new Error('无效节点');
     }
 
-    const child = createItem(type);
-    parent.children.push(child);
+    if (parent.type === BlockType.TEXT) return;
+
+    parent.children = [...parent.children, child];
+    set(values, parentIdx, { ...parent });
     values.focusIdx = `${parentIdx}.children.[${parent.children.length - 1}]`;
     setValues(values);
   };

@@ -5,6 +5,7 @@ import { Image } from './basic/Image';
 import { Section } from './basic/Section';
 import { Page } from './basic/Page';
 import { Paragraph } from './basic/Paragraph';
+import { Dialog } from './basic/Dialog';
 
 export const BlocksMap = {
   Text,
@@ -12,5 +13,6 @@ export const BlocksMap = {
   Image,
   Box,
   Section,
-  Page
+  Page,
+  Dialog
 };

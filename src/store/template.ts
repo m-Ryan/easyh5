@@ -14,6 +14,7 @@ import { history } from '@/util/history';
 export interface ITemplate extends Omit<IArticle, 'content'> {
   content: INodeItem[];
   focusIdx: string;
+  dialogUid: string;
   variableMap: { [key: string]: any; };
   actionMap: { [key: string]: any; };
 }
@@ -30,7 +31,7 @@ export default createSliceState({
         const data = await article.getArticle(id);
         const content = JSON.parse(data.content.content) as INodeItem[];
         await tranformOutSitePicture(content);
-        return { ...data, content, focusIdx: 'content.[0]', variableMap: {}, actionMap: {} };
+        return { ...data, content, focusIdx: 'content.[0]', variableMap: {}, actionMap: {}, dialogUid: '' };
       } catch (error) {
         history.replace('/');
         throw error;

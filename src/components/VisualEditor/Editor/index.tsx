@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect } from 'react';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 import { useEditorContext } from '../hooks/useEditorContext';
+import { DialogBar } from './components/DialogBar';
 import { EditorItem } from './components/EditorItem';
 import { ToolBar } from './components/ToolBar';
 import styles from './index.module.scss';
@@ -50,6 +51,7 @@ export const Editor = () => {
           )}
         </Droppable>
       </DragDropContext>
+      <DialogBar />
       <ToolBar />
     </div>
   );

@@ -39,6 +39,11 @@ export const ToolPanel = function () {
               type={BlockType.IMAGE}
               icon={<PictureOutlined />}
             />
+            <BlockIcon
+              text="弹窗"
+              type={BlockType.DIALOG}
+              icon={<PictureOutlined />}
+            />
           </div>
         </Panel>
 

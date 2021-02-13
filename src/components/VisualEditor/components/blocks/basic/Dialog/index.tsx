@@ -5,11 +5,15 @@ import { createInstance } from './createInstance';
 import { INodeItem } from '@VisualEditor/typings';
 import { BlockType } from '@VisualEditor/constants';
 
-export type IPage = INodeItem<{ title: string; dialogs: INodeItem[]; }>;
+export type IDialog = INodeItem<{
+  uid: string;
+  name: string;
 
-export const Page = {
-  name: '页面',
-  type: BlockType.PAGE,
+}>;
+
+export const Dialog = {
+  name: '弹窗',
+  type: BlockType.DIALOG,
   Editor,
   Renderer,
   Panel,

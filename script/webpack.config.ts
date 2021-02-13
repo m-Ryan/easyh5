@@ -8,7 +8,7 @@ const isProduct = process.env.NODE_ENV === 'production';
 export function getBasicConfiguration(config: Partial<webpack.Configuration>) {
 
   const defaultConfig: webpack.Configuration = {
-    mode: isProduct ? 'production' : "development",
+    mode: isProduct ? 'production' : 'development',
     devtool: 'inline-source-map',
     entry: './src/index.tsx',
     output: {
