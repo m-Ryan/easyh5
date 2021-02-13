@@ -10,9 +10,12 @@ export const TEMPLATE_FETCH_VY_ID = 'template/fetchByIdStatus';
 import mockData from './template.json';
 import { cloneDeep } from 'lodash';
 import { message } from 'antd';
+import { history } from '@/util/history';
 export interface ITemplate extends Omit<IArticle, 'content'> {
   content: INodeItem[];
   focusIdx: string;
+  variableMap: { [key: string]: any; };
+  actionMap: { [key: string]: any; };
 }
 
 export default createSliceState({
@@ -23,10 +26,15 @@ export default createSliceState({
   },
   effects: {
     fetchById: async (state, id: number) => {
-      const data = await article.getArticle(id);
-      const content = JSON.parse(data.content.content) as INodeItem[];
-      await tranformOutSitePicture(content);
-      return { ...data, content, focusIdx: 'content.[0]' };
+      try {
+        const data = await article.getArticle(id);
+        const content = JSON.parse(data.content.content) as INodeItem[];
+        await tranformOutSitePicture(content);
+        return { ...data, content, focusIdx: 'content.[0]', variableMap: {}, actionMap: {} };
+      } catch (error) {
+        history.replace('/');
+        throw error;
+      }
     },
     fetchDefaultTemplate: async (state) => {
       return cloneDeep(mockData) as any as ITemplate;
@@ -34,7 +42,7 @@ export default createSliceState({
     create: async (state, payload: { template: ITemplate, success: (id: number) => void; }) => {
       const data = await article.addArticle({ ...payload.template, content: JSON.stringify(payload.template.content) });
       payload.success(data.article_id);
-      return { ...data, content: payload.template.content, focusIdx: payload.template.focusIdx };
+      return { ...data, ...payload.template };
     },
     updateById: async (state, payload: { id: number, template: ITemplate; success: () => void; }) => {
       await article.updateArticle(payload.id, {

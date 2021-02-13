@@ -1,3 +1,4 @@
+import { useRendererContext } from '@VisualEditor/hooks/useRendererContext';
 import React from 'react';
 import { RenderItem } from './components/RenderItem';
 
@@ -6,6 +7,7 @@ export interface EditorProps {
 }
 
 export function Renderer() {
+
   return (
     <div id='VisualEditorRenderMode '>
       <RenderItem idx={'content.[0]'} />

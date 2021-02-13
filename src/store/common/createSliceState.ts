@@ -2,9 +2,8 @@ import { createSlice, ValidateSliceCaseReducers, AsyncThunk, SliceCaseReducers, 
 import toast from './toast';
 import loading from './loading';
 
-
 export type SliceCaseEffects<State> = {
-  [K: string]: (state: State, payload?: any) => Promise<State | void | Draft<State>>
+  [K: string]: (state: State, payload?: any) => Promise<State | void | Draft<State>>;
 };
 
 export interface CreateSliceOptionsExt<
@@ -12,10 +11,9 @@ export interface CreateSliceOptionsExt<
   CaseReducers extends SliceCaseReducers<State> = SliceCaseReducers<State>,
   CaseEffects = SliceCaseEffects<State>
   > extends CreateSliceOptions<State, any, any> {
-  effects: CaseEffects
+  effects: CaseEffects;
   reducers: ValidateSliceCaseReducers<State, CaseReducers>;
 }
-
 
 export default function createSliceState<State,
   CaseReducers extends SliceCaseReducers<State> = SliceCaseReducers<State>,
@@ -23,8 +21,8 @@ export default function createSliceState<State,
   Name extends string = string>
   (options: CreateSliceOptionsExt<State, CaseReducers, CaseEffects>):
   Slice<State, CaseReducers, Name> & {
-    actions: { [K in keyof CaseEffects]: (payload: Parameters<CaseEffects[K]>[1]) => void }
-    loadings: { [K in keyof CaseEffects]: string }
+    actions: { [K in keyof CaseEffects]: (payload: Parameters<CaseEffects[K]>[1]) => void };
+    loadings: { [K in keyof CaseEffects]: string };
   } {
 
   const effects: Partial<{ [K in keyof CaseEffects]: AsyncThunk<any, any, any> }> = {};
@@ -41,7 +39,7 @@ export default function createSliceState<State,
         } catch (error) {
           store.dispatch(toast.actions.add({
             message: error.message || error,
-            duration: 1500,
+            duration: 1.5,
             type: 'error'
           }));
         }
@@ -50,7 +48,7 @@ export default function createSliceState<State,
         }
       });
       effects[prefix] = asyncThunk;
-    })
+    });
   }
 
   const modal = createSlice({
@@ -59,11 +57,10 @@ export default function createSliceState<State,
       Object.keys(effects).forEach(prefix => {
         builder.addCase(effects[prefix]!.fulfilled, (state, action) => {
           return action.payload;
-        })
-      })
+        });
+      });
     }
   });
-
 
   Object.assign(modal.actions, effects);
   Object.assign(modal, { loadings });

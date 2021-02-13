@@ -6,7 +6,10 @@
   background-color: #fff;
   max-height: 80vh;
   box-sizing: content-box;
-
+  overflow: auto;
+  &::-webkit-scrollbar {
+    width: 0px;
+  }
   li {
     list-style: none;
   }

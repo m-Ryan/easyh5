@@ -2,8 +2,7 @@ import React from 'react';
 import { INodeItem } from '@VisualEditor/typings';
 import { ISection } from '..';
 import { useField } from 'formik';
-import { EditorItem } from '@VisualEditor/Editor/components/EditorItem';
-import Draggable from '@VisualEditor/components/Draggable';
+import { RenderItem } from '@VisualEditor/Renderer/components/RenderItem';
 
 type IProps = {
   idx: string;
@@ -15,7 +14,7 @@ export function Renderer(props: IProps) {
     <div style={field.value.style}>
       {field.value.children.map((_, index) => {
         const childIndex = `${props.idx}.children.[${index}]`;
-        return <EditorItem key={childIndex} idx={childIndex} />;
+        return <RenderItem key={childIndex} idx={childIndex} />;
       })}
     </div>
   );

@@ -6,7 +6,7 @@ import React from 'react';
 export interface SelectProps extends AntdSelectProps<string> {
   options: Array<{ value: string; label: React.ReactNode; }>;
   onChange?: (val: string) => void;
-  value?: string;
+  value: string;
 }
 
 export function Select(props: SelectProps) {

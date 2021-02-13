@@ -1,7 +1,6 @@
 import React from 'react';
 import { INodeItem } from '@VisualEditor/typings';
 import { useField } from 'formik';
-import Moveable from '@VisualEditor/components/Moveable';
 
 type IProps = {
   idx: string;

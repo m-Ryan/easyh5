@@ -7,6 +7,7 @@ import { Select, SelectProps } from './Select';
 import { RadioGroup, RadioGroupProps } from './RadioGroup';
 import enhancer from './enhancer';
 import { RadioChangeEvent } from 'antd/lib/radio';
+import { TreeSelect, TreeSelectProps } from './TreeSelect';
 
 export const TextField = enhancer<InputProps, any>(Input, (e: React.ChangeEvent<HTMLInputElement>) => e.target.value);
 
@@ -21,4 +22,6 @@ export const ImageUploaderField = enhancer<ImageUploaderProps, any>(ImageUploade
 export const SelectField = enhancer<SelectProps, any>(Select, (e: string) => e);
 
 export const RadioGroupField = enhancer<RadioGroupProps, any>(RadioGroup, (e: RadioChangeEvent) => e.target.value);
+
+export const TreeSelectField = enhancer<TreeSelectProps, any>(TreeSelect, (e: string) => e);
 

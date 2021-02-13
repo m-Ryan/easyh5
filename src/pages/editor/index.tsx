@@ -20,6 +20,7 @@ export default function Editor() {
   const dispatch = useDispatch();
   const history = useHistory();
   const templateData = useAppSelector('template');
+
   const { id } = useQuery();
   const loading = useLoading(template.loadings.fetchById);
   const isSubmitting = useLoading([template.loadings.create, template.loadings.updateById]);
