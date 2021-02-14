@@ -65,7 +65,11 @@ export function getBasicConfiguration(config: Partial<webpack.Configuration>) {
             },
             {
               test: /\.module\.(scss|sass)$/,
-              use: getLoader({ modules: true })
+              use: getLoader({
+                modules: {
+                  localIdentName: process.env.NODE_ENV === 'development' ? '[path][name]__[local]' : '[local]--[hash:base64:5]'
+                }
+              })
             },
             {
               test: /\.(scss|css)$/,
@@ -93,13 +97,13 @@ export function getBasicConfiguration(config: Partial<webpack.Configuration>) {
 }
 
 
-function getLoader(options: { modules?: boolean; } = {}) {
+function getLoader(options: { modules?: any; } = {}) {
   return [
-    "style-loader",
+    'style-loader',
     {
       loader: require.resolve('css-loader'),
       options: {
-        modules: Boolean(options.modules),
+        modules: options.modules || false,
       },
     },
     {

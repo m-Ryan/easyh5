@@ -4,9 +4,9 @@
   overflow: hidden;
   .wrap {
      height: calc(100vh - 60px);
-    overflow: hidden;
-    display: flex;
-    background-color: #f5f5f5;
+      overflow: hidden;
+      display: flex;
+      background-color: #f5f5f5;
     .leftMenu {
       height: calc(100vh - 60px);
       width: 302px;
@@ -22,7 +22,7 @@
       overflow: auto;
     }
     .content {
-      padding: 20px;
+      flex: 1;
     }
   }
 

@@ -61,7 +61,7 @@ export default function Editor() {
   }, [templateData]);
 
   if (!initialValues) return null;
-  console.log('initialValues', initialValues);
+
   return (
 
     <Formik
@@ -76,31 +76,21 @@ export default function Editor() {
           <div className={styles.container}>
             <Header backUrl="/" title={initialValues.title}
               extra={(
-                <>
-                  <Button type="primary" onClick={() => setPreview(p => !p)}> {preview ? '取消预览' : '预览'}</Button>
+                <Stack>
                   <Button loading={isSubmitting} type="primary" onClick={() => handleSubmit()}>保存</Button>
-                </>
+                </Stack>
               )}
             />
             <div className={styles.wrap}>
-              <Stack.Item fill>
-                <Stack distribution="equalSpacing">
-                  <div className={styles.leftMenu}>
-                    <ToolPanel />
-                  </div>
-                  <Stack.Item fill>
-
-                    <Stack alignment="center" distribution="center">
-                      <div className={styles.content}>
-                        {preview ? <Renderer /> : <VisualEditor />}
-                      </div>
-                    </Stack>
-                  </Stack.Item>
-                  <div className={styles.rightMenu}>
-                    <ConfigurationPanel />
-                  </div>
-                </Stack>
-              </Stack.Item>
+              <div className={styles.leftMenu}>
+                <ToolPanel />
+              </div>
+              <div className={styles.content}>
+                <VisualEditor />
+              </div>
+              <div className={styles.rightMenu}>
+                <ConfigurationPanel />
+              </div>
             </div>
 
           </div>

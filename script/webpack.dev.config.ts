@@ -2,7 +2,7 @@ import path from 'path';
 import { getBasicConfiguration } from './webpack.config';
 
 export default getBasicConfiguration({
-  mode: "development",
+  mode: 'development',
   // cache: {
   //   type: 'filesystem'
   // },
