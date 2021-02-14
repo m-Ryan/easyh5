@@ -11,9 +11,9 @@ export const createInstance: CreateInstance<IDialog> = (payload) => {
       type: BlockType.DIALOG,
       data: {
         value: {
-          name: '弹窗',
+          name: '新建弹窗',
           maskClose: true,
-          uid: uuidv4()
+          uid: uuidv4().replace(/-/g, '')
         },
       },
       style: {

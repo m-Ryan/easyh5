@@ -8,5 +8,5 @@ type IProps = {
 
 export function Renderer(props: IProps) {
   const [{ value }] = useField<INodeItem<{}>>(props.idx);
-  return <span style={value.style}>{value.data.value}</span>;
+  return <span data-node-type={value.type} data-node-idx={props.idx} style={value.style}>{value.data.value}</span>;
 }

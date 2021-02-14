@@ -7,7 +7,7 @@ import { ToolBar } from './components/ToolBar';
 import styles from './index.module.scss';
 
 export const Editor = () => {
-  const { moveByIdx, setFocusIdx } = useEditorContext();
+  const { moveByIdx } = useEditorContext();
 
   const onDragEnd = useCallback(
     (result: DropResult) => {

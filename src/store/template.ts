@@ -51,7 +51,6 @@ export default createSliceState({
         content: JSON.stringify(payload.template.content)
       });
       payload.success();
-      return { ...payload.template };
     },
     removeById: async (state, payload: { id: number; success: () => void; }) => {
       await article.deleteArticle(payload.id);

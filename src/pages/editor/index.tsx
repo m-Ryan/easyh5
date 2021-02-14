@@ -14,6 +14,7 @@ import { Editor as VisualEditor, Renderer } from '@VisualEditor';
 import { useQuery } from '@/hooks/useQuery';
 import { useHistory } from 'react-router-dom';
 import { Stack } from '@/components/Stack';
+import { cloneDeep } from 'lodash';
 
 export default function Editor() {
   const [preview, setPreview] = useState(false);
@@ -54,12 +55,17 @@ export default function Editor() {
     }
   }, [dispatch, history, id]);
 
-  if (!templateData) return null;
+  const initialValues = useMemo(() => {
+    // because redux object is not extensible
+    return templateData ? cloneDeep(templateData) : null;
+  }, [templateData]);
 
+  if (!initialValues) return null;
+  console.log('initialValues', initialValues);
   return (
 
     <Formik
-      initialValues={templateData}
+      initialValues={initialValues}
       enableReinitialize
       onSubmit={onSave}
     >
@@ -68,7 +74,7 @@ export default function Editor() {
           handleSubmit,
         }) => (
           <div className={styles.container}>
-            <Header backUrl="/" title={templateData.title}
+            <Header backUrl="/" title={initialValues.title}
               extra={(
                 <>
                   <Button type="primary" onClick={() => setPreview(p => !p)}> {preview ? '取消预览' : '预览'}</Button>

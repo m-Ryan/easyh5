@@ -10,7 +10,7 @@ type IProps = {
 export function Renderer(props: IProps) {
   const [{ value }] = useField<INodeItem<{}>>(props.idx);
   return (
-    <p style={value.style}>
+    <p data-node-type={value.type} data-node-idx={props.idx} style={value.style}>
       {value.children.map((_, index) => {
         const childIndex = `${props.idx}.children.[${index}]`;
         return <RenderItem key={childIndex} idx={childIndex} />;

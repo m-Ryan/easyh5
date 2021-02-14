@@ -1,5 +1,12 @@
-import { common } from './common';
+import { dialog } from './dialog';
 
-export const actions = [
-  common,
-];
+export const actions: Array<{
+  name: string;
+  label: string;
+  actions: {
+    name: string;
+    label: string;
+  }[];
+}> = [
+    dialog,
+  ];

@@ -2,6 +2,7 @@ import { useFormikContext } from 'formik';
 import { INodeItem } from '../typings';
 import { useCallback } from 'react';
 import { ITemplate } from '@/store/template';
+import { get } from 'lodash';
 
 const setDataByVariable = (nodes: INodeItem[], variableMap: { [key: string]: any; }) => {
   nodes.forEach(item => {
@@ -18,7 +19,7 @@ export interface RendererTemplate extends Omit<ITemplate, 'focusIdx'> {
 }
 
 export function useRendererContext() {
-  const { setFormikState, setValues, initialValues, } = useFormikContext<RendererTemplate>();
+  const { setFormikState, setValues, initialValues, values } = useFormikContext<RendererTemplate>();
 
   const setVariable = useCallback((map: { [key: string]: any; }) => {
 
@@ -30,9 +31,15 @@ export function useRendererContext() {
     }));
   }, [setFormikState]);
 
+  const getValueByIdx = <T extends any>(idx: string): INodeItem<T> | null => {
+    return get(values, idx);
+  };
+
   return {
     initialValues,
     setValues,
-    setVariable
+    setVariable,
+    getValueByIdx
   };
 }
+

@@ -16,7 +16,7 @@ export const user = {
     },
     {
       name: 'desc',
-      label: '死宅一个'
+      label: '描述'
     },
   ]
 }

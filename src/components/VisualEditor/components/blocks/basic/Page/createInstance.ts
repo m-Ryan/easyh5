@@ -3,7 +3,7 @@ import { CreateInstance } from '@VisualEditor/typings';
 import { merge } from 'lodash';
 import { IPage } from '.';
 
-export const createInstance: CreateInstance<IPage> = (payload) => {
+export const createInstance: CreateInstance<IPage> = (payload = {}) => {
   return merge(
     {
       type: BlockType.PAGE,
@@ -19,6 +19,8 @@ export const createInstance: CreateInstance<IPage> = (payload) => {
         backgroundColor: '#fff',
         position: 'relative',
         fontSize: '14px',
+        marginLeft: 'auto',
+        marginRight: 'auto',
       },
       children: [],
     },

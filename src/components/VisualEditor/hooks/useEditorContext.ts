@@ -43,7 +43,7 @@ export function useEditorContext() {
 
     if (parent.type === BlockType.TEXT) return;
 
-    parent.children = [...parent.children, child];
+    parent.children.push(child);
     set(values, parentIdx, { ...parent });
     values.focusIdx = `${parentIdx}.children.[${parent.children.length - 1}]`;
     setValues(values);
@@ -71,6 +71,7 @@ export function useEditorContext() {
     }
 
     parent.children.splice(blockIndex, 1);
+    set(values, parentIdx, { ...parent });
     values.focusIdx = parentIdx;
     setValues(values);
   };
