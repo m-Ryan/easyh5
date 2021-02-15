@@ -37,31 +37,36 @@ export const Editor = () => {
     [moveByIdx]
   );
 
-  const styles = { width, height, transform: `scale(${scale / 100})`, margin: '0 auto' };
+  const styles: React.CSSProperties = { width: width * scale, height: height * scale, transform: ` scale(${scale})`, margin: '0 auto', transformOrigin: 'top left' };
   return (
-    <div>
+    <div style={{ width: '100%', }}>
       {content}
+
       {
         preview
-          ? <div style={styles}><Renderer /></div>
+          ? <div style={{ maxWidth: 1204, margin: '20px auto 0 auto', padding: '20px 0 0 0', overflow: 'overlay', height: 792, maxHeight: 'calc(100vh - 80px)' }}> <div style={styles}><Renderer /></div></div>
+
           : (
             <div style={{ position: 'relative' }}>
-              <div id='VisualEditorEditMode' style={styles}>
-                <DragDropContext onDragEnd={onDragEnd}>
-                  <Droppable droppableId='droppable'>
-                    {(provided) => (
-                      <div
-                        style={{ width: '100%', height: '100%' }}
-                        ref={provided.innerRef}
-                        {...provided.droppableProps}
-                      >
-                        <EditorItem idx={'content.[0]'} />
-                        {provided.placeholder}
-                      </div>
-                    )}
-                  </Droppable>
-                </DragDropContext>
+              <div style={{ maxWidth: 1204, margin: '20px auto 0 auto', padding: '20px 0 0 0', overflow: 'overlay', height: 792, maxHeight: 'calc(100vh - 80px)' }}>
+                <div id='VisualEditorEditMode' style={styles}>
+                  <DragDropContext onDragEnd={onDragEnd}>
+                    <Droppable droppableId='droppable'>
+                      {(provided) => (
+                        <div
+                          style={{ width: '100%', height: '100%' }}
+                          ref={provided.innerRef}
+                          {...provided.droppableProps}
+                        >
+                          <EditorItem idx={'content.[0]'} />
+                          {provided.placeholder}
+                        </div>
+                      )}
+                    </Droppable>
+                  </DragDropContext>
+                </div>
               </div>
+
               <DialogBar />
               <ToolBar />
             </div>

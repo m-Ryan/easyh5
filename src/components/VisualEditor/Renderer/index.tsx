@@ -28,7 +28,7 @@ export function Renderer() {
   }, [getValueByIdx]);
 
   return (
-    <div id='VisualEditorRenderMode '>
+    <div id='VisualEditorRenderMode' style={{ width: '100%', height: '100%' }}>
       <RenderItem idx={'content.[0]'} />
     </div>
   );

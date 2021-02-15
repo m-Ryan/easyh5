@@ -1,8 +1,9 @@
 import { Stack } from '@/components/Stack';
 import React, { useEffect, useMemo, useState } from 'react';
-import { DesktopOutlined, EyeOutlined, BorderOutlined } from '@ant-design/icons';
-import { Button, Input, Select } from 'antd';
+import { DesktopOutlined, EyeOutlined, BorderOutlined, TabletOutlined } from '@ant-design/icons';
+import { Button, Input, Select, Tooltip } from 'antd';
 import { TextStyle } from '@/components/TextStyle';
+import { useQuery } from '@/hooks/useQuery';
 
 export const platformType = [
   {
@@ -13,44 +14,45 @@ export const platformType = [
   {
     value: 'mobile',
     label: '手机',
-    icon: <DesktopOutlined />
+    icon: <TabletOutlined />
   },
   {
     value: 'other',
-    label: '其它',
+    label: '自定义',
     icon: <BorderOutlined />
   },
 ];
 
 export const scaleOptions = [
   {
-    value: 50,
+    value: 0.5,
     label: '50%',
   },
   {
-    value: 75,
+    value: 0.75,
     label: '75%',
   },
   {
-    value: 100,
+    value: 1,
     label: '100%',
   },
   {
-    value: 125,
+    value: 1.25,
     label: '125%',
   },
   {
-    value: 150,
+    value: 1.5,
     label: '150%',
   },
 ];
 
 export function useDeviceToolbar() {
+  const { } = useQuery();
   const [preview, setPrevie] = useState(false);
   const [width, setWidth] = useState(1200);
   const [height, setHeight] = useState(768);
   const [selectedPlatform, setSelectedPlatform] = useState('laptop');
-  const [scale, setScale] = useState(75);
+  const [scale, setScale] = useState(1);
   const isSelectedOther = selectedPlatform === 'other';
 
   const container = document.getElementById('VisualEditorEditMode');
@@ -74,20 +76,22 @@ export function useDeviceToolbar() {
 
   const content = useMemo(() => {
     return (
-      <div style={{ backgroundColor: '#fff', padding: 10 }}>
-        <Stack distribution="equalSpacing">
+      <div style={{ backgroundColor: '#fff', position: 'absolute', top: 0, height: 72, lineHeight: '72px' }}>
+        <Stack distribution="equalSpacing" alignment="center">
           <Stack>
             <Stack spacing="extraTight">
               {
                 platformType.map(item => (
-                  <Button key={item.value}
-                    type={selectedPlatform === item.value ? 'primary' : undefined}
-                    ghost={selectedPlatform === item.value}
-                    size="small"
-                    onClick={() => setSelectedPlatform(item.value)}
-                  >
-                    {item.icon}
-                  </Button>
+                  <Tooltip title={item.label} key={item.value}>
+                    <Button
+                      type={selectedPlatform === item.value ? 'primary' : undefined}
+                      ghost={selectedPlatform === item.value}
+                      size="small"
+                      onClick={() => setSelectedPlatform(item.value)}
+                    >
+                      {item.icon}
+                    </Button>
+                  </Tooltip>
                 ))
               }
             </Stack>
@@ -114,7 +118,7 @@ export function useDeviceToolbar() {
             </Stack>
           </Stack>
           <Stack>
-            <Button onClick={() => setPrevie(flag => !flag)}><EyeOutlined /></Button>
+            <Button size="small" onClick={() => setPrevie(flag => !flag)}><EyeOutlined /></Button>
           </Stack>
         </Stack>
       </div>

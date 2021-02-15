@@ -17,7 +17,6 @@ import { Stack } from '@/components/Stack';
 import { cloneDeep } from 'lodash';
 
 export default function Editor() {
-  const [preview, setPreview] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
   const templateData = useAppSelector('template');
