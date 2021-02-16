@@ -2,6 +2,7 @@ import React, { useCallback, useMemo, useEffect, ReactElement } from 'react';
 import { onDrag } from '@/util/onDrag';
 import { useEditorContext } from '../../hooks/useEditorContext';
 import { useBlockFocus } from '@VisualEditor/hooks/useBlockFocus';
+import { useQuery } from '@/hooks/useQuery';
 
 interface MoveableProps {
   children: React.ReactElement;
@@ -16,6 +17,7 @@ export default function Moveable(props: MoveableProps) {
     setValueByIdx,
   } = useEditorContext();
   useBlockFocus(idx);
+  const { scale } = useQuery();
   const block = getValueByIdx(idx)!;
   const isFocus = focusIdx === idx;
 
@@ -26,8 +28,8 @@ export default function Moveable(props: MoveableProps) {
     onDrag({
       event,
       onMove(diffX, diffY) {
-        block.style.left = Number(newStyle.left) + diffX;
-        block.style.top = Number(newStyle.top) + diffY;
+        block.style.left = Number(newStyle.left) + diffX * Number(1 / scale);
+        block.style.top = Number(newStyle.top) + diffY * Number(1 / scale);
         setValueByIdx(idx, block);
       },
     });

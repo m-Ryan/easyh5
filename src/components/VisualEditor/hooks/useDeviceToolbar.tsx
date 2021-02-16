@@ -44,10 +44,18 @@ export const scaleOptions = [
     value: 1.5,
     label: '150%',
   },
+  {
+    value: 1.75,
+    label: '175%',
+  },
+  {
+    value: 2,
+    label: '200%',
+  },
 ];
 
 export function useDeviceToolbar() {
-  const { } = useQuery();
+  const { patchQuery } = useQuery();
   const [preview, setPrevie] = useState(false);
   const [width, setWidth] = useState(1200);
   const [height, setHeight] = useState(768);
@@ -73,6 +81,46 @@ export function useDeviceToolbar() {
       setHeight(768);
     }
   }, [selectedPlatform]);
+
+  useEffect(() => {
+    patchQuery({
+      scale
+    });
+  }, [patchQuery, scale]);
+
+  useEffect(() => {
+    let isKeydown = false;
+    const onKeydown = (ev: KeyboardEvent) => {
+      if (ev.key === 'Control') {
+        isKeydown = true;
+      }
+
+    };
+
+    const keyup = () => {
+      isKeydown = false;
+    };
+
+    const wheel = (ev: WheelEvent) => {
+      ev.preventDefault();
+      if (!isKeydown) return;
+      if (ev.deltaY > 0) {
+        setScale(s => +(s + 0.05).toFixed(2));
+      } else {
+        setScale(s => +Math.max(.1, s - 0.05).toFixed(2));
+      }
+    };
+
+    document.addEventListener('keydown', onKeydown);
+    document.addEventListener('keyup', keyup);
+    document.addEventListener('wheel', wheel, { passive: false });
+
+    return () => {
+      document.removeEventListener('keydown', onKeydown);
+      document.removeEventListener('keyup', keyup);
+      document.removeEventListener('wheel', wheel);
+    };
+  }, []);
 
   const content = useMemo(() => {
     return (

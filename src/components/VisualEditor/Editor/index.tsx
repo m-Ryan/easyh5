@@ -6,6 +6,7 @@ import { useEditorContext } from '../hooks/useEditorContext';
 import { DialogBar } from './components/DialogBar';
 import { EditorItem } from './components/EditorItem';
 import { ToolBar } from './components/ToolBar';
+import styles from './index.module.scss';
 
 export const Editor = () => {
   const { moveByIdx } = useEditorContext();
@@ -37,19 +38,20 @@ export const Editor = () => {
     [moveByIdx]
   );
 
-  const styles: React.CSSProperties = { width: width * scale, height: height * scale, transform: ` scale(${scale})`, margin: '0 auto', transformOrigin: 'top left' };
+  const scrollWidth = 16 / scale;
+  const innerContainerStyles: React.CSSProperties = { width: width + scrollWidth / scale, height: height, paddingRight: 16, transform: `scale(${scale})`, margin: '0 auto', transformOrigin: 'top left' };
   return (
     <div style={{ width: '100%', }}>
       {content}
 
       {
         preview
-          ? <div style={{ maxWidth: 1204, margin: '20px auto 0 auto', padding: '20px 0 0 0', overflow: 'overlay', height: 792, maxHeight: 'calc(100vh - 80px)' }}> <div style={styles}><Renderer /></div></div>
+          ? <div className={styles.container}> <div style={innerContainerStyles}><Renderer /></div></div>
 
           : (
             <div style={{ position: 'relative' }}>
-              <div style={{ maxWidth: 1204, margin: '20px auto 0 auto', padding: '20px 0 0 0', overflow: 'overlay', height: 792, maxHeight: 'calc(100vh - 80px)' }}>
-                <div id='VisualEditorEditMode' style={styles}>
+              <div className={styles.container}>
+                <div id='VisualEditorEditMode' style={innerContainerStyles}>
                   <DragDropContext onDragEnd={onDragEnd}>
                     <Droppable droppableId='droppable'>
                       {(provided) => (
@@ -65,6 +67,7 @@ export const Editor = () => {
                     </Droppable>
                   </DragDropContext>
                 </div>
+
               </div>
 
               <DialogBar />

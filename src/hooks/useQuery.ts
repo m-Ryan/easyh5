@@ -1,20 +1,20 @@
 import { useLocation, useHistory } from 'react-router-dom';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import qs from 'qs';
 
 export function useQuery<T extends { [key: string]: any; }>(): T & {
 	patchQuery: (params: T) => string;
 } {
-	const history = useHistory();
-	const location = useLocation();
+	const { push } = useHistory();
+	const { search } = useLocation();
 
 	const query = useMemo(() => {
-		return qs.parse(location.search, {
+		return qs.parse(search, {
 			ignoreQueryPrefix: true,
 		}) as any as { [key: string]: any; };
-	}, [location]);
+	}, [search]);
 
-	const patchQuery = (params: T) => {
+	const patchQuery = useCallback((params: T) => {
 		const newSearch = qs.stringify(
 			{
 				...query,
@@ -25,11 +25,11 @@ export function useQuery<T extends { [key: string]: any; }>(): T & {
 			}
 		);
 
-		history.push({
+		push({
 			search: newSearch,
 		});
 		return newSearch;
-	};
+	}, [push, query]);
 
 	return { ...query, patchQuery };
 }
