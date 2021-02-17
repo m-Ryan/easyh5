@@ -19,17 +19,31 @@ function createItem<T extends INodeItem>(
   throw new Error('没有匹配的组件');
 }
 
+const getIndexByIdx = (idx: string) => {
+  return Number(idx.match(/\.\[(\d+)\]$/)?.[1]);
+};
+
+const getParentIdx = (idx: string) => {
+  return idx.match(/(.*)\.children\.\[\d+\]$/)?.[1];
+};
+
+const getSiblingIdx = (sourceIndex: string, num: number) => {
+  return sourceIndex.replace(/\[(\d+)\]$/, (_, index) => `[${Number(index) + num}]`);
+};
+
 export function useEditorContext() {
   const { values, setValues, getFieldHelpers } = useFormikContext<ITemplate>();
 
   const focusIdx = values.focusIdx;
   const focusBlock = get(values, focusIdx) as INodeItem | null;
 
-  const getIndexByIdx = (idx: string) => {
-    return Number(idx.match(/\.\[(\d+)\]$/)?.[1]);
-  };
+  const getParentByIdx = useCallback(<T extends any>(idx: string): INodeItem<T> | null => {
+    const parentIdx = getParentIdx(idx);
+    if (!parentIdx) return null;
+    return get(values, parentIdx);
+  }, [values]);
 
-  const addBlock = (type: BlockType, parentIdx: string) => {
+  const addBlock = useCallback((type: BlockType, parentIdx: string) => {
     let parent = get(values, parentIdx) as INodeItem | null;
     const child = createItem(type);
     if (type === BlockType.DIALOG) {
@@ -47,9 +61,9 @@ export function useEditorContext() {
     set(values, parentIdx, { ...parent });
     values.focusIdx = `${parentIdx}.children.[${parent.children.length - 1}]`;
     setValues(values);
-  };
+  }, [setValues, values]);
 
-  const copyBlock = (idx: string) => {
+  const copyBlock = useCallback((idx: string) => {
     const parentIdx = getParentIdx(idx);
     const parent = getParentByIdx(idx);
     if (!parent) {
@@ -60,9 +74,9 @@ export function useEditorContext() {
     parent.children.push(copyBlock);
     values.focusIdx = `${parentIdx}.children.[${parent.children.length - 1}]`;
     setValues(values);
-  };
+  }, [getParentByIdx, setValues, values]);
 
-  const removeBlock = (idx: string) => {
+  const removeBlock = useCallback((idx: string) => {
     const parentIdx = getParentIdx(idx);
     const parent = getParentByIdx(idx);
     const blockIndex = getIndexByIdx(idx);
@@ -74,31 +88,17 @@ export function useEditorContext() {
     set(values, parentIdx, { ...parent });
     values.focusIdx = parentIdx;
     setValues(values);
-  };
+  }, [getParentByIdx, setValues, values]);
 
-  const getValueByIdx = <T extends any>(idx: string): INodeItem<T> | null => {
+  const getValueByIdx = useCallback(<T extends any>(idx: string): INodeItem<T> | null => {
     return get(values, idx);
-  };
+  }, [values]);
 
-  const setValueByIdx = <T extends any>(idx: string, newVal: INodeItem<T>) => {
+  const setValueByIdx = useCallback(<T extends any>(idx: string, newVal: INodeItem<T>) => {
     getFieldHelpers(idx).setValue(newVal);
-  };
+  }, [getFieldHelpers]);
 
-  const getParentIdx = (idx: string) => {
-    return idx.match(/(.*)\.children\.\[\d+\]$/)?.[1];
-  };
-
-  const getParentByIdx = <T extends any>(idx: string): INodeItem<T> | null => {
-    const parentIdx = getParentIdx(idx);
-    if (!parentIdx) return null;
-    return get(values, parentIdx);
-  };
-
-  const getSiblingIdx = (sourceIndex: string, num: number) => {
-    return sourceIndex.replace(/\[(\d+)\]$/, (_, index) => `[${Number(index) + num}]`);
-  };
-
-  const moveByIdx = (sourceIdx: string, destinationIdx: string) => {
+  const moveByIdx = useCallback((sourceIdx: string, destinationIdx: string) => {
     const sourceIndex = getIndexByIdx(sourceIdx);
     const destinationIndex = getIndexByIdx(destinationIdx);
 
@@ -121,11 +121,11 @@ export function useEditorContext() {
     set(values, destinationParentIdx, destinationParent);
     set(values, 'focusIdx', destinationIdx);
     setValues(values);
-  };
+  }, [setValues, values]);
 
-  const isExistBlock = (idx: string) => {
+  const isExistBlock = useCallback((idx: string) => {
     return Boolean(get(values, idx));
-  };
+  }, [values]);
 
   const setFocusIdx = useCallback(
     (idx: string) => {

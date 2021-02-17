@@ -18,7 +18,7 @@ export const createInstance: CreateInstance<IText> = (payload = {}) => {
         fontWeight: 'inherit',
         fontStyle: 'inherit',
         color: '#000',
-        fontSize: 14,
+        fontSize: '14px',
         display: 'inline-block',
         left: 0,
         top: 0,

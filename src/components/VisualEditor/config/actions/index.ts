@@ -1,4 +1,4 @@
-import { dialog } from './dialog';
+import { dialogClose, dialogOpen } from './dialog';
 
 export const actions: Array<{
   name: string;
@@ -8,5 +8,6 @@ export const actions: Array<{
     label: string;
   }[];
 }> = [
-    dialog,
+    dialogClose,
+    dialogOpen
   ];

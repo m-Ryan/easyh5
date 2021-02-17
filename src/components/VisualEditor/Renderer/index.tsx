@@ -7,7 +7,7 @@ export interface EditorProps {
 }
 
 export function Renderer() {
-  const { getValueByIdx } = useRendererContext();
+  const { getValueByIdx, onAction } = useRendererContext();
 
   useEffect(() => {
     const action = (ev: MouseEvent) => {
@@ -15,8 +15,10 @@ export function Renderer() {
       const idx = target.getAttribute('data-node-idx');
       if (idx) {
         const block = getValueByIdx(idx);
+        if (block?.data.action) {
+          onAction(block.data.action);
+        }
 
-        console.log(block?.data.action);
       }
     };
 
@@ -26,7 +28,7 @@ export function Renderer() {
       document.removeEventListener('click', action, true);
     };
 
-  }, [getValueByIdx]);
+  }, [getValueByIdx, onAction]);
 
   return (
     <div id='VisualEditorRenderMode' style={{ width: '100%', height: '100%' }}>

@@ -18,14 +18,14 @@ const options = variables.map(item => ({
 export function Variables() {
   const { focusIdx } = useEditorContext();
   return (
-    <Stack spacing='none'>
-      <TreeSelectField title="变量"
-        treeDefaultExpandAll
-        style={{ width: 200 }} label='绑定变量'
-        name={`${focusIdx}.data.variable`}
-        inline options={options}
 
-      />
-    </Stack>
+    <TreeSelectField title="变量"
+      treeDefaultExpandAll
+      style={{ width: '100%' }} label='绑定变量'
+      name={`${focusIdx}.data.variable`}
+      inline options={options}
+
+    />
+
   );
 }

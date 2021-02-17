@@ -6,6 +6,7 @@ import { IDialog } from '.';
 import { Box } from '../Box';
 
 export const createInstance: CreateInstance<IDialog> = (payload) => {
+  const uid = uuidv4().replace(/-/g, '');
   return merge(
     {
       type: BlockType.DIALOG,
@@ -13,7 +14,7 @@ export const createInstance: CreateInstance<IDialog> = (payload) => {
         value: {
           name: '新建弹窗',
           maskClose: true,
-          uid: uuidv4().replace(/-/g, '')
+          uid: uid,
         },
       },
       style: {
@@ -27,7 +28,6 @@ export const createInstance: CreateInstance<IDialog> = (payload) => {
         'width': '100%',
         'height': '100%',
         'transformOrigin': '187.5px 333.5px',
-        'backgroundColor': 'rgba(0, 0, 0, 0.8)',
         'fontSize': '12px',
         'color': 'rgb(0, 0, 0)',
         'lineHeight': 'normal',
@@ -40,6 +40,23 @@ export const createInstance: CreateInstance<IDialog> = (payload) => {
         Box.createInstance({
           style: {
             'zIndex': 1,
+            'position': 'absolute',
+            'backgroundSize': '100%',
+            'left': 0,
+            'top': 0,
+            'width': '100%',
+            'height': '100%',
+            'backgroundColor': 'rgba(0, 0, 0, 0.8)',
+            'fontSize': 14,
+          },
+          data: {
+            action: `dialogClose-${uid}`,
+            value: null
+          }
+        }),
+        Box.createInstance({
+          style: {
+            'zIndex': 10,
             'position': 'relative',
             'backgroundSize': '100%',
             'left': 0,
@@ -48,7 +65,8 @@ export const createInstance: CreateInstance<IDialog> = (payload) => {
             'height': 200,
             'backgroundColor': 'rgba(255, 255, 255, 1)',
             'fontSize': 14,
-          }
+          },
+
         })
       ],
     },

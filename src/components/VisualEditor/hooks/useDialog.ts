@@ -16,9 +16,14 @@ export function useDialog() {
     hepler.setValue(uid);
   }, [hepler]);
 
+  const closeDialog = useCallback(() => {
+    hepler.setValue('');
+  }, [hepler]);
+
   return {
     dialogList,
     dialogUid,
-    openDialog
+    openDialog,
+    closeDialog
   };
 }

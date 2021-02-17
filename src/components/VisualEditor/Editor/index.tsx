@@ -39,7 +39,7 @@ export const Editor = () => {
   );
 
   const scrollWidth = 16 / scale;
-  const innerContainerStyles: React.CSSProperties = { width: width + scrollWidth / scale, height: height, paddingRight: 16, transform: `scale(${scale})`, margin: '0 auto', transformOrigin: 'top left' };
+  const innerContainerStyles: React.CSSProperties = { width: width + scrollWidth / scale, height: height, paddingRight: 16, transform: `scale(${scale})`, margin: '0 auto', transformOrigin: 'top left', transition: 'all .3s' };
   return (
     <div style={{ width: '100%', }}>
       {content}

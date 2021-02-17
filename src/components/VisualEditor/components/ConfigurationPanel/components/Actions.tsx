@@ -16,28 +16,26 @@ export function Actions() {
       label: item.label,
       selectable: false,
       options:
-        item.name === 'dialog'
+        (item.name === 'dialogOpen' || item.name === 'dialogClose')
           ? dialogList.map(dialog => ({
             value: getFormatAction(item.name, dialog.data.value.uid),
-            label: dialog.data.value.name
+            label: <span style={{ fontSize: 12 }}>{item.label + '-' + dialog.data.value.name}</span>
           }))
           : item.actions.map(action => ({
             value: getFormatAction(item.name, action.name),
-            label: action.label,
+            label: <span style={{ fontSize: 12 }}>{item.label + '-' + action.label}</span>,
           }))
     }));
 
   }, [dialogList]);
 
   return (
-    <Stack spacing='none'>
-      <TreeSelectField title="动作"
-        treeDefaultExpandAll
-        style={{ width: 200 }} label='绑定动作'
-        name={`${focusIdx}.data.action`}
-        inline options={options}
+    <TreeSelectField title="动作"
+      treeDefaultExpandAll
+      style={{ width: '100%' }} label='绑定动作'
+      name={`${focusIdx}.data.action`}
+      inline options={options}
 
-      />
-    </Stack>
+    />
   );
 }

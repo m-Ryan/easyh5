@@ -25,11 +25,6 @@ export const ToolPanel = function () {
               icon={<LayoutOutlined />}
             />
             <BlockIcon
-              text="文段"
-              type={BlockType.PARAGRAPH}
-              icon={<SnippetsOutlined />}
-            />
-            <BlockIcon
               text="文本"
               type={BlockType.TEXT}
               icon={<FontSizeOutlined />}

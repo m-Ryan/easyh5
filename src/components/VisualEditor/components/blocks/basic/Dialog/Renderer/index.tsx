@@ -1,18 +1,20 @@
 import React from 'react';
-import { INodeItem } from '@VisualEditor/typings';
 import { IDialog } from '..';
 import { useField } from 'formik';
 import { RenderItem } from '@VisualEditor/Renderer/components/RenderItem';
+import { useDialog } from '@VisualEditor/hooks/useDialog';
 
 type IProps = {
   idx: string;
 };
 
 export function Renderer(props: IProps) {
-  const [field] = useField<INodeItem<IDialog>>(props.idx);
+  const [{ value }] = useField<IDialog>(props.idx);
+  const { dialogUid } = useDialog();
+  if (dialogUid !== value.data.value.uid) return null;
   return (
-    <div data-node-type={field.value.type} data-node-idx={props.idx} style={{ ...field.value.style, position: 'fixed' }}>
-      {field.value.children.map((item, index) => {
+    <div data-node-type={value.type} data-node-idx={props.idx} style={{ ...value.style, position: 'fixed' }}>
+      {value.children.map((item, index) => {
         const childIndex = `${props.idx}.children.[${index}]`;
         return <RenderItem key={childIndex} idx={childIndex} />;
       })}
