@@ -24,8 +24,8 @@ export const createInstance: CreateInstance<IDialog> = (payload) => {
         'left': '50%',
         'top': 0,
         'transform': 'translate(-50%, 0)',
-        'width': '375px',
-        'height': '667px',
+        'width': '100%',
+        'height': '100%',
         'transformOrigin': '187.5px 333.5px',
         'backgroundColor': 'rgba(0, 0, 0, 0.8)',
         'fontSize': '12px',
@@ -46,10 +46,8 @@ export const createInstance: CreateInstance<IDialog> = (payload) => {
             'top': 0,
             'width': 350,
             'height': 200,
-            'opacity': 1,
             'backgroundColor': 'rgba(255, 255, 255, 1)',
             'fontSize': 14,
-            'borderRadius': 20
           }
         })
       ],

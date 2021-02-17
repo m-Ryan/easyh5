@@ -1,5 +1,5 @@
-import { Input, InputNumber } from 'antd';
-import { InputProps, TextAreaProps, } from 'antd/lib/input';
+import { InputNumber, Input as AntdInput, } from 'antd';
+import { TextAreaProps, } from 'antd/lib/input';
 import { InputNumberProps } from 'antd/lib/input-number';
 import ImageUploader, { ImageUploaderProps } from '../ImageUploader';
 import { ColorPicker, ColorPickerProps } from './ColorPicker';
@@ -8,10 +8,11 @@ import { RadioGroup, RadioGroupProps } from './RadioGroup';
 import enhancer from './enhancer';
 import { RadioChangeEvent } from 'antd/lib/radio';
 import { TreeSelect, TreeSelectProps } from './TreeSelect';
+import { Input, InputProps } from './Input';
 
-export const TextField = enhancer<InputProps, any>(Input, (e: React.ChangeEvent<HTMLInputElement>) => e.target.value);
+export const TextField = enhancer<InputProps, any>(Input, (value) => value);
 
-export const TextAreaField = enhancer<TextAreaProps, any>(Input.TextArea, (e: React.ChangeEvent<HTMLTextAreaElement>) => e.target.value);
+export const TextAreaField = enhancer<TextAreaProps, any>(AntdInput.TextArea, (e: React.ChangeEvent<HTMLTextAreaElement>) => e.target.value);
 
 export const NumberField = enhancer<InputNumberProps, any>(InputNumber, (e: number | string | undefined | null) => e);
 

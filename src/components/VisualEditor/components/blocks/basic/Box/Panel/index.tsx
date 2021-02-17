@@ -5,6 +5,8 @@ import { Background } from '@VisualEditor/components/ConfigurationPanel/componen
 import { Margin } from '@VisualEditor/components/ConfigurationPanel/components/Margin';
 import { Extra } from '@VisualEditor/components/ConfigurationPanel/components/Extra';
 import { CollapsePanels } from '@VisualEditor/components/CollapsePanels';
+import { Decoration } from '@VisualEditor/components/ConfigurationPanel/components/Decoration';
+import { Position } from '@VisualEditor/components/ConfigurationPanel/components/Position';
 
 export function Panel() {
 
@@ -31,9 +33,19 @@ export function Panel() {
         active: true,
       },
       {
+        title: '位置',
+        children: <Position />,
+        active: true,
+      },
+      {
+        title: '装饰',
+        children: <Decoration />,
+        active: false,
+      },
+      {
         title: '额外',
         children: <Extra />,
-        active: true,
+        active: false,
       },
     ]}
     />

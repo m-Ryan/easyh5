@@ -22,7 +22,7 @@ function ImageUploader({
   onChange
 }: ImageUploaderProps) {
   const [isUploading, setIsUploading] = useState(false);
-  const { values, setValues, touched } = useFormikContext<UploadItem[]>();
+  const { values, setFormikState, touched } = useFormikContext<UploadItem[]>();
 
   const ref = useRef<string[]>([]);
 
@@ -47,15 +47,21 @@ function ImageUploader({
     });
 
     uploader.on('start', photos => {
-      const newVal = [...values, ...photos];
 
-      setValues(newVal);
+      setFormikState((formikState) => {
+        formikState.values = [...formikState.values, ...photos];
+        return { ...formikState };
+      });
 
       uploader.on('progress', photos => {
-        setValues(newVal.map(item => {
-          const photo = photos.find(p => p.idx === item.idx);
-          return photo || item;
-        }));
+
+        setFormikState((formikState) => {
+          formikState.values = formikState.values.map(item => {
+            const photo = photos.find(p => p.idx === item.idx);
+            return photo || item;
+          });
+          return { ...formikState };
+        });
       });
 
       uploader.on('end', () => {
@@ -80,38 +86,53 @@ function ImageUploader({
         message.loading('正在上传粘贴图片');
         setIsUploading(true);
         const pastePicture: UploadItem = { url: '', status: 'pending', idx: `paste-${uniqueId()}` };
-        setValues([...values, pastePicture]);
+        setFormikState((formikState) => {
+          formikState.values = [...formikState.values, pastePicture];
+          return { ...formikState };
+        });
         try {
           const url = await services.common.uploadByQiniu(blob);
-          setValues(values.map(item => {
-            if (pastePicture.idx === item.idx) {
-              return {
-                ...item,
-                url,
-                status: 'done'
-              };
-            }
-            return item;
-          }));
+          console.log('url', url);
+          setFormikState(formikState => {
+            formikState.values = formikState.values.map(item => {
+              if (pastePicture.idx === item.idx) {
+
+                return {
+                  ...item,
+                  url,
+                  status: 'done'
+                };
+              }
+              return item;
+            });
+
+            return { ...formikState };
+          });
         } catch (error) {
-          setValues(values.map(item => {
-            if (pastePicture.idx === item.idx) {
-              return {
-                ...item,
-                status: 'error'
-              };
-            }
-            return item;
-          }));
+          setFormikState(formikState => {
+            formikState.values = formikState.values.map(item => {
+              if (pastePicture.idx === item.idx) {
+                return {
+                  ...item,
+                  status: 'error'
+                };
+              }
+              return item;
+            });
+            return { ...formikState };
+          });
         }
         setIsUploading(false);
         message.destroy();
       }
     }
-  }, [values, setValues]);
+  }, [setFormikState]);
 
   const onRemove = (index: number) => {
-    setValues(values.filter((item, idx) => idx !== index));
+    setFormikState((formikState) => {
+      formikState.values = values.filter((item, idx) => idx !== index);
+      return { ...formikState };
+    });
   };
 
   const showUploader = values.length < count;

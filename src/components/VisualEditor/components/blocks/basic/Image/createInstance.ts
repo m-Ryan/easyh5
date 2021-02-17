@@ -11,6 +11,9 @@ export const createInstance: CreateInstance<IImage> = (payload) => {
         value: 'http://assets.maocanhua.cn/FkWeSH88STspyZduGtyjYMt4InP4',
       },
       style: {
+        position: 'relative',
+        left: 0,
+        top: 0,
         width: '100%',
         height: 'auto',
       },

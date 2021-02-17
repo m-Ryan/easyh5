@@ -29,19 +29,19 @@ export function Position() {
       />
       <Stack wrap={false}>
         <Stack.Item fill>
-          <TextField label='上' name={`${focusIdx}.style.top`} inline />
+          <TextField label='上' quickchange name={`${focusIdx}.style.top`} inline />
         </Stack.Item>
         <Stack.Item fill>
-          <TextField label='下' name={`${focusIdx}.style.bottom`} inline />
+          <TextField label='下' quickchange name={`${focusIdx}.style.bottom`} inline />
         </Stack.Item>
       </Stack>
 
       <Stack wrap={false}>
         <Stack.Item fill>
-          <TextField label='左' name={`${focusIdx}.style.left`} inline />
+          <TextField label='左' quickchange name={`${focusIdx}.style.left`} inline />
         </Stack.Item>
         <Stack.Item fill>
-          <TextField label='右' name={`${focusIdx}.style.right`} inline />
+          <TextField label='右' quickchange name={`${focusIdx}.style.right`} inline />
         </Stack.Item>
       </Stack>
     </Stack>

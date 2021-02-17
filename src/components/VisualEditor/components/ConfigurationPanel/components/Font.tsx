@@ -56,9 +56,9 @@ export default function Font(props: FontProps) {
           inline
           alignment="center"
         />
-        <TextField label="大小" name={`${focusIdx}.style.fontSize`} inline />
-        <TextField label="行高" name={`${focusIdx}.style.lineHeight`} inline />
-        <TextField label="样式" name={`${focusIdx}.style.lineHeight`} inline />
+        <TextField label="大小" quickchange name={`${focusIdx}.style.fontSize`} inline />
+        <TextField label="行高" quickchange name={`${focusIdx}.style.lineHeight`} inline />
+        <TextField label="样式" name={`${focusIdx}.style.decoration`} inline />
         <SelectField
           label="换行方式"
           name={`${focusIdx}.style.whiteSpace`}

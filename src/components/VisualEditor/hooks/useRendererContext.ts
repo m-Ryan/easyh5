@@ -27,7 +27,7 @@ export function useRendererContext() {
       const prevVal = prevState.values;
       Object.assign(prevVal.variableMap, map);
       setDataByVariable(prevVal.content, prevVal.variableMap);
-      return prevState;
+      return { ...prevState };
     }));
   }, [setFormikState]);
 

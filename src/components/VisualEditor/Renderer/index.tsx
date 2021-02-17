@@ -15,6 +15,7 @@ export function Renderer() {
       const idx = target.getAttribute('data-node-idx');
       if (idx) {
         const block = getValueByIdx(idx);
+
         console.log(block?.data.action);
       }
     };

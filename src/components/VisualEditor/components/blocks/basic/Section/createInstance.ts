@@ -11,6 +11,7 @@ export const createInstance: CreateInstance<ISection> = (payload) => {
         value: null,
       },
       style: {
+        position: 'relative',
         width: '100%',
         height: 100,
         backgroundColor: '#fafafa',

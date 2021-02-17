@@ -28,8 +28,8 @@ export default function Moveable(props: MoveableProps) {
     onDrag({
       event,
       onMove(diffX, diffY) {
-        block.style.left = Number(newStyle.left) + diffX * Number(1 / scale);
-        block.style.top = Number(newStyle.top) + diffY * Number(1 / scale);
+        block.style.left = (parseFloat(newStyle.left) || 0) + diffX * Number(1 / scale) + 'px';
+        block.style.top = (parseFloat(newStyle.top) || 0) + diffY * Number(1 / scale) + 'px';
         setValueByIdx(idx, block);
       },
     });

@@ -19,6 +19,16 @@ type BlockIconProps = {
   text: string;
 };
 
+const findInsertNode = (target: HTMLElement): HTMLElement | null => {
+  if (target.getAttribute('data-node-idx')) {
+    return target;
+  }
+  if (target.parentNode) {
+    return findInsertNode(target.parentNode as HTMLElement);
+  }
+  return null;
+};
+
 export function BlockIcon(props: BlockIconProps) {
   const { addBlock } = useEditorContext();
   const [draging, setDraging] = useState(false);
@@ -40,7 +50,7 @@ export function BlockIcon(props: BlockIconProps) {
 
     const onDrop = (ev: DragEvent) => {
       const target = ev.target as HTMLElement;
-      const parentIdx = target.getAttribute('data-node-idx') || '';
+      const parentIdx = findInsertNode(target)?.getAttribute('data-node-idx') || '';
       const parent = get(values, parentIdx);
       if (parent) {
         ev.preventDefault();
@@ -51,12 +61,7 @@ export function BlockIcon(props: BlockIconProps) {
 
     const onDragOver = (ev: DragEvent) => {
       const target = ev.target as HTMLElement;
-      const insertElement =
-        (get(
-          values,
-          target.getAttribute('data-node-idx') || ''
-        ) as INodeItem) || null;
-      if (insertElement) {
+      if (findInsertNode(target)) {
         ev.preventDefault();
       }
     };

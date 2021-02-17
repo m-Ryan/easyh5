@@ -18,7 +18,7 @@ interface Props {
 
 let primaryId = 0;
 export default function enhancer<P, T extends React.FC<P>>(Component: T, changeAdapter: (e: any) => any,) {
-  return (props: Props & P) => {
+  return (props: Props & Omit<P, 'value' | 'onChange'>) => {
     const { name, onChangeAdapter, valueAdapter, inline, label, lableHidden, helpText, alignment, distribution, ...rest } = props;
     const [field, meta, hepler] = useField(name);
     const initialValue = meta.initialValue;

@@ -1,6 +1,6 @@
 import { Stack } from '@/components/Stack';
 import React, { useEffect, useMemo, useState } from 'react';
-import { DesktopOutlined, EyeOutlined, BorderOutlined, TabletOutlined } from '@ant-design/icons';
+import { DesktopOutlined, EyeOutlined, BorderOutlined, TabletOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
 import { Button, Input, Select, Tooltip } from 'antd';
 import { TextStyle } from '@/components/TextStyle';
 import { useQuery } from '@/hooks/useQuery';
@@ -111,14 +111,14 @@ export function useDeviceToolbar() {
       }
     };
 
-    document.addEventListener('keydown', onKeydown);
-    document.addEventListener('keyup', keyup);
-    document.addEventListener('wheel', wheel, { passive: false });
+    window.addEventListener('keydown', onKeydown);
+    window.addEventListener('keyup', keyup);
+    window.addEventListener('wheel', wheel, { passive: false });
 
     return () => {
-      document.removeEventListener('keydown', onKeydown);
-      document.removeEventListener('keyup', keyup);
-      document.removeEventListener('wheel', wheel);
+      window.removeEventListener('keydown', onKeydown);
+      window.removeEventListener('keyup', keyup);
+      window.removeEventListener('wheel', wheel);
     };
   }, []);
 
@@ -166,12 +166,15 @@ export function useDeviceToolbar() {
             </Stack>
           </Stack>
           <Stack>
-            <Button size="small" onClick={() => setPrevie(flag => !flag)}><EyeOutlined /></Button>
+
+            <Button size="small" onClick={() => setPrevie(flag => !flag)}>
+              {preview ? <EyeInvisibleOutlined /> : <EyeOutlined />}
+            </Button>
           </Stack>
         </Stack>
       </div>
     );
-  }, [height, isSelectedOther, scale, selectedPlatform, width]);
+  }, [height, isSelectedOther, preview, scale, selectedPlatform, width]);
 
   return {
     content,

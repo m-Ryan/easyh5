@@ -14,6 +14,9 @@ export function RenderItem(props: EditorProps) {
   const block = findBlockByType(field.value.type);
 
   if (block) {
+    if (field.value.data.link) {
+      return <a href={field.value.data.link}><block.Renderer idx={props.idx} /></a>;
+    }
     return <block.Renderer idx={props.idx} />;
   }
   return null;

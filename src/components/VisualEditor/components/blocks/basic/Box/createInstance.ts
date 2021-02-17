@@ -11,9 +11,12 @@ export const createInstance: CreateInstance<IBox> = (payload) => {
         value: null,
       },
       style: {
+        position: 'relative',
         width: 'auto',
         height: '100px',
         backgroundColor: '#fafafa',
+        borderRadius: '0px',
+        opacity: 1,
       },
       children: [],
     },

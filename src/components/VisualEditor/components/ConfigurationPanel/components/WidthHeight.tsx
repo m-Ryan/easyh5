@@ -14,6 +14,7 @@ export function WidthHeight() {
             label='宽'
             name={`${focusIdx}.style.width`}
             inline
+            quickchange
           />
         </Stack.Item>
         <Stack.Item fill>
@@ -21,6 +22,7 @@ export function WidthHeight() {
             label='高'
             name={`${focusIdx}.style.height`}
             inline
+            quickchange
           />
         </Stack.Item>
       </Stack>

@@ -16,6 +16,7 @@ export function Margin() {
           <Stack.Item fill>
             <TextField
               label='上'
+              quickchange
               name={`${focusIdx}.style.marginTop`}
               inline
             />
@@ -23,6 +24,7 @@ export function Margin() {
           <Stack.Item fill>
             <TextField
               label='下'
+              quickchange
               name={`${focusIdx}.style.marginBottom`}
               inline
             />
@@ -33,6 +35,7 @@ export function Margin() {
           <Stack.Item fill>
             <TextField
               label='左'
+              quickchange
               name={`${focusIdx}.style.marginLeft`}
               inline
             />
@@ -40,6 +43,7 @@ export function Margin() {
           <Stack.Item fill>
             <TextField
               label='右'
+              quickchange
               name={`${focusIdx}.style.marginRight`}
               inline
             />
