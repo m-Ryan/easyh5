@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import template from '@/store/template';
 import { useAppSelector } from '@/hooks/useAppSelector';
@@ -8,6 +8,9 @@ import { useQuery } from '@/hooks/useQuery';
 import { useHistory } from 'react-router-dom';
 import { Loading } from '@/components/loading';
 import { TemplateContent } from './components/TemplateContent';
+import { cloneDeep } from 'lodash';
+import { INodeItem } from '@VisualEditor/typings';
+import { unitConver } from '@/util/utils';
 
 export default function Template() {
   const dispatch = useDispatch();
@@ -24,13 +27,23 @@ export default function Template() {
 
   }, [dispatch, id]);
 
-  if (!templateData) return null;
+  const initialValues = useMemo(() => {
+
+    return templateData ? JSON.parse(unitConver((JSON.stringify(templateData)), {
+      originUnit: 'px',
+      replaceUnit: 'rem',
+      precision: 2,
+      times: 0.01
+    })) : null;
+  }, [templateData]);
+
+  if (!initialValues) return null;
 
   return (
 
     <Loading loading={loading}>
       <Formik
-        initialValues={templateData}
+        initialValues={initialValues}
         enableReinitialize
         onSubmit={() => { }}
       >

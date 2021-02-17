@@ -7,7 +7,8 @@ export interface EditorProps {
 }
 
 export function Renderer() {
-  const { getValueByIdx, onAction } = useRendererContext();
+  const { getValueByIdx, onAction, pageValue } = useRendererContext();
+  const { pageWidth, pageMaxWidth, enabled: h5Enabled } = pageValue.data.value.h5;
 
   useEffect(() => {
     const action = (ev: MouseEvent) => {
@@ -30,8 +31,24 @@ export function Renderer() {
 
   }, [getValueByIdx, onAction]);
 
+  useEffect(() => {
+    if (!h5Enabled) return;
+
+    const standard = 100 * 100 / pageWidth;
+
+    if (window.innerWidth > pageMaxWidth) {
+      document.documentElement.style.fontSize = standard * pageMaxWidth / window.innerWidth + 'vw';
+    } else {
+      document.documentElement.style.fontSize = standard + 'vw';
+    }
+
+    return () => {
+      document.documentElement.style.fontSize = 'normal';
+    };
+  }, [h5Enabled, pageMaxWidth, pageWidth]);
+
   return (
-    <div id='VisualEditorRenderMode' style={{ width: '100%', height: '100%' }}>
+    <div id='VisualEditorRenderMode' style={{ width: '100%', height: '100%', maxWidth: pageMaxWidth, margin: '0 auto' }}>
       <RenderItem idx={'content.[0]'} />
     </div>
   );

@@ -1,16 +1,4 @@
 
-
-/// Adjusts the spacing for the stack and contained items.
-/// @param {String} $spacing - The spacing variant to use.
-
-html {
-  /* 1rem = 10px */
-  font-size: 62.5%;
-}
-body {
-  font-size: 1.6rem;
-}
-
 $polaris-spacing: (
   'none': 0,
   'extra-tight': 4px,
@@ -24,21 +12,6 @@ $polaris-spacing: (
 $spacing-data: $polaris-spacing;
 $base-font-size: 10px;
 
-@function rem($value) {
-  $unit: unit($value);
-
-  @if $value == 0 {
-    @return 0;
-  } @else if $unit == 'rem' {
-    @return $value;
-  } @else if $unit == 'px' {
-    @return $value / $base-font-size * 1rem;
-  } @else if $unit == 'em' {
-    @return $unit / 1em * 1rem;
-  } @else {
-    @error 'Value must be in px, em, or rem.';
-  }
-}
 
 /// Returns the spacing value for a given variant.
 ///
@@ -49,7 +22,7 @@ $base-font-size: 10px;
   $fetched-value: map-get($spacing-data, $variant);
 
   @if type-of($fetched-value) == number {
-    @return rem($fetched-value);
+    @return $fetched-value;
   } @else {
     @error 'Spacing variant `#{$variant}` not found. Available variants: #{available-names($spacing-data)}';
   }

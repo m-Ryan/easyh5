@@ -7,7 +7,12 @@
       "type": "page",
       "data": {
         "value": {
-          "title": "页面一"
+          "title": "页面一",
+          "h5": {
+            "enabled": true,
+            "pageWidth": 375,
+            "pageMaxWidth": 480
+          }
         }
       },
       "style": {

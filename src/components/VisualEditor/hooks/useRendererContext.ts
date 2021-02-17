@@ -1,10 +1,11 @@
-import { useFormikContext } from 'formik';
+import { useField, useFormikContext } from 'formik';
 import { INodeItem } from '../typings';
 import { useCallback } from 'react';
 import { ITemplate } from '@/store/template';
 import { get } from 'lodash';
 import { getParseAction } from '@VisualEditor/utils/actions';
 import { useDialog } from './useDialog';
+import { IPage } from '@VisualEditor/components/blocks/basic/Page';
 
 const setDataByVariable = (nodes: INodeItem[], variableMap: { [key: string]: any; }) => {
   nodes.forEach(item => {
@@ -21,7 +22,10 @@ export interface RendererTemplate extends Omit<ITemplate, 'focusIdx'> {
 }
 
 export function useRendererContext() {
+  const pageIdx = 'content.[0]';
+  const [{ value: pageValue }] = useField<IPage>(pageIdx);
   const { setFormikState, setValues, initialValues, values } = useFormikContext<RendererTemplate>();
+
   const { openDialog, closeDialog } = useDialog();
 
   const setVariable = useCallback((map: { [key: string]: any; }) => {
@@ -56,7 +60,9 @@ export function useRendererContext() {
     setValues,
     setVariable,
     getValueByIdx,
-    onAction
+    onAction,
+    pageIdx,
+    pageValue
   };
 }
 

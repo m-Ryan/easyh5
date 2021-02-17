@@ -1,10 +1,11 @@
-import { useFormikContext } from 'formik';
+import { useField, useFormikContext } from 'formik';
 import { BlockType } from '../constants';
 import { cloneDeep, get, set } from 'lodash';
 import { INodeItem } from '../typings';
 import { BlocksMap } from '../components/blocks';
 import { useCallback } from 'react';
 import { ITemplate } from '@/store/template';
+import { IPage } from '@VisualEditor/components/blocks/basic/Page';
 
 function createItem<T extends INodeItem>(
   type: BlockType,
@@ -32,6 +33,8 @@ const getSiblingIdx = (sourceIndex: string, num: number) => {
 };
 
 export function useEditorContext() {
+  const pageIdx = 'content.[0]';
+  const [{ value: pageValue }] = useField<IPage>(pageIdx);
   const { values, setValues, getFieldHelpers } = useFormikContext<ITemplate>();
 
   const focusIdx = values.focusIdx;
@@ -147,6 +150,7 @@ export function useEditorContext() {
     getParentIdx,
     getParentByIdx,
     getSiblingIdx,
-    isExistBlock
+    isExistBlock,
+    pageValue
   };
 }

@@ -10,6 +10,12 @@ export const createInstance: CreateInstance<IPage> = (payload = {}) => {
       data: {
         value: {
           title: '页面一',
+          dialogs: [],
+          h5: {
+            enabled: true,
+            pageWidth: 375,
+            pageMaxWidth: 375,
+          }
         },
       },
       style: {

@@ -59,7 +59,7 @@ export function useDeviceToolbar() {
   const [preview, setPrevie] = useState(false);
   const [width, setWidth] = useState(1200);
   const [height, setHeight] = useState(768);
-  const [selectedPlatform, setSelectedPlatform] = useState('laptop');
+  const [selectedPlatform, setSelectedPlatform] = useState('mobile');
   const [scale, setScale] = useState(1);
   const isSelectedOther = selectedPlatform === 'other';
 
@@ -74,11 +74,11 @@ export function useDeviceToolbar() {
   useEffect(() => {
     if (selectedPlatform === 'laptop') {
       setWidth(1200);
-      setHeight(768);
+      setHeight(667);
     }
     if (selectedPlatform === 'mobile') {
       setWidth(375);
-      setHeight(768);
+      setHeight(667);
     }
   }, [selectedPlatform]);
 
@@ -102,8 +102,8 @@ export function useDeviceToolbar() {
     };
 
     const wheel = (ev: WheelEvent) => {
-      ev.preventDefault();
       if (!isKeydown) return;
+      ev.preventDefault();
       if (ev.deltaY > 0) {
         setScale(s => +(s + 0.05).toFixed(2));
       } else {

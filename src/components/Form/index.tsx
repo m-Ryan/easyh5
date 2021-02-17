@@ -1,4 +1,4 @@
-import { InputNumber, Input as AntdInput, } from 'antd';
+import { InputNumber, Input as AntdInput, Switch, } from 'antd';
 import { TextAreaProps, } from 'antd/lib/input';
 import { InputNumberProps } from 'antd/lib/input-number';
 import ImageUploader, { ImageUploaderProps } from '../ImageUploader';
@@ -9,6 +9,7 @@ import enhancer from './enhancer';
 import { RadioChangeEvent } from 'antd/lib/radio';
 import { TreeSelect, TreeSelectProps } from './TreeSelect';
 import { Input, InputProps } from './Input';
+import { SwitchProps } from 'antd/lib/switch';
 
 export const TextField = enhancer<InputProps, any>(Input, (value) => value);
 
@@ -25,4 +26,5 @@ export const SelectField = enhancer<SelectProps, any>(Select, (e: string) => e);
 export const RadioGroupField = enhancer<RadioGroupProps, any>(RadioGroup, (e: RadioChangeEvent) => e.target.value);
 
 export const TreeSelectField = enhancer<TreeSelectProps, any>(TreeSelect, (e: string) => e);
+export const SwitchField = enhancer<SwitchProps, any>(Switch, (e: boolean) => e);
 

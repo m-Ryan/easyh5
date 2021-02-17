@@ -54,12 +54,13 @@ export default function enhancer<P, T extends React.FC<P>>(Component: T, changeA
               {...rest}
               id={id}
               name={name}
+              checked={valueAdapter ? valueAdapter(field.value) : field.value}
               value={valueAdapter ? valueAdapter(field.value) : field.value}
               onChange={onChange}
             />
           </Stack.Item>
         </Stack>
-        <div className={styles.helperText}>{helpText}</div>
+        <div className={styles.helperText}><small>{helpText}</small></div>
       </Stack>
     );
   };

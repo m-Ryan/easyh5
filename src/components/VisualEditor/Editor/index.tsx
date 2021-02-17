@@ -9,7 +9,7 @@ import { ToolBar } from './components/ToolBar';
 import styles from './index.module.scss';
 
 export const Editor = () => {
-  const { moveByIdx } = useEditorContext();
+  const { moveByIdx, pageValue: { data: { value: { h5 } } } } = useEditorContext();
   const { preview, width, height, scale, content } = useDeviceToolbar();
 
   const onDragEnd = useCallback(
@@ -38,10 +38,9 @@ export const Editor = () => {
     [moveByIdx]
   );
 
-  const scrollWidth = 16 / scale;
-  const innerContainerStyles: React.CSSProperties = { width: width + scrollWidth / scale, height: height, paddingRight: 16, transform: `scale(${scale})`, margin: '0 auto', transformOrigin: 'top left', transition: 'all .3s' };
+  const innerContainerStyles: React.CSSProperties = { width, height: height, transform: `scale(${scale})`, margin: '0 auto', transformOrigin: 'top left', transition: 'all .3s', maxWidth: h5.enabled ? h5.pageMaxWidth : undefined };
   return (
-    <div style={{ width: '100%', }}>
+    <div style={{ width: '100%' }}>
       {content}
 
       {

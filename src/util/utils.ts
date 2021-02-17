@@ -4,6 +4,7 @@ import _ from 'lodash';
 import qs from 'qs';
 import { BASE_NAME } from '@/constants/config';
 import domtoimage from 'dom-to-image';
+
 export function unitConver(declaration: string, options: ICssRulesOptions) {
   const {
     originUnit = 'px',
@@ -179,7 +180,6 @@ export function setStyleBgImg(url: string) {
   return `url(${url})`;
 }
 
-
 export async function createQrcode(url: string, logo?: string) {
   try {
     const canvasWidth = 500;
@@ -254,7 +254,6 @@ export function unlockContaier(id: string | HTMLElement) {
   }
   delete window['lockBodyElement'];
 }
-
 
 export function PromiseEach(promiseLikes: PromiseLike<any>[]) {
   const datas = [];

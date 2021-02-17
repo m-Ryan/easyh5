@@ -5,7 +5,15 @@ import { createInstance } from './createInstance';
 import { INodeItem } from '@VisualEditor/typings';
 import { BlockType } from '@VisualEditor/constants';
 
-export type IPage = INodeItem<{ title: string; dialogs: INodeItem[]; }>;
+export type IPage = INodeItem<{
+  title: string;
+  dialogs: INodeItem[];
+  h5: {
+    enabled: boolean;
+    pageWidth: number;
+    pageMaxWidth: number;
+  };
+}>;
 
 export const Page = {
   name: '页面',
