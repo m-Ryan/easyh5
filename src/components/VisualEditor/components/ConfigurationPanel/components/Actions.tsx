@@ -14,7 +14,7 @@ export function Actions() {
     return actions.map(item => ({
       value: item.name,
       label: item.label,
-      selectable: false,
+      selectable: item.name === 'none',
       options:
         (item.name === 'dialogOpen' || item.name === 'dialogClose')
           ? dialogList.map(dialog => ({

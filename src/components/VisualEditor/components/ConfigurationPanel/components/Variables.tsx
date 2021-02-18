@@ -8,7 +8,7 @@ import { useEditorContext } from '@VisualEditor/hooks/useEditorContext';
 const options = variables.map(item => ({
   value: item.name,
   label: item.label,
-  selectable: false,
+  selectable: item.name === 'none',
   options: item.variables.map(variable => ({
     value: getFormatVariable(item.name, variable.name),
     label: variable.label,

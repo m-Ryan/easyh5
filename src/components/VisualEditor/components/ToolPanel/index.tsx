@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './index.module.scss';
 import { Collapse } from 'antd';
 import { BlockType } from '@VisualEditor/constants';
-import { SnippetsOutlined, PictureOutlined, LayoutOutlined, GroupOutlined, FontSizeOutlined } from '@ant-design/icons';
+import { CustomerServiceOutlined, PictureOutlined, LayoutOutlined, GroupOutlined, FontSizeOutlined, MergeCellsOutlined } from '@ant-design/icons';
 import { BlockIcon } from './components/BlockIcon';
 
 const { Panel } = Collapse;
@@ -35,9 +35,14 @@ export const ToolPanel = function () {
               icon={<PictureOutlined />}
             />
             <BlockIcon
+              text="音频"
+              type={BlockType.AUDIO}
+              icon={<CustomerServiceOutlined />}
+            />
+            <BlockIcon
               text="弹窗"
               type={BlockType.DIALOG}
-              icon={<PictureOutlined />}
+              icon={<MergeCellsOutlined />}
             />
           </div>
         </Panel>

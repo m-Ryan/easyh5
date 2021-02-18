@@ -8,6 +8,11 @@ export const actions: Array<{
     label: string;
   }[];
 }> = [
+    {
+      name: 'none',
+      label: '无',
+      actions: [],
+    },
     dialogClose,
     dialogOpen
   ];

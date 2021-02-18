@@ -3,6 +3,7 @@ export enum BlockType {
   SECTION = 'section',
   BOX = 'box',
   IMAGE = 'image',
+  AUDIO = 'audio',
   TEXT = 'text',
   PARAGRAPH = 'paragraph',
   DIALOG = 'dialog',
