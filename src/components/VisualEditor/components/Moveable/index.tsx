@@ -30,7 +30,7 @@ export default function Moveable(props: MoveableProps) {
       onMove(diffX, diffY) {
         block.style.left = (parseFloat(newStyle.left) || 0) + diffX * Number(1 / scale) + 'px';
         block.style.top = (parseFloat(newStyle.top) || 0) + diffY * Number(1 / scale) + 'px';
-        setValueByIdx(idx, block);
+        setValueByIdx(idx, { ...block });
       },
     });
   };

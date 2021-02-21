@@ -60,10 +60,10 @@ export function useEditorContext() {
 
     if (parent.type === BlockType.TEXT) return;
 
-    parent.children.push(child);
+    parent.children = [...parent.children, child];
     set(values, parentIdx, { ...parent });
     values.focusIdx = `${parentIdx}.children.[${parent.children.length - 1}]`;
-    setValues(values);
+    setValues({ ...values });
   }, [setValues, values]);
 
   const copyBlock = useCallback((idx: string) => {
@@ -151,6 +151,8 @@ export function useEditorContext() {
     getParentByIdx,
     getSiblingIdx,
     isExistBlock,
+    values,
+    setValues,
     pageValue
   };
 }
