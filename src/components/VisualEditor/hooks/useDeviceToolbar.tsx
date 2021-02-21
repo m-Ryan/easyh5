@@ -1,7 +1,7 @@
 import { Stack } from '@/components/Stack';
 import React, { useEffect, useMemo, useState } from 'react';
-import { DesktopOutlined, EyeOutlined, BorderOutlined, TabletOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
-import { Button, Input, Select, Tooltip } from 'antd';
+import { DesktopOutlined, BorderOutlined, TabletOutlined } from '@ant-design/icons';
+import { Button, InputNumber, Select, Tooltip } from 'antd';
 import { TextStyle } from '@/components/TextStyle';
 import { useQuery } from '@/hooks/useQuery';
 
@@ -56,7 +56,6 @@ export const scaleOptions = [
 
 export function useDeviceToolbar() {
   const { patchQuery } = useQuery();
-  const [preview, setPrevie] = useState(false);
   const [width, setWidth] = useState(1200);
   const [height, setHeight] = useState(768);
   const [selectedPlatform, setSelectedPlatform] = useState('mobile');
@@ -74,7 +73,7 @@ export function useDeviceToolbar() {
   useEffect(() => {
     if (selectedPlatform === 'laptop') {
       setWidth(1200);
-      setHeight(667);
+      setHeight(768);
     }
     if (selectedPlatform === 'mobile') {
       setWidth(375);
@@ -144,19 +143,20 @@ export function useDeviceToolbar() {
               }
             </Stack>
             <Stack spacing="extraTight">
-              <Input
+              <InputNumber
+
                 disabled={!isSelectedOther}
                 size="small" style={{ width: 50 }}
                 value={width}
-                onChange={e => setWidth(+e.target.value)}
+                onChange={val => setWidth(Number(val))}
               />
               <TextStyle>X</TextStyle>
-              <Input
+              <InputNumber
                 disabled={!isSelectedOther}
                 size="small"
                 style={{ width: 50 }}
                 value={height}
-                onChange={e => setHeight(+e.target.value)}
+                onChange={val => setHeight(Number(val))}
               />
               <Select value={scale} onChange={e => setScale(e)} size="small" style={{ width: 75 }}>
                 {
@@ -165,22 +165,15 @@ export function useDeviceToolbar() {
               </Select>
             </Stack>
           </Stack>
-          <Stack>
-
-            <Button size="small" onClick={() => setPrevie(flag => !flag)}>
-              {preview ? <EyeInvisibleOutlined /> : <EyeOutlined />}
-            </Button>
-          </Stack>
         </Stack>
       </div>
     );
-  }, [height, isSelectedOther, preview, scale, selectedPlatform, width]);
+  }, [height, isSelectedOther, scale, selectedPlatform, width]);
 
   return {
     content,
     width,
     height,
-    scale,
-    preview
+    scale
   };
 }

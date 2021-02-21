@@ -9,6 +9,12 @@ export enum BlockType {
   DIALOG = 'dialog',
 }
 
+// 表单
+export enum BlockType {
+  FORM = 'form',
+  INPUT = 'input'
+}
+
 export enum BridgeEvent {
   PREVIEW_INITED = 'preivew_inited',
   EDITOR_VALUE_CHANGE = 'editor_value_change',

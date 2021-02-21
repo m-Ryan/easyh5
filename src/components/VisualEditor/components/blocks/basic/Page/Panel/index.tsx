@@ -7,6 +7,7 @@ import { CollapsePanels } from '@VisualEditor/components/CollapsePanels';
 import { NumberField, SwitchField, TextField } from '@/components/Form';
 import { useEditorContext } from '@VisualEditor/hooks/useEditorContext';
 import { Stack } from '@/components/Stack';
+import { Help } from '@/components/Help';
 
 export function Panel() {
   const { focusIdx, focusBlock } = useEditorContext();
@@ -25,7 +26,10 @@ export function Panel() {
                 name={`${focusIdx}.data.value.title`}
                 inline
               />
-              <SwitchField name={`${focusIdx}.data.value.h5.enabled`} inline label="h5模式" />
+              <Stack spacing="extraTight" alignment="center">
+                <SwitchField name={`${focusIdx}.data.value.h5.enabled`} inline label="h5模式" />
+                <Help title="h5模式会对px单位进行转换，以适应移动端" style={{ fontSize: 20 }} />
+              </Stack>
               {
                 focusBlock.data.value.h5.enabled && (
                   <>
@@ -35,6 +39,7 @@ export function Panel() {
                       inline
                       helpText="根据设计稿大小进行缩放"
                     />
+
                     {/* <NumberField
                       label='最大宽度'
                       name={`${focusIdx}.data.value.h5.pageMaxWidth`}

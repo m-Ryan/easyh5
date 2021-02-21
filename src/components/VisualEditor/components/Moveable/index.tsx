@@ -7,9 +7,10 @@ import { useQuery } from '@/hooks/useQuery';
 interface MoveableProps {
   children: React.ReactElement;
   idx: string;
+  disabled?: boolean;
 }
 export default function Moveable(props: MoveableProps) {
-  const { idx, children } = props;
+  const { idx, children, disabled = false } = props;
   const {
     focusIdx,
     setFocusIdx,
@@ -22,6 +23,7 @@ export default function Moveable(props: MoveableProps) {
   const isFocus = focusIdx === idx;
 
   const onMouseDown = (event: MouseEvent) => {
+    if (disabled) return;
     event.stopPropagation();
     const newStyle = { ...block.style };
     setFocusIdx(idx);

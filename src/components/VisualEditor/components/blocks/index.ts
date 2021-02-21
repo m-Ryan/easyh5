@@ -6,6 +6,8 @@ import { Section } from './basic/Section';
 import { Page } from './basic/Page';
 import { Dialog } from './basic/Dialog';
 import { Audio } from './basic/Audio';
+import { Form } from './extra/Form';
+import { Input } from './extra/Input';
 
 export const BlocksMap = {
   Text,
@@ -14,5 +16,7 @@ export const BlocksMap = {
   Section,
   Page,
   Dialog,
-  Audio
+  Audio,
+  Form,
+  Input
 };

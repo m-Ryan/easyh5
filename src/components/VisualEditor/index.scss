@@ -14,3 +14,17 @@
     z-index: 1;
   }
 }
+
+
+#VisualEditorEditMode[data-h5="true"],#VisualEditorRenderMode[data-h5="true"] {
+
+  &::-webkit-scrollbar {
+    width: 0px;
+  }
+
+  * {
+    &::-webkit-scrollbar {
+      width: 0px;
+    }
+  }
+}

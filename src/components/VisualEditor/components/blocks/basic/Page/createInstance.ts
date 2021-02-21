@@ -23,6 +23,7 @@ export const createInstance: CreateInstance<IPage> = (payload = {}) => {
         height: 'auto',
         minHeight: '100%',
         backgroundColor: '#fff',
+        overflow: 'auto',
         position: 'relative',
         fontSize: '14px',
         marginLeft: 'auto',

@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './index.module.scss';
 import { Collapse } from 'antd';
 import { BlockType } from '@VisualEditor/constants';
-import { CustomerServiceOutlined, PictureOutlined, LayoutOutlined, GroupOutlined, FontSizeOutlined, MergeCellsOutlined } from '@ant-design/icons';
+import { CustomerServiceOutlined, PictureOutlined, LayoutOutlined, GroupOutlined, FontSizeOutlined, MergeCellsOutlined, FormOutlined } from '@ant-design/icons';
 import { BlockIcon } from './components/BlockIcon';
 
 const { Panel } = Collapse;
@@ -44,6 +44,16 @@ export const ToolPanel = function () {
               type={BlockType.DIALOG}
               icon={<MergeCellsOutlined />}
             />
+          </div>
+        </Panel>
+        <Panel header="扩展组件" key="2">
+          <div className={styles.list}>
+            <BlockIcon
+              text="表单"
+              type={BlockType.FORM}
+              icon={<FormOutlined />}
+            />
+
           </div>
         </Panel>
 

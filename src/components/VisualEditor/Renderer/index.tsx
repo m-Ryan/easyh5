@@ -48,7 +48,7 @@ export function Renderer() {
   }, [h5Enabled, pageMaxWidth, pageWidth]);
 
   return (
-    <div id='VisualEditorRenderMode' style={{ width: '100%', height: '100%', maxWidth: pageMaxWidth, margin: '0 auto' }}>
+    <div id='VisualEditorRenderMode' data-h5={h5Enabled} style={{ width: '100%', height: '100%', maxWidth: pageMaxWidth, margin: '0 auto' }}>
       <RenderItem idx={'content.[0]'} />
     </div>
   );

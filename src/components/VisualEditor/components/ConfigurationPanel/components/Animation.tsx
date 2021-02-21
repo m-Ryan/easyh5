@@ -11,6 +11,10 @@ import './animate.scss';
 
 const animationOptions = [
   {
+    value: 'none',
+    label: '无',
+  },
+  {
     value: 'app-animate-skip 1s both infinite',
     label: '跳跃',
   },

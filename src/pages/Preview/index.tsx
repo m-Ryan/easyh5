@@ -5,6 +5,7 @@ import { ITemplate } from '@/store/template';
 import { Bridge } from '@VisualEditor/utils/Bridge';
 import { BridgeEvent } from '@VisualEditor/constants';
 import { useEditorContext } from '@VisualEditor/hooks/useEditorContext';
+import { unitConver } from '@/util/utils';
 
 export const Preview = withFormik({
   handleSubmit: () => { },
@@ -20,7 +21,12 @@ export const Preview = withFormik({
   useEffect(() => {
 
     const onMessage = (ev: { type: BridgeEvent, data: ITemplate; }) => {
-      setValues(ev.data);
+      setValues(JSON.parse(unitConver((JSON.stringify(ev.data)), {
+        originUnit: 'px',
+        replaceUnit: 'rem',
+        precision: 2,
+        times: 0.01
+      })));
 
     };
     Bridge.on(BridgeEvent.EDITOR_VALUE_CHANGE, onMessage);

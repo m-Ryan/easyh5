@@ -1,6 +1,5 @@
 import { BridgeEvent } from '@VisualEditor/constants';
 import { useDeviceToolbar } from '@VisualEditor/hooks/useDeviceToolbar';
-import { Renderer } from '@VisualEditor/Renderer';
 import { Bridge } from '@VisualEditor/utils/Bridge';
 import { Tabs } from 'antd';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
@@ -59,7 +58,7 @@ export const Editor = () => {
     [moveByIdx]
   );
 
-  const innerContainerStyles: React.CSSProperties = { width, height: height, transform: `scale(${scale})`, margin: '0 auto', transformOrigin: 'top left', transition: 'all .3s', maxWidth: h5.enabled ? h5.pageMaxWidth : undefined };
+  const innerContainerStyles: React.CSSProperties = { width, height, transform: `scale(${scale})`, margin: '0 auto', transformOrigin: 'top left', transition: 'all .3s', maxWidth: h5.enabled ? h5.pageMaxWidth : undefined };
   return (
     <div style={{ width: '100%' }}>
       {content}
@@ -67,7 +66,7 @@ export const Editor = () => {
         <TabPane tab="编辑" key="editor">
           <div style={{ position: 'relative' }}>
             <div className={styles.container}>
-              <div id='VisualEditorEditMode' style={innerContainerStyles}>
+              <div id='VisualEditorEditMode' data-h5={h5.enabled} style={innerContainerStyles}>
                 <DragDropContext onDragEnd={onDragEnd}>
                   <Droppable droppableId='droppable'>
                     {(provided) => (
@@ -96,7 +95,6 @@ export const Editor = () => {
               <iframe ref={ref} src="/preview" height="100%" width="100%" style={{ border: 'none' }} />
             </div>
           </div>
-
         </TabPane>
       </Tabs>
 
