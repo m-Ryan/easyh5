@@ -13,12 +13,11 @@ export default function Moveable(props: MoveableProps) {
   const { idx, children, disabled = false } = props;
   const {
     focusIdx,
-    setFocusIdx,
     getValueByIdx,
     setValueByIdx,
   } = useEditorContext();
-  useBlockFocus(idx);
-  const { scale } = useQuery();
+
+  const { scale = 1 } = useQuery();
   const block = getValueByIdx(idx)!;
   const isFocus = focusIdx === idx;
 
@@ -26,7 +25,6 @@ export default function Moveable(props: MoveableProps) {
     if (disabled) return;
     event.stopPropagation();
     const newStyle = { ...block.style };
-    setFocusIdx(idx);
     onDrag({
       event,
       onMove(diffX, diffY) {

@@ -1,42 +1,51 @@
+import { findBlockNode } from '@VisualEditor/utils/findBlockNode';
 import { useEffect } from 'react';
 import { useEditorContext } from './useEditorContext';
 
-export function useBlockFocus(idx: string) {
+export function useBlockFocus() {
 
   const { focusIdx, setFocusIdx } = useEditorContext();
 
   useEffect(() => {
-    const ele = document.querySelector(
-      `[data-node-idx="${idx}"]`
-    ) as HTMLDivElement;
-    if (!ele) return;
-    if (idx !== focusIdx) {
+    const blocksEle = [...document.querySelectorAll('[data-node-idx]')] as HTMLDivElement[];
+    blocksEle.forEach(ele => {
       ele.classList.remove('block-selected');
-    } else {
-      ele.classList.add('block-selected');
-    }
+      if (ele.getAttribute('data-node-idx') === focusIdx) {
+        ele.classList.add('block-selected');
+      }
+    });
+  }, [focusIdx]);
+
+  useEffect(() => {
 
     const mouseover = (ev: MouseEvent) => {
       ev.stopPropagation();
-      ele.classList.add('block-hover');
+      findBlockNode(ev.target as Element)?.classList.add('block-hover');
     };
 
-    const mouseout = () => {
-      ele.classList.remove('block-hover');
+    const mouseout = (ev: MouseEvent) => {
+      findBlockNode(ev.target as Element)?.classList.remove('block-hover');
     };
+
     const click = (ev: MouseEvent) => {
-      ev.stopPropagation();
-      setFocusIdx(idx);
+
+      const idx = findBlockNode(ev.target as Element)?.getAttribute('data-node-idx');
+      if (idx) {
+        setFocusIdx(idx);
+      }
     };
 
-    ele.addEventListener('click', click);
-    ele.addEventListener('mouseover', mouseover);
-    ele.addEventListener('mouseout', mouseout);
+    const container = document.getElementById('VisualEditorEditMode');
+    if (!container) return;
+
+    container.addEventListener('click', click);
+    container.addEventListener('mouseover', mouseover);
+    container.addEventListener('mouseout', mouseout);
     return () => {
-      ele.removeEventListener('mouseover', mouseover);
-      ele.removeEventListener('mouseout', mouseout);
-      ele.addEventListener('click', click);
+      container.removeEventListener('mouseover', mouseover);
+      container.removeEventListener('mouseout', mouseout);
+      container.removeEventListener('click', click);
     };
-  }, [focusIdx, idx, setFocusIdx]);
+  }, [setFocusIdx]);
 
 }

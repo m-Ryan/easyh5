@@ -62,14 +62,6 @@ export function useDeviceToolbar() {
   const [scale, setScale] = useState(1);
   const isSelectedOther = selectedPlatform === 'other';
 
-  const container = document.getElementById('VisualEditorEditMode');
-
-  useEffect(() => {
-    if (container) {
-      container.style.width = width + 'px';
-    }
-  }, [width, container]);
-
   useEffect(() => {
     if (selectedPlatform === 'laptop') {
       setWidth(1200);
@@ -87,39 +79,40 @@ export function useDeviceToolbar() {
     });
   }, [patchQuery, scale]);
 
-  useEffect(() => {
-    let isKeydown = false;
-    const onKeydown = (ev: KeyboardEvent) => {
-      if (ev.key === 'Control') {
-        isKeydown = true;
-      }
+  // 缩放的情况下，拖拽有bug
+  // useEffect(() => {
+  //   let isKeydown = false;
+  //   const onKeydown = (ev: KeyboardEvent) => {
+  //     if (ev.key === 'Control') {
+  //       isKeydown = true;
+  //     }
 
-    };
+  //   };
 
-    const keyup = () => {
-      isKeydown = false;
-    };
+  //   const keyup = () => {
+  //     isKeydown = false;
+  //   };
 
-    const wheel = (ev: WheelEvent) => {
-      if (!isKeydown) return;
-      ev.preventDefault();
-      if (ev.deltaY > 0) {
-        setScale(s => +(s + 0.05).toFixed(2));
-      } else {
-        setScale(s => +Math.max(.1, s - 0.05).toFixed(2));
-      }
-    };
+  //   const wheel = (ev: WheelEvent) => {
+  //     if (!isKeydown) return;
+  //     ev.preventDefault();
+  //     if (ev.deltaY > 0) {
+  //       setScale(s => +(s + 0.05).toFixed(2));
+  //     } else {
+  //       setScale(s => +Math.max(.1, s - 0.05).toFixed(2));
+  //     }
+  //   };
 
-    window.addEventListener('keydown', onKeydown);
-    window.addEventListener('keyup', keyup);
-    window.addEventListener('wheel', wheel, { passive: false });
+  //   window.addEventListener('keydown', onKeydown);
+  //   window.addEventListener('keyup', keyup);
+  //   window.addEventListener('wheel', wheel, { passive: false });
 
-    return () => {
-      window.removeEventListener('keydown', onKeydown);
-      window.removeEventListener('keyup', keyup);
-      window.removeEventListener('wheel', wheel);
-    };
-  }, []);
+  //   return () => {
+  //     window.removeEventListener('keydown', onKeydown);
+  //     window.removeEventListener('keyup', keyup);
+  //     window.removeEventListener('wheel', wheel);
+  //   };
+  // }, []);
 
   const content = useMemo(() => {
     return (
@@ -158,17 +151,17 @@ export function useDeviceToolbar() {
                 value={height}
                 onChange={val => setHeight(Number(val))}
               />
-              <Select value={scale} onChange={e => setScale(e)} size="small" style={{ width: 75 }}>
+              {/* <Select value={scale} onChange={e => setScale(e)} size="small" style={{ width: 75 }}>
                 {
                   scaleOptions.map(item => <Select.Option key={item.value} value={item.value}>{item.label}</Select.Option>)
                 }
-              </Select>
+              </Select> */}
             </Stack>
           </Stack>
         </Stack>
       </div>
     );
-  }, [height, isSelectedOther, scale, selectedPlatform, width]);
+  }, [height, isSelectedOther, selectedPlatform, width]);
 
   return {
     content,

@@ -2,7 +2,6 @@ import React from 'react';
 import { INodeItem } from '@VisualEditor/typings';
 import { IPage } from '..';
 import { useField } from 'formik';
-import { useBlockFocus } from '@VisualEditor/hooks/useBlockFocus';
 import { RenderItem } from '@VisualEditor/Renderer/components/RenderItem';
 
 type IProps = {

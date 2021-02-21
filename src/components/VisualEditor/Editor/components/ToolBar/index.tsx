@@ -1,8 +1,4 @@
 import React, {
-  useEffect,
-  useRef,
-  useState,
-  useCallback,
   useMemo
 } from 'react';
 import styles from './index.module.scss';
@@ -22,7 +18,7 @@ type SideBarItem = {
 
 export const ToolBar = () => {
 
-  const { moveByIdx, getSiblingIdx, focusBlock, copyBlock, removeBlock, focusIdx, setFocusIdx, getParentIdx, isExistBlock } = useEditorContext();
+  const { moveByIdx, getSiblingIdx, focusBlock, copyBlock, removeBlock, focusIdx, setFocusIdx, getParentIdx } = useEditorContext();
 
   const sidebarList = useMemo(() => {
     if (!focusBlock) return [];

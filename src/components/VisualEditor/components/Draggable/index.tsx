@@ -1,5 +1,4 @@
-import { useBlockFocus } from '@VisualEditor/hooks/useBlockFocus';
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { Draggable as ReactDraggable } from 'react-beautiful-dnd';
 import { useEditorContext } from '../../hooks/useEditorContext';
 import { INodeItem } from '../../typings';
@@ -12,7 +11,6 @@ export default function Draggable(props: DraggableProps) {
   const { idx, children, data } = props;
   const id = Number(props.idx.match(/\.\[(\d+)\]$/)?.[1]);
   const { focusIdx } = useEditorContext();
-  useBlockFocus(idx);
 
   return (
     <ReactDraggable

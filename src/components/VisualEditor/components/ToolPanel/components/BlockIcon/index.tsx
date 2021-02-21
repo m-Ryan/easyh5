@@ -9,21 +9,12 @@ import { INodeItem } from '@VisualEditor/typings';
 import { get } from 'lodash';
 import { BlockType } from '@VisualEditor/constants';
 import { useEditorContext } from '@VisualEditor/hooks/useEditorContext';
+import { findBlockNode } from '@VisualEditor/utils/findBlockNode';
 
 type BlockIconProps = {
   icon: JSX.Element;
   type: BlockType;
   text: string;
-};
-
-const findInsertNode = (target: HTMLElement): HTMLElement | null => {
-  if (target.getAttribute('data-node-idx')) {
-    return target;
-  }
-  if (target.parentNode) {
-    return findInsertNode(target.parentNode as HTMLElement);
-  }
-  return null;
 };
 
 export function BlockIcon(props: BlockIconProps) {
@@ -43,7 +34,7 @@ export function BlockIcon(props: BlockIconProps) {
 
     const onDragOver = (ev: DragEvent) => {
       const target = ev.target as HTMLElement;
-      if (findInsertNode(target)) {
+      if (findBlockNode(target)) {
         ev.preventDefault();
       }
     };
@@ -67,7 +58,7 @@ export function BlockIcon(props: BlockIconProps) {
     const onDrop = (ev: DragEvent) => {
       if (!draging) return;
       const target = ev.target as HTMLElement;
-      const parentIdx = findInsertNode(target)?.getAttribute('data-node-idx') || '';
+      const parentIdx = findBlockNode(target)?.getAttribute('data-node-idx') || '';
       const parent = get(values, parentIdx);
       if (parent) {
         ev.preventDefault();

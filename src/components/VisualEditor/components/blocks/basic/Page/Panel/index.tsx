@@ -28,27 +28,8 @@ export function Panel() {
               />
               <Stack spacing="extraTight" alignment="center">
                 <SwitchField name={`${focusIdx}.data.value.h5.enabled`} inline label="h5模式" />
-                <Help title="h5模式会对px单位进行转换，以适应移动端" style={{ fontSize: 20 }} />
+                <Help title="h5模式会对px单位进行rem转换，以适应移动端" style={{ fontSize: 20 }} />
               </Stack>
-              {
-                focusBlock.data.value.h5.enabled && (
-                  <>
-                    <NumberField
-                      label='设计稿宽'
-                      name={`${focusIdx}.data.value.h5.pageWidth`}
-                      inline
-                      helpText="根据设计稿大小进行缩放"
-                    />
-
-                    {/* <NumberField
-                      label='最大宽度'
-                      name={`${focusIdx}.data.value.h5.pageMaxWidth`}
-                      inline
-                      helpText="超过最大宽度后，以最大宽度展示"
-                    /> */}
-                  </>
-                )
-              }
 
             </Stack>
           ),

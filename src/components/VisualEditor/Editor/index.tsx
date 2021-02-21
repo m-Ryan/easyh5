@@ -1,6 +1,7 @@
 import { BridgeEvent } from '@VisualEditor/constants';
 import { useDeviceToolbar } from '@VisualEditor/hooks/useDeviceToolbar';
 import { Bridge } from '@VisualEditor/utils/Bridge';
+import { useBlockFocus } from '@VisualEditor/hooks/useBlockFocus';
 import { Tabs } from 'antd';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
@@ -12,8 +13,11 @@ import styles from './index.module.scss';
 const TabPane = Tabs.TabPane;
 
 export const Editor = () => {
+
   const { moveByIdx, pageValue: { data: { value: { h5 } } }, values } = useEditorContext();
-  const { width, height, scale, content } = useDeviceToolbar();
+
+  useBlockFocus();
+  const { width, height, content } = useDeviceToolbar();
   const [previewInited, setPreviewInited] = useState(false);
   const ref = useRef<HTMLIFrameElement>(null);
 
@@ -58,7 +62,7 @@ export const Editor = () => {
     [moveByIdx]
   );
 
-  const innerContainerStyles: React.CSSProperties = { width, height, transform: `scale(${scale})`, margin: '0 auto', transformOrigin: 'top left', transition: 'all .3s', maxWidth: h5.enabled ? h5.pageMaxWidth : undefined };
+  const innerContainerStyles: React.CSSProperties = { width, height, margin: '0 auto', transition: 'all .3s', };
   return (
     <div style={{ width: '100%' }}>
       {content}

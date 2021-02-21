@@ -3,7 +3,6 @@ import { INodeItem } from '@VisualEditor/typings';
 import { IPage } from '..';
 import { useField } from 'formik';
 import { EditorItem } from '@VisualEditor/Editor/components/EditorItem';
-import { useBlockFocus } from '@VisualEditor/hooks/useBlockFocus';
 
 type IProps = {
   idx: string;
@@ -12,8 +11,6 @@ type IProps = {
 export function Editor(props: IProps) {
   const [field] = useField<INodeItem<IPage>>(props.idx);
   const { type, children, style } = field.value;
-
-  useBlockFocus(props.idx);
 
   return (
     <main style={style} data-node-type={type} data-node-idx={props.idx}>
