@@ -4,9 +4,6 @@ import { Stack } from '@/components/Stack';
 import { useEditorContext } from '@VisualEditor/hooks/useEditorContext';
 import { TextStyle } from '@/components/TextStyle';
 import { getOptionsByStringArray } from '@VisualEditor/utils/getOptionsByStringArray';
-import { Collapse } from 'antd';
-
-const { Panel } = Collapse;
 
 const positionOptions = getOptionsByStringArray([
   'static',

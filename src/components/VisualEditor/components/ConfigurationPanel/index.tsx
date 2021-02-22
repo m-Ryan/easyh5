@@ -35,7 +35,7 @@ export function ConfigurationPanel() {
     <Tabs tabBarStyle={{ paddingLeft: 20 }}>
       <Tabs.TabPane key="配置" tab="配置">
         <Card
-          bodyStyle={{ padding: 0, backgroundColor: '#fff' }}
+          bodyStyle={{ paddingTop: 0, backgroundColor: '#fff' }}
           title={(
             <TextStyle variation='strong' size='large'>
               {block.name}属性

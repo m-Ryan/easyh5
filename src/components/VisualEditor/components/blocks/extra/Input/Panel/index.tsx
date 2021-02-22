@@ -1,54 +1,29 @@
 import React from 'react';
-import { WidthHeight } from '@VisualEditor/components/ConfigurationPanel/components/WidthHeight';
-import { Padding } from '@VisualEditor/components/ConfigurationPanel/components/Padding';
-import { Background } from '@VisualEditor/components/ConfigurationPanel/components/Background';
-import { Margin } from '@VisualEditor/components/ConfigurationPanel/components/Margin';
-import { Extra } from '@VisualEditor/components/ConfigurationPanel/components/Extra';
-import { CollapsePanels } from '@VisualEditor/components/CollapsePanels';
-import { Decoration } from '@VisualEditor/components/ConfigurationPanel/components/Decoration';
-import { Position } from '@VisualEditor/components/ConfigurationPanel/components/Position';
+import { BasicField } from '@VisualEditor/components/ConfigurationPanel/components/BasicField';
+import { Stack } from '@/components/Stack';
+import { useEditorContext } from '@VisualEditor/hooks/useEditorContext';
+import { SelectField } from '@/components/Form';
+import { getOptionsByStringArray } from '@VisualEditor/utils/getOptionsByStringArray';
+
+const typeOptions = getOptionsByStringArray([
+  'text',
+  'password',
+  'number',
+]);
 
 export function Panel() {
-
+  const { focusIdx, focusBlock } = useEditorContext();
+  console.log(focusBlock);
   return (
-    <CollapsePanels options={[
-      {
-        title: '宽高',
-        children: <WidthHeight />,
-        active: true
-      },
-      {
-        title: '边距',
-        children: (
-          <>
-            <Padding />
-            <Margin />
-          </>
-        ),
-        active: true,
-      },
-      {
-        title: '背景',
-        children: <Background />,
-        active: true,
-      },
-      {
-        title: '位置',
-        children: <Position />,
-        active: true,
-      },
-      {
-        title: '装饰',
-        children: <Decoration />,
-        active: false,
-      },
-      {
-        title: '额外',
-        children: <Extra />,
-        active: false,
-      },
-    ]}
-    />
+    <Stack.Item fill>
+      <BasicField />
+      <SelectField
+        label='类型'
+        name={`${focusIdx}.data.value.type`}
+        options={typeOptions}
+        inline
+      />
+    </Stack.Item>
   );
 
 }

@@ -4,7 +4,7 @@ import { Padding } from '@VisualEditor/components/ConfigurationPanel/components/
 import { Background } from '@VisualEditor/components/ConfigurationPanel/components/Background';
 import { Margin } from '@VisualEditor/components/ConfigurationPanel/components/Margin';
 import { CollapsePanels } from '@VisualEditor/components/CollapsePanels';
-import { NumberField, SwitchField, TextField } from '@/components/Form';
+import { SwitchField, TextField } from '@/components/Form';
 import { useEditorContext } from '@VisualEditor/hooks/useEditorContext';
 import { Stack } from '@/components/Stack';
 import { Help } from '@/components/Help';

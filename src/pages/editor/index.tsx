@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import styles from './index.module.scss';
 import { Header } from '@/components/Header';
 import { useDispatch } from 'react-redux';
@@ -8,9 +8,8 @@ import { useLoading } from '@/hooks/useLoading';
 import { Formik, FormikHelpers } from 'formik';
 import { ConfigurationPanel } from '@VisualEditor/components/ConfigurationPanel';
 import { ToolPanel } from '@VisualEditor/components/ToolPanel';
-import { Button, message, Radio } from 'antd';
-import { APP_EDITOR_CONTAINER_ID } from '@/constants';
-import { Editor as VisualEditor, Renderer } from '@VisualEditor';
+import { Button, message } from 'antd';
+import { Editor as VisualEditor } from '@VisualEditor';
 import { useQuery } from '@/hooks/useQuery';
 import { useHistory } from 'react-router-dom';
 import { Stack } from '@/components/Stack';

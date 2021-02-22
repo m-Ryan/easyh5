@@ -10,10 +10,10 @@ type IProps = {
 };
 
 export function Editor(props: IProps) {
-  const [{ value }] = useField<INodeItem<IInput>>(props.idx);
+  const [{ value }] = useField<IInput>(props.idx);
   return (
     <Draggable idx={props.idx} data={value}>
-      <TextField disabled label="数控" name="name" />
+      <div><TextField {...value.data.value} /></div>
     </Draggable>
   );
 }

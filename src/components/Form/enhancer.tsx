@@ -46,7 +46,7 @@ export default function enhancer<P, T extends React.FC<P>>(Component: T, changeA
         >
           <Stack.Item>
             <label className={lableHidden ? styles['label-hidden'] : undefined} htmlFor={id}>
-              <span style={{ fontSize: 14 }}>{label}</span>
+              <span style={{ fontSize: 14, whiteSpace: 'pre' }}>{label}</span>
             </label>
           </Stack.Item>
           <Stack.Item fill={inline}>

@@ -1,11 +1,7 @@
 import React, { useMemo } from 'react';
 import {
-  ColorPickerField,
-  ImageUploaderField,
   SelectField,
-  TextField,
 } from '@/components/Form';
-import { Stack } from '@/components/Stack';
 import { useEditorContext } from '@VisualEditor/hooks/useEditorContext';
 import './animate.scss';
 

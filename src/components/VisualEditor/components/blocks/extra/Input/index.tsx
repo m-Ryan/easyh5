@@ -5,7 +5,12 @@ import { createInstance } from './createInstance';
 import { INodeItem } from '@VisualEditor/typings';
 import { BlockType } from '@VisualEditor/constants';
 
-export type IInput = INodeItem<null>;
+export type IInput = INodeItem<{
+  label: string;
+  name: string;
+  type: 'text' | 'password' | 'number';
+  placeholder: string;
+}>;
 
 export const Input = {
   name: '输入框',
