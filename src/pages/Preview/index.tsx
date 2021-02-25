@@ -1,40 +1,36 @@
 import { Renderer } from '@VisualEditor/Renderer';
 import React, { useEffect } from 'react';
 import { withFormik } from 'formik';
-import { ITemplate } from '@/store/template';
-import { Bridge } from '@VisualEditor/utils/Bridge';
-import { BridgeEvent } from '@VisualEditor/constants';
+import { EDITOR_VALUE_CHANGE } from '@VisualEditor/constants';
 import { useEditorContext } from '@VisualEditor/hooks/useEditorContext';
-import { unitConver } from '@/util/utils';
 
 export const Preview = withFormik({
   handleSubmit: () => { },
   mapPropsToValues: () => ({}),
 })(() => {
 
-  const { setValues, values } = useEditorContext();
+  const { setFormikState, values } = useEditorContext();
+
+  const visualEditorData = window.parent.__SHARE_DATA__?.VisualEditor.value;
 
   useEffect(() => {
-    Bridge.emitToEditor(BridgeEvent.PREVIEW_INITED, true);
-  }, []);
 
-  useEffect(() => {
-
-    const onMessage = (ev: { type: BridgeEvent, data: ITemplate; }) => {
-      setValues(JSON.parse(unitConver((JSON.stringify(ev.data)), {
-        originUnit: 'px',
-        replaceUnit: 'rem',
-        precision: 2,
-        times: 0.01
-      })));
+    const onMessage = (params: { data: { type: string; }; }) => {
+      if (params.data.type === EDITOR_VALUE_CHANGE) {
+        setFormikState((formikState) => {
+          formikState.values = visualEditorData;
+          return { ...formikState };
+        });
+      }
 
     };
-    Bridge.on(BridgeEvent.EDITOR_VALUE_CHANGE, onMessage);
+
+    window.addEventListener('message', onMessage);
 
     return () => {
-      Bridge.off(BridgeEvent.EDITOR_VALUE_CHANGE, onMessage);
+      window.removeEventListener('message', onMessage);
     };
-  }, [setValues]);
+  }, [setFormikState, visualEditorData]);
 
   if (!values || Object.keys(values).length === 0) return null;
 

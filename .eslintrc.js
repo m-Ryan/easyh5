@@ -8,7 +8,7 @@ module.exports = {
     ecmaFeatures: {
       jsx: true,
     },
-    ecmaVersion: 2018,
+    ecmaVersion: 2020,
     sourceType: 'module',
   },
   plugins: ['react', 'react-hooks', '@typescript-eslint'],
@@ -52,7 +52,6 @@ module.exports = {
       afterOpening: 'never',
       beforeClosing: 'never',
     }],
-
   },
 };
 // 0 = off, 1 = warn, 2 = error

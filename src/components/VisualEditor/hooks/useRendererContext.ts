@@ -24,6 +24,7 @@ export interface RendererTemplate extends Omit<ITemplate, 'focusIdx'> {
 export function useRendererContext() {
   const pageIdx = 'content.[0]';
   const [{ value: pageValue }] = useField<IPage>(pageIdx);
+  const temporary = pageValue.data.value.temporary;
   const { setFormikState, setValues, initialValues, values } = useFormikContext<RendererTemplate>();
 
   const { openDialog, closeDialog } = useDialog();
@@ -62,7 +63,8 @@ export function useRendererContext() {
     getValueByIdx,
     onAction,
     pageIdx,
-    pageValue
+    pageValue,
+    temporary
   };
 }
 

@@ -13,6 +13,7 @@ export type IPage = INodeItem<{
     pageWidth: number;
     pageMaxWidth: number;
   };
+  temporary: { [key: string]: any; };
 }>;
 
 export const Page = {

@@ -1,9 +1,8 @@
-import { BridgeEvent } from '@VisualEditor/constants';
+
 import { useDeviceToolbar } from '@VisualEditor/hooks/useDeviceToolbar';
-import { Bridge } from '@VisualEditor/utils/Bridge';
 import { useBlockFocus } from '@VisualEditor/hooks/useBlockFocus';
 import { Tabs } from 'antd';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 import { useEditorContext } from '../hooks/useEditorContext';
 import { DialogBar } from './components/DialogBar';
@@ -14,27 +13,12 @@ const TabPane = Tabs.TabPane;
 
 export const Editor = () => {
 
-  const { moveByIdx, pageValue: { data: { value: { h5 } } }, values } = useEditorContext();
-
   useBlockFocus();
+
+  const { moveByIdx, pageValue: { data: { value: { h5 } } } } = useEditorContext();
+
   const { width, height, content } = useDeviceToolbar();
-  const [previewInited, setPreviewInited] = useState(false);
   const ref = useRef<HTMLIFrameElement>(null);
-
-  useEffect(() => {
-    const callback = () => setPreviewInited(true);
-    Bridge.on(BridgeEvent.PREVIEW_INITED, callback);
-
-    return () => {
-      Bridge.off(BridgeEvent.PREVIEW_INITED, callback);
-    };
-  }, []);
-
-  useEffect(() => {
-    const iframe = ref.current;
-    if (!previewInited || !iframe) return;
-    Bridge.emitToPreview(iframe, BridgeEvent.EDITOR_VALUE_CHANGE, values);
-  }, [values, previewInited]);
 
   const onDragEnd = useCallback(
     (result: DropResult) => {
@@ -96,7 +80,7 @@ export const Editor = () => {
         <TabPane tab="预览" key="preview" forceRender>
           <div className={styles.container}>
             <div style={innerContainerStyles}>
-              <iframe ref={ref} src="/preview" height="100%" width="100%" style={{ border: 'none' }} />
+              <iframe id="preview-iframe" sandbox="allow-same-origin allow-scripts" ref={ref} src="/preview" height="100%" width="100%" style={{ border: 'none' }} />
             </div>
           </div>
         </TabPane>

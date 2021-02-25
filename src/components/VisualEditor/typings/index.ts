@@ -22,6 +22,3 @@ export interface INodeItem<T extends any = any> {
 export interface CreateInstance<T extends any = any> {
   (payload?: Partial<T>): T;
 }
-
-// export type IBlocksMapAction<T extends keyof IBlocksMap = any> = IBlocksMap[T]['actions'];
-// export type IBlocksMapVariable<T extends keyof IBlocksMap = any> = IBlocksMap[T]['variable'];

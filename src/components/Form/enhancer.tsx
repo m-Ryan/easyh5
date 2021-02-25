@@ -1,10 +1,11 @@
-import { useField } from 'formik';
+import { Form } from 'antd';
+import { Field, FieldProps, useField, useFormikContext } from 'formik';
 import React, { useMemo } from 'react';
 import { useCallback } from 'react';
 import { Stack, StackProps } from '../Stack';
 import styles from './index.module.scss';
 
-interface Props {
+interface Props extends Partial<FieldProps> {
   name: string;
   label: React.ReactNode;
   lableHidden?: boolean;
@@ -14,14 +15,27 @@ interface Props {
   inline?: boolean;
   valueAdapter?: (value: any) => any;
   onChangeAdapter?: (value: any) => any;
+  validate?: (value: any) => string | undefined | Promise<string | undefined>;
 }
 
 let primaryId = 0;
 export default function enhancer<P, T extends React.FC<P>>(Component: T, changeAdapter: (e: any) => any,) {
   return (props: Props & Omit<P, 'value' | 'onChange'>) => {
-    const { name, onChangeAdapter, valueAdapter, inline, label, lableHidden, helpText, alignment, distribution, ...rest } = props;
-    const [field, meta, hepler] = useField(name);
-    const initialValue = meta.initialValue;
+
+    const { name,
+      onChangeAdapter,
+      valueAdapter,
+      inline,
+      label,
+      lableHidden,
+      helpText,
+      alignment,
+      distribution,
+      validate,
+      ...rest
+    } = props;
+
+    const [field, { error }, hepler] = useField(name);
 
     const onChange = useCallback((e) => {
       const newVal = onChangeAdapter ?
@@ -29,39 +43,51 @@ export default function enhancer<P, T extends React.FC<P>>(Component: T, changeA
         : changeAdapter(e);
 
       hepler.setValue(newVal);
-      hepler.setTouched(newVal !== initialValue);
-    }, [initialValue, hepler, onChangeAdapter]);
+    }, [onChangeAdapter, hepler]);
 
     const id = useMemo(() => {
       return `enhancer-${primaryId++}`;
     }, []);
 
     return (
-      <Stack vertical spacing='extraTight'>
-        <Stack spacing={inline ? undefined : 'extraTight'}
-          wrap={false}
-          vertical={!inline}
-          alignment={alignment ? alignment : (inline ? 'center' : undefined)}
-          distribution={distribution}
-        >
-          <Stack.Item>
-            <label className={lableHidden ? styles['label-hidden'] : undefined} htmlFor={id}>
-              <span style={{ fontSize: 14, whiteSpace: 'pre' }}>{label}</span>
-            </label>
-          </Stack.Item>
-          <Stack.Item fill={inline}>
-            <Component
-              {...rest}
-              id={id}
-              name={name}
-              checked={valueAdapter ? valueAdapter(field.value) : field.value}
-              value={valueAdapter ? valueAdapter(field.value) : field.value}
-              onChange={onChange}
-            />
-          </Stack.Item>
-        </Stack>
-        <div className={styles.helperText}><small>{helpText}</small></div>
-      </Stack>
+
+      <Field name={name} validate={validate}>
+        {() => (
+          <Form.Item
+            style={{ margin: 0 }}
+            validateStatus={error ? 'error' : undefined}
+            help={error}
+          >
+            <Stack vertical spacing='extraTight'>
+              <Stack spacing={inline ? undefined : 'extraTight'}
+                wrap={false}
+                vertical={!inline}
+                alignment={alignment ? alignment : (inline ? 'center' : undefined)}
+                distribution={distribution}
+              >
+                <Stack.Item>
+                  <label className={lableHidden ? styles['label-hidden'] : undefined} htmlFor={id}>
+                    <span style={{ fontSize: 14, whiteSpace: 'pre' }}>{label}{error}</span>
+                  </label>
+                </Stack.Item>
+                <Stack.Item fill={inline}>
+                  <Component
+                    {...rest}
+                    id={id}
+                    name={name}
+                    checked={valueAdapter ? valueAdapter(field.value) : field.value}
+                    value={valueAdapter ? valueAdapter(field.value) : field.value}
+                    onChange={onChange}
+                  />
+                </Stack.Item>
+              </Stack>
+              <div className={styles.helperText}><small>{helpText}</small></div>
+            </Stack>
+          </Form.Item>
+        )}
+
+      </Field>
     );
+
   };
 }

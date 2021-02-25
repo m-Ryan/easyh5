@@ -12,11 +12,12 @@ export enum BlockType {
 // 表单
 export enum BlockType {
   FORM = 'form',
-  INPUT = 'input'
+  INPUT = 'input',
+  SUBMIT_BTN = 'submit_button',
 }
 
-export enum BridgeEvent {
-  PREVIEW_INITED = 'preivew_inited',
-  EDITOR_VALUE_CHANGE = 'editor_value_change',
-  PREVIEW_VALUE_CHANGE = 'preview_value_change',
-}
+export const EDITOR_VALUE_CHANGE = 'editor_value_change';
+
+export const PAGE_IDX = 'content.[0]';
+export const PAGE_TEMPORARY_IDX = 'content.[0].data.value.temporary';
+

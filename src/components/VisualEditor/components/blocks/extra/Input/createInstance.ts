@@ -11,6 +11,8 @@ export const createInstance: CreateInstance<IInput> = (payload) => {
         value: {
           label: '输入框',
           placeholder: '请输入',
+          validate: [],
+          maxLength: 0,
           name: 'xxx',
           type: 'text'
         },

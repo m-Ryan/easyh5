@@ -8,6 +8,7 @@ import { Dialog } from './basic/Dialog';
 import { Audio } from './basic/Audio';
 import { Form } from './extra/Form';
 import { Input } from './extra/Input';
+import { SubmitButton } from './extra/SubmitButton';
 
 export const BlocksMap = {
   Text,
@@ -18,5 +19,6 @@ export const BlocksMap = {
   Dialog,
   Audio,
   Form,
-  Input
+  Input,
+  SubmitButton
 };

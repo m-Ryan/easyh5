@@ -5,18 +5,13 @@ import { createInstance } from './createInstance';
 import { INodeItem } from '@VisualEditor/typings';
 import { BlockType } from '@VisualEditor/constants';
 
-export type IInput = INodeItem<{
-  label: string;
-  name: string;
-  type: 'text' | 'password' | 'number';
-  placeholder: string;
-  maxLength: number,
-  validate: string[];
+export type ISubmitBtn = INodeItem<{
+  title: string;
 }>;
 
-export const Input = {
-  name: '输入框',
-  type: BlockType.INPUT,
+export const SubmitButton = {
+  name: '提交按钮',
+  type: BlockType.SUBMIT_BTN,
   Editor,
   Renderer,
   Panel,

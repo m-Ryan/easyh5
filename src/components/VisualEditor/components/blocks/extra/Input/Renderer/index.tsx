@@ -1,21 +1,21 @@
 import React from 'react';
-import { INodeItem } from '@VisualEditor/typings';
-import { IBox } from '..';
+import { IInput } from '..';
 import { useField } from 'formik';
-import { RenderItem } from '@VisualEditor/Renderer/components/RenderItem';
+import { TextField } from '@/components/Form';
+import { useFormContext } from '@VisualEditor/context/FormContext';
+import { getValidation } from '@VisualEditor/utils/validation';
 
 type IProps = {
   idx: string;
 };
 
 export function Renderer(props: IProps) {
-  const [field] = useField<INodeItem<IBox>>(props.idx);
+  const [{ value }] = useField<IInput>(props.idx);
+  const { maxLength, ...fieldProps } = value.data.value;
+  const { getFieldName } = useFormContext();
   return (
-    <div data-node-type={field.value.type} data-node-idx={props.idx} style={field.value.style}>
-      {field.value.children.map((item, index) => {
-        const childIndex = `${props.idx}.children.[${index}]`;
-        return <RenderItem key={childIndex} idx={childIndex} />;
-      })}
+    <div data-node-type={value.type} data-node-idx={props.idx} style={value.style}>
+      <TextField {...fieldProps} validate={getValidation(fieldProps.validate)} name={getFieldName(fieldProps.name)} />
     </div>
   );
 }

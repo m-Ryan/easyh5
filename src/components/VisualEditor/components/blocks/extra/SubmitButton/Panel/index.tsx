@@ -20,7 +20,6 @@ export function Panel() {
       <NumberField label='长度限制' name={`${focusIdx}.data.value.maxLength`} inline />
       <SelectField
         label='类型'
-        mode="multiple"
         name={`${focusIdx}.data.value.type`}
         options={typeOptions}
         inline

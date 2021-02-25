@@ -3,6 +3,7 @@ import { CreateInstance } from '@VisualEditor/typings';
 import { merge } from 'lodash';
 import { IForm } from '.';
 import { Input } from '../Input';
+import { SubmitButton } from '../SubmitButton';
 
 export const createInstance: CreateInstance<IForm> = (payload) => {
   return merge(
@@ -47,6 +48,13 @@ export const createInstance: CreateInstance<IForm> = (payload) => {
               name: 'phone',
               placeholder: '请输入手机号',
               type: 'text'
+            }
+          }
+        }),
+        SubmitButton.createInstance({
+          data: {
+            value: {
+              title: '提交'
             }
           }
         })

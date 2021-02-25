@@ -1,9 +1,9 @@
 import { useField, useFormikContext } from 'formik';
-import { BlockType } from '../constants';
+import { BlockType, EDITOR_VALUE_CHANGE } from '../constants';
 import { cloneDeep, get, set } from 'lodash';
 import { INodeItem } from '../typings';
 import { BlocksMap } from '../components/blocks';
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { ITemplate } from '@/store/template';
 import { IPage } from '@VisualEditor/components/blocks/basic/Page';
 
@@ -35,7 +35,16 @@ const getSiblingIdx = (sourceIndex: string, num: number) => {
 export function useEditorContext() {
   const pageIdx = 'content.[0]';
   const [{ value: pageValue }] = useField<IPage>(pageIdx);
-  const { values, setValues, getFieldHelpers, setFormikState } = useFormikContext<ITemplate>();
+  const formikContext = useFormikContext<ITemplate>();
+  const { values, setValues, getFieldHelpers, setFormikState, handleChange } = formikContext;
+
+  useEffect(() => {
+    set(window, '__SHARE_DATA__.VisualEditor.value', formikContext.values);
+    const iframe = document.getElementById('preview-iframe') as HTMLIFrameElement;
+    if (iframe) {
+      iframe.contentWindow?.postMessage({ type: EDITOR_VALUE_CHANGE }, '*');
+    }
+  }, [formikContext]);
 
   const focusIdx = values.focusIdx;
   const focusBlock = get(values, focusIdx) as INodeItem | null;
@@ -171,6 +180,7 @@ export function useEditorContext() {
     values,
     setFormikState,
     setValues,
-    pageValue
+    pageValue,
+    handleChange,
   };
 }

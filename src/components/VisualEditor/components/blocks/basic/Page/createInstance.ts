@@ -15,6 +15,9 @@ export const createInstance: CreateInstance<IPage> = (payload = {}) => {
             enabled: true,
             pageWidth: 375,
             pageMaxWidth: 375,
+          },
+          temporary: {
+
           }
         },
       },
