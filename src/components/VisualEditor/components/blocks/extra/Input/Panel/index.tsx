@@ -10,6 +10,7 @@ const typeOptions = getOptionsByStringArray([
   'text',
   'password',
   'number',
+  'textarea'
 ]);
 
 export function Panel() {

@@ -8,7 +8,7 @@ import { BlockType } from '@VisualEditor/constants';
 export type IInput = INodeItem<{
   label: string;
   name: string;
-  type: 'text' | 'password' | 'number';
+  type: 'text' | 'password' | 'number' | 'textarea';
   placeholder?: string;
   maxLength?: number,
   minLength?: number,

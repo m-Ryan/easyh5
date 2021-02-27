@@ -58,6 +58,17 @@ export const createInstance: CreateInstance<IForm> = (payload) => {
             }
           }
         }),
+        Input.createInstance({
+          data: {
+            value: {
+              label: '描述',
+              name: 'description',
+              placeholder: '相关描述',
+              type: 'textarea',
+              validate: []
+            }
+          }
+        }),
         SubmitButton.createInstance({
           data: {
             value: {
