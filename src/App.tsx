@@ -9,7 +9,6 @@ import '@/styles/common.scss';
 import Editor from '@/pages/Editor';
 import Template from '@/pages/Template';
 import { history } from './util/history';
-import { Preview } from './pages/Preview';
 
 export default function App() {
   return (
@@ -19,7 +18,6 @@ export default function App() {
           <Switch>
             <Route path='/' exact component={Home} />
             <Route path='/editor' component={Editor} />
-            <Route path='/preview' component={Preview} />
             <Route path='/template' component={Template} />
           </Switch>
         </Router>

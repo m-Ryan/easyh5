@@ -16,8 +16,6 @@ export enum BlockType {
   SUBMIT_BTN = 'submit_button',
 }
 
-export const EDITOR_VALUE_CHANGE = 'editor_value_change';
-
 export const PAGE_IDX = 'content.[0]';
 export const PAGE_TEMPORARY_IDX = 'content.[0].data.value.temporary';
 

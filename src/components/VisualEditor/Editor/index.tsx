@@ -2,13 +2,16 @@
 import { useDeviceToolbar } from '@VisualEditor/hooks/useDeviceToolbar';
 import { useBlockFocus } from '@VisualEditor/hooks/useBlockFocus';
 import { Tabs } from 'antd';
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback } from 'react';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 import { useEditorContext } from '../hooks/useEditorContext';
 import { DialogBar } from './components/DialogBar';
 import { EditorItem } from './components/EditorItem';
 import { ToolBar } from './components/ToolBar';
 import styles from './index.module.scss';
+import { IframeComponent } from './components/IframeComponent';
+import { Renderer } from '@VisualEditor';
+
 const TabPane = Tabs.TabPane;
 
 export const Editor = () => {
@@ -18,7 +21,6 @@ export const Editor = () => {
   const { moveByIdx, pageValue: { data: { value: { h5 } } } } = useEditorContext();
 
   const { width, height, content } = useDeviceToolbar();
-  const ref = useRef<HTMLIFrameElement>(null);
 
   const onDragEnd = useCallback(
     (result: DropResult) => {
@@ -47,6 +49,7 @@ export const Editor = () => {
   );
 
   const innerContainerStyles: React.CSSProperties = { width, height, margin: '0 auto', transition: 'all .3s', };
+
   return (
     <div style={{ width: '100%' }}>
       {content}
@@ -70,9 +73,7 @@ export const Editor = () => {
                   </Droppable>
                 </DragDropContext>
               </div>
-
             </div>
-
             <DialogBar />
             <ToolBar />
           </div>
@@ -80,12 +81,14 @@ export const Editor = () => {
         <TabPane tab="预览" key="preview" forceRender>
           <div className={styles.container}>
             <div style={innerContainerStyles}>
-              <iframe id="preview-iframe" sandbox="allow-same-origin allow-scripts" ref={ref} src="/preview" height="100%" width="100%" style={{ border: 'none' }} />
+              <IframeComponent height="100%" width="100%" style={{ border: 'none' }}>
+                <Renderer />
+              </IframeComponent>
+
             </div>
           </div>
         </TabPane>
       </Tabs>
-
     </div>
   );
 };

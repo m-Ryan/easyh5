@@ -5,11 +5,8 @@ import { useAppSelector } from '@/hooks/useAppSelector';
 import { useLoading } from '@/hooks/useLoading';
 import { Formik } from 'formik';
 import { useQuery } from '@/hooks/useQuery';
-import { useHistory } from 'react-router-dom';
 import { Loading } from '@/components/loading';
 import { TemplateContent } from './components/TemplateContent';
-import { cloneDeep } from 'lodash';
-import { INodeItem } from '@VisualEditor/typings';
 import { unitConver } from '@/util/utils';
 
 export default function Template() {

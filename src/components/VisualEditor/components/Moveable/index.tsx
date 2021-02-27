@@ -1,7 +1,6 @@
-import React, { useCallback, useMemo, useEffect, ReactElement } from 'react';
+import React from 'react';
 import { onDrag } from '@/util/onDrag';
 import { useEditorContext } from '../../hooks/useEditorContext';
-import { useBlockFocus } from '@VisualEditor/hooks/useBlockFocus';
 import { useQuery } from '@/hooks/useQuery';
 
 interface MoveableProps {
@@ -24,13 +23,19 @@ export default function Moveable(props: MoveableProps) {
   const onMouseDown = (event: MouseEvent) => {
     if (disabled) return;
     event.stopPropagation();
-    const newStyle = { ...block.style };
     onDrag({
       event,
       onMove(diffX, diffY) {
-        block.style.left = (parseFloat(newStyle.left) || 0) + diffX * Number(1 / scale) + 'px';
-        block.style.top = (parseFloat(newStyle.top) || 0) + diffY * Number(1 / scale) + 'px';
-        setValueByIdx(idx, { ...block });
+        const left = (parseFloat(block.style.left) || 0) + diffX * Number(1 / scale) + 'px';
+        const top = (parseFloat(block.style.top) || 0) + diffY * Number(1 / scale) + 'px';
+
+        setValueByIdx(idx, {
+          ...block, style: {
+            ...block.style,
+            left,
+            top
+          },
+        });
       },
     });
   };
