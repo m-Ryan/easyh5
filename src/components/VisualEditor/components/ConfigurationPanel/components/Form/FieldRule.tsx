@@ -29,9 +29,10 @@ export function FieldRule() {
   return (
     <Stack vertical>
       <SelectField
+        mode="multiple"
         style={{ display: 'flex', flexDirection: 'column' }}
         alignment="leading" label="检验规则"
-        name={`${focusIdx}.data.value.validationRule`}
+        name={`${focusIdx}.data.value.validate`}
         inline
         options={ruleOptions}
       />

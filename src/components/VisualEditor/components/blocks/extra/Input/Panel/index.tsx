@@ -4,6 +4,7 @@ import { Stack } from '@/components/Stack';
 import { useEditorContext } from '@VisualEditor/hooks/useEditorContext';
 import { NumberField, SelectField, } from '@/components/Form';
 import { getOptionsByStringArray } from '@VisualEditor/utils/getOptionsByStringArray';
+import { FieldRule } from '@VisualEditor/components/ConfigurationPanel/components/Form/FieldRule';
 
 const typeOptions = getOptionsByStringArray([
   'text',
@@ -17,14 +18,15 @@ export function Panel() {
   return (
     <Stack vertical>
       <BasicField />
-      <NumberField label='长度限制' name={`${focusIdx}.data.value.maxLength`} inline />
+      <NumberField inline label='最大长度限制' name={`${focusIdx}.data.value.maxLength`} />
+      <NumberField inline label='最小长度限制' name={`${focusIdx}.data.value.minLength`} />
       <SelectField
         label='类型'
-        mode="multiple"
         name={`${focusIdx}.data.value.type`}
         options={typeOptions}
         inline
       />
+      <FieldRule />
     </Stack>
   );
 

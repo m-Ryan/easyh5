@@ -11,7 +11,7 @@ type IProps = {
 
 export function Editor(props: IProps) {
   const [{ value }] = useField<IInput>(props.idx);
-  const { maxLength, ...fieldProps } = value.data.value;
+  const { maxLength, validate, ...fieldProps } = value.data.value;
   const { getFieldName } = useFormContext();
   return (
     <Draggable idx={props.idx} data={value}>

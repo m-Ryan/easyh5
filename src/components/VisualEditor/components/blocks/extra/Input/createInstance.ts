@@ -13,6 +13,7 @@ export const createInstance: CreateInstance<IInput> = (payload) => {
           placeholder: '请输入',
           validate: [],
           maxLength: 0,
+          minLength: -1,
           name: 'xxx',
           type: 'text'
         },
@@ -20,8 +21,6 @@ export const createInstance: CreateInstance<IInput> = (payload) => {
       style: {
         position: 'relative',
         opacity: 1,
-        paddingLeft: '16px',
-        paddingRight: '16px',
       },
       children: [],
     },

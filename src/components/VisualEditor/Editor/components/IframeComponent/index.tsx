@@ -18,7 +18,7 @@ export const IframeComponent = ({
 
   return (
     <iframe title={title} {...props} ref={setContentRef}>
-      {mountNode && createPortal(children, mountNode)}
+      {mountNode && createPortal(<><div dangerouslySetInnerHTML={{ __html: document.head.innerHTML }} />{children}</>, mountNode)}
     </iframe>
   );
 };

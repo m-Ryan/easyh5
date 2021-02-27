@@ -9,9 +9,10 @@ export type IInput = INodeItem<{
   label: string;
   name: string;
   type: 'text' | 'password' | 'number';
-  placeholder: string;
-  maxLength: number,
-  validate: string[];
+  placeholder?: string;
+  maxLength?: number,
+  minLength?: number,
+  validate?: string[];
 }>;
 
 export const Input = {
