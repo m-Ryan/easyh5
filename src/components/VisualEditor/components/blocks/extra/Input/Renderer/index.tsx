@@ -17,13 +17,26 @@ export function Renderer(props: IProps) {
   if (minLength && minLength > 0) {
     validations.push(`${ValidationType.MIN_LENGTH}:${minLength}`);
   }
+
   return (
     <div data-node-type={value.type} data-node-idx={props.idx} style={value.style}>
 
       {
         type === 'textarea'
-          ? <TextAreaField {...fieldProps} validate={getValidation(validations)} name={getFieldName(fieldProps.name)} />
-          : <TextField {...fieldProps} validate={getValidation(validations)} name={getFieldName(fieldProps.name)} />
+          ? (
+            <TextAreaField
+              {...fieldProps}
+              validate={getValidation(validations)}
+              required={validations.includes(ValidationType.REQUIRED)} name={getFieldName(fieldProps.name)}
+            />
+          )
+          : (
+            <TextField
+              {...fieldProps}
+              validate={getValidation(validations)}
+              required={validations.includes(ValidationType.REQUIRED)} name={getFieldName(fieldProps.name)}
+            />
+          )
       }
 
     </div>

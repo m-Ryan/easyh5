@@ -1,8 +1,9 @@
 import React from 'react';
-import { ICheckbox } from '..';
+import { IRadio } from '..';
 import { useField } from 'formik';
-import { CheckboxField } from '@/components/Form';
+import { RadioGroupField } from '@/components/Form';
 import { BlockWrapper } from '@VisualEditor/components/BlockWrapper';
+import { getValidation, ValidationType } from '@VisualEditor/utils/validation';
 import { useFormContext } from '@VisualEditor/context/FormContext';
 
 type IProps = {
@@ -11,18 +12,19 @@ type IProps = {
 
 export function Renderer(props: IProps) {
   const { getFieldName } = useFormContext();
-  const [{ value }] = useField<ICheckbox>(props.idx);
+  const [{ value }] = useField<IRadio>(props.idx);
   const { ...fieldProps } = value.data.value;
-
+  const validations = fieldProps.validate ? [...fieldProps.validate] : [];
   return (
     <BlockWrapper idx={props.idx}>
       <div>
-        <CheckboxField
+        <RadioGroupField
           alignment="leading"
           style={{ display: 'flex', flexDirection: 'column' }}
           {...fieldProps}
+          validate={getValidation(validations)}
           name={getFieldName(fieldProps.name)}
-
+          required={validations.includes(ValidationType.REQUIRED)}
           inline
         />
       </div>

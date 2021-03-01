@@ -5,6 +5,7 @@ import { merge } from 'lodash';
 import { IForm } from '.';
 import { Checkbox } from '../Checkbox';
 import { Input } from '../Input';
+import { Radio } from '../Radio';
 import { SubmitButton } from '../SubmitButton';
 import { Switch } from '../Switch';
 
@@ -71,6 +72,7 @@ export const createInstance: CreateInstance<IForm> = (payload) => {
         }
       }),
       Checkbox.createInstance({}),
+      Radio.createInstance({}),
       Switch.createInstance({
         data: {
           value: {

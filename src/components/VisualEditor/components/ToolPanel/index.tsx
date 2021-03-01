@@ -53,6 +53,31 @@ export const ToolPanel = function () {
               type={BlockType.FORM}
               icon={<FormOutlined />}
             />
+            <BlockIcon
+              text="输入框"
+              type={BlockType.INPUT}
+              icon={<FormOutlined />}
+            />
+            <BlockIcon
+              text="单选框"
+              type={BlockType.RADIO}
+              icon={<FormOutlined />}
+            />
+            <BlockIcon
+              text="多选框"
+              type={BlockType.CHECKBOX}
+              icon={<FormOutlined />}
+            />
+            <BlockIcon
+              text="开关"
+              type={BlockType.SWITCH}
+              icon={<FormOutlined />}
+            />
+            <BlockIcon
+              text="提交按钮"
+              type={BlockType.SUBMIT_BTN}
+              icon={<FormOutlined />}
+            />
 
           </div>
         </Panel>

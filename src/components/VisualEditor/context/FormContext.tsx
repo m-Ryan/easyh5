@@ -11,23 +11,25 @@ export const FormContext = React.createContext({
 
 const getTouchedObj = (errors: any) => {
   const touched: any = {};
-  Object.keys(errors).map(key => {
-    if (Array.isArray(errors[key])) {
-      errors[key].map((val: any, index: any) => {
-        if (index == 0) touched[key] = [];
-        touched[key].push(getTouchedObj(val));
-      });
-    } else {
+  for (let key in errors) {
+    const errorObject = errors[key];
+    if (typeof errorObject === 'string') {
       touched[key] = true;
+    } else if (Array.isArray(errorObject)) {
+      touched[key] = errorObject.map(getTouchedObj);
+    } else {
+      touched[key] = {};
+      for (let childKey in errorObject) {
+        touched[key][childKey] = getTouchedObj(errorObject[childKey]);
+      }
     }
-  });
-
+  }
   return touched;
 };
 
 export function useFormContext() {
   const context = useContext(FormContext);
-  const { values, errors, setTouched, touched } = useFormikContext<ITemplate>();
+  const { values, errors, setTouched, touched, validateForm } = useFormikContext<ITemplate>();
 
   const formName = useMemo(() => {
     return PAGE_TEMPORARY_IDX + '.' + context.id;
@@ -46,8 +48,9 @@ export function useFormContext() {
   }, [getFormValues]);
 
   const handleSubmit = async () => {
-    if (errors && Object.keys(errors).length > 0) {
-      const touchedObj = getTouchedObj(errors);
+    const validateError = await validateForm(values);
+    if (validateError && Object.keys(validateError).length > 0) {
+      const touchedObj = getTouchedObj(validateError);
       setTouched(touchedObj, true);
     }
 
@@ -56,7 +59,8 @@ export function useFormContext() {
 
   const isValid = useMemo(() => {
     const errorObj = get(errors, formName);
-    return Boolean(errorObj && Object.keys(errorObj).length > 0);
+    if (!errorObj) return true;
+    return Object.keys(errorObj).length === 0;
   }, [errors, formName]);
 
   const isTouched = useMemo(() => {

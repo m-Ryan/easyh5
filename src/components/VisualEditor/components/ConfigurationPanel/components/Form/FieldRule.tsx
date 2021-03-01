@@ -8,10 +8,6 @@ export function FieldRule() {
 
   const ruleOptions = [
     {
-      value: '',
-      label: '无'
-    },
-    {
       value: 'required',
       label: '必填'
     },

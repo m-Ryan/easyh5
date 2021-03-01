@@ -13,11 +13,11 @@ export function Editor(props: IProps) {
   const [{ value }] = useField<ISubmitBtn>(props.idx);
   const fieldProps = value.data.value;
 
-  const { handleSubmit, isValid, isTouched } = useFormContext();
+  const { handleSubmit, isTouched } = useFormContext();
 
   return (
     <Draggable idx={props.idx} data={value}>
-      <div><Button type="primary" disabled={!isTouched || isValid} style={{ width: '100%' }} onClick={handleSubmit} {...fieldProps}>{fieldProps.title}</Button></div>
+      <div><Button type="primary" disabled={!isTouched} style={{ width: '100%' }} onClick={handleSubmit} {...fieldProps}>{fieldProps.title}</Button></div>
     </Draggable>
   );
 }

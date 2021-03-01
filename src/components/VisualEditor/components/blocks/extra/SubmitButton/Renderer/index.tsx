@@ -13,11 +13,11 @@ export function Renderer(props: IProps) {
   const [{ value }] = useField<ISubmitBtn>(props.idx);
   const fieldProps = value.data.value;
 
-  const { handleSubmit, isValid, isTouched } = useFormContext();
+  const { handleSubmit, isTouched } = useFormContext();
 
   return (
     <BlockWrapper idx={props.idx}>
-      <div><Button disabled={!isTouched || isValid} type="primary" style={{ width: '100%' }} onClick={handleSubmit} {...fieldProps}>{fieldProps.title}</Button></div>
+      <div><Button disabled={!isTouched} type="primary" style={{ width: '100%' }} onClick={handleSubmit} {...fieldProps}>{fieldProps.title}</Button></div>
     </BlockWrapper>
   );
 }

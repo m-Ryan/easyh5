@@ -13,6 +13,7 @@ interface Props extends Partial<FieldProps> {
   distribution?: StackProps['distribution'];
   helpText?: React.ReactNode;
   inline?: boolean;
+  required?: boolean;
   valueAdapter?: (value: any) => any;
   onChangeAdapter?: (value: any) => any;
   validate?: (value: any) => (string | undefined | Promise<string | undefined>);
@@ -32,6 +33,7 @@ export default function enhancer<P>(Component: any, changeAdapter: (e: any) => a
       alignment,
       distribution,
       validate,
+      required,
       ...rest
     } = props;
 
@@ -55,6 +57,10 @@ export default function enhancer<P>(Component: any, changeAdapter: (e: any) => a
             form.setFieldTouched(name, true);
           };
 
+          if (error) {
+            console.log(name, touched);
+          }
+
           return (
             <Form.Item
               style={{ margin: 0 }}
@@ -70,7 +76,11 @@ export default function enhancer<P>(Component: any, changeAdapter: (e: any) => a
                 >
                   <Stack.Item>
                     <label className={lableHidden ? styles['label-hidden'] : undefined} htmlFor={id}>
-                      <span style={{ whiteSpace: 'pre' }}><TextStyle size="small">{label}</TextStyle></span>
+
+                      <span style={{ whiteSpace: 'pre' }}>
+                        {required && <span style={{ color: '#ff4d4f' }}>*{' '}</span>}
+                        <TextStyle size="small">{label}</TextStyle>
+                      </span>
                     </label>
                   </Stack.Item>
                   <Stack.Item fill={inline}>

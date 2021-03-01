@@ -10,6 +10,7 @@ import { Form } from './extra/Form';
 import { Input } from './extra/Input';
 import { Switch } from './extra/Switch';
 import { Checkbox } from './extra/Checkbox';
+import { Radio } from './extra/Radio';
 import { SubmitButton } from './extra/SubmitButton';
 
 export const BlocksMap = {
@@ -24,5 +25,6 @@ export const BlocksMap = {
   Input,
   Switch,
   Checkbox,
+  Radio,
   SubmitButton
 };

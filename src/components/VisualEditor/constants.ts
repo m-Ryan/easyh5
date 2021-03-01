@@ -15,6 +15,7 @@ export enum BlockType {
   INPUT = 'input',
   SWITCH = 'switch',
   CHECKBOX = 'checkbox',
+  RADIO = 'radio',
   SELECT = 'select',
   SUBMIT_BTN = 'submit_button',
 }
