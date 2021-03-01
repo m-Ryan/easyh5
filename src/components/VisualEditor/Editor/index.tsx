@@ -78,13 +78,13 @@ export const Editor = () => {
             <ToolBar />
           </div>
         </TabPane>
-        <TabPane tab="预览" key="preview" forceRender>
+        <TabPane tab="预览" key="preview">
           <div className={styles.container}>
             <div style={innerContainerStyles}>
-              {/* <IframeComponent height="100%" width="100%" style={{ border: 'none' }}>
+              <IframeComponent height="100%" width="100%" style={{ border: 'none' }}>
                 <Renderer />
-              </IframeComponent> */}
-              <Renderer />
+              </IframeComponent>
+              {/* <Renderer /> */}
             </div>
           </div>
         </TabPane>

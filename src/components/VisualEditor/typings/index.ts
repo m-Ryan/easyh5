@@ -1,5 +1,9 @@
 import { BlockType } from '@VisualEditor/constants';
 
+type RecursivePartial<T> = {
+  [P in keyof T]?: RecursivePartial<T[P]>;
+};
+
 export interface IBlock {
   type: BlockType;
   Panel: () => JSX.Element;
@@ -20,5 +24,5 @@ export interface INodeItem<T extends any = any> {
 }
 
 export interface CreateInstance<T extends any = any> {
-  (payload?: Partial<T>): T;
+  (payload?: RecursivePartial<T>): T;
 }

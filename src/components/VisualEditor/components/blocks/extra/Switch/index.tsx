@@ -5,11 +5,17 @@ import { createInstance } from './createInstance';
 import { INodeItem } from '@VisualEditor/typings';
 import { BlockType } from '@VisualEditor/constants';
 
-export type IForm = INodeItem<{}>;
+export type ISwitch = INodeItem<{
+  label: string;
+  name: string;
+  defaultValue?: boolean;
+  checkedText: string;
+  uncheckedText: string;
+}>;
 
-export const Form = {
-  name: '表单',
-  type: BlockType.FORM,
+export const Switch = {
+  name: '开关',
+  type: BlockType.SWITCH,
   Editor,
   Renderer,
   Panel,

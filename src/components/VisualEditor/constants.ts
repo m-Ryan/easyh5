@@ -13,6 +13,9 @@ export enum BlockType {
 export enum BlockType {
   FORM = 'form',
   INPUT = 'input',
+  SWITCH = 'switch',
+  CHECKBOX = 'checkbox',
+  SELECT = 'select',
   SUBMIT_BTN = 'submit_button',
 }
 

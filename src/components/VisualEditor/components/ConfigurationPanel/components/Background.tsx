@@ -33,7 +33,7 @@ export function Background() {
   return useMemo(() => {
     return (
       <Stack key={focusIdx} vertical spacing='extraTight'>
-        <TextStyle variation='strong' size='large'>
+        <TextStyle size='large'>
           背景
         </TextStyle>
         <ColorPickerField

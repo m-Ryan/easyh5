@@ -2,7 +2,6 @@ import React, { useMemo } from 'react';
 import { TextField } from '@/components/Form';
 import { Stack } from '@/components/Stack';
 import { useEditorContext } from '@VisualEditor/hooks/useEditorContext';
-import { InputNumberAdapter } from '@VisualEditor/utils/InputNumberAdapter';
 import { TextStyle } from '@/components/TextStyle';
 
 export function Margin() {
@@ -11,7 +10,7 @@ export function Margin() {
   return useMemo(() => {
     return (
       <Stack vertical spacing='extraTight'>
-        <TextStyle size={'large'}>外边距</TextStyle>
+        <TextStyle size="large">外边距</TextStyle>
         <Stack wrap={false}>
           <Stack.Item fill>
             <TextField

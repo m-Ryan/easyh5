@@ -8,6 +8,8 @@ import { Dialog } from './basic/Dialog';
 import { Audio } from './basic/Audio';
 import { Form } from './extra/Form';
 import { Input } from './extra/Input';
+import { Switch } from './extra/Switch';
+import { Checkbox } from './extra/Checkbox';
 import { SubmitButton } from './extra/SubmitButton';
 
 export const BlocksMap = {
@@ -20,5 +22,7 @@ export const BlocksMap = {
   Audio,
   Form,
   Input,
+  Switch,
+  Checkbox,
   SubmitButton
 };

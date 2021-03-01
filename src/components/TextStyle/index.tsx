@@ -4,10 +4,10 @@ import styles from './TextStyle.module.scss';
 
 export interface TextStyleProps {
   variation?: 'strong' | 'subdued';
-  size?: 'large' | 'normal' | 'small';
+  size?: 'largest' | 'extraLarge' | 'large' | 'medium' | 'small' | 'smallest';
 }
 
 export const TextStyle: React.FC<TextStyleProps> = (props) => {
-  const { variation = '', size = 'normal' } = props;
-  return <span className={classnames(styles[variation], styles[size])}>{props.children}</span>;
+  const { variation = '', size = 'small' } = props;
+  return <span className={classnames(styles[variation], styles[size] || size)}>{props.children}</span>;
 };

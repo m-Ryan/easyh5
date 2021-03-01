@@ -2,7 +2,7 @@ import React from 'react';
 import { BasicField } from '@VisualEditor/components/ConfigurationPanel/components/Form/BasicField';
 import { Stack } from '@/components/Stack';
 import { useEditorContext } from '@VisualEditor/hooks/useEditorContext';
-import { NumberField, SelectField, } from '@/components/Form';
+import { NumberField, SelectField, TextField, } from '@/components/Form';
 import { getOptionsByStringArray } from '@VisualEditor/utils/getOptionsByStringArray';
 import { FieldRule } from '@VisualEditor/components/ConfigurationPanel/components/Form/FieldRule';
 
@@ -19,6 +19,7 @@ export function Panel() {
   return (
     <Stack vertical>
       <BasicField />
+      <TextField label='占位符' quickchange name={`${focusIdx}.data.value.placeholder`} inline />
       <NumberField inline label='最大长度限制' name={`${focusIdx}.data.value.maxLength`} />
       <NumberField inline label='最小长度限制' name={`${focusIdx}.data.value.minLength`} />
       <SelectField

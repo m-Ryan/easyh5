@@ -1,6 +1,6 @@
 import { Input as AntdInput } from 'antd';
 import { InputProps as AntdInputProps } from 'antd/lib/input';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback } from 'react';
 
 export interface InputProps extends Omit<AntdInputProps, 'onChange'> {
   quickchange?: boolean;

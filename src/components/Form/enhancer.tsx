@@ -2,6 +2,7 @@ import { Form } from 'antd';
 import { Field, FieldProps } from 'formik';
 import React, { useMemo } from 'react';
 import { Stack, StackProps } from '../Stack';
+import { TextStyle } from '../TextStyle';
 import styles from './index.module.scss';
 
 interface Props extends Partial<FieldProps> {
@@ -42,6 +43,9 @@ export default function enhancer<P>(Component: any, changeAdapter: (e: any) => a
 
       <Field name={name} validate={validate}>
         {({ meta: { error, touched, value }, form }: FieldProps) => {
+          if (typeof error !== 'string') {
+            error = undefined;
+          }
 
           const onChange = (e: any) => {
             const newVal = onChangeAdapter ?
@@ -66,7 +70,7 @@ export default function enhancer<P>(Component: any, changeAdapter: (e: any) => a
                 >
                   <Stack.Item>
                     <label className={lableHidden ? styles['label-hidden'] : undefined} htmlFor={id}>
-                      <span style={{ fontSize: 14, whiteSpace: 'pre' }}>{label}</span>
+                      <span style={{ whiteSpace: 'pre' }}><TextStyle size="small">{label}</TextStyle></span>
                     </label>
                   </Stack.Item>
                   <Stack.Item fill={inline}>
