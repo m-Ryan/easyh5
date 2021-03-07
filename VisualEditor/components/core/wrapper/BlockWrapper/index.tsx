@@ -1,4 +1,4 @@
-import { classnames } from '@/util/utils';
+import { classnames } from '@VisualEditor/utils/classnames';
 import { BLOCK_HOVER_CLASSNAME, BLOCK_SELECTED_CLASSNAME } from '@VisualEditor/constants';
 import { ToolBar } from '@VisualEditor/Editor/components/ToolBar';
 import { useEditorContext } from '@VisualEditor/hooks/useEditorContext';

@@ -1,6 +1,6 @@
 import { request } from './axios.config';
 import { getCookie } from '../util/utils';
-import { INodeItem } from '../components/VisualEditor/typings';
+import { INodeItem } from '../../VisualEditor/typings';
 const QI_NIUI_KEY = 'qiniuConfig';
 
 type QiniuConfig = { origin: string; token: string; };

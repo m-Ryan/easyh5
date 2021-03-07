@@ -6,13 +6,11 @@ import template, { ITemplate } from '@/store/template';
 import { useAppSelector } from '@/hooks/useAppSelector';
 import { useLoading } from '@/hooks/useLoading';
 import { Formik, FormikHelpers } from 'formik';
-import { ConfigurationPanel } from '@VisualEditor/components/ConfigurationPanel';
-import { ToolPanel } from '@VisualEditor/components/ToolPanel';
 import { Button, message } from 'antd';
-import { Editor as VisualEditor, ExamplePage } from '@VisualEditor';
+import { ExamplePage } from '@/../VisualEditor';
 import { useQuery } from '@/hooks/useQuery';
 import { useHistory } from 'react-router-dom';
-import { Stack } from '@VisualEditor/components/Stack';
+import { Stack } from '@/../VisualEditor/components/Stack';
 import { cloneDeep } from 'lodash';
 
 export default function Editor() {

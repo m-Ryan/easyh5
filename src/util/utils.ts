@@ -1,4 +1,4 @@
-import * as ISketckItem from '@VisualEditor/typings';
+
 import qRCode from 'qrcode-generator';
 import _ from 'lodash';
 import qs from 'qs';
@@ -50,10 +50,6 @@ export function getLocationParamValue(key: string): string | undefined {
 export function isNumber(num: any): num is number {
   if (typeof num !== 'string' && typeof num !== 'number') return false;
   return new RegExp('^(\\-|\\+)?\\d+(\\.\\d+)?$').test(num.toString());
-}
-
-export function classnames(...rest: any[]) {
-  return rest.filter(item => typeof item === 'string').join(' ');
 }
 
 export function previewLoadImage(url: string): Promise<HTMLImageElement> {

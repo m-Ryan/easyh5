@@ -1,6 +1,6 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import { Layout, Menu, Breadcrumb } from 'antd';
-import { Stack } from '../VisualEditor/components/Stack';
+import { Stack } from '../../../VisualEditor/components/Stack';
 import { Link } from 'react-router-dom';
 
 const { SubMenu } = Menu;

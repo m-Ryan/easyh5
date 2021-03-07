@@ -6,7 +6,7 @@ import Frame from '@/components/Frame';
 import templateList from '@/store/templateList';
 import { Button } from 'antd';
 import { CardItem } from './components/CardItem';
-import { Stack } from '@VisualEditor/components/Stack';
+import { Stack } from '@/../VisualEditor/components/Stack';
 
 export default function Home() {
     const dispatch = useDispatch();

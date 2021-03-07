@@ -24,21 +24,22 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react",
-    "baseUrl": "src",
+    "baseUrl": ".",
     "paths": {
       "@VisualEditor": [
-        "./components/VisualEditor",
+        "VisualEditor",
       ],
       "@VisualEditor/*": [
-        "./components/VisualEditor/*",
+        "VisualEditor/*",
       ],
       "@/*": [
-        "./*"
+        "src/*"
       ]
     },
   },
   "include": [
     "./src",
+    "./VisualEditor",
     "./typings"
   ]
 }

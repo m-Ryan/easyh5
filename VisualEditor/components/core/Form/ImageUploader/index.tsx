@@ -2,11 +2,11 @@ import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { message, Modal } from 'antd';
 import { PlusOutlined, EyeOutlined, DeleteOutlined } from '@ant-design/icons';
 import styles from './index.module.scss';
-import services from '../../../../../../services/index';
+import services from '@/services/index';
 import { Uploader, UploadItem } from '@/util/uploader';
-import { classnames } from '@/util/utils';
 import { useFormikContext, withFormik } from 'formik';
 import { uniqueId, isEqual } from 'lodash';
+import { classnames } from '@VisualEditor/utils/classnames';
 
 const ERROR_ICON = 'http://assets.maocanhua.cn/FvIaPNdMk32QDYBmaVJF1S6Q0MAW';
 const LOADING_ICON = 'http://assets.maocanhua.cn/Fi_vI4vyLhTM-Tp6ivq4dR_ieGHk';

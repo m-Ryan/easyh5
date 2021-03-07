@@ -1,4 +1,4 @@
-import { classnames } from '@/util/utils';
+import { classnames } from '@VisualEditor/utils/classnames';
 import React from 'react';
 import styles from './TextStyle.module.scss';
 

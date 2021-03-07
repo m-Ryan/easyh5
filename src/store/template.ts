@@ -1,4 +1,4 @@
-import { INodeItem } from '@VisualEditor/typings';
+import { INodeItem } from '@/../VisualEditor/typings';
 import { ASSET_DOMAIN } from '@/constants';
 import services from '@/services';
 import { article, IArticle } from '@/services/article';
@@ -10,7 +10,7 @@ import mockData from './template.json';
 import { cloneDeep } from 'lodash';
 import { message } from 'antd';
 import { history } from '@/util/history';
-import { BasicType } from '@VisualEditor/constants';
+import { BasicType } from '@/../VisualEditor/constants';
 export interface ITemplate extends Omit<IArticle, 'content'> {
   content: INodeItem[];
   focusIdx: string;

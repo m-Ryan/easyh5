@@ -6,7 +6,7 @@ import path from 'path';
 export default defineConfig({
   resolve: {
     alias: {
-      '@VisualEditor': path.resolve('src/components/VisualEditor'),
+      '@VisualEditor': path.resolve('VisualEditor'),
       '@': path.resolve(__dirname, './src'),
     },
   },
