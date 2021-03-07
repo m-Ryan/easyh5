@@ -1,5 +1,5 @@
 import React from 'react';
-import { onDrag } from '@/util/onDrag';
+import { onDrag } from '@VisualEditor/utils/onDrag';
 import { useQuery } from '@/hooks/useQuery';
 import { BlockWrapper } from '../BlockWrapper';
 import { getValueByIdx } from '@VisualEditor/utils/block';

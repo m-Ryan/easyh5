@@ -1,4 +1,4 @@
-import { isMouseEvent } from './utils';
+import { isMouseEvent } from '../../../util/utils';
 import _ from 'lodash';
 /**
  *

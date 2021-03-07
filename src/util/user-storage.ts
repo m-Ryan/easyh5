@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { LOGIN_ADDRESS } from '@/constants';
 import { IUser } from '@/services/user';
 const sessionKey = 'session-key';
 const tokenKey = 'token-key';

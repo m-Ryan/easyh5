@@ -5,29 +5,6 @@ import qs from 'qs';
 import { BASE_NAME } from '@/constants/config';
 import domtoimage from 'dom-to-image';
 
-export function unitConver(declaration: string, options: ICssRulesOptions) {
-  const {
-    originUnit = 'px',
-    replaceUnit = 'px',
-    precision = 2,
-    times = 1
-  } = options;
-  if (typeof declaration !== 'string') {
-    return declaration;
-  }
-  const pattern = new RegExp(`(\\d+(\\.\\d+)?)(${originUnit})\\b`, 'mig');
-  return declaration.replace(pattern, function (
-    group1: string,
-    group2: string,
-    group3: string,
-    group4: string
-  ) {
-    const newText =
-      parseFloat((Number(group2) * times).toFixed(precision)) + replaceUnit;
-    return newText;
-  });
-}
-
 export function isPC() {
   return !isIOS() && !isAndroid();
 }
@@ -43,13 +20,6 @@ export function isAndroid() {
   );
 }
 
-export interface ICssRulesOptions {
-  originUnit?: string;
-  replaceUnit?: string;
-  precision?: number;
-  times?: number;
-}
-
 export function getCookie(key: string) {
   let value = '';
   document.cookie.split(';').forEach(item => {
@@ -60,23 +30,6 @@ export function getCookie(key: string) {
   });
   return value;
 }
-
-export function getDefaultStyle(): ISketckItem.INodeStyle {
-  const style: ISketckItem.INodeStyle = {
-    zIndex: 1,
-    position: 'relative',
-    backgroundSize: '100%',
-    fontSize: 14,
-    left: 0,
-    top: 0,
-    width: 0,
-    height: 0,
-    opacity: 1
-  };
-
-  return style;
-}
-
 export function addStyle(
   element: HTMLElement,
   styles: Partial<CSSStyleDeclaration>
