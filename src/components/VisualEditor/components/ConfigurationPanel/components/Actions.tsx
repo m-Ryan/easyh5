@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
-import { TreeSelectField } from '@/components/Form';
-import { Stack } from '@/components/Stack';
+import { TreeSelectField } from '@VisualEditor/components/core/Form';
+import { Stack } from '@VisualEditor/components/Stack';
 import { actions } from '@VisualEditor/config/actions';
 import { getFormatAction } from '@VisualEditor/utils/actions';
 import { useEditorContext } from '@VisualEditor/hooks/useEditorContext';

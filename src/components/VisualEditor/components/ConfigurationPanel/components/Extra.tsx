@@ -1,4 +1,4 @@
-import { Stack } from '@/components/Stack';
+import { Stack } from '@VisualEditor/components/Stack';
 import React from 'react';
 import { Actions } from './Actions';
 import { Animation } from './Animation';

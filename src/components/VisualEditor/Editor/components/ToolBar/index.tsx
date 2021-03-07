@@ -5,8 +5,8 @@ import React, {
 import { Tooltip, Popconfirm } from 'antd';
 import { UpOutlined, DownOutlined, UpSquareOutlined, DownSquareOutlined, CopyOutlined, CloseOutlined, BorderOuterOutlined } from '@ant-design/icons';
 import { useEditorContext } from '@VisualEditor/hooks/useEditorContext';
-import { Stack } from '@/components/Stack';
-import { TextStyle } from '@/components/TextStyle';
+import { Stack } from '@VisualEditor/components/Stack';
+import { TextStyle } from '@VisualEditor/components/TextStyle';
 import { findBlockByType, getParentIdx, getSiblingIdx } from '@VisualEditor/utils/block';
 
 type SideBarItem = {

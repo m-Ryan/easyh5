@@ -1,6 +1,6 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import { Layout, Menu, Breadcrumb } from 'antd';
-import { Stack } from '../Stack';
+import { Stack } from '../VisualEditor/components/Stack';
 import { Link } from 'react-router-dom';
 
 const { SubMenu } = Menu;
@@ -10,7 +10,7 @@ interface FrameProps {
   title: string;
   breadcrumb?: React.ReactElement;
   primaryAction?: React.ReactElement;
-  children: React.ReactElement
+  children: React.ReactElement;
 }
 
 export default function Frame({ children, title, primaryAction, breadcrumb }: FrameProps) {
@@ -67,5 +67,5 @@ export default function Frame({ children, title, primaryAction, breadcrumb }: Fr
         </Layout>
       </Layout>
     </Layout>
-  )
+  );
 }

@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import {
   SelectField,
-} from '@/components/Form';
+} from '@VisualEditor/components/core/Form';
 import { useEditorContext } from '@VisualEditor/hooks/useEditorContext';
 import './animate.scss';
 

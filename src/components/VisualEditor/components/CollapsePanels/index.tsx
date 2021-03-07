@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react';
-import { Stack } from '@/components/Stack';
 import { Collapse } from 'antd';
-import { TextStyle } from '@/components/TextStyle';
+import { TextStyle } from '@VisualEditor/components/TextStyle';
 
 interface CollapsePanelsProps {
   options: Array<{

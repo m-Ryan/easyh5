@@ -12,7 +12,7 @@ import { Button, message } from 'antd';
 import { Editor as VisualEditor, ExamplePage } from '@VisualEditor';
 import { useQuery } from '@/hooks/useQuery';
 import { useHistory } from 'react-router-dom';
-import { Stack } from '@/components/Stack';
+import { Stack } from '@VisualEditor/components/Stack';
 import { cloneDeep } from 'lodash';
 
 export default function Editor() {

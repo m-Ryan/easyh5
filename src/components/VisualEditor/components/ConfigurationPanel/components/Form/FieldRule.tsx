@@ -1,6 +1,6 @@
 import React from 'react';
-import { SelectField } from '@/components/Form';
-import { Stack } from '@/components/Stack';
+import { SelectField } from '@VisualEditor/components/core/Form';
+import { Stack } from '@VisualEditor/components/Stack';
 import { useEditorContext } from '@VisualEditor/hooks/useEditorContext';
 
 export function FieldRule() {

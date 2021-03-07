@@ -2,10 +2,10 @@ import { useField, useFormikContext } from 'formik';
 import { BlockType, BasicType } from '../constants';
 import { cloneDeep, get, set } from 'lodash';
 import { INodeItem, RecursivePartial } from '../typings';
-import { BlocksMap, getBlockByType } from '../components/blocks';
+import { BlocksMap, getBlockByType } from '../components/core/blocks';
 import { useCallback } from 'react';
 import { ITemplate } from '@/store/template';
-import { IPage } from '@VisualEditor/components/blocks/basic/Page';
+import { IPage } from '@VisualEditor/components/core/blocks/basic/Page';
 import { message } from 'antd';
 import { getIndexByIdx, getParentIdx, getValueByIdx } from '@VisualEditor/utils/block';
 

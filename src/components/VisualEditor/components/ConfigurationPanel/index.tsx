@@ -1,9 +1,9 @@
-import { Stack } from '@/components/Stack';
-import { TextStyle } from '@/components/TextStyle';
+import { Stack } from '@VisualEditor/components/Stack';
+import { TextStyle } from '@VisualEditor/components/TextStyle';
 import { Card, message, Tabs } from 'antd';
 import { Input } from 'antd';
 import React, { useCallback, useMemo } from 'react';
-import { useEditorContext } from '../../hooks/useEditorContext';
+import { useEditorContext } from '@VisualEditor/hooks/useEditorContext';
 import { findBlockByType, getValueByIdx } from '../../utils/block';
 import jsonFormat from 'json-format';
 

@@ -1,4 +1,4 @@
-import { BlockAvatorWrapper } from '@VisualEditor/components/BlockAvatorWrapper';
+import { BlockAvatorWrapper } from '@VisualEditor/components/core/wrapper/BlockAvatorWrapper';
 import { BlockType } from '@VisualEditor/constants';
 import React, {
 

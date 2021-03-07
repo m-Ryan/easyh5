@@ -1,4 +1,4 @@
-import { IDialog } from '@VisualEditor/components/blocks/basic/Dialog';
+import { IDialog } from '@VisualEditor/components/core/blocks/basic/Dialog';
 import { BasicType } from '@VisualEditor/constants';
 import { INodeItem } from '@VisualEditor/typings';
 import { useField } from 'formik';

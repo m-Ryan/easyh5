@@ -1,0 +1,35 @@
+import React from 'react';
+import { BasicField } from '@VisualEditor/components/ConfigurationPanel/components/Form/BasicField';
+import { Stack } from '@VisualEditor/components/Stack';
+import { useEditorContext } from '@VisualEditor/hooks/useEditorContext';
+import { NumberField, SelectField, TextField, } from '@VisualEditor/components/core/Form';
+import { getOptionsByStringArray } from '@VisualEditor/utils/getOptionsByStringArray';
+import { FieldRule } from '@VisualEditor/components/ConfigurationPanel/components/Form/FieldRule';
+
+const typeOptions = getOptionsByStringArray([
+  'text',
+  'password',
+  'number',
+  'textarea'
+]);
+
+export function Panel() {
+  const { focusIdx } = useEditorContext();
+
+  return (
+    <Stack vertical>
+      <BasicField />
+      <TextField label='占位符' quickchange name={`${focusIdx}.data.value.placeholder`} inline />
+      <NumberField inline label='最大长度限制' name={`${focusIdx}.data.value.maxLength`} />
+      <NumberField inline label='最小长度限制' name={`${focusIdx}.data.value.minLength`} />
+      <SelectField
+        label='类型'
+        name={`${focusIdx}.data.value.type`}
+        options={typeOptions}
+        inline
+      />
+      <FieldRule />
+    </Stack>
+  );
+
+}

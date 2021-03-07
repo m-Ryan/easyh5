@@ -5,8 +5,8 @@ import {
   SelectField,
   TextAreaField,
   TextField,
-} from '@/components/Form';
-import { Stack } from '@/components/Stack';
+} from '@VisualEditor/components/core/Form';
+import { Stack } from '@VisualEditor/components/Stack';
 import { useEditorContext } from '@VisualEditor/hooks/useEditorContext';
 import { TextAlign } from './TextAlign';
 import { getOptionsByStringArray } from '@VisualEditor/utils/getOptionsByStringArray';

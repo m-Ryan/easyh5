@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
-import { Stack } from '@/components/Stack';
+import { Stack } from '@VisualEditor/components/Stack';
 import { useEditorContext } from '@VisualEditor/hooks/useEditorContext';
-import { RadioGroupField } from '@/components/Form';
+import { RadioGroupField } from '@VisualEditor/components/core/Form';
 
 const textAlignOptions = [
   {

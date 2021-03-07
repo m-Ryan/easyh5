@@ -1,8 +1,8 @@
-import { Stack } from '@/components/Stack';
+import { Stack } from '@VisualEditor/components/Stack';
 import React, { useEffect, useMemo, useState } from 'react';
 import { DesktopOutlined, BorderOutlined, TabletOutlined } from '@ant-design/icons';
-import { Button, InputNumber, Select, Tooltip } from 'antd';
-import { TextStyle } from '@/components/TextStyle';
+import { Button, InputNumber, Tooltip } from 'antd';
+import { TextStyle } from '@VisualEditor/components/TextStyle';
 import { useQuery } from '@/hooks/useQuery';
 
 export const platformType = [

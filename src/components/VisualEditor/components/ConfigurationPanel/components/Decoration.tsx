@@ -1,8 +1,8 @@
 import React, { useMemo } from 'react';
-import { ColorPickerField, ImageUploaderField, NumberField, TextField } from '@/components/Form';
-import { Stack } from '@/components/Stack';
+import { ColorPickerField, ImageUploaderField, NumberField, TextField } from '@VisualEditor/components/core/Form';
+import { Stack } from '@VisualEditor/components/Stack';
 import { useEditorContext } from '@VisualEditor/hooks/useEditorContext';
-import { TextStyle } from '@/components/TextStyle';
+import { TextStyle } from '@VisualEditor/components/TextStyle';
 
 export function Decoration() {
   const { focusIdx } = useEditorContext();

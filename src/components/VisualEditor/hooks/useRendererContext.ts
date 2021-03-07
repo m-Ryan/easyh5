@@ -5,7 +5,7 @@ import { ITemplate } from '@/store/template';
 import { get } from 'lodash';
 import { getParseAction } from '@VisualEditor/utils/actions';
 import { useDialog } from './useDialog';
-import { IPage } from '@VisualEditor/components/blocks/basic/Page';
+import { IPage } from '@VisualEditor/components/core/blocks/basic/Page';
 
 const setDataByVariable = (nodes: INodeItem[], variableMap: { [key: string]: any; }) => {
   nodes.forEach(item => {

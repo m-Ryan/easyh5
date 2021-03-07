@@ -1,7 +1,7 @@
 import { ITemplate } from '@/store/template';
 import { INodeItem } from '@VisualEditor/typings';
 import { get } from 'lodash';
-import { BlocksMap } from '../components/blocks';
+import { BlocksMap } from '../components/core/blocks';
 import { BlockType } from '../constants';
 
 export function findBlockByType(type: BlockType) {

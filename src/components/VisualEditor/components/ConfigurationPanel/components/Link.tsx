@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { useEditorContext } from '@VisualEditor/hooks/useEditorContext';
 import { LinkOutlined } from '@ant-design/icons';
-import { TextField } from '@/components/Form';
+import { TextField } from '@VisualEditor/components/core/Form';
 
 export function Link() {
   const { focusIdx } = useEditorContext();
