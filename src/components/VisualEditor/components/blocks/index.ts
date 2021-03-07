@@ -12,6 +12,8 @@ import { Switch } from './extra/Switch';
 import { Checkbox } from './extra/Checkbox';
 import { Radio } from './extra/Radio';
 import { SubmitButton } from './extra/SubmitButton';
+import { BlockType } from '@VisualEditor/constants';
+import { IBlock } from '@VisualEditor/typings';
 
 export const BlocksMap = {
   Text,
@@ -28,3 +30,7 @@ export const BlocksMap = {
   Radio,
   SubmitButton
 };
+
+export function getBlockByType(type: BlockType): IBlock<any> {
+  return Object.values(BlocksMap).find(item => item.type === type)!;
+}

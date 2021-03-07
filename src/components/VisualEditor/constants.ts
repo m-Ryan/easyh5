@@ -1,4 +1,6 @@
-export enum BlockType {
+export type BlockType = BasicType | FormType;
+
+export enum BasicType {
   PAGE = 'page',
   SECTION = 'section',
   BOX = 'box',
@@ -10,7 +12,7 @@ export enum BlockType {
 }
 
 // 表单
-export enum BlockType {
+export enum FormType {
   FORM = 'form',
   INPUT = 'input',
   SWITCH = 'switch',
@@ -23,3 +25,7 @@ export enum BlockType {
 export const PAGE_IDX = 'content.[0]';
 export const PAGE_TEMPORARY_IDX = 'content.[0].data.value.temporary';
 
+export const DRAG_HOVER_CLASSNAME = 'block-dragover';
+export const DRAG_TANGENT_CLASSNAME = 'block-tangent';
+export const BLOCK_SELECTED_CLASSNAME = 'block-selected';
+export const BLOCK_HOVER_CLASSNAME = 'block-hover';

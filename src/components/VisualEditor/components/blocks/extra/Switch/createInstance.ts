@@ -1,4 +1,4 @@
-import { BlockType } from '@VisualEditor/constants';
+import { FormType } from '@VisualEditor/constants';
 import { CreateInstance } from '@VisualEditor/typings';
 import { merge } from 'lodash';
 import { ISwitch } from '.';
@@ -6,7 +6,7 @@ import { ISwitch } from '.';
 export const createInstance: CreateInstance<ISwitch> = (payload) => {
 
   const defaultData: ISwitch = {
-    type: BlockType.SWITCH,
+    type: FormType.SWITCH,
     data: {
       value: {
         label: '开关',

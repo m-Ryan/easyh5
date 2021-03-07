@@ -4,12 +4,12 @@ import { Card, message, Tabs } from 'antd';
 import { Input } from 'antd';
 import React, { useCallback, useMemo } from 'react';
 import { useEditorContext } from '../../hooks/useEditorContext';
-import { findBlockByType } from '../../utils/findBlockByType';
+import { findBlockByType, getValueByIdx } from '../../utils/block';
 import jsonFormat from 'json-format';
 
 export function ConfigurationPanel() {
-  const { focusIdx, getValueByIdx, setValueByIdx } = useEditorContext();
-  const value = getValueByIdx(focusIdx);
+  const { focusIdx, setValueByIdx, values } = useEditorContext();
+  const value = getValueByIdx(values, focusIdx);
   const block = value && findBlockByType(value.type);
 
   const code = useMemo(() => {

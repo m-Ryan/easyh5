@@ -1,4 +1,4 @@
-import { BlockType } from '@VisualEditor/constants';
+import { FormType } from '@VisualEditor/constants';
 import { CreateInstance } from '@VisualEditor/typings';
 import { merge } from 'lodash';
 import { ICheckbox } from '.';
@@ -6,7 +6,7 @@ import { ICheckbox } from '.';
 export const createInstance: CreateInstance<ICheckbox> = (payload) => {
 
   const defaultData: ICheckbox = {
-    type: BlockType.CHECKBOX,
+    type: FormType.CHECKBOX,
     data: {
       value: {
         label: '爱好',

@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo, useEffect, useRef } from 'react';
+import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { message, Modal } from 'antd';
 import { PlusOutlined, EyeOutlined, DeleteOutlined } from '@ant-design/icons';
 import styles from './index.module.scss';
@@ -43,7 +43,8 @@ function ImageUploader({
 
     setIsUploading(true);
     const uploader = new Uploader(services.common.uploadByQiniu, {
-      count
+      count,
+      accept: 'image/*'
     });
 
     uploader.on('start', photos => {

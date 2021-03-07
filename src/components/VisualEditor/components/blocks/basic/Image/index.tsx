@@ -2,16 +2,17 @@ import { Panel } from './Panel';
 import { Renderer } from './Renderer';
 import { Editor } from './Editor';
 import { createInstance } from './createInstance';
-import { INodeItem } from '@VisualEditor/typings';
-import { BlockType } from '@VisualEditor/constants';
+import { IBlock, INodeItem } from '@VisualEditor/typings';
+import { BasicType } from '@VisualEditor/constants';
 
 export type IImage = INodeItem<string>;
 
-export const Image = {
+export const Image: IBlock<IImage> = {
   name: '图片',
-  type: BlockType.IMAGE,
+  type: BasicType.IMAGE,
   Editor,
   Renderer,
   Panel,
   createInstance,
+  validChildrenType: []
 };

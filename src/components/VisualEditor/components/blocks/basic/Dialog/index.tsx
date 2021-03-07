@@ -2,8 +2,8 @@ import { Panel } from './Panel';
 import { Renderer } from './Renderer';
 import { Editor } from './Editor';
 import { createInstance } from './createInstance';
-import { INodeItem } from '@VisualEditor/typings';
-import { BlockType } from '@VisualEditor/constants';
+import { IBlock, INodeItem } from '@VisualEditor/typings';
+import { BasicType } from '@VisualEditor/constants';
 
 export type IDialog = INodeItem<{
   uid: string;
@@ -11,11 +11,12 @@ export type IDialog = INodeItem<{
 
 }>;
 
-export const Dialog = {
+export const Dialog: IBlock<IDialog> = {
   name: '弹窗',
-  type: BlockType.DIALOG,
+  type: BasicType.DIALOG,
   Editor,
   Renderer,
   Panel,
   createInstance,
+  validChildrenType: Object.values(BasicType).filter(type => ![BasicType.SECTION, BasicType.SECTION].includes(type))
 };

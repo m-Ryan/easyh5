@@ -1,4 +1,4 @@
-import { BlockType } from '@VisualEditor/constants';
+import { FormType } from '@VisualEditor/constants';
 import { CreateInstance } from '@VisualEditor/typings';
 import { ValidationType } from '@VisualEditor/utils/validation';
 import { merge } from 'lodash';
@@ -11,7 +11,7 @@ import { Switch } from '../Switch';
 
 export const createInstance: CreateInstance<IForm> = (payload) => {
   const defaultData: IForm = {
-    type: BlockType.FORM,
+    type: FormType.FORM,
     data: {
       value: {},
     },

@@ -1,25 +1,33 @@
-import { BlockType } from '@VisualEditor/constants';
+import { BasicType } from '@VisualEditor/constants';
 import { CreateInstance } from '@VisualEditor/typings';
 import { merge } from 'lodash';
 import { IBox } from '.';
 
 export const createInstance: CreateInstance<IBox> = (payload) => {
-  return merge(
-    {
-      type: BlockType.BOX,
-      data: {
-        value: null,
-      },
-      style: {
-        position: 'relative',
-        width: 'auto',
-        height: '100px',
-        backgroundColor: '#fafafa',
-        borderRadius: '0px',
-        opacity: 1,
-      },
-      children: [],
+  const defaultData: IBox = {
+    type: BasicType.BOX,
+    data: {
+      value: null,
     },
+    style: {
+      position: 'relative',
+      width: '100%',
+      height: 200,
+      paddingTop: 0,
+      paddingRight: 0,
+      paddingBottom: 0,
+      paddingLeft: 0,
+      marginTop: 0,
+      marginRight: 0,
+      marginBottom: 0,
+      marginLeft: 0,
+      backgroundColor: '#fff',
+      opacity: 1,
+    },
+    children: [],
+  };
+  return merge(
+    defaultData,
     payload
   );
 };

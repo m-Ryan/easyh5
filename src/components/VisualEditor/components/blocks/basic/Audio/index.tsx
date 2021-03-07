@@ -2,8 +2,8 @@ import { Panel } from './Panel';
 import { Renderer } from './Renderer';
 import { Editor } from './Editor';
 import { createInstance } from './createInstance';
-import { INodeItem } from '@VisualEditor/typings';
-import { BlockType } from '@VisualEditor/constants';
+import { IBlock, INodeItem } from '@VisualEditor/typings';
+import { BasicType } from '@VisualEditor/constants';
 
 export type IAudio = INodeItem<{
   src: string;
@@ -12,11 +12,12 @@ export type IAudio = INodeItem<{
   loop: boolean;
 }>;
 
-export const Audio = {
+export const Audio: IBlock<IAudio> = {
   name: '音频',
-  type: BlockType.AUDIO,
+  type: BasicType.AUDIO,
   Editor,
   Renderer,
   Panel,
   createInstance,
+  validChildrenType: []
 };

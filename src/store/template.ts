@@ -1,4 +1,3 @@
-import { BlockType } from '@VisualEditor/constants';
 import { INodeItem } from '@VisualEditor/typings';
 import { ASSET_DOMAIN } from '@/constants';
 import services from '@/services';
@@ -11,6 +10,7 @@ import mockData from './template.json';
 import { cloneDeep } from 'lodash';
 import { message } from 'antd';
 import { history } from '@/util/history';
+import { BasicType } from '@VisualEditor/constants';
 export interface ITemplate extends Omit<IArticle, 'content'> {
   content: INodeItem[];
   focusIdx: string;
@@ -63,7 +63,7 @@ export default createSliceState({
 const tranformOutSitePicture = async (list: INodeItem[]) => {
   await Promise.all(list.map(async (item) => {
     const value = item.data.value;
-    if (item.type === BlockType.IMAGE) {
+    if (item.type === BasicType.IMAGE) {
       if (!value.startsWith(ASSET_DOMAIN)) {
         if (value.startsWith('data:image')) {
           item.data.value = await services.common.uploadByQiniu(await getImageFile(value));

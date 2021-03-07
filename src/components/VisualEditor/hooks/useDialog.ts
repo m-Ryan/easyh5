@@ -1,5 +1,5 @@
 import { IDialog } from '@VisualEditor/components/blocks/basic/Dialog';
-import { BlockType } from '@VisualEditor/constants';
+import { BasicType } from '@VisualEditor/constants';
 import { INodeItem } from '@VisualEditor/typings';
 import { useField } from 'formik';
 import { useCallback, useMemo } from 'react';
@@ -9,7 +9,7 @@ export function useDialog() {
   const [{ value: dialogUid, }, , hepler] = useField<string>('dialogUid');
 
   const dialogList = useMemo(() => {
-    return value.children.filter(item => item.type === BlockType.DIALOG) as IDialog[];
+    return value.children.filter(item => item.type === BasicType.DIALOG) as IDialog[];
   }, [value]);
 
   const openDialog = useCallback((uid: string) => {

@@ -2,8 +2,8 @@ import { Panel } from './Panel';
 import { Renderer } from './Renderer';
 import { Editor } from './Editor';
 import { createInstance } from './createInstance';
-import { INodeItem } from '@VisualEditor/typings';
-import { BlockType } from '@VisualEditor/constants';
+import { IBlock, INodeItem } from '@VisualEditor/typings';
+import { FormType } from '@VisualEditor/constants';
 
 export type IInput = INodeItem<{
   label: string;
@@ -15,11 +15,12 @@ export type IInput = INodeItem<{
   validate?: string[];
 }>;
 
-export const Input = {
+export const Input: IBlock<IInput> = {
   name: '输入框',
-  type: BlockType.INPUT,
+  type: FormType.INPUT,
   Editor,
   Renderer,
   Panel,
   createInstance,
+  validChildrenType: []
 };

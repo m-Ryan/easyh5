@@ -1,8 +1,8 @@
 import React from 'react';
 import styles from './index.module.scss';
 import { Collapse } from 'antd';
-import { BlockType } from '@VisualEditor/constants';
-import { CustomerServiceOutlined, PictureOutlined, LayoutOutlined, GroupOutlined, FontSizeOutlined, MergeCellsOutlined, FormOutlined } from '@ant-design/icons';
+import { BasicType, FormType } from '@VisualEditor/constants';
+import { CustomerServiceOutlined, PictureOutlined, LayoutOutlined, FontSizeOutlined, MergeCellsOutlined, FormOutlined } from '@ant-design/icons';
 import { BlockIcon } from './components/BlockIcon';
 
 const { Panel } = Collapse;
@@ -15,33 +15,28 @@ export const ToolPanel = function () {
         <Panel header="基础组件" key="1">
           <div className={styles.list}>
             <BlockIcon
-              text="编组"
-              type={BlockType.SECTION}
-              icon={<GroupOutlined />}
-            />
-            <BlockIcon
               text="容器"
-              type={BlockType.BOX}
+              type={BasicType.BOX}
               icon={<LayoutOutlined />}
             />
             <BlockIcon
               text="文本"
-              type={BlockType.TEXT}
+              type={BasicType.TEXT}
               icon={<FontSizeOutlined />}
             />
             <BlockIcon
               text="图片"
-              type={BlockType.IMAGE}
+              type={BasicType.IMAGE}
               icon={<PictureOutlined />}
             />
             <BlockIcon
               text="音频"
-              type={BlockType.AUDIO}
+              type={BasicType.AUDIO}
               icon={<CustomerServiceOutlined />}
             />
             <BlockIcon
               text="弹窗"
-              type={BlockType.DIALOG}
+              type={BasicType.DIALOG}
               icon={<MergeCellsOutlined />}
             />
           </div>
@@ -50,32 +45,32 @@ export const ToolPanel = function () {
           <div className={styles.list}>
             <BlockIcon
               text="表单"
-              type={BlockType.FORM}
+              type={FormType.FORM}
               icon={<FormOutlined />}
             />
             <BlockIcon
               text="输入框"
-              type={BlockType.INPUT}
+              type={FormType.INPUT}
               icon={<FormOutlined />}
             />
             <BlockIcon
               text="单选框"
-              type={BlockType.RADIO}
+              type={FormType.RADIO}
               icon={<FormOutlined />}
             />
             <BlockIcon
               text="多选框"
-              type={BlockType.CHECKBOX}
+              type={FormType.CHECKBOX}
               icon={<FormOutlined />}
             />
             <BlockIcon
               text="开关"
-              type={BlockType.SWITCH}
+              type={FormType.SWITCH}
               icon={<FormOutlined />}
             />
             <BlockIcon
               text="提交按钮"
-              type={BlockType.SUBMIT_BTN}
+              type={FormType.SUBMIT_BTN}
               icon={<FormOutlined />}
             />
 

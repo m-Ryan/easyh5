@@ -8,13 +8,15 @@ export interface UploadFieldProps {
   onChange: (val: string) => void;
   value: string;
   inputDisabled?: boolean;
+  accept?: string;
 }
 
 export function UploadField(props: UploadFieldProps) {
-  const { onChange, inputDisabled = false } = props;
+  const { onChange, inputDisabled = false, accept } = props;
   const [loading, setLoading] = useState(false);
   const { current: uploader } = useRef(new Uploader(services.common.uploadByQiniu, {
-    count: 1
+    count: 1,
+    accept
   }));
 
   useEffect(() => {

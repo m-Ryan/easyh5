@@ -1,36 +1,26 @@
 import { useField, useFormikContext } from 'formik';
-import { BlockType } from '../constants';
+import { BlockType, BasicType } from '../constants';
 import { cloneDeep, get, set } from 'lodash';
-import { INodeItem } from '../typings';
-import { BlocksMap } from '../components/blocks';
+import { INodeItem, RecursivePartial } from '../typings';
+import { BlocksMap, getBlockByType } from '../components/blocks';
 import { useCallback } from 'react';
 import { ITemplate } from '@/store/template';
 import { IPage } from '@VisualEditor/components/blocks/basic/Page';
+import { message } from 'antd';
+import { getIndexByIdx, getParentIdx, getValueByIdx } from '@VisualEditor/utils/block';
 
 function createItem<T extends INodeItem>(
   type: BlockType,
-  payload?: T
+  payload?: RecursivePartial<T>
 ): INodeItem {
   const component = Object.values(BlocksMap).find((item) => {
     return item.type === type;
   });
   if (component) {
-    return component.createInstance(payload);
+    return component.createInstance(payload as any);
   }
   throw new Error('没有匹配的组件');
 }
-
-const getIndexByIdx = (idx: string) => {
-  return Number(idx.match(/\.\[(\d+)\]$/)?.[1]);
-};
-
-const getParentIdx = (idx: string) => {
-  return idx.match(/(.*)\.children\.\[\d+\]$/)?.[1];
-};
-
-const getSiblingIdx = (sourceIndex: string, num: number) => {
-  return sourceIndex.replace(/\[(\d+)\]$/, (_, index) => `[${Number(index) + num}]`);
-};
 
 export function useEditorContext() {
   const pageIdx = 'content.[0]';
@@ -41,15 +31,13 @@ export function useEditorContext() {
   const focusIdx = values.focusIdx;
   const focusBlock = get(values, focusIdx) as INodeItem | null;
 
-  const getParentByIdx = useCallback(<T extends any>(idx: string): INodeItem<T> | null => {
-    return get(values, getParentIdx(idx) || '');
-  }, [values]);
+  const addBlock = useCallback((params: { type: BlockType, parentIdx: string; positionIndex?: number; }) => {
+    let { type, parentIdx, positionIndex } = params;
 
-  const addBlock = useCallback((type: BlockType, parentIdx: string) => {
     setFormikState((formState) => {
       let parent = get(formState.values, parentIdx) as INodeItem | null;
       const child = createItem(type);
-      if (type === BlockType.DIALOG) {
+      if (type === BasicType.DIALOG) {
         parentIdx = 'content.[0]';
         parent = get(formState.values, parentIdx);
         set(formState.values, 'dialogUid', child.data.value.uid);
@@ -58,11 +46,22 @@ export function useEditorContext() {
         throw new Error('无效节点');
       }
 
-      if (parent.type === BlockType.TEXT) return formState;
+      const block = getBlockByType(type);
+      const parentBlock = getBlockByType(parent.type);
 
-      parent.children = [...parent.children, child];
+      if (!parentBlock.validChildrenType.includes(type)) {
+        message.warning(`${block.name} 不能嵌套在 ${parentBlock.name} 下面`);
+        return formState;
+      }
+      if (typeof positionIndex === 'undefined') {
+        positionIndex = parent.children.length;
+      } else {
+        console.log('相切', params);
+      }
+
+      parent.children.splice(positionIndex!, 0, child);
       set(formState.values, parentIdx, { ...parent });
-      formState.values.focusIdx = `${parentIdx}.children.[${parent.children.length - 1}]`;
+      formState.values.focusIdx = `${parentIdx}.children.[${positionIndex}]`;
 
       return { ...formState };
     });
@@ -88,10 +87,18 @@ export function useEditorContext() {
 
   const removeBlock = useCallback((idx: string) => {
     setFormikState((formState) => {
+      const block = getValueByIdx(values, idx);
+      if (!block) {
+        throw new Error('无效节点');
+      }
       const parentIdx = getParentIdx(idx);
       const parent = get(formState.values, getParentIdx(idx) || '') as INodeItem | null;
       const blockIndex = getIndexByIdx(idx);
       if (!parentIdx || !parent) {
+        if (block.type !== BasicType.PAGE) {
+          message.warning('页面节点不能删除');
+          return formState;
+        }
         throw new Error('未找到父节点');
       }
 
@@ -101,10 +108,6 @@ export function useEditorContext() {
       return { ...formState };
     });
   }, [setFormikState, values]);
-
-  const getValueByIdx = useCallback(<T extends any>(idx: string): INodeItem<T> | null => {
-    return get(values, idx);
-  }, [values]);
 
   const setValueByIdx = useCallback(<T extends any>(idx: string, newVal: INodeItem<T>) => {
     getFieldHelpers(idx).setValue(newVal);
@@ -156,7 +159,6 @@ export function useEditorContext() {
   );
 
   return {
-    getValueByIdx,
     setValueByIdx,
     addBlock,
     copyBlock,
@@ -165,9 +167,6 @@ export function useEditorContext() {
     focusBlock,
     setFocusIdx,
     moveByIdx,
-    getParentIdx,
-    getParentByIdx,
-    getSiblingIdx,
     isExistBlock,
     values,
     setFormikState,

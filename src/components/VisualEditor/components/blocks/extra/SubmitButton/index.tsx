@@ -2,18 +2,19 @@ import { Panel } from './Panel';
 import { Renderer } from './Renderer';
 import { Editor } from './Editor';
 import { createInstance } from './createInstance';
-import { INodeItem } from '@VisualEditor/typings';
-import { BlockType } from '@VisualEditor/constants';
+import { IBlock, INodeItem } from '@VisualEditor/typings';
+import { FormType } from '@VisualEditor/constants';
 
 export type ISubmitBtn = INodeItem<{
   title: string;
 }>;
 
-export const SubmitButton = {
+export const SubmitButton: IBlock<ISubmitBtn> = {
   name: '提交按钮',
-  type: BlockType.SUBMIT_BTN,
+  type: FormType.SUBMIT_BTN,
   Editor,
   Renderer,
   Panel,
   createInstance,
+  validChildrenType: []
 };

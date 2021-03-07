@@ -1,4 +1,4 @@
-import { BlockType } from '@VisualEditor/constants';
+import { FormType } from '@VisualEditor/constants';
 import { CreateInstance } from '@VisualEditor/typings';
 import { ValidationType } from '@VisualEditor/utils/validation';
 import { merge } from 'lodash';
@@ -7,7 +7,7 @@ import { IRadio } from '.';
 export const createInstance: CreateInstance<IRadio> = (payload) => {
 
   const defaultData: IRadio = {
-    type: BlockType.RADIO,
+    type: FormType.RADIO,
     data: {
       value: {
         label: '性别',

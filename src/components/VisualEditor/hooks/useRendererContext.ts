@@ -25,7 +25,7 @@ export function useRendererContext() {
   const pageIdx = 'content.[0]';
   const [{ value: pageValue }] = useField<IPage>(pageIdx);
   const temporary = pageValue.data.value.temporary;
-  const { setFormikState, setValues, initialValues, values } = useFormikContext<RendererTemplate>();
+  const { setFormikState, setValues, initialValues, values } = useFormikContext<ITemplate>();
 
   const { openDialog, closeDialog } = useDialog();
 
@@ -38,10 +38,6 @@ export function useRendererContext() {
       return { ...prevState };
     }));
   }, [setFormikState]);
-
-  const getValueByIdx = <T extends any>(idx: string): INodeItem<T> | null => {
-    return get(values, idx);
-  };
 
   const onAction = (action: string) => {
     const { group, name } = getParseAction(action);
@@ -58,9 +54,9 @@ export function useRendererContext() {
 
   return {
     initialValues,
+    values,
     setValues,
     setVariable,
-    getValueByIdx,
     onAction,
     pageIdx,
     pageValue,

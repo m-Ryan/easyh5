@@ -1,12 +1,13 @@
 import React, {
   useMemo
 } from 'react';
-import styles from './index.module.scss';
 
 import { Tooltip, Popconfirm } from 'antd';
 import { UpOutlined, DownOutlined, UpSquareOutlined, DownSquareOutlined, CopyOutlined, CloseOutlined, BorderOuterOutlined } from '@ant-design/icons';
 import { useEditorContext } from '@VisualEditor/hooks/useEditorContext';
 import { Stack } from '@/components/Stack';
+import { TextStyle } from '@/components/TextStyle';
+import { findBlockByType, getParentIdx, getSiblingIdx } from '@VisualEditor/utils/block';
 
 type SideBarItem = {
   icon: React.ReactNode;
@@ -18,8 +19,8 @@ type SideBarItem = {
 
 export const ToolBar = () => {
 
-  const { moveByIdx, getSiblingIdx, focusBlock, copyBlock, removeBlock, focusIdx, setFocusIdx, getParentIdx } = useEditorContext();
-
+  const { moveByIdx, focusBlock, copyBlock, removeBlock, focusIdx, setFocusIdx } = useEditorContext();
+  const block = focusBlock && findBlockByType(focusBlock.type);
   const sidebarList = useMemo(() => {
     if (!focusBlock) return [];
     const hasChildren = focusBlock.children.length > 0;
@@ -78,41 +79,40 @@ export const ToolBar = () => {
         }
       }
     ].filter(item => !!item) as SideBarItem[];
-  }, [copyBlock, focusBlock, focusIdx, getParentIdx, getSiblingIdx, moveByIdx, removeBlock, setFocusIdx]);
+  }, [copyBlock, focusBlock, focusIdx, moveByIdx, removeBlock, setFocusIdx]);
 
   return useMemo(() => {
     return (
 
-      <ul className={styles.sideBar}>
+      <Stack>
+        <TextStyle>{block?.name}</TextStyle>
         {
           sidebarList.map(item => {
             return (
-              <li key={item.title} className={styles.barItem}>
-                <Tooltip placement="right" title={item.toolTip || item.title}>
-                  {
-                    item.confirm
-                      ? (
-                        <Popconfirm
-                          title={`你确定要${item.title}吗`}
-                          onConfirm={item.method}
-                          okText="确定"
-                          cancelText="取消"
-                        >
-                          {item.icon}
-                        </Popconfirm>
-                      )
-                      : (
-                        <span onClick={item.method}>{item.icon}</span>
-                      )
-                  }
+              <Tooltip key={item.title} placement="topRight" title={item.toolTip || item.title}>
 
-                </Tooltip>
-              </li>
+                {
+                  item.confirm
+                    ? (
+                      <Popconfirm
+                        title={`你确定要${item.title}吗`}
+                        onConfirm={item.method}
+                        okText="确定"
+                        cancelText="取消"
+                      >
+                        {item.icon}
+                      </Popconfirm>
+                    )
+                    : (
+                      <span style={{ cursor: 'pointer' }} onClick={item.method}>{item.icon}</span>
+                    )
+                }
+
+              </Tooltip>
             );
           })
         }
-
-      </ul>
+      </Stack>
     );
-  }, [sidebarList]);
+  }, [block?.name, sidebarList]);
 };

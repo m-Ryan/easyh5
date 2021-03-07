@@ -3,6 +3,7 @@ import { INodeItem } from '@VisualEditor/typings';
 import { IPage } from '..';
 import { useField } from 'formik';
 import { EditorItem } from '@VisualEditor/Editor/components/EditorItem';
+import { BlockWrapper } from '@VisualEditor/components/BlockWrapper';
 
 type IProps = {
   idx: string;
@@ -10,14 +11,16 @@ type IProps = {
 
 export function Editor(props: IProps) {
   const [field] = useField<INodeItem<IPage>>(props.idx);
-  const { type, children, style } = field.value;
+  const { children } = field.value;
 
   return (
-    <main style={style} data-node-type={type} data-node-idx={props.idx}>
-      {children.map((item, index) => {
-        const childIndex = `${props.idx}.children.[${index}]`;
-        return <EditorItem key={childIndex} idx={childIndex} />;
-      })}
-    </main>
+    <BlockWrapper idx={props.idx}>
+      <main>
+        {children.map((item, index) => {
+          const childIndex = `${props.idx}.children.[${index}]`;
+          return <EditorItem key={childIndex} idx={childIndex} />;
+        })}
+      </main>
+    </BlockWrapper>
   );
 }

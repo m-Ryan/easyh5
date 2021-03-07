@@ -9,7 +9,7 @@ import { Formik, FormikHelpers } from 'formik';
 import { ConfigurationPanel } from '@VisualEditor/components/ConfigurationPanel';
 import { ToolPanel } from '@VisualEditor/components/ToolPanel';
 import { Button, message } from 'antd';
-import { Editor as VisualEditor } from '@VisualEditor';
+import { Editor as VisualEditor, ExamplePage } from '@VisualEditor';
 import { useQuery } from '@/hooks/useQuery';
 import { useHistory } from 'react-router-dom';
 import { Stack } from '@/components/Stack';
@@ -79,17 +79,7 @@ export default function Editor() {
                 </Stack>
               )}
             />
-            <div className={styles.wrap}>
-              <div className={styles.leftMenu}>
-                <ToolPanel />
-              </div>
-              <div className={styles.content}>
-                <VisualEditor />
-              </div>
-              <div className={styles.rightMenu}>
-                <ConfigurationPanel />
-              </div>
-            </div>
+            <ExamplePage />
 
           </div>
         )

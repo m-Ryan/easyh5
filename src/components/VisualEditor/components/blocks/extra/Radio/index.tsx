@@ -2,8 +2,8 @@ import { Panel } from './Panel';
 import { Renderer } from './Renderer';
 import { Editor } from './Editor';
 import { createInstance } from './createInstance';
-import { INodeItem } from '@VisualEditor/typings';
-import { BlockType } from '@VisualEditor/constants';
+import { IBlock, INodeItem } from '@VisualEditor/typings';
+import { FormType } from '@VisualEditor/constants';
 
 export type IRadio = INodeItem<{
   label: string;
@@ -14,11 +14,12 @@ export type IRadio = INodeItem<{
   vertical?: boolean;
 }>;
 
-export const Radio = {
+export const Radio: IBlock<IRadio> = {
   name: '单选框',
-  type: BlockType.RADIO,
+  type: FormType.RADIO,
   Editor,
   Renderer,
   Panel,
   createInstance,
+  validChildrenType: []
 };

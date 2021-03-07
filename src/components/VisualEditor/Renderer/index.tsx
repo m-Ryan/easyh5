@@ -1,4 +1,5 @@
 import { useRendererContext } from '@VisualEditor/hooks/useRendererContext';
+import { getValueByIdx } from '@VisualEditor/utils/block';
 import React, { useEffect } from 'react';
 import { RenderItem } from './components/RenderItem';
 
@@ -7,7 +8,7 @@ export interface EditorProps {
 }
 
 export function Renderer() {
-  const { getValueByIdx, onAction, pageValue } = useRendererContext();
+  const { onAction, pageValue, values } = useRendererContext();
   const { pageWidth, pageMaxWidth, enabled: h5Enabled } = pageValue.data.value.h5;
 
   useEffect(() => {
@@ -15,7 +16,7 @@ export function Renderer() {
       const target = ev.target as HTMLDivElement;
       const idx = target.getAttribute('data-node-idx');
       if (idx) {
-        const block = getValueByIdx(idx);
+        const block = getValueByIdx(values, idx);
         if (block?.data.action) {
           onAction(block.data.action);
         }
@@ -29,7 +30,7 @@ export function Renderer() {
       document.removeEventListener('click', action, true);
     };
 
-  }, [getValueByIdx, onAction]);
+  }, [onAction, values]);
 
   useEffect(() => {
     if (!h5Enabled) return;

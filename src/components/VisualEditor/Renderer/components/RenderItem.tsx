@@ -2,7 +2,7 @@ import { INodeItem } from '@VisualEditor/typings';
 import React from 'react';
 
 import { useField } from 'formik';
-import { findBlockByType } from '@VisualEditor/utils/findBlockByType';
+import { findBlockByType } from '@VisualEditor/utils/block';
 
 export interface EditorProps {
   idx: string;

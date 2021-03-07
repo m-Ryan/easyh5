@@ -3,7 +3,7 @@ import React, {
 } from 'react';
 import styles from './index.module.scss';
 
-import { Checkbox, Radio } from 'antd';
+import { Checkbox } from 'antd';
 import { useDialog } from '@VisualEditor/hooks/useDialog';
 
 export const DialogBar = () => {

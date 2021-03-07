@@ -2,8 +2,8 @@ import { Panel } from './Panel';
 import { Renderer } from './Renderer';
 import { Editor } from './Editor';
 import { createInstance } from './createInstance';
-import { INodeItem } from '@VisualEditor/typings';
-import { BlockType } from '@VisualEditor/constants';
+import { IBlock, INodeItem } from '@VisualEditor/typings';
+import { BasicType, FormType } from '@VisualEditor/constants';
 
 export type IPage = INodeItem<{
   title: string;
@@ -16,11 +16,15 @@ export type IPage = INodeItem<{
   temporary: { [key: string]: any; };
 }>;
 
-export const Page = {
+export const Page: IBlock<IPage> = {
   name: '页面',
-  type: BlockType.PAGE,
+  type: BasicType.PAGE,
   Editor,
   Renderer,
   Panel,
   createInstance,
+  validChildrenType: [
+    ...Object.values(BasicType).filter(type => ![BasicType.PAGE].includes(type)),
+    FormType.FORM
+  ]
 };

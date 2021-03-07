@@ -8,7 +8,7 @@
   color: #b3b3b3;
   border-right: 1px solid #b3b3b3;
   border-bottom: 1px solid #b3b3b3;
-  &:nth-child(3) {
+  &:nth-child(3n) {
     border-right: none;
   }
   .title {

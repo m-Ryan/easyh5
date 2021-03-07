@@ -1,23 +1,33 @@
-import { BlockType } from '@VisualEditor/constants';
+import { BasicType } from '@VisualEditor/constants';
 import { CreateInstance } from '@VisualEditor/typings';
 import { merge } from 'lodash';
 import { ISection } from '.';
 
 export const createInstance: CreateInstance<ISection> = (payload) => {
-  return merge(
-    {
-      type: BlockType.SECTION,
-      data: {
-        value: null,
-      },
-      style: {
-        position: 'relative',
-        width: '100%',
-        height: 100,
-        backgroundColor: '#fafafa',
-      },
-      children: [],
+  const defaultData: ISection = {
+    type: BasicType.SECTION,
+    data: {
+      value: null,
     },
+    style: {
+      position: 'relative',
+      width: '100%',
+      height: 'auto',
+      paddingTop: 0,
+      paddingRight: 0,
+      paddingBottom: 0,
+      paddingLeft: 0,
+      marginTop: 0,
+      marginRight: 0,
+      marginBottom: 0,
+      marginLeft: 0,
+      backgroundColor: '#fff',
+      opacity: 1,
+    },
+    children: [],
+  };
+  return merge(
+    defaultData,
     payload
   );
 };

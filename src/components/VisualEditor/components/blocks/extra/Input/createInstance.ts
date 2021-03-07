@@ -1,11 +1,11 @@
-import { BlockType } from '@VisualEditor/constants';
+import { FormType } from '@VisualEditor/constants';
 import { CreateInstance } from '@VisualEditor/typings';
 import { merge } from 'lodash';
 import { IInput } from '.';
 
 export const createInstance: CreateInstance<IInput> = (payload) => {
   const defaultData: IInput = {
-    type: BlockType.INPUT,
+    type: FormType.INPUT,
     data: {
       value: {
         label: '输入框',
