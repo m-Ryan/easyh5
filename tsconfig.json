@@ -26,20 +26,26 @@
     "jsx": "react",
     "baseUrl": ".",
     "paths": {
+      "@example": [
+        "example",
+      ],
+      "@example/*": [
+        "example/*",
+      ],
+      "@/*": [
+        "src/*"
+      ],
       "@VisualEditor": [
         "VisualEditor",
       ],
       "@VisualEditor/*": [
         "VisualEditor/*",
       ],
-      "@/*": [
-        "src/*"
-      ]
     },
   },
   "include": [
     "./src",
-    "./VisualEditor",
+    "./example",
     "./typings"
   ]
 }
