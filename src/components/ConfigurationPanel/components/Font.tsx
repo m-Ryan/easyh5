@@ -7,7 +7,7 @@ import {
   TextField,
 } from '@/components/core/Form';
 import { Stack } from '@/components/Stack';
-import { useEditorContext } from '@/hooks/useEditorContext';
+import { useBlock } from '@/hooks/useBlock';
 import { TextAlign } from './TextAlign';
 import { getOptionsByStringArray } from '@/utils/getOptionsByStringArray';
 
@@ -42,7 +42,7 @@ export interface FontProps {
   type?: 'text' | 'paragraph';
 }
 export default function Font(props: FontProps) {
-  const { focusIdx } = useEditorContext();
+  const { focusIdx } = useBlock();
   const { type } = props;
 
   return useMemo(() => {

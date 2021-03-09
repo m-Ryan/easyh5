@@ -1,10 +1,10 @@
 import { classnames } from '@/utils/classnames';
 import { BLOCK_HOVER_CLASSNAME, BLOCK_SELECTED_CLASSNAME } from '@/constants';
 import { ToolBar } from '@/Editor/components/ToolBar';
-import { useEditorContext } from '@/hooks/useEditorContext';
 import { findBlockByType, getValueByIdx } from '@/utils/block';
 import { Tooltip } from 'antd';
 import React, { DOMAttributes, useState } from 'react';
+import { useBlock } from '@/hooks/useBlock';
 
 interface BlockWrapperProps extends DOMAttributes<HTMLDivElement> {
   children: React.ReactElement;
@@ -17,7 +17,7 @@ export function BlockWrapper(props: BlockWrapperProps) {
     focusIdx,
     values,
     setFocusIdx
-  } = useEditorContext();
+  } = useBlock();
 
   const node = getValueByIdx(values, idx)!;
   const block = findBlockByType(node.type);
@@ -30,6 +30,14 @@ export function BlockWrapper(props: BlockWrapperProps) {
       e.stopPropagation();
       setFocusIdx(idx);
     },
+    onMouseOver: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+      setIsHover(true);
+      e.stopPropagation();
+    },
+    onMouseOut: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+      setIsHover(false);
+      e.stopPropagation();
+    },
     ['data-node-type']: node.type,
     ['data-node-idx']: idx,
     style: {
@@ -40,26 +48,24 @@ export function BlockWrapper(props: BlockWrapperProps) {
     className: classnames(isHover && BLOCK_HOVER_CLASSNAME, isFocus && BLOCK_SELECTED_CLASSNAME, children.props.className),
   });
 
-  const onHover = (visible: boolean) => {
-    setIsHover(visible);
-  };
+  if (!block) return null;
 
   return isFocus ? (
     <Tooltip
-      key={1}
+
       placement="topLeft"
       visible={true}
       title={<ToolBar />
       }
     >
+      <div />
       {content}
     </Tooltip>
   ) : (
       <Tooltip
-        key={2}
+        visible={isHover}
         placement="leftTop"
-        title={block?.name}
-        onVisibleChange={onHover}
+        title={block.name}
       >
         {content}
       </Tooltip>

@@ -1,11 +1,11 @@
 import React, { useMemo } from 'react';
 import { TextField } from '@/components/core/Form';
 import { Stack } from '@/components/Stack';
-import { useEditorContext } from '@/hooks/useEditorContext';
+import { useBlock } from '@/hooks/useBlock';
 import { TextStyle } from '@/components/TextStyle';
 
 export function Margin() {
-  const { focusIdx } = useEditorContext();
+  const { focusIdx } = useBlock();
 
   return useMemo(() => {
     return (

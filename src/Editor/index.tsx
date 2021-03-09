@@ -8,13 +8,13 @@ import { EditorItem } from './components/EditorItem';
 import styles from './index.module.scss';
 import { IframeComponent } from './components/IframeComponent';
 import { Droppable } from 'react-beautiful-dnd';
-import { Renderer } from '@/index';
+import { getPageIdx } from '@/utils/block';
 
 const TabPane = Tabs.TabPane;
 
 export const Editor = () => {
 
-  const { pageValue: { data: { value: { h5 } } } } = useEditorContext();
+  const { pageData: { data: { value: { h5 } } }, values: { pageIndex } } = useEditorContext();
 
   const { width, height, content } = useDeviceToolbar();
 
@@ -34,7 +34,7 @@ export const Editor = () => {
                 >
                   <div className={styles.container}>
                     <div id='VisualEditorEditMode' data-h5={h5.enabled} style={innerContainerStyles}>
-                      <EditorItem idx={'content.[0]'} />
+                      <EditorItem idx={getPageIdx(pageIndex)} />
                     </div>
                   </div>
                   <div style={{ opacity: 0 }}>{provided.placeholder}</div>
@@ -51,7 +51,7 @@ export const Editor = () => {
           <div className={styles.container}>
             <div style={innerContainerStyles}>
               <IframeComponent height="100%" width="100%" style={{ border: 'none' }}>
-                <Renderer />
+                {/* <Renderer /> */}
               </IframeComponent>
               {/* <Renderer /> */}
             </div>

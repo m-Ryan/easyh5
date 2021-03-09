@@ -3,7 +3,7 @@ import { TreeSelectField } from '@/components/core/Form';
 import { Stack } from '@/components/Stack';
 import { variables } from '@/config/variables';
 import { getFormatVariable } from '@/utils/variables';
-import { useEditorContext } from '@/hooks/useEditorContext';
+import { useBlock } from '@/hooks/useBlock';
 
 const options = variables.map(item => ({
   value: item.name,
@@ -16,7 +16,7 @@ const options = variables.map(item => ({
 }));
 
 export function Variables() {
-  const { focusIdx } = useEditorContext();
+  const { focusIdx } = useBlock();
   return (
 
     <TreeSelectField title="变量"

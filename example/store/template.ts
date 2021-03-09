@@ -12,14 +12,6 @@ import { history } from '@example/util/history';
 import { INodeItem } from '@/typings';
 import { BasicType } from '@/constants';
 
-export interface ITemplate extends Omit<IArticle, 'content'> {
-  content: INodeItem[];
-  focusIdx: string;
-  dialogUid: string;
-  variableMap: { [key: string]: any; };
-  actionMap: { [key: string]: any; };
-}
-
 export default createSliceState({
   name: 'template',
   initialState: null as ITemplate | null,

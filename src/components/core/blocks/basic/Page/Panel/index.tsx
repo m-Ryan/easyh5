@@ -5,12 +5,12 @@ import { Background } from '@/components/ConfigurationPanel/components/Backgroun
 import { Margin } from '@/components/ConfigurationPanel/components/Margin';
 import { CollapsePanels } from '@/components/CollapsePanels';
 import { SwitchField, TextField } from '@/components/core/Form';
-import { useEditorContext } from '@/hooks/useEditorContext';
+import { useBlock } from '@/hooks/useBlock';
 import { Stack } from '@/components/Stack';
 import { Help } from '@/components/Help';
 
 export function Panel() {
-  const { focusIdx, focusBlock } = useEditorContext();
+  const { focusIdx, focusBlock } = useBlock();
 
   if (!focusBlock) return null;
   return (

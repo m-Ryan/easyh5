@@ -1,12 +1,12 @@
 import React from 'react';
 import { BasicField } from '@/components/ConfigurationPanel/components/Form/BasicField';
 import { Stack } from '@/components/Stack';
-import { useEditorContext } from '@/hooks/useEditorContext';
+import { useBlock } from '@/hooks/useBlock';
 import { AddItemField, SwitchField, } from '@/components/core/Form';
 import { TextStyle } from '@/components/TextStyle';
 
 export function Panel() {
-  const { focusIdx } = useEditorContext();
+  const { focusIdx } = useBlock();
 
   return (
     <Stack vertical>

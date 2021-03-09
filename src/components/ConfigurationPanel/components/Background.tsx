@@ -1,8 +1,9 @@
 import React, { useMemo } from 'react';
 import { ColorPickerField, ImageUploaderField, SelectField, SwitchField } from '@/components/core/Form';
 import { Stack } from '@/components/Stack';
-import { useEditorContext } from '@/hooks/useEditorContext';
+import { useBlock } from '@/hooks/useBlock';
 import { TextStyle } from '@/components/TextStyle';
+import { useEditorContext } from '@/hooks/useEditorContext';
 
 const backgroundRepeatOptions = [
   {
@@ -28,7 +29,8 @@ const onChangeAdapter = (url: string[]) => {
 };
 
 export function Background() {
-  const { focusIdx } = useEditorContext();
+  const { focusIdx } = useBlock();
+  const { values: { props: { uploadHandler } } } = useEditorContext();
 
   return useMemo(() => {
     return (
@@ -48,6 +50,7 @@ export function Background() {
           inline
           valueAdapter={((text: string) => text?.replace(/url\((.*)?\)/, '$1'))}
           onChangeAdapter={onChangeAdapter}
+          uploadHandler={uploadHandler}
         />
         <SelectField
           label='背景重复'

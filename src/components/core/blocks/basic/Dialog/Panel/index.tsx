@@ -4,10 +4,10 @@ import { Background } from '@/components/ConfigurationPanel/components/Backgroun
 import { CollapsePanels } from '@/components/CollapsePanels';
 import { Stack } from '@/components/Stack';
 import { TextField } from '@/components/core/Form';
-import { useEditorContext } from '@/hooks/useEditorContext';
+import { useBlock } from '@/hooks/useBlock';
 
 export function Panel() {
-  const { focusIdx } = useEditorContext();
+  const { focusIdx } = useBlock();
   return (
     <CollapsePanels options={[
       {

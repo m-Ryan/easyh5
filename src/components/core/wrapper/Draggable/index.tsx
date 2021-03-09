@@ -1,6 +1,7 @@
+import { useBlock } from '@/hooks/useBlock';
+import { getIndexByIdx } from '@/utils/block';
 import React from 'react';
 import { Draggable as ReactDraggable } from 'react-beautiful-dnd';
-import { useEditorContext } from '../../../../hooks/useEditorContext';
 import { INodeItem } from '../../../../typings';
 export interface DraggableProps {
   children: React.ReactElement;
@@ -9,8 +10,8 @@ export interface DraggableProps {
 }
 export default function Draggable(props: DraggableProps) {
   const { idx, children, data } = props;
-  const id = Number(props.idx.match(/\.\[(\d+)\]$/)?.[1]);
-  const { focusIdx } = useEditorContext();
+  const id = getIndexByIdx(props.idx);
+  const { focusIdx } = useBlock();
 
   return (
     <ReactDraggable

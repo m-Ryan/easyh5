@@ -1,13 +1,12 @@
 import React, { useMemo } from 'react';
 import { TreeSelectField } from '@/components/core/Form';
-import { Stack } from '@/components/Stack';
 import { actions } from '@/config/actions';
 import { getFormatAction } from '@/utils/actions';
-import { useEditorContext } from '@/hooks/useEditorContext';
 import { useDialog } from '@/hooks/useDialog';
+import { useBlock } from '@/hooks/useBlock';
 
 export function Actions() {
-  const { focusIdx } = useEditorContext();
+  const { focusIdx } = useBlock();
   const { dialogList } = useDialog();
 
   const options = useMemo(() => {

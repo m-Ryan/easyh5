@@ -1,10 +1,10 @@
 import React, { useMemo } from 'react';
-import { useEditorContext } from '@/hooks/useEditorContext';
+import { useBlock } from '@/hooks/useBlock';
 import { LinkOutlined } from '@ant-design/icons';
 import { TextField } from '@/components/core/Form';
 
 export function Link() {
-  const { focusIdx } = useEditorContext();
+  const { focusIdx } = useBlock();
 
   return useMemo(() => {
     return (

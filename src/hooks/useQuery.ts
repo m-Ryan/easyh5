@@ -31,5 +31,7 @@ export function useQuery<T extends { [key: string]: any; }>(): T & {
 		return newSearch;
 	}, [push, query]);
 
-	return { ...query, patchQuery };
+	return { ...query, patchQuery } as T & {
+		patchQuery: (params: T) => string;
+	};
 }

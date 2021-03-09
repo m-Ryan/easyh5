@@ -1,48 +1,60 @@
 
-import { useEditorContext } from '@/hooks/useEditorContext';
-import React, { useCallback } from 'react';
-import { DragDropContext, DropResult } from 'react-beautiful-dnd';
+import { ITemplate } from '@/typings';
+import { getPageIdx } from '@/utils/block';
+import { Formik } from 'formik';
+import { isFunction } from 'lodash';
+import React, { ReactNode, useMemo } from 'react';
+import { IPage } from '../core/blocks/basic/Page';
+import { EditorFrame } from '../EditorFrame';
 
-export interface VisualEditorProviderProps {
-
+export interface VisualEditorProviderProps<T extends ITemplate = any> {
+  data: T;
+  onSubmit: (data: VisualEditorProps) => void;
+  children: ((params: { handleSubmit: (e?: React.FormEvent<HTMLFormElement> | undefined) => void; }) => ReactNode) | ReactNode;
+  uploadHandler: VisualEditorProps['props']['uploadHandler'];
 }
-export const VisualEditorProvider: React.FC<VisualEditorProviderProps> = (props) => {
 
-  const { moveByIdx } = useEditorContext();
+export interface VisualEditorProps {
+  pages: IPage[];
+  pageIndex: number;
+  focusIdx: string;
+  dialogUid: string;
+  variableMap: { [key: string]: any; };
+  actionMap: { [key: string]: any; };
+  props: {
+    uploadHandler: (file: File) => Promise<string>;
+  };
+}
 
-  const onDragEnd = useCallback(
-    (result: DropResult) => {
-      if (!result.destination) {
-        return;
+export const VisualEditorProvider = (props: VisualEditorProviderProps) => {
+
+  const { data, onSubmit, uploadHandler } = props;
+
+  const initialValues = useMemo(() => {
+    return {
+      pages: data,
+      pageIndex: 0,
+      focusIdx: getPageIdx(0),
+      dialogUid: '',
+      variableMap: {},
+      actionMap: {},
+      props: {
+        uploadHandler
       }
-
-      if (result.destination.index === result.source.index) {
-        return;
-      }
-
-      // 编辑器内移动
-      if (result.source.droppableId === 'Editor') {
-        const getNodeIdx = (index: number) => {
-          const ele = document.querySelector(`[data-rbd-draggable-id="${index}"]`)
-            ?.firstChild as HTMLDivElement;
-          return ele.getAttribute('data-node-idx');
-        };
-
-        const destinationIdx = getNodeIdx(result.destination.index);
-        const sourceIdx = getNodeIdx(result.source.index);
-
-        if (destinationIdx && sourceIdx) {
-          moveByIdx(sourceIdx, destinationIdx);
-        }
-      }
-
-    },
-    [moveByIdx]
-  );
+    };
+  }, [data, uploadHandler]);
 
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
-      {props.children}
-    </DragDropContext>
+    <Formik<VisualEditorProps> initialValues={initialValues} enableReinitialize onSubmit={onSubmit}>
+      {({ handleSubmit }) => (
+        <EditorFrame>
+          {
+            isFunction(props.children) ? props.children({ handleSubmit }) : props.children
+          }
+        </EditorFrame>
+
+      )}
+    </Formik>
+
   );
 };

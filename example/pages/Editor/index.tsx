@@ -12,6 +12,8 @@ import { useHistory } from 'react-router-dom';
 import { cloneDeep } from 'lodash';
 import { Stack } from '@example/components/Stack';
 import { ExamplePage } from '@/index';
+import { VisualEditorProvider } from '@/index';
+import services from '@example/services';
 
 export default function Editor() {
   const dispatch = useDispatch();
@@ -31,7 +33,7 @@ export default function Editor() {
 
   }, [dispatch, id]);
 
-  const onSave = useCallback((values: ITemplate, formikHelpers: FormikHelpers<ITemplate>) => {
+  const onSave = useCallback((values: ITemplate) => {
     if (id) {
       dispatch(template.actions.updateById({
         id: +id,
@@ -53,36 +55,36 @@ export default function Editor() {
 
   const initialValues = useMemo(() => {
     // because redux object is not extensible
-    return templateData ? cloneDeep(templateData) : null;
+    return templateData ? cloneDeep(templateData.content) : null;
   }, [templateData]);
 
   if (!initialValues) return null;
 
   return (
 
-    <Formik
-      initialValues={initialValues}
-      enableReinitialize
+    <VisualEditorProvider
+      data={initialValues}
       onSubmit={onSave}
+      uploadHandler={services.common.uploadByQiniu}
     >
       {
-        ({
-          handleSubmit,
-        }) => (
-          <div className={styles.container}>
-            <Header backUrl="/" title={initialValues.title}
-              extra={(
-                <Stack>
-                  <Button loading={isSubmitting} type="primary" onClick={() => handleSubmit()}>保存</Button>
-                </Stack>
-              )}
-            />
-            <ExamplePage />
+        ({ handleSubmit }) => {
+          return (
+            <div className={styles.container}>
+              <Header backUrl="/" title={initialValues.title}
+                extra={(
+                  <Stack>
+                    <Button loading={isSubmitting} type="primary" onClick={() => handleSubmit()}>保存</Button>
+                  </Stack>
+                )}
+              />
+              <ExamplePage />
 
-          </div>
-        )
+            </div>
+          );
+        }
       }
-    </Formik>
+    </VisualEditorProvider>
 
   );
 }

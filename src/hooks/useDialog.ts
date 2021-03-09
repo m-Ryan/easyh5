@@ -1,16 +1,16 @@
 import { IDialog } from '@/components/core/blocks/basic/Dialog';
 import { BasicType } from '@/constants';
-import { INodeItem } from '@/typings';
 import { useField } from 'formik';
 import { useCallback, useMemo } from 'react';
+import { useEditorContext } from './useEditorContext';
 
 export function useDialog() {
-  const [{ value }] = useField<INodeItem>('content.[0]');
+  const { pageData } = useEditorContext();
   const [{ value: dialogUid, }, , hepler] = useField<string>('dialogUid');
 
   const dialogList = useMemo(() => {
-    return value.children.filter(item => item.type === BasicType.DIALOG) as IDialog[];
-  }, [value]);
+    return pageData.children.filter(item => item.type === BasicType.DIALOG) as IDialog[];
+  }, [pageData]);
 
   const openDialog = useCallback((uid: string) => {
     hepler.setValue(uid);

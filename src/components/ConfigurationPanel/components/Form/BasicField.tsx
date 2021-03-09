@@ -1,10 +1,10 @@
 import React from 'react';
 import { TextField } from '@/components/core/Form';
 import { Stack } from '@/components/Stack';
-import { useEditorContext } from '@/hooks/useEditorContext';
+import { useBlock } from '@/hooks/useBlock';
 
 export function BasicField() {
-  const { focusIdx } = useEditorContext();
+  const { focusIdx } = useBlock();
 
   return (
     <Stack vertical>

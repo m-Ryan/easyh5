@@ -1,9 +1,5 @@
+import { IPage } from '@/components/core/blocks/basic/Page';
 import { BlockType } from '@/constants';
-
-export type RecursivePartial<T> = {
-  [P in keyof T]?: RecursivePartial<T[P]>;
-};
-
 export interface IBlock<T extends INodeItem = any> {
   name: string;
   type: BlockType;
@@ -26,6 +22,15 @@ export interface INodeItem<T extends any = any> {
   children: INodeItem<any>[];
 }
 
+export interface ITemplate {
+  content: IPage[];
+}
+
 export interface CreateInstance<T extends any = any> {
   (payload?: RecursivePartial<T>): T;
 }
+
+export type RecursivePartial<T> = {
+  [P in keyof T]?: RecursivePartial<T[P]>;
+};
+

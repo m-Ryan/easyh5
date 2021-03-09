@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import {
   SelectField,
 } from '@/components/core/Form';
-import { useEditorContext } from '@/hooks/useEditorContext';
+import { useBlock } from '@/hooks/useBlock';
 import './animate.scss';
 
 const animationOptions = [
@@ -29,7 +29,7 @@ const animationOptions = [
 ];
 
 export function Animation() {
-  const { focusIdx } = useEditorContext();
+  const { focusIdx } = useBlock();
 
   return useMemo(() => {
     return (

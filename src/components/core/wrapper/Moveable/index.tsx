@@ -3,7 +3,7 @@ import { onDrag } from '@/utils/onDrag';
 import { useQuery } from '@/hooks/useQuery';
 import { BlockWrapper } from '../BlockWrapper';
 import { getValueByIdx } from '@/utils/block';
-import { useEditorContext } from '@/hooks/useEditorContext';
+import { useBlock } from '@/hooks/useBlock';
 
 interface MoveableProps {
   children: React.ReactElement;
@@ -15,7 +15,7 @@ export default function Moveable(props: MoveableProps) {
   const {
     setValueByIdx,
     values,
-  } = useEditorContext();
+  } = useBlock();
 
   const { scale = 1 } = useQuery();
   const block = getValueByIdx(values, idx)!;

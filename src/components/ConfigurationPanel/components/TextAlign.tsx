@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { Stack } from '@/components/Stack';
-import { useEditorContext } from '@/hooks/useEditorContext';
+import { useBlock } from '@/hooks/useBlock';
 import { RadioGroupField } from '@/components/core/Form';
 
 const textAlignOptions = [
@@ -19,7 +19,7 @@ const textAlignOptions = [
 ];
 
 export function TextAlign() {
-  const { focusIdx } = useEditorContext();
+  const { focusIdx } = useBlock();
 
   return useMemo(() => {
     return (

@@ -4,10 +4,10 @@ import React, {
 
 import { Tooltip, Popconfirm } from 'antd';
 import { UpOutlined, DownOutlined, UpSquareOutlined, DownSquareOutlined, CopyOutlined, CloseOutlined, BorderOuterOutlined } from '@ant-design/icons';
-import { useEditorContext } from '@/hooks/useEditorContext';
 import { Stack } from '@/components/Stack';
 import { TextStyle } from '@/components/TextStyle';
 import { findBlockByType, getParentIdx, getSiblingIdx } from '@/utils/block';
+import { useBlock } from '@/hooks/useBlock';
 
 type SideBarItem = {
   icon: React.ReactNode;
@@ -19,7 +19,7 @@ type SideBarItem = {
 
 export const ToolBar = () => {
 
-  const { moveByIdx, focusBlock, copyBlock, removeBlock, focusIdx, setFocusIdx } = useEditorContext();
+  const { moveByIdx, focusBlock, copyBlock, removeBlock, focusIdx, setFocusIdx } = useBlock();
   const block = focusBlock && findBlockByType(focusBlock.type);
   const sidebarList = useMemo(() => {
     if (!focusBlock) return [];

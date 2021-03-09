@@ -7,7 +7,7 @@ import React, {
 import { useFormikContext } from 'formik';
 import { INodeItem, RecursivePartial } from '@/typings';
 import { get } from 'lodash';
-import { useEditorContext } from '@/hooks/useEditorContext';
+import { useBlock } from '@/hooks/useBlock';
 import { findBlockNode } from '@/utils/findBlockNode';
 import { BlockType, BasicType, DRAG_HOVER_CLASSNAME, DRAG_TANGENT_CLASSNAME } from '@/constants';
 import { getIndexByIdx, getParentIdx } from '@/utils/block';
@@ -19,7 +19,7 @@ export const BlockAvatorWrapper: React.FC<{ type: BlockType; }> = (props) => {
 
   const { type, children } = props;
   const { values } = useFormikContext<INodeItem[]>();
-  const { addBlock } = useEditorContext();
+  const { addBlock } = useBlock();
 
   const ele = document.getElementById('VisualEditorEditMode');
 
