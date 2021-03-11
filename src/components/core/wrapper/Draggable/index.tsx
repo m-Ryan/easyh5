@@ -2,14 +2,13 @@ import { useBlock } from '@/hooks/useBlock';
 import { getIndexByIdx } from '@/utils/block';
 import React from 'react';
 import { Draggable as ReactDraggable } from 'react-beautiful-dnd';
-import { INodeItem } from '../../../../typings';
+import { BlockWrapper } from '../BlockWrapper';
 export interface DraggableProps {
   children: React.ReactElement;
   idx: string;
-  data: INodeItem;
 }
 export default function Draggable(props: DraggableProps) {
-  const { idx, children, data } = props;
+  const { idx, children } = props;
   const id = getIndexByIdx(props.idx);
   const { focusIdx } = useBlock();
 
@@ -26,15 +25,9 @@ export default function Draggable(props: DraggableProps) {
           {...draggableProvided.draggableProps}
           {...draggableProvided.dragHandleProps}
         >
-          {React.createElement(children.type, {
-            ...children.props,
-            ['data-node-type']: data.type,
-            ['data-node-idx']: idx,
-            style: {
-              ...(children.props.style || {}),
-              ...data.style,
-            },
-          })}
+          <BlockWrapper idx={idx}>
+            {children}
+          </BlockWrapper>
         </div>
       )}
     </ReactDraggable>

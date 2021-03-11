@@ -1,20 +1,16 @@
 
-import { Editor } from '@/Editor';
 import { ITemplate } from '@/typings';
 import { getPageIdx } from '@/utils/block';
 import { Formik } from 'formik';
-import { isFunction } from 'lodash';
 import React, { ReactNode, useMemo } from 'react';
 import { IPage } from '../core/blocks/basic/Page';
 
-export interface VisualEditorProviderProps<T extends ITemplate = any> {
+export interface TemplateRenderProviderProps<T extends ITemplate = any> {
   data: T;
-  onSubmit: (data: VisualEditorProps) => void;
   children: ((params: { handleSubmit: (e?: React.FormEvent<HTMLFormElement> | undefined) => void; }) => ReactNode) | ReactNode;
-  uploadHandler: VisualEditorProps['props']['uploadHandler'];
 }
 
-export interface VisualEditorProps {
+export interface TemplateRenderProps {
   pages: IPage[];
   pageIndex: number;
   focusIdx: string;
@@ -22,13 +18,14 @@ export interface VisualEditorProps {
   variableMap: { [key: string]: any; };
   actionMap: { [key: string]: any; };
   props: {
-    uploadHandler: (file: File) => Promise<string>;
+
   };
+  temporary: { [key: string]: any; };
 }
 
-export const VisualEditorProvider = (props: VisualEditorProviderProps) => {
+export const TemplateRenderProvider = (props: TemplateRenderProviderProps) => {
 
-  const { data, onSubmit, uploadHandler } = props;
+  const { data } = props;
 
   const initialValues = useMemo(() => {
     return {
@@ -39,13 +36,16 @@ export const VisualEditorProvider = (props: VisualEditorProviderProps) => {
       variableMap: {},
       actionMap: {},
       props: {
-        uploadHandler
+
+      },
+      temporary: {
+
       }
     };
-  }, [data, uploadHandler]);
+  }, [data]);
 
   return (
-    <Formik<VisualEditorProps> initialValues={initialValues} enableReinitialize onSubmit={onSubmit}>
+    <Formik<TemplateRenderProps> initialValues={initialValues} enableReinitialize onSubmit={() => { }}>
       {props.children}
     </Formik>
 

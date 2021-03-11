@@ -1,4 +1,5 @@
 
+import { IPage } from '@/components/core/blocks/basic/Page';
 import { VisualEditorProps } from '@/components/VisualEditorProvider';
 import { INodeItem } from '@/typings';
 import { get } from 'lodash';
@@ -23,11 +24,11 @@ export const getParentIdx = (idx: string) => {
   return idx.match(/(.*)\.children\.\[\d+\]$/)?.[1];
 };
 
-export const getValueByIdx = <T extends any>(values: VisualEditorProps, idx: string): INodeItem<T> | null => {
+export const getValueByIdx = <T extends any>(values: { pages: IPage[]; }, idx: string): INodeItem<T> | null => {
   return get(values, idx);
 };
 
-export const getParentByIdx = <T extends any>(values: VisualEditorProps, idx: string): INodeItem<T> | null => {
+export const getParentByIdx = <T extends any>(values: { pages: IPage[]; }, idx: string): INodeItem<T> | null => {
   return get(values, getParentIdx(idx) || '');
 };
 

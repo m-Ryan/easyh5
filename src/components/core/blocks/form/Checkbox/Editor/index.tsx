@@ -15,7 +15,7 @@ export function Editor(props: IProps) {
   const { ...fieldProps } = value.data.value;
 
   return (
-    <Draggable idx={props.idx} data={value}>
+    <Draggable idx={props.idx}>
       <div>
         <CheckboxField alignment="leading" {...fieldProps} name={getFieldName(fieldProps.name)} />
       </div>

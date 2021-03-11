@@ -30,14 +30,6 @@ export function BlockWrapper(props: BlockWrapperProps) {
       e.stopPropagation();
       setFocusIdx(idx);
     },
-    onMouseOver: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-      setIsHover(true);
-      e.stopPropagation();
-    },
-    onMouseOut: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-      setIsHover(false);
-      e.stopPropagation();
-    },
     ['data-node-type']: node.type,
     ['data-node-idx']: idx,
     style: {
@@ -48,24 +40,26 @@ export function BlockWrapper(props: BlockWrapperProps) {
     className: classnames(isHover && BLOCK_HOVER_CLASSNAME, isFocus && BLOCK_SELECTED_CLASSNAME, children.props.className),
   });
 
-  if (!block) return null;
+  const onHover = (visible: boolean) => {
+    setIsHover(visible);
+  };
 
   return isFocus ? (
     <Tooltip
-
+      key={1}
       placement="topLeft"
       visible={true}
       title={<ToolBar />
       }
     >
-      <div />
       {content}
     </Tooltip>
   ) : (
       <Tooltip
-        visible={isHover}
+        key={2}
         placement="leftTop"
-        title={block.name}
+        title={block?.name}
+        onVisibleChange={onHover}
       >
         {content}
       </Tooltip>

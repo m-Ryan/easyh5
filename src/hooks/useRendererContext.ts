@@ -1,11 +1,11 @@
 import { useField, useFormikContext } from 'formik';
 import { INodeItem } from '../typings';
 import { useCallback } from 'react';
-import { ITemplate } from '@/store/template';
 import { get } from 'lodash';
 import { getParseAction } from '@/utils/actions';
 import { useDialog } from './useDialog';
 import { IPage } from '@/components/core/blocks/basic/Page';
+import { TemplateRenderProps } from '@/components/TemplateRenderProvider';
 
 const setDataByVariable = (nodes: INodeItem[], variableMap: { [key: string]: any; }) => {
   nodes.forEach(item => {
@@ -17,15 +17,10 @@ const setDataByVariable = (nodes: INodeItem[], variableMap: { [key: string]: any
   });
 };
 
-export interface RendererTemplate extends Omit<ITemplate, 'focusIdx'> {
-
-}
-
 export function useRendererContext() {
-  const pageIdx = 'content.[0]';
-  const [{ value: pageValue }] = useField<IPage>(pageIdx);
-  const temporary = pageValue.data.value.temporary;
-  const { setFormikState, setValues, initialValues, values } = useFormikContext<ITemplate>();
+  const { values, setFormikState, setValues } = useFormikContext<TemplateRenderProps>();
+  const { pageIndex, pages, temporary } = values;
+  const pageData = pages[pageIndex];
 
   const { openDialog, closeDialog } = useDialog();
 
@@ -34,10 +29,10 @@ export function useRendererContext() {
     setFormikState(((prevState) => {
       const prevVal = prevState.values;
       Object.assign(prevVal.variableMap, map);
-      setDataByVariable(prevVal.content, prevVal.variableMap);
+      setDataByVariable([pageData], prevVal.variableMap);
       return { ...prevState };
     }));
-  }, [setFormikState]);
+  }, [pageData, setFormikState]);
 
   const onAction = (action: string) => {
     const { group, name } = getParseAction(action);
@@ -53,14 +48,13 @@ export function useRendererContext() {
   };
 
   return {
-    initialValues,
+    pageIndex,
     values,
     setValues,
     setVariable,
     onAction,
-    pageIdx,
-    pageValue,
-    temporary
+    temporary,
+    pageData
   };
 }
 

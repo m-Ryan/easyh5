@@ -1,5 +1,5 @@
 import { useRendererContext } from '@/hooks/useRendererContext';
-import { getValueByIdx } from '@/utils/block';
+import { getPageIdx, getValueByIdx } from '@/utils/block';
 import React, { useEffect } from 'react';
 import { RenderItem } from './components/RenderItem';
 
@@ -8,8 +8,8 @@ export interface EditorProps {
 }
 
 export function Renderer() {
-  const { onAction, pageValue, values } = useRendererContext();
-  const { pageWidth, pageMaxWidth, enabled: h5Enabled } = pageValue.data.value.h5;
+  const { onAction, pageData, values, pageIndex } = useRendererContext();
+  const { pageWidth, pageMaxWidth, enabled: h5Enabled } = pageData.data.value.h5;
 
   useEffect(() => {
     const action = (ev: MouseEvent) => {
@@ -50,7 +50,7 @@ export function Renderer() {
 
   return (
     <div id='VisualEditorRenderMode' data-h5={h5Enabled} style={{ width: '100%', height: '100%', maxWidth: pageMaxWidth, margin: '0 auto' }}>
-      <RenderItem idx={'content.[0]'} />
+      <RenderItem idx={getPageIdx(pageIndex)} />
     </div>
   );
 }

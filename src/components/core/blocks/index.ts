@@ -6,12 +6,12 @@ import { Section } from './basic/Section';
 import { Page } from './basic/Page';
 import { Dialog } from './basic/Dialog';
 import { Audio } from './basic/Audio';
-import { Form } from './extra/Form';
-import { Input } from './extra/Input';
-import { Switch } from './extra/Switch';
-import { Checkbox } from './extra/Checkbox';
-import { Radio } from './extra/Radio';
-import { SubmitButton } from './extra/SubmitButton';
+import { Form } from './form/Form';
+import { Input } from './form/Input';
+import { Switch } from './form/Switch';
+import { Checkbox } from './form/Checkbox';
+import { Radio } from './form/Radio';
+import { SubmitButton } from './form/SubmitButton';
 import { BlockType } from '@/constants';
 import { IBlock } from '@/typings';
 
