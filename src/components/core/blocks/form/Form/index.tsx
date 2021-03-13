@@ -5,7 +5,7 @@ import { createInstance } from './createInstance';
 import { IBlock, INodeItem } from '@/typings';
 import { BasicType, FormType } from '@/constants';
 
-export type IForm = INodeItem<{}>;
+export type IForm = INodeItem<{ uid: string; name: string; }>;
 
 export const Form: IBlock<IForm> = {
   name: '表单',

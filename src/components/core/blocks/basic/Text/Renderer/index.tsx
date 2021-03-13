@@ -1,7 +1,7 @@
 import React from 'react';
 import { INodeItem } from '@/typings';
 import { useField } from 'formik';
-import { EditBlockWrapper } from '@/components/core/wrapper/EditBlockWrapper';
+import { RenderBlockWrapper } from '@/components/core/wrapper/RenderBlockWrapper';
 
 type IProps = {
   idx: string;
@@ -10,10 +10,10 @@ type IProps = {
 export function Renderer(props: IProps) {
   const [{ value }] = useField<INodeItem<{}>>(props.idx);
   return (
-    <EditBlockWrapper idx={props.idx}>
+    <RenderBlockWrapper idx={props.idx}>
       <span>
         {value.data.value}
       </span>
-    </EditBlockWrapper>
+    </RenderBlockWrapper>
   );
 }

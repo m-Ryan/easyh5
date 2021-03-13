@@ -1,6 +1,5 @@
 
 import { IPage } from '@/components/core/blocks/basic/Page';
-import { VisualEditorProps } from '@/components/VisualEditorProvider';
 import { INodeItem } from '@/typings';
 import { get } from 'lodash';
 import { BlocksMap } from '../components/core/blocks';

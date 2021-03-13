@@ -17,12 +17,12 @@ const TabPane = Tabs.TabPane;
 
 export const Editor = () => {
 
-  const { pageData: { data: { value: { h5 } } }, values: { pageIndex }, } = useEditorContext();
+  const { values: { pageIndex }, } = useEditorContext();
   const [activeTab, setActiveTab] = useState('editor');
 
   const { width, height, content } = useDeviceToolbar();
 
-  const innerContainerStyles: React.CSSProperties = { width, height, margin: '0 auto', transition: 'all .3s', };
+  const innerContainerStyles: React.CSSProperties = { width, height, margin: '0 auto', };
 
   const { moveByIdx } = useBlock();
 
@@ -70,7 +70,7 @@ export const Editor = () => {
                     {...provided.droppableProps}
                   >
                     <div className={styles.container}>
-                      <div id='VisualEditorEditMode' data-h5={h5.enabled} style={innerContainerStyles}>
+                      <div id='VisualEditorEditMode' style={innerContainerStyles}>
                         <Tooltip
                           visible
                           placement="topLeft"

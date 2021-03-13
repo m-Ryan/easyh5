@@ -27,14 +27,14 @@ export function Editor(props: IProps) {
             ? (
               <TextAreaField
                 {...fieldProps}
-                validate={getValidation(validations)}
+                validate={undefined}
                 required={validations.includes(ValidationType.REQUIRED)} name={getFieldName(fieldProps.name)}
               />
             )
             : (
               <TextField
                 {...fieldProps}
-                validate={getValidation(validations)}
+                validate={undefined}
                 required={validations.includes(ValidationType.REQUIRED)} name={getFieldName(fieldProps.name)}
               />
             )

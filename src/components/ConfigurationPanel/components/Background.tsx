@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { ColorPickerField, ImageUploaderField, SelectField, SwitchField } from '@/components/core/Form';
+import { ColorPickerField, ImageUploaderField, SelectField, TextField } from '@/components/core/Form';
 import { Stack } from '@/components/Stack';
 import { useBlock } from '@/hooks/useBlock';
 import { TextStyle } from '@/components/TextStyle';
@@ -24,8 +24,10 @@ const backgroundRepeatOptions = [
   }
 ];
 
-const onChangeAdapter = (url: string[]) => {
-  return url ? `url(${url[0]})` : undefined;
+const onChangeAdapter = (url: string | (string[])) => {
+  const pic = Array.isArray(url) ? url[0] : url;
+  if (!pic) return '';
+  return `url(${pic})`;
 };
 
 export function Background() {
@@ -44,14 +46,29 @@ export function Background() {
           inline
           alignment='center'
         />
-        <ImageUploaderField
-          label='背景图'
-          name={`${focusIdx}.style.backgroundImage`}
-          inline
-          valueAdapter={((text: string) => text?.replace(/url\((.*)?\)/, '$1'))}
-          onChangeAdapter={onChangeAdapter}
-          uploadHandler={uploadHandler}
-        />
+        <TextStyle>
+          背景图
+        </TextStyle>
+        <Stack vertical spacing="none">
+          <ImageUploaderField
+            label=''
+            lableHidden
+            name={`${focusIdx}.style.backgroundImage`}
+            inline
+            valueAdapter={((text: string) => text?.replace(/url\((.*)?\)/, '$1') || '')}
+            onChangeAdapter={onChangeAdapter}
+            uploadHandler={uploadHandler}
+          />
+          <TextField label="" inline
+            lableHidden name={`${focusIdx}.style.backgroundImage`}
+            valueAdapter={((text: string) => text?.replace(/url\((.*)?\)/, '$1') || '')}
+            onChangeAdapter={onChangeAdapter}
+          />
+          <TextField label="背景大小" inline
+            name={`${focusIdx}.style.backgroundSize`}
+
+          />
+        </Stack>
         <SelectField
           label='背景重复'
           name={`${focusIdx}.style.backgroundRepleat`}
@@ -60,5 +77,5 @@ export function Background() {
         />
       </Stack>
     );
-  }, [focusIdx]);
+  }, [focusIdx, uploadHandler]);
 }

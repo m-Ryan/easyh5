@@ -116,7 +116,7 @@ export function useDeviceToolbar() {
 
   const content = useMemo(() => {
     return (
-      <div style={{ backgroundColor: '#fff', position: 'absolute', top: 0, height: 72, lineHeight: '72px' }}>
+      <div style={{ position: 'absolute', top: 0, height: 72, lineHeight: '72px' }}>
         <Stack distribution="equalSpacing" alignment="center">
           <Stack>
             <Stack spacing="extraTight">

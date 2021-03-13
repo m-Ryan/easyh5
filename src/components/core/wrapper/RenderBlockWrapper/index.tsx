@@ -15,10 +15,12 @@ export function RenderBlockWrapper(props: RenderBlockWrapperProps) {
 
   const node = getValueByIdx(values, idx)!;
 
-  const content = React.cloneElement(children, {
-    style: node.style,
+  const content = React.createElement(children.type, {
     ...children.props,
-    ...props,
+    style: {
+      ...node.style,
+      cursor: node.data.action ? 'pointer' : node.style.cursor
+    },
     ['data-node-type']: node.type,
     ['data-node-idx']: idx,
   });

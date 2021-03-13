@@ -7,7 +7,6 @@ import { message } from 'antd';
 import { getIndexByIdx, getPageIdx, getParentIdx, getValueByIdx } from '@/utils/block';
 import { createBlockItem } from '@/utils/createBlockItem';
 import { useEditorContext } from './useEditorContext';
-import { IPage } from '@/components/core/blocks/basic/Page';
 
 export function useBlock() {
 
@@ -141,11 +140,24 @@ export function useBlock() {
     [setFormikState]
   );
 
+  const setFocusBlockValue = useCallback(
+    (val) => {
+      setFormikState((formState => {
+        if (!focusBlock) return formState;
+        focusBlock.data.value = val;
+        set(formState, focusIdx, focusBlock);
+        return { ...formState };
+      }));
+    },
+    [focusBlock, focusIdx, setFormikState]
+  );
+
   return {
 
     values,
     focusIdx,
     focusBlock,
+    setFocusBlockValue,
     setValueByIdx,
     addBlock,
     copyBlock,

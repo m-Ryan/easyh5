@@ -1,29 +1,16 @@
 import React from 'react';
-import { BasicField } from '@/components/ConfigurationPanel/components/Form/BasicField';
 import { Stack } from '@/components/Stack';
 import { useBlock } from '@/hooks/useBlock';
-import { NumberField, SelectField, } from '@/components/core/Form';
-import { getOptionsByStringArray } from '@/utils/getOptionsByStringArray';
-
-const typeOptions = getOptionsByStringArray([
-  'text',
-  'password',
-  'number',
-]);
+import { Extra } from '@/components/ConfigurationPanel/components/Extra';
+import { TextField } from '@/components/core/Form';
 
 export function Panel() {
   const { focusIdx } = useBlock();
 
   return (
     <Stack vertical>
-      <BasicField />
-      <NumberField label='长度限制' name={`${focusIdx}.data.value.maxLength`} inline />
-      <SelectField
-        label='类型'
-        name={`${focusIdx}.data.value.type`}
-        options={typeOptions}
-        inline
-      />
+      <TextField label='按钮文案' name={`${focusIdx}.data.value.title`} inline />
+      <Extra />
     </Stack>
   );
 

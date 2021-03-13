@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { merge } from 'lodash';
 import { IDialog } from '.';
 import { Box } from '../Box';
+import { Image } from '../Image';
 
 export const createInstance: CreateInstance<IDialog> = (payload) => {
   const uid = uuidv4().replace(/-/g, '');
@@ -53,6 +54,22 @@ export const createInstance: CreateInstance<IDialog> = (payload) => {
           value: null
         }
       }),
+      Image.createInstance({
+        data: {
+          value: 'http://assets.maocanhua.cn/FmRBC4V-1mQttute9vHvAhCdKJL2',
+          action: `dialogClose-${uid}`,
+        },
+        style: {
+          'zIndex': 100,
+          'position': 'absolute',
+          'backgroundSize': '100%',
+          'top': '20px',
+          'right': '20px',
+          'width': '25px',
+          'left': '',
+          'bottom': '',
+        },
+      }),
       Box.createInstance({
         style: {
           'zIndex': 10,
@@ -60,10 +77,10 @@ export const createInstance: CreateInstance<IDialog> = (payload) => {
           'backgroundSize': '100%',
           'left': 0,
           'top': 0,
-          'width': 350,
-          'height': 200,
+          'width': '350px',
+          'height': '200px',
           'backgroundColor': 'rgba(255, 255, 255, 1)',
-          'fontSize': 14,
+          'fontSize': '14px',
         },
 
       })

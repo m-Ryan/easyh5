@@ -16,7 +16,7 @@ export function Editor(props: IProps) {
   const { checkedText, uncheckedText, ...fieldProps } = value.data.value;
 
   return (
-    <Draggable idx={props.idx} data={value}>
+    <Draggable idx={props.idx}>
       <div>
         <SwitchField checkedChildren={checkedText} unCheckedChildren={uncheckedText} {...fieldProps} name={getFieldName(fieldProps.name)} inline />
       </div>

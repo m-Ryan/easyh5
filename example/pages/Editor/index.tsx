@@ -1,19 +1,15 @@
 import React, { useCallback, useEffect, useMemo } from 'react';
-import styles from './index.module.scss';
-import { Header } from '@example/components/Header';
 import { useDispatch } from 'react-redux';
-import template, { ITemplate } from '@example/store/template';
+import template from '@example/store/template';
 import { useAppSelector } from '@example/hooks/useAppSelector';
 import { useLoading } from '@example/hooks/useLoading';
-import { Formik, FormikHelpers } from 'formik';
-import { Button, message } from 'antd';
+import { message } from 'antd';
 import { useQuery } from '@example/hooks/useQuery';
 import { useHistory } from 'react-router-dom';
 import { cloneDeep } from 'lodash';
-import { Stack } from '@example/components/Stack';
-import { ExamplePage } from '@/index';
-import { VisualEditorProvider } from '@/index';
-import services from '@example/services';
+import { ExamplePage } from './components/ExamplePage';
+import { VisualEditorProps } from '@/components/VisualEditorProvider';
+import { IPage } from '@/components/core/blocks/basic/Page';
 
 export default function Editor() {
   const dispatch = useDispatch();
@@ -33,18 +29,23 @@ export default function Editor() {
 
   }, [dispatch, id]);
 
-  const onSave = useCallback((values: ITemplate) => {
+  const onSave = useCallback((values: VisualEditorProps) => {
+    const payload = {
+      content: values.pages,
+      title: values.title,
+      picture: values.picture,
+    };
     if (id) {
       dispatch(template.actions.updateById({
         id: +id,
-        template: values,
+        template: payload,
         success() {
           message.success('更新成功');
         }
       }));
     } else {
       dispatch(template.actions.create({
-        template: values,
+        template: payload,
         success(templateId) {
           history.replace(`/editor?id=${templateId}`);
           message.success('创建成功');
@@ -53,39 +54,27 @@ export default function Editor() {
     }
   }, [dispatch, history, id]);
 
-  const initialValues = useMemo(() => {
+  const initialValues: { title: string; picture: string, content: IPage[]; } = useMemo(() => {
+    if (!templateData) {
+      return {
+        title: '',
+        content: [],
+        picture: ''
+      };
+    }
     // because redux object is not extensible
-    return templateData ? cloneDeep(templateData.content) : null;
+    const content = templateData ? cloneDeep(templateData.content) : [];
+    return {
+      title: templateData.title,
+      picture: templateData.picture,
+      content: content,
+    };
   }, [templateData]);
 
   if (!initialValues) return null;
 
   return (
-
-    <VisualEditorProvider
-      data={initialValues}
-      onSubmit={onSave}
-      uploadHandler={services.common.uploadByQiniu}
-    >
-      {
-        ({ handleSubmit }) => {
-          return (
-            <div className={styles.container}>
-              <Header backUrl="/" title={initialValues.title}
-                extra={(
-                  <Stack>
-                    <Button loading={isSubmitting} type="primary" onClick={() => handleSubmit()}>保存</Button>
-                  </Stack>
-                )}
-              />
-              <ExamplePage />
-
-            </div>
-          );
-        }
-      }
-    </VisualEditorProvider>
-
+    <ExamplePage initialValues={initialValues} onSave={onSave} isSubmitting={isSubmitting} />
   );
 }
 

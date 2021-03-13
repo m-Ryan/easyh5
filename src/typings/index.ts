@@ -24,6 +24,8 @@ export interface INodeItem<T extends any = any> {
 
 export interface ITemplate {
   content: IPage[];
+  title: string;
+  picture: string;
 }
 
 export interface CreateInstance<T extends any = any> {

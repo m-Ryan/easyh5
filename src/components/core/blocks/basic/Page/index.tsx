@@ -7,11 +7,6 @@ import { BasicType, FormType } from '@/constants';
 
 export type IPage = INodeItem<{
   title: string;
-  h5: {
-    enabled: boolean;
-    pageWidth: number;
-    pageMaxWidth: number;
-  };
 }>;
 
 export const Page: IBlock<IPage> = {

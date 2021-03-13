@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { onDrag } from '@/utils/onDrag';
 import { useQuery } from '@/hooks/useQuery';
 import { getValueByIdx } from '@/utils/block';
@@ -12,6 +12,7 @@ interface MoveableProps {
 }
 export default function Moveable(props: MoveableProps) {
   const { idx, children, disabled = false } = props;
+  const [isParallel, setIsParallel] = useState(false);
   const {
     setValueByIdx,
     values,
@@ -19,6 +20,22 @@ export default function Moveable(props: MoveableProps) {
 
   const { scale = 1 } = useQuery();
   const block = getValueByIdx(values, idx)!;
+
+  useEffect(() => {
+
+    const handler = (ev: KeyboardEvent) => {
+      if (ev.shiftKey) {
+        setIsParallel(p => !p);
+      }
+    };
+
+    window.addEventListener('keydown', handler);
+    window.addEventListener('keyup', handler);
+    return () => {
+      window.removeEventListener('keyup', handler);
+      window.removeEventListener('keyup', handler);
+    };
+  }, []);
 
   const onMouseDown = (event: any) => {
     if (disabled) return;
@@ -28,13 +45,34 @@ export default function Moveable(props: MoveableProps) {
       onMove(diffX, diffY) {
         const left = parseFloat(block.style.left?.toString() || '0') + diffX * Number(1 / scale) + 'px';
         const top = parseFloat(block.style.top?.toString() || '0') + diffY * Number(1 / scale) + 'px';
-        setValueByIdx(idx, {
-          ...block, style: {
-            ...block.style,
-            left,
-            top
-          },
-        });
+
+        if (isParallel) {
+          if (Math.abs(diffX) > Math.abs(diffY)) {
+            setValueByIdx(idx, {
+              ...block, style: {
+                ...block.style,
+                left,
+              },
+            });
+          } else {
+            setValueByIdx(idx, {
+              ...block, style: {
+                ...block.style,
+                top,
+              },
+            });
+          }
+
+        } else {
+          setValueByIdx(idx, {
+            ...block, style: {
+              ...block.style,
+              left,
+              top
+            },
+          });
+        }
+
       },
     });
   };

@@ -23,8 +23,8 @@
     outline-offset: -2px;
     outline: 2px solid #F5A623 !important;
   }
-}
 
+}
 
 #VisualEditorEditMode[data-h5="true"],#VisualEditorRenderMode[data-h5="true"] {
 
@@ -36,5 +36,14 @@
     &::-webkit-scrollbar {
       width: 0px;
     }
+  }
+}
+
+
+#VisualEditorEditMode, #VisualEditorRenderMode {
+
+  * {
+    background-size: 100%;
+    background-repeat: no-repeat;
   }
 }

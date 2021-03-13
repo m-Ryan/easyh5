@@ -42,7 +42,6 @@ export function useRendererContext() {
       case 'dialogClose':
         closeDialog();
         break;
-
     }
   };
 

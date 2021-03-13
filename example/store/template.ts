@@ -1,6 +1,6 @@
 import { ASSET_DOMAIN } from '@example/constants';
 import services from '@example/services';
-import { article, IArticle } from '@example/services/article';
+import { article } from '@example/services/article';
 import { getImageFile } from '@example/util/utils';
 import createSliceState from './common/createSliceState';
 
@@ -9,7 +9,7 @@ import mockData from './template.json';
 import { cloneDeep } from 'lodash';
 import { message } from 'antd';
 import { history } from '@example/util/history';
-import { INodeItem } from '@/typings';
+import { INodeItem, ITemplate } from '@/typings';
 import { BasicType } from '@/constants';
 
 export default createSliceState({

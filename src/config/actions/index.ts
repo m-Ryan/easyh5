@@ -1,4 +1,5 @@
 import { dialogClose, dialogOpen } from './dialog';
+import { formSubmit } from './form';
 
 export const actions: Array<{
   name: string;
@@ -14,5 +15,6 @@ export const actions: Array<{
       actions: [],
     },
     dialogClose,
-    dialogOpen
+    dialogOpen,
+    formSubmit
   ];

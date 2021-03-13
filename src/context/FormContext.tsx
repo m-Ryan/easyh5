@@ -50,11 +50,9 @@ export function useFormContext() {
     if (validateError && Object.keys(validateError).length > 0) {
       const touchedObj = getTouchedObj(validateError);
       setTouched(touchedObj, true);
-      console.log('handleSubmit validateError', validateError);
     } else {
-      console.log('handleSubmit', getFormValues());
-    }
 
+    }
   };
 
   const isValid = useMemo(() => {

@@ -42,14 +42,13 @@ function ImageUploader({
       return message.warning('正在上传中，请等待上传完成');
     }
 
-    setIsUploading(true);
     const uploader = new Uploader(uploadHandler, {
       count,
       accept: 'image/*'
     });
 
     uploader.on('start', photos => {
-
+      setIsUploading(true);
       setFormikState((formikState) => {
         formikState.values = [...formikState.values, ...photos];
         return { ...formikState };
@@ -94,7 +93,6 @@ function ImageUploader({
         });
         try {
           const url = await uploadHandler(blob);
-          console.log('url', url);
           setFormikState(formikState => {
             formikState.values = formikState.values.map(item => {
               if (pastePicture.idx === item.idx) {
@@ -128,7 +126,7 @@ function ImageUploader({
         message.destroy();
       }
     }
-  }, [setFormikState]);
+  }, [setFormikState, uploadHandler]);
 
   const onRemove = (index: number) => {
     setFormikState((formikState) => {
@@ -217,8 +215,9 @@ function ImageUploaderItem(props: ImageUploaderItemProps) {
 
 export default withFormik<ImageUploaderProps, UploadItem[]>({
   handleSubmit: () => { },
+  enableReinitialize: true,
   mapPropsToValues: (props) => {
-    const value = props.value ? Array.isArray(props.value) ? props.value : [props.value] : [];
+    const value = props.value ? Array.isArray(props.value) ? props.value.filter(item => !!item) : [props.value] : [];
     return value.map(item => ({ url: item, status: 'done', idx: '' }));
   }
 })(ImageUploader);

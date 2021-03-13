@@ -2,6 +2,7 @@ import { FormType } from '@/constants';
 import { CreateInstance } from '@/typings';
 import { ValidationType } from '@/utils/validation';
 import { merge } from 'lodash';
+import { v4 as uuidv4 } from 'uuid';
 import { IForm } from '.';
 import { Checkbox } from '../Checkbox';
 import { Input } from '../Input';
@@ -10,10 +11,14 @@ import { SubmitButton } from '../SubmitButton';
 import { Switch } from '../Switch';
 
 export const createInstance: CreateInstance<IForm> = (payload) => {
+  const uid = uuidv4().replace(/-/g, '');
   const defaultData: IForm = {
     type: FormType.FORM,
     data: {
-      value: {},
+      value: {
+        uid,
+        name: `表单-${uid}`
+      },
     },
     style: {
       position: 'relative',
@@ -87,7 +92,8 @@ export const createInstance: CreateInstance<IForm> = (payload) => {
         data: {
           value: {
             title: '提交'
-          }
+          },
+          action: `formSubmit-${uid}`,
         }
       })
     ],

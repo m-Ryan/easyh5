@@ -9,7 +9,7 @@ export interface InputProps extends Omit<AntdInputProps, 'onChange'> {
 }
 
 export function Input(props: InputProps) {
-  const { quickchange, value, onKeyDown: onPropsKeyDown } = props;
+  const { quickchange, value = '', onKeyDown: onPropsKeyDown } = props;
 
   const onChange = useCallback((val: string) => {
     props.onChange(val);

@@ -1,5 +1,5 @@
 import { classnames } from '@/utils/classnames';
-import { BLOCK_HOVER_CLASSNAME, BLOCK_SELECTED_CLASSNAME } from '@/constants';
+import { BasicType, BLOCK_HOVER_CLASSNAME, BLOCK_SELECTED_CLASSNAME } from '@/constants';
 import { findBlockByType, getValueByIdx } from '@/utils/block';
 import { Tooltip } from 'antd';
 import React, { DOMAttributes, useState } from 'react';
@@ -24,7 +24,6 @@ export function EditBlockWrapper(props: EditBlockWrapperProps) {
 
   const content = React.createElement(children.type, {
     ...children.props,
-    ...props,
     onClick: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
       e.stopPropagation();
       setFocusIdx(idx);

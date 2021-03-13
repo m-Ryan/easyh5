@@ -1,9 +1,8 @@
 
-import { Editor } from '@/Editor';
 import { ITemplate } from '@/typings';
 import { getPageIdx } from '@/utils/block';
+import { Loading } from '@example/components/loading';
 import { Formik } from 'formik';
-import { isFunction } from 'lodash';
 import React, { ReactNode, useMemo } from 'react';
 import { IPage } from '../core/blocks/basic/Page';
 
@@ -15,6 +14,8 @@ export interface VisualEditorProviderProps<T extends ITemplate = any> {
 }
 
 export interface VisualEditorProps {
+  title: string;
+  picture: string;
   pages: IPage[];
   pageIndex: number;
   focusIdx: string;
@@ -26,13 +27,16 @@ export interface VisualEditorProps {
   };
 }
 
-export const VisualEditorProvider = (props: VisualEditorProviderProps) => {
+export const VisualEditorProvider = (props: VisualEditorProviderProps<ITemplate>) => {
 
   const { data, onSubmit, uploadHandler } = props;
 
   const initialValues = useMemo(() => {
+
     return {
-      pages: data,
+      title: data.title,
+      picture: data.picture,
+      pages: data.content,
       pageIndex: 0,
       focusIdx: getPageIdx(0),
       dialogUid: '',
@@ -45,9 +49,11 @@ export const VisualEditorProvider = (props: VisualEditorProviderProps) => {
   }, [data, uploadHandler]);
 
   return (
-    <Formik<VisualEditorProps> initialValues={initialValues} enableReinitialize onSubmit={onSubmit}>
-      {props.children}
-    </Formik>
+    <Loading loading={!initialValues.pages[0]}>
+      <Formik<VisualEditorProps> initialValues={initialValues} enableReinitialize onSubmit={onSubmit}>
+        {props.children}
+      </Formik>
+    </Loading>
 
   );
 };

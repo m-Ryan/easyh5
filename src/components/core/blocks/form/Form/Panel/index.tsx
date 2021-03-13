@@ -7,11 +7,24 @@ import { Extra } from '@/components/ConfigurationPanel/components/Extra';
 import { CollapsePanels } from '@/components/CollapsePanels';
 import { Decoration } from '@/components/ConfigurationPanel/components/Decoration';
 import { Position } from '@/components/ConfigurationPanel/components/Position';
+import { Stack } from '@/components/Stack';
+import { TextField } from '@/components/core/Form';
+import { useBlock } from '@/hooks/useBlock';
 
 export function Panel() {
+  const { focusIdx } = useBlock();
 
   return (
     <CollapsePanels options={[
+      {
+        title: '弹窗配置',
+        children: (
+          <Stack>
+            <TextField label='表单名称' name={`${focusIdx}.data.value.name`} inline />
+          </Stack>
+        ),
+        active: true,
+      },
       {
         title: '宽高',
         children: <WidthHeight />,
