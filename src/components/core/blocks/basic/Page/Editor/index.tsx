@@ -3,7 +3,7 @@ import { INodeItem } from '@/typings';
 import { IPage } from '..';
 import { useField } from 'formik';
 import { EditorItem } from '@/Editor/components/EditorItem';
-import { BlockWrapper } from '@/components/core/wrapper/BlockWrapper';
+import { EditBlockWrapper } from '@/components/core/wrapper/EditBlockWrapper';
 
 type IProps = {
   idx: string;
@@ -14,13 +14,13 @@ export function Editor(props: IProps) {
   const { children } = field.value;
 
   return (
-    <BlockWrapper idx={props.idx}>
+    <EditBlockWrapper idx={props.idx}>
       <main>
         {children.map((item, index) => {
           const childIndex = `${props.idx}.children.[${index}]`;
           return <EditorItem key={childIndex} idx={childIndex} />;
         })}
       </main>
-    </BlockWrapper>
+    </EditBlockWrapper>
   );
 }

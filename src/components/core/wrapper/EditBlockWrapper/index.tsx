@@ -1,16 +1,15 @@
 import { classnames } from '@/utils/classnames';
 import { BLOCK_HOVER_CLASSNAME, BLOCK_SELECTED_CLASSNAME } from '@/constants';
-import { ToolBar } from '@/Editor/components/ToolBar';
 import { findBlockByType, getValueByIdx } from '@/utils/block';
 import { Tooltip } from 'antd';
 import React, { DOMAttributes, useState } from 'react';
 import { useBlock } from '@/hooks/useBlock';
 
-interface BlockWrapperProps extends DOMAttributes<HTMLDivElement> {
+interface EditBlockWrapperProps extends DOMAttributes<HTMLDivElement> {
   children: React.ReactElement;
   idx: string;
 }
-export function BlockWrapper(props: BlockWrapperProps) {
+export function EditBlockWrapper(props: EditBlockWrapperProps) {
   const [isHover, setIsHover] = useState(false);
   const { idx, children } = props;
   const {
@@ -30,6 +29,13 @@ export function BlockWrapper(props: BlockWrapperProps) {
       e.stopPropagation();
       setFocusIdx(idx);
     },
+    onMouseOver(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+      e.stopPropagation();
+      setIsHover(true);
+    },
+    onMouseLeave(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+      setIsHover(false);
+    },
     ['data-node-type']: node.type,
     ['data-node-idx']: idx,
     style: {
@@ -40,29 +46,14 @@ export function BlockWrapper(props: BlockWrapperProps) {
     className: classnames(isHover && BLOCK_HOVER_CLASSNAME, isFocus && BLOCK_SELECTED_CLASSNAME, children.props.className),
   });
 
-  const onHover = (visible: boolean) => {
-    setIsHover(visible);
-  };
-
-  return isFocus ? (
+  return (
     <Tooltip
-      key={1}
-      placement="topLeft"
-      visible={true}
-      title={<ToolBar />
-      }
+      key={2}
+      placement="leftTop"
+      title={block?.name}
+      visible={!isFocus && isHover}
     >
       {content}
     </Tooltip>
-  ) : (
-      <Tooltip
-        key={2}
-        placement="leftTop"
-        title={block?.name}
-        onVisibleChange={onHover}
-      >
-        {content}
-      </Tooltip>
-    );
-
+  );
 }

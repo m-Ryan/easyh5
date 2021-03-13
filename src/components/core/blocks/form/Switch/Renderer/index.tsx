@@ -3,7 +3,7 @@ import { ISwitch } from '..';
 import { useField } from 'formik';
 import { SwitchField } from '@/components/core/Form';
 import { useFormContext } from '@/context/FormContext';
-import { BlockWrapper } from '@/components/core/wrapper/BlockWrapper';
+import { RenderBlockWrapper } from '@/components/core/wrapper/RenderBlockWrapper';
 
 type IProps = {
   idx: string;
@@ -15,11 +15,11 @@ export function Renderer(props: IProps) {
   const { getFieldName } = useFormContext();
 
   return (
-    <BlockWrapper idx={props.idx}>
+    <RenderBlockWrapper idx={props.idx}>
       <div>
         <SwitchField checkedChildren={checkedText} unCheckedChildren={uncheckedText} {...fieldProps} name={getFieldName(fieldProps.name)} inline />
       </div>
-    </BlockWrapper>
+    </RenderBlockWrapper>
 
   );
 }

@@ -14,7 +14,8 @@ export function EditorItem(props: EditorProps) {
   const block = findBlockByType(field.value.type);
 
   if (block) {
-    return <block.Editor idx={props.idx} />;
+    const BlockEditor = block.Editor as any;
+    return <BlockEditor idx={props.idx} />;
   }
   return null;
 }

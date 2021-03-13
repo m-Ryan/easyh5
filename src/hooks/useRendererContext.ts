@@ -1,10 +1,8 @@
-import { useField, useFormikContext } from 'formik';
+import { useFormikContext } from 'formik';
 import { INodeItem } from '../typings';
 import { useCallback } from 'react';
-import { get } from 'lodash';
 import { getParseAction } from '@/utils/actions';
 import { useDialog } from './useDialog';
-import { IPage } from '@/components/core/blocks/basic/Page';
 import { TemplateRenderProps } from '@/components/TemplateRenderProvider';
 
 const setDataByVariable = (nodes: INodeItem[], variableMap: { [key: string]: any; }) => {
@@ -18,7 +16,8 @@ const setDataByVariable = (nodes: INodeItem[], variableMap: { [key: string]: any
 };
 
 export function useRendererContext() {
-  const { values, setFormikState, setValues } = useFormikContext<TemplateRenderProps>();
+  const formikContext = useFormikContext<TemplateRenderProps>();
+  const { values, setFormikState } = formikContext;
   const { pageIndex, pages, temporary } = values;
   const pageData = pages[pageIndex];
 
@@ -48,13 +47,13 @@ export function useRendererContext() {
   };
 
   return {
+    ...formikContext,
     pageIndex,
-    values,
-    setValues,
     setVariable,
     onAction,
     temporary,
-    pageData
+    pageData,
+
   };
 }
 

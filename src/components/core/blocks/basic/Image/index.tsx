@@ -14,5 +14,7 @@ export const Image: IBlock<IImage> = {
   Renderer,
   Panel,
   createInstance,
-  validChildrenType: []
+  validChildrenType: [
+    ...Object.values(BasicType),
+  ]
 };

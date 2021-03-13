@@ -96,7 +96,7 @@ export const BlockAvatorWrapper: React.FC<{ type: BlockType; }> = (props) => {
         ev.preventDefault();
         const payload: RecursivePartial<INodeItem> = {};
 
-        if (type === BasicType.SECTION || type === BasicType.BOX) {
+        if (type === BasicType.BOX) {
           // 最大300，最小100，每次递减40
           const min = Math.max(blockNode.getBoundingClientRect().height / 2, 100);
           const max = 300;

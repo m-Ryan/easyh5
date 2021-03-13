@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { IAudio } from '..';
 import { useField } from 'formik';
+import { RenderBlockWrapper } from '@/components/core/wrapper/RenderBlockWrapper';
 
 type IProps = {
   idx: string;
@@ -28,15 +29,17 @@ export function Renderer(props: IProps) {
   };
 
   return (
+    <RenderBlockWrapper idx={props.idx}>
+      <div
+        data-node-type={value.type}
+        data-node-idx={props.idx}
+        style={styles}
+        onClick={toggle}
+      >
+        <audio ref={ref} autoPlay={value.data.value.autoplay} loop={value.data.value.loop} src={value.data.value.src} />
 
-    <div
-      data-node-type={value.type}
-      data-node-idx={props.idx}
-      style={styles}
-      onClick={toggle}
-    >
-      <audio ref={ref} autoPlay={value.data.value.autoplay} loop={value.data.value.loop} src={value.data.value.src} />
+      </div>
+    </RenderBlockWrapper>
 
-    </div>
   );
 }

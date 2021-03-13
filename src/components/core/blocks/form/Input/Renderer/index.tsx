@@ -4,6 +4,7 @@ import { useField } from 'formik';
 import { TextAreaField, TextField } from '@/components/core/Form';
 import { useFormContext } from '@/context/FormContext';
 import { getValidation, ValidationType } from '@/utils/validation';
+import { RenderBlockWrapper } from '@/components/core/wrapper/RenderBlockWrapper';
 
 type IProps = {
   idx: string;
@@ -19,26 +20,29 @@ export function Renderer(props: IProps) {
   }
 
   return (
-    <div data-node-type={value.type} data-node-idx={props.idx} style={value.style}>
+    <RenderBlockWrapper idx={props.idx}>
+      <div data-node-type={value.type} data-node-idx={props.idx} style={value.style}>
 
-      {
-        type === 'textarea'
-          ? (
-            <TextAreaField
-              {...fieldProps}
-              validate={getValidation(validations)}
-              required={validations.includes(ValidationType.REQUIRED)} name={getFieldName(fieldProps.name)}
-            />
-          )
-          : (
-            <TextField
-              {...fieldProps}
-              validate={getValidation(validations)}
-              required={validations.includes(ValidationType.REQUIRED)} name={getFieldName(fieldProps.name)}
-            />
-          )
-      }
+        {
+          type === 'textarea'
+            ? (
+              <TextAreaField
+                {...fieldProps}
+                validate={getValidation(validations)}
+                required={validations.includes(ValidationType.REQUIRED)} name={getFieldName(fieldProps.name)}
+              />
+            )
+            : (
+              <TextField
+                {...fieldProps}
+                validate={getValidation(validations)}
+                required={validations.includes(ValidationType.REQUIRED)} name={getFieldName(fieldProps.name)}
+              />
+            )
+        }
 
-    </div>
+      </div>
+    </RenderBlockWrapper>
+
   );
 }

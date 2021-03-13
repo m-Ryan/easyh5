@@ -2,9 +2,9 @@ import React from 'react';
 import { IRadio } from '..';
 import { useField } from 'formik';
 import { RadioGroupField } from '@/components/core/Form';
-import { BlockWrapper } from '@/components/core/wrapper/BlockWrapper';
 import { getValidation, ValidationType } from '@/utils/validation';
 import { useFormContext } from '@/context/FormContext';
+import { RenderBlockWrapper } from '@/components/core/wrapper/RenderBlockWrapper';
 
 type IProps = {
   idx: string;
@@ -16,7 +16,7 @@ export function Renderer(props: IProps) {
   const { ...fieldProps } = value.data.value;
   const validations = fieldProps.validate ? [...fieldProps.validate] : [];
   return (
-    <BlockWrapper idx={props.idx}>
+    <RenderBlockWrapper idx={props.idx}>
       <div>
         <RadioGroupField
           alignment="leading"
@@ -25,10 +25,9 @@ export function Renderer(props: IProps) {
           validate={getValidation(validations)}
           name={getFieldName(fieldProps.name)}
           required={validations.includes(ValidationType.REQUIRED)}
-          inline
         />
       </div>
-    </BlockWrapper>
+    </RenderBlockWrapper>
 
   );
 }

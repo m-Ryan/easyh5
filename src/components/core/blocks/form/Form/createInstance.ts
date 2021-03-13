@@ -23,6 +23,7 @@ export const createInstance: CreateInstance<IForm> = (payload) => {
       borderRadius: '0px',
       paddingRight: '16px',
       paddingLeft: '16px',
+      paddingTop: '16px',
       opacity: 1,
     },
     children: [

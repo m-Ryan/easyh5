@@ -3,6 +3,7 @@ import { INodeItem } from '@/typings';
 import { IPage } from '..';
 import { useField } from 'formik';
 import { RenderItem } from '@/Renderer/components/RenderItem';
+import { RenderBlockWrapper } from '@/components/core/wrapper/RenderBlockWrapper';
 
 type IProps = {
   idx: string;
@@ -10,14 +11,16 @@ type IProps = {
 
 export function Renderer(props: IProps) {
   const [field] = useField<INodeItem<IPage>>(props.idx);
-  const { type, children, style } = field.value;
+  const { children } = field.value;
 
   return (
-    <main style={style} data-node-type={type} data-node-idx={props.idx}>
-      {children.map((item, index) => {
-        const childIndex = `${props.idx}.children.[${index}]`;
-        return <RenderItem key={childIndex} idx={childIndex} />;
-      })}
-    </main>
+    <RenderBlockWrapper idx={props.idx}>
+      <main>
+        {children.map((item, index) => {
+          const childIndex = `${props.idx}.children.[${index}]`;
+          return <RenderItem key={childIndex} idx={childIndex} />;
+        })}
+      </main>
+    </RenderBlockWrapper>
   );
 }

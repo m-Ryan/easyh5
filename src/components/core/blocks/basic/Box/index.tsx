@@ -15,7 +15,7 @@ export const Box = {
   Panel,
   createInstance,
   validChildrenType: [
-    ...Object.values(BasicType).filter(type => ![BasicType.SECTION].includes(type)),
+    ...Object.values(BasicType),
     FormType.FORM
   ]
 };

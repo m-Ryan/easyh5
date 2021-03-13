@@ -42,5 +42,5 @@ export function Panel() {
       />
     );
 
-  }, [focusIdx]);
+  }, [focusIdx, uploadHandler]);
 }

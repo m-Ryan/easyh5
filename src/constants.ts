@@ -2,7 +2,6 @@ export type BlockType = BasicType | FormType;
 
 export enum BasicType {
   PAGE = 'page',
-  SECTION = 'section',
   BOX = 'box',
   IMAGE = 'image',
   AUDIO = 'audio',
@@ -21,9 +20,6 @@ export enum FormType {
   SELECT = 'select',
   SUBMIT_BTN = 'submit_button',
 }
-
-export const PAGE_IDX = 'data.content.[0]';
-export const PAGE_TEMPORARY_IDX = 'data.content.[0].data.value.temporary';
 
 export const DRAG_HOVER_CLASSNAME = 'block-dragover';
 export const DRAG_TANGENT_CLASSNAME = 'block-tangent';

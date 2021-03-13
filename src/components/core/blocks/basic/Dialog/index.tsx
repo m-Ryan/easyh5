@@ -3,7 +3,7 @@ import { Renderer } from './Renderer';
 import { Editor } from './Editor';
 import { createInstance } from './createInstance';
 import { IBlock, INodeItem } from '@/typings';
-import { BasicType } from '@/constants';
+import { BasicType, FormType } from '@/constants';
 
 export type IDialog = INodeItem<{
   uid: string;
@@ -18,5 +18,8 @@ export const Dialog: IBlock<IDialog> = {
   Renderer,
   Panel,
   createInstance,
-  validChildrenType: Object.values(BasicType).filter(type => ![BasicType.SECTION, BasicType.SECTION].includes(type))
+  validChildrenType: [
+    ...Object.values(BasicType),
+    ...Object.values(FormType),
+  ]
 };

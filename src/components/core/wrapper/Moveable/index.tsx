@@ -1,9 +1,9 @@
 import React from 'react';
 import { onDrag } from '@/utils/onDrag';
 import { useQuery } from '@/hooks/useQuery';
-import { BlockWrapper } from '../BlockWrapper';
 import { getValueByIdx } from '@/utils/block';
 import { useBlock } from '@/hooks/useBlock';
+import { EditBlockWrapper } from '../EditBlockWrapper';
 
 interface MoveableProps {
   children: React.ReactElement;
@@ -40,8 +40,8 @@ export default function Moveable(props: MoveableProps) {
   };
 
   return (
-    <BlockWrapper idx={idx} onMouseDown={onMouseDown}>
+    <EditBlockWrapper idx={idx} onMouseDown={onMouseDown}>
       {children}
-    </BlockWrapper>
+    </EditBlockWrapper>
   );
 }

@@ -57,10 +57,6 @@ export default function enhancer<P>(Component: any, changeAdapter: (e: any) => a
             form.setFieldTouched(name, true);
           };
 
-          if (error) {
-            console.log(name, touched);
-          }
-
           return (
             <Form.Item
               style={{ margin: 0 }}

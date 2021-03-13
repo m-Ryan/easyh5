@@ -2,8 +2,8 @@ import React from 'react';
 import { ICheckbox } from '..';
 import { useField } from 'formik';
 import { CheckboxField } from '@/components/core/Form';
-import { BlockWrapper } from '@/components/core/wrapper/BlockWrapper';
 import { useFormContext } from '@/context/FormContext';
+import { RenderBlockWrapper } from '@/components/core/wrapper/RenderBlockWrapper';
 
 type IProps = {
   idx: string;
@@ -15,18 +15,16 @@ export function Renderer(props: IProps) {
   const { ...fieldProps } = value.data.value;
 
   return (
-    <BlockWrapper idx={props.idx}>
+    <RenderBlockWrapper idx={props.idx}>
       <div>
         <CheckboxField
           alignment="leading"
           style={{ display: 'flex', flexDirection: 'column' }}
           {...fieldProps}
           name={getFieldName(fieldProps.name)}
-
-          inline
         />
       </div>
-    </BlockWrapper>
+    </RenderBlockWrapper>
 
   );
 }

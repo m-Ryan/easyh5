@@ -2,7 +2,7 @@ import { useBlock } from '@/hooks/useBlock';
 import { getIndexByIdx } from '@/utils/block';
 import React from 'react';
 import { Draggable as ReactDraggable } from 'react-beautiful-dnd';
-import { BlockWrapper } from '../BlockWrapper';
+import { EditBlockWrapper } from '../EditBlockWrapper';
 export interface DraggableProps {
   children: React.ReactElement;
   idx: string;
@@ -25,9 +25,9 @@ export default function Draggable(props: DraggableProps) {
           {...draggableProvided.draggableProps}
           {...draggableProvided.dragHandleProps}
         >
-          <BlockWrapper idx={idx}>
+          <EditBlockWrapper idx={idx}>
             {children}
-          </BlockWrapper>
+          </EditBlockWrapper>
         </div>
       )}
     </ReactDraggable>

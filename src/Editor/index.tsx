@@ -1,7 +1,7 @@
 
 import { useDeviceToolbar } from '@/hooks/useDeviceToolbar';
-import { Tabs } from 'antd';
-import React, { useCallback } from 'react';
+import { Tabs, Tooltip } from 'antd';
+import React, { useCallback, useState } from 'react';
 import { useEditorContext } from '../hooks/useEditorContext';
 import { DialogBar } from './components/DialogBar';
 import { EditorItem } from './components/EditorItem';
@@ -10,14 +10,15 @@ import { IframeComponent } from './components/IframeComponent';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 import { getPageIdx } from '@/utils/block';
 import { useBlock } from '@/hooks/useBlock';
-import { Renderer } from '@/Renderer';
 import { RenderItem } from '@/Renderer/components/RenderItem';
+import { ToolBar } from './components/ToolBar';
 
 const TabPane = Tabs.TabPane;
 
 export const Editor = () => {
 
-  const { pageData: { data: { value: { h5 } } }, values: { pageIndex } } = useEditorContext();
+  const { pageData: { data: { value: { h5 } } }, values: { pageIndex }, } = useEditorContext();
+  const [activeTab, setActiveTab] = useState('editor');
 
   const { width, height, content } = useDeviceToolbar();
 
@@ -59,18 +60,24 @@ export const Editor = () => {
     <DragDropContext onDragEnd={onDragEnd}>
       <div style={{ width: '100%' }}>
         {content}
-        <Tabs tabBarStyle={{ paddingLeft: 20 }}>
+        <Tabs activeKey={activeTab} tabBarStyle={{ paddingLeft: 20 }} onChange={setActiveTab}>
           <TabPane tab="编辑" key="editor">
             <div style={{ position: 'relative' }}>
               <Droppable droppableId='Editor'>
                 {(provided) => (
                   <div
                     ref={provided.innerRef}
-                  // {...provided.droppableProps}
+                    {...provided.droppableProps}
                   >
                     <div className={styles.container}>
                       <div id='VisualEditorEditMode' data-h5={h5.enabled} style={innerContainerStyles}>
-                        <EditorItem idx={getPageIdx(pageIndex)} />
+                        <Tooltip
+                          visible
+                          placement="topLeft"
+                          title={<ToolBar />}
+                        >
+                          <EditorItem idx={getPageIdx(pageIndex)} />
+                        </Tooltip>
                       </div>
                     </div>
                     <div style={{ opacity: 0 }}>{provided.placeholder}</div>
@@ -84,13 +91,20 @@ export const Editor = () => {
             </div>
           </TabPane>
           <TabPane tab="预览" key="preview">
+
             <div className={styles.container}>
+
               <div style={innerContainerStyles}>
-                <IframeComponent height="100%" width="100%" style={{ border: 'none' }}>
+
+                <IframeComponent height="100%" width="100%" style={{ border: 'none', paddingTop: -16 }}>
                   <RenderItem idx={getPageIdx(pageIndex)} />
                 </IframeComponent>
+
+                {/* <RenderItem idx={getPageIdx(pageIndex)} /> */}
               </div>
+
             </div>
+
           </TabPane>
         </Tabs>
       </div>

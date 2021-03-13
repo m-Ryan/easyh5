@@ -1,4 +1,4 @@
-import { BlockType, BasicType, PAGE_IDX } from '../constants';
+import { BlockType, BasicType } from '../constants';
 import { cloneDeep, get, set } from 'lodash';
 import { INodeItem } from '../typings';
 import { getBlockByType } from '../components/core/blocks';
@@ -144,7 +144,6 @@ export function useBlock() {
   return {
 
     values,
-    pageValue: get(values, PAGE_IDX) as IPage,
     focusIdx,
     focusBlock,
     setValueByIdx,

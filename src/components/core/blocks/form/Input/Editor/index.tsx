@@ -20,7 +20,7 @@ export function Editor(props: IProps) {
   }
 
   return (
-    <Draggable idx={props.idx} data={value}>
+    <Draggable idx={props.idx}>
       <div>
         {
           type === 'textarea'

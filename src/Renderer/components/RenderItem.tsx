@@ -14,10 +14,11 @@ export function RenderItem(props: EditorProps) {
   const block = findBlockByType(field.value.type);
 
   if (block) {
+    const BlockRenderer = block.Renderer as any;
     if (field.value.data.link) {
-      return <a href={field.value.data.link}><block.Renderer idx={props.idx} /></a>;
+      return <a href={field.value.data.link}><BlockRenderer idx={props.idx} /></a>;
     }
-    return <block.Renderer idx={props.idx} />;
+    return <BlockRenderer idx={props.idx} />;
   }
   return null;
 }

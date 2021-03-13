@@ -4,7 +4,7 @@ import { useField } from 'formik';
 import { EditorItem } from '@/Editor/components/EditorItem';
 import { Stack } from '@/components/Stack';
 import { FormProvier } from '@/context/FormContext';
-import { BlockWrapper } from '@/components/core/wrapper/BlockWrapper';
+import { EditBlockWrapper } from '@/components/core/wrapper/EditBlockWrapper';
 
 type IProps = {
   idx: string;
@@ -16,7 +16,7 @@ export function Editor(props: IProps) {
   return (
 
     <FormProvier>
-      <BlockWrapper idx={props.idx}>
+      <EditBlockWrapper idx={props.idx}>
         <div>
           <Stack vertical>
             {value.children.map((item, index) => {
@@ -26,7 +26,7 @@ export function Editor(props: IProps) {
             <Stack.Item />
           </Stack>
         </div>
-      </BlockWrapper>
+      </EditBlockWrapper>
     </FormProvier>
 
   );

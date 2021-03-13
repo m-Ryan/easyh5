@@ -1,6 +1,4 @@
-import { ITemplate } from '@/store/template';
-import { PAGE_TEMPORARY_IDX } from '@/constants';
-import { useFormikContext } from 'formik';
+import { useRendererContext } from '@/hooks/useRendererContext';
 import { get } from 'lodash';
 import React, { useCallback, useContext, useMemo } from 'react';
 
@@ -29,10 +27,10 @@ const getTouchedObj = (errors: any) => {
 
 export function useFormContext() {
   const context = useContext(FormContext);
-  const { values, errors, setTouched, touched, validateForm } = useFormikContext<ITemplate>();
+  const { values, errors, setTouched, touched, validateForm } = useRendererContext();
 
   const formName = useMemo(() => {
-    return PAGE_TEMPORARY_IDX + '.' + context.id;
+    return 'temporary' + '.' + context.id;
   }, [context.id]);
 
   const getFormValues = useCallback(() => {
@@ -52,9 +50,11 @@ export function useFormContext() {
     if (validateError && Object.keys(validateError).length > 0) {
       const touchedObj = getTouchedObj(validateError);
       setTouched(touchedObj, true);
+      console.log('handleSubmit validateError', validateError);
+    } else {
+      console.log('handleSubmit', getFormValues());
     }
 
-    console.log('handleSubmit', getFormValues());
   };
 
   const isValid = useMemo(() => {
