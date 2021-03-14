@@ -3,14 +3,14 @@ import { useField } from 'formik';
 import { CheckboxField } from '@/components/core/Form';
 import Draggable from '@/components/core/wrapper/Draggable';
 import { ICheckbox } from '..';
-import { useFormContext } from '@/context/FormContext';
+import { useForm } from '@/hooks/useForm';
 
 type IProps = {
   idx: string;
 };
 
 export function Editor(props: IProps) {
-  const { getFieldName } = useFormContext();
+  const { getFieldName } = useForm();
   const [{ value }] = useField<ICheckbox>(props.idx);
   const { ...fieldProps } = value.data.value;
 

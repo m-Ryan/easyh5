@@ -15,7 +15,7 @@ export const Form: IBlock<IForm> = {
   Panel,
   createInstance,
   validChildrenType: [
-    ...Object.values(FormType).filter(item => item === FormType.FORM),
+    ...Object.values(FormType).filter(item => item !== FormType.FORM),
     ...Object.values(BasicType)
   ]
 };

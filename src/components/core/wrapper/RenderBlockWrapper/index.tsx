@@ -1,7 +1,7 @@
 
 import React, { DOMAttributes } from 'react';
-import { useBlock } from '@/hooks/useBlock';
 import { getValueByIdx } from '@/utils/block';
+import { useRendererContext } from '@/hooks/useRendererContext';
 
 interface RenderBlockWrapperProps extends DOMAttributes<HTMLDivElement> {
   children: React.ReactElement;
@@ -11,7 +11,7 @@ export function RenderBlockWrapper(props: RenderBlockWrapperProps) {
   const { idx, children } = props;
   const {
     values,
-  } = useBlock();
+  } = useRendererContext();
 
   const node = getValueByIdx(values, idx)!;
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { IInput } from '..';
 import { useField } from 'formik';
 import { TextAreaField, TextField } from '@/components/core/Form';
-import { useFormContext } from '@/context/FormContext';
+import { useForm } from '@/hooks/useForm';
 import { getValidation, ValidationType } from '@/utils/validation';
 import { RenderBlockWrapper } from '@/components/core/wrapper/RenderBlockWrapper';
 
@@ -13,7 +13,7 @@ type IProps = {
 export function Renderer(props: IProps) {
   const [{ value }] = useField<IInput>(props.idx);
   const { maxLength, minLength, type, ...fieldProps } = value.data.value;
-  const { getFieldName } = useFormContext();
+  const { getFieldName } = useForm();
   const validations = fieldProps.validate ? [...fieldProps.validate] : [];
   if (minLength && minLength > 0) {
     validations.push(`${ValidationType.MIN_LENGTH}:${minLength}`);

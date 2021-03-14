@@ -2,7 +2,7 @@ import React from 'react';
 import { ICheckbox } from '..';
 import { useField } from 'formik';
 import { CheckboxField } from '@/components/core/Form';
-import { useFormContext } from '@/context/FormContext';
+import { useForm } from '@/hooks/useForm';
 import { RenderBlockWrapper } from '@/components/core/wrapper/RenderBlockWrapper';
 
 type IProps = {
@@ -10,7 +10,7 @@ type IProps = {
 };
 
 export function Renderer(props: IProps) {
-  const { getFieldName } = useFormContext();
+  const { getFieldName } = useForm();
   const [{ value }] = useField<ICheckbox>(props.idx);
   const { ...fieldProps } = value.data.value;
 

@@ -15,7 +15,7 @@ export function Renderer(props: IProps) {
 
   return (
 
-    <FormProvier>
+    <FormProvier value={value.data.value}>
       <RenderBlockWrapper idx={props.idx}>
         <div>
           <Stack vertical>

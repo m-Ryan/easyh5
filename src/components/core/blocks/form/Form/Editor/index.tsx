@@ -15,7 +15,7 @@ export function Editor(props: IProps) {
 
   return (
 
-    <FormProvier>
+    <FormProvier value={value.data.value}>
       <EditBlockWrapper idx={props.idx}>
         <div>
           <Stack vertical>

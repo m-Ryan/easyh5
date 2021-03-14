@@ -2,7 +2,7 @@ import React from 'react';
 import { ISwitch } from '..';
 import { useField } from 'formik';
 import { SwitchField } from '@/components/core/Form';
-import { useFormContext } from '@/context/FormContext';
+import { useForm } from '@/hooks/useForm';
 import { RenderBlockWrapper } from '@/components/core/wrapper/RenderBlockWrapper';
 
 type IProps = {
@@ -12,7 +12,7 @@ type IProps = {
 export function Renderer(props: IProps) {
   const [{ value }] = useField<ISwitch>(props.idx);
   const { checkedText, uncheckedText, ...fieldProps } = value.data.value;
-  const { getFieldName } = useFormContext();
+  const { getFieldName } = useForm();
 
   return (
     <RenderBlockWrapper idx={props.idx}>

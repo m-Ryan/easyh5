@@ -3,7 +3,7 @@ import { IInput } from '..';
 import { useField } from 'formik';
 import { TextAreaField, TextField } from '@/components/core/Form';
 import Draggable from '@/components/core/wrapper/Draggable';
-import { useFormContext } from '@/context/FormContext';
+import { useForm } from '@/hooks/useForm';
 import { getValidation, ValidationType } from '@/utils/validation';
 
 type IProps = {
@@ -13,7 +13,7 @@ type IProps = {
 export function Editor(props: IProps) {
   const [{ value }] = useField<IInput>(props.idx);
   const { maxLength, type, minLength, ...fieldProps } = value.data.value;
-  const { getFieldName } = useFormContext();
+  const { getFieldName } = useForm();
   const validations = fieldProps.validate ? [...fieldProps.validate] : [];
   if (minLength && minLength > 0) {
     validations.push(`${ValidationType.MIN_LENGTH}:${minLength}`);

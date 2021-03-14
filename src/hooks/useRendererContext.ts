@@ -4,6 +4,7 @@ import { useCallback } from 'react';
 import { getParseAction } from '@/utils/actions';
 import { useDialog } from './useDialog';
 import { TemplateRenderProps } from '@/components/TemplateRenderProvider';
+import { useForm } from './useForm';
 
 const setDataByVariable = (nodes: INodeItem[], variableMap: { [key: string]: any; }) => {
   nodes.forEach(item => {
@@ -22,6 +23,7 @@ export function useRendererContext() {
   const pageData = pages[pageIndex];
 
   const { openDialog, closeDialog } = useDialog();
+  const { handleSubmit } = useForm();
 
   const setVariable = useCallback((map: { [key: string]: any; }) => {
 
@@ -33,7 +35,7 @@ export function useRendererContext() {
     }));
   }, [pageData, setFormikState]);
 
-  const onAction = (action: string) => {
+  const onAction = (ev: MouseEvent, action: string) => {
     const { group, name } = getParseAction(action);
     switch (group) {
       case 'dialogOpen':
@@ -41,6 +43,9 @@ export function useRendererContext() {
         break;
       case 'dialogClose':
         closeDialog();
+        break;
+      case 'formSubmit':
+        handleSubmit((v) => console.log(v));
         break;
     }
   };
