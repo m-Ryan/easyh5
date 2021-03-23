@@ -1,0 +1,26 @@
+{
+  "title": "新建模板",
+  "summary": "这个人很懒，什么都没有写",
+  "picture": "",
+  "content": [
+    {
+      "type": "page",
+      "data": {
+        "value": {
+          "title": "页面一"
+        }
+      },
+      "style": {
+        "width": "100%",
+        "height": "auto",
+        "minHeight": "100%",
+        "backgroundColor": "#fff",
+        "position": "relative",
+        "fontSize": "14px",
+        "marginLeft": "auto",
+        "marginRight": "auto"
+      },
+      "children": []
+    }
+  ]
+}
