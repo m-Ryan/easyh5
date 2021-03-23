@@ -31,12 +31,18 @@
       "@example": [
         "example",
       ],
+      "@example/*": [
+        "example/*",
+      ],
       "@/*": [
         "src/*"
       ],
       "@VisualEditor": [
         "VisualEditor",
-      ]
+      ],
+      "@VisualEditor/*": [
+        "VisualEditor/*",
+      ],
     },
   },
   "include": [

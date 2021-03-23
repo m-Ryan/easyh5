@@ -132,7 +132,7 @@ export function setStyleBgImg(url: string) {
 export async function createQrcode(url: string, logo?: string) {
   try {
     const canvasWidth = 500;
-    const logoWidth = canvasWidth / 3;
+    const logoWidth = canvasWidth / 4;
     const padding = 10;
     const canvas = document.createElement('canvas');
     canvas.style.height = '0px';
