@@ -35,7 +35,7 @@ export function CardItem(props: CardItemProps) {
         <div className={styles.title}>创建时间：{dayjs().format('YYYY-MM-DD')}</div>
       </div>
       <div className={styles.mask}>
-        <div className={styles.qrcode}><QrCode url={`${location.protocol}//${location.host}/preview?id=${data.article_id}`} logo={'http://assets.maocanhua.cn/FuPYsNk512cqHpUPqGCLdJMflZEz'} /></div>
+        <div className={styles.qrcode}><QrCode url={`${location.protocol}//${location.host}/template?id=${data.article_id}`} logo={'http://assets.maocanhua.cn/FuPYsNk512cqHpUPqGCLdJMflZEz'} /></div>
         <div className={styles.listBottom}>
           <div className={styles.listItem}>
             <Link to={`/editor?id=${data.article_id}`}><EditOutlined />&nbsp;编辑</Link>

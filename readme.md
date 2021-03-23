@@ -9,8 +9,8 @@
 - 手机扫码预览效果
 
   <div>
-    <img src="https://assets.maocanhua.cn/Fnl2iogm4UY_YRsDjZKBdNTIutGx" style="width:200px">
-    <img src="https://assets.maocanhua.cn/FmTik5Ha55ax21-b6jOLhwj6LP_I" style="width:200px">
+    <img src="https://assets.maocanhua.cn/Fnl2iogm4UY_YRsDjZKBdNTIutGx" width="200" style="width:200px">
+    <img src="https://assets.maocanhua.cn/FmTik5Ha55ax21-b6jOLhwj6LP_I" width="200" style="width:200px">
   </div>
 
 
