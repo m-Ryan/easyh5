@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { IImage } from '..';
 import { useField } from 'formik';
 import Moveable from '@/components/core/wrapper/Moveable';
@@ -10,11 +10,22 @@ type IProps = {
 };
 
 export function Editor(props: IProps) {
-  const [field] = useField<IImage>(props.idx);
+  const [field, , helper] = useField<IImage>(props.idx);
+
+  useEffect(() => {
+    if (Array.isArray(field.value.data.value)) {
+      field.value.data.value = field.value.data.value[0] || '';
+      helper.setValue(field.value);
+    }
+  }, [field.value, field.value.data, helper]);
+
   return (
     <Moveable idx={props.idx}>
       <div>
-        <Picture src={field.value.data.value} style={{ width: '100%', height: '100%' }} />
+        <Picture
+          src={field.value.data.value}
+          style={{ width: '100%', height: '100%' }}
+        />
         <div style={{ position: 'absolute', top: 0, left: 0, width: '100%' }}>
           {field.value.children.map((item, index) => {
             const childIndex = `${props.idx}.children.[${index}]`;

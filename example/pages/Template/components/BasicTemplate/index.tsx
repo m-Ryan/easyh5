@@ -12,9 +12,6 @@ import { unitConver } from '@/utils/unitConver';
 import { message } from 'antd';
 import { CommonEffect } from './CommonEffect';
 
-const pageWidth = 375;
-const pageMaxWidth = 480;
-
 const BasicTemplate: React.FC = (props) => {
   const dispatch = useDispatch();
   const templateData = useAppSelector('template');
@@ -27,33 +24,26 @@ const BasicTemplate: React.FC = (props) => {
     } else {
       message.error('缺少id');
     }
-
   }, [dispatch, id]);
 
-  // 设置响应式
-  useEffect(() => {
-    const standard = 100 * 100 / pageWidth;
-    if (window.innerWidth > pageMaxWidth) {
-      document.documentElement.style.fontSize = standard * pageMaxWidth / window.innerWidth + 'vw';
-    } else {
-      document.documentElement.style.fontSize = standard + 'vw';
-    }
-
-    return () => {
-      document.documentElement.style.fontSize = 'normal';
-    };
-  }, []);
-
   // 转换px为rem
-  const initialValues: { title: string; picture: string, content: IPage[]; } | null = useMemo(() => {
+  const initialValues: {
+    title: string;
+    picture: string;
+    content: IPage[];
+  } | null = useMemo(() => {
     if (!templateData) return null;
 
-    const content = templateData ? JSON.parse(unitConver((JSON.stringify(templateData.content)), {
-      originUnit: 'px',
-      replaceUnit: 'rem',
-      precision: 2,
-      times: 0.01
-    })) : [];
+    const content = templateData
+      ? JSON.parse(
+          unitConver(JSON.stringify(templateData.content), {
+            originUnit: 'px',
+            replaceUnit: 'rem',
+            precision: 2,
+            times: 0.01,
+          })
+        )
+      : [];
 
     return {
       title: templateData.title,
@@ -64,29 +54,41 @@ const BasicTemplate: React.FC = (props) => {
 
   if (!initialValues) return null;
 
+  if (loading) {
+    return (
+      <Loading loading={loading}>
+        <div style={{ height: '100vh' }} />
+      </Loading>
+    );
+  }
+
   return (
-
     <>
-      <div style={{ height: '100vh', width: '100%', backgroundColor: '#555', margin: '0 auto' }}>
-        <Loading loading={loading}>
-          <TemplateRenderProvider
-            data={initialValues}
-          >
-            <>
-              <Renderer />
-              <CommonEffect />
-              {props.children}
-            </>
-          </TemplateRenderProvider>
-        </Loading>
+      <div
+        style={{
+          width: '100%',
+          backgroundColor: '#555',
+          margin: '0 auto',
+        }}
+      >
+        <TemplateRenderProvider data={initialValues}>
+          <>
+            <Renderer />
+            <CommonEffect />
+            {props.children}
+          </>
+        </TemplateRenderProvider>
       </div>
-
     </>
   );
 };
 
 export default function withTemplate(Com: React.FC) {
   return (props: any) => {
-    return <BasicTemplate><Com {...props} /></BasicTemplate>;
+    return (
+      <BasicTemplate>
+        <Com {...props} />
+      </BasicTemplate>
+    );
   };
 }

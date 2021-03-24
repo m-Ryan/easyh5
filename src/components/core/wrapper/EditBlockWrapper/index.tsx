@@ -1,5 +1,9 @@
 import { classnames } from '@/utils/classnames';
-import { BasicType, BLOCK_HOVER_CLASSNAME, BLOCK_SELECTED_CLASSNAME } from '@/constants';
+import {
+  BasicType,
+  BLOCK_HOVER_CLASSNAME,
+  BLOCK_SELECTED_CLASSNAME,
+} from '@/constants';
 import { findBlockByType, getValueByIdx } from '@/utils/block';
 import { Tooltip } from 'antd';
 import React, { DOMAttributes, useState } from 'react';
@@ -12,11 +16,7 @@ interface EditBlockWrapperProps extends DOMAttributes<HTMLDivElement> {
 export function EditBlockWrapper(props: EditBlockWrapperProps) {
   const [isHover, setIsHover] = useState(false);
   const { idx, children } = props;
-  const {
-    focusIdx,
-    values,
-    setFocusIdx
-  } = useBlock();
+  const { focusIdx, values, setFocusIdx } = useBlock();
 
   const node = getValueByIdx(values, idx)!;
   const block = findBlockByType(node.type);
@@ -25,7 +25,7 @@ export function EditBlockWrapper(props: EditBlockWrapperProps) {
   const content = React.createElement(children.type, {
     ...{
       ...props,
-      children: undefined
+      children: undefined,
     },
     ...children.props,
     onClick: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -44,15 +44,19 @@ export function EditBlockWrapper(props: EditBlockWrapperProps) {
     style: {
       ...(children.props.style || {}),
       ...node.style,
-      cursor: 'grab'
+      cursor: 'grab',
     },
-    className: classnames(isHover && BLOCK_HOVER_CLASSNAME, isFocus && BLOCK_SELECTED_CLASSNAME, children.props.className),
+    className: classnames(
+      isHover && BLOCK_HOVER_CLASSNAME,
+      isFocus && BLOCK_SELECTED_CLASSNAME,
+      children.props.className
+    ),
   });
 
   return (
     <Tooltip
       key={2}
-      placement="leftTop"
+      placement='leftTop'
       title={block?.name}
       visible={!isFocus && isHover}
     >

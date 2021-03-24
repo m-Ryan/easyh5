@@ -14,7 +14,7 @@ export const createInstance: CreateInstance<IPage> = (payload) => {
     style: {
       width: '100%',
       height: 'auto',
-      minHeight: '100%',
+      minHeight: '667px',
       backgroundColor: '#fff',
       position: 'relative',
       fontSize: '14px',
@@ -23,8 +23,5 @@ export const createInstance: CreateInstance<IPage> = (payload) => {
     },
     children: [],
   };
-  return merge(
-    defaultData,
-    payload
-  );
+  return merge(defaultData, payload);
 };

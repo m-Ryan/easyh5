@@ -60,6 +60,8 @@ export const Editor = () => {
     [moveByIdx]
   );
 
+  const smallSceen = window.innerHeight < 850;
+
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <div style={{ width: '100%' }}>
@@ -84,7 +86,7 @@ export const Editor = () => {
                       >
                         <Tooltip
                           visible
-                          placement='topLeft'
+                          placement={smallSceen ? 'topRight' : 'topLeft'}
                           title={<ToolBar />}
                         >
                           <EditorItem idx={getPageIdx(pageIndex)} />
@@ -102,7 +104,7 @@ export const Editor = () => {
           <TabPane tab='预览' key='preview'>
             <div
               className={styles.container}
-              style={{ paddingTop: window.innerHeight < 900 ? 0 : 20 }}
+              style={{ paddingTop: smallSceen ? 0 : 20 }}
             >
               <div style={innerContainerStyles}>
                 <IframeComponent

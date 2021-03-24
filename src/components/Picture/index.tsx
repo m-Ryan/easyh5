@@ -15,12 +15,7 @@ export function Picture(props: IPictureProps) {
   const [url, setUrl] = useState(props.src);
 
   useEffect(() => {
-    setUrl(
-      (props.src || '').replace(
-        'https://assets.maocanhua.cn',
-        'https://assets.maocanhua.cn'
-      )
-    );
+    setUrl(props.src);
   }, [props.src]);
 
   return (
@@ -41,7 +36,10 @@ export function Picture(props: IPictureProps) {
       <img
         onError={() => url !== fallbackPicture && setUrl(fallbackPicture)}
         crossOrigin=''
-        style={{ width: '100%', height: '100%' }}
+        style={{
+          width: props.style?.width || '100%',
+          height: props.style?.height || '100%',
+        }}
         src={url}
         alt=''
       />

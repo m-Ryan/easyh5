@@ -14,13 +14,12 @@ const formatTime = (t: number) => {
 };
 
 const getTime = (seconds: number) => {
-
   if (seconds <= 0) {
     return {
       day: 0,
       hour: 0,
       minute: 0,
-      second: 0
+      second: 0,
     };
   }
   const day = Math.floor(seconds / ONE_DAY);
@@ -35,36 +34,37 @@ const getTime = (seconds: number) => {
     day,
     hour,
     minute,
-    second
+    second,
   };
 };
 
-const getMillisecond = () => parseInt(new Date().getTime().toString().substr(-3).substr(0, 1) + '0');
+const getMillisecond = () =>
+  parseInt(new Date().getTime().toString().substr(-3).substr(0, 1) + '0');
 
 export function useCountdown(
   seconds: number,
-  autoStart: boolean = true,
-  callback?: () => void
+  option: {
+    autoStart: boolean;
+    callback?: () => void;
+    needMillisecond?: boolean;
+  }
 ) {
-  const [countSeconds, setCountSeconds] = useState(0);
+  const { autoStart = true, needMillisecond = false, callback } = option;
+  const [countSeconds, setCountSeconds] = useState(seconds);
 
   const [millisecond, setMillisecond] = useState<number>(getMillisecond());
 
   const [isStart, setIsStart] = useState(autoStart);
 
-  useEffect(() => {
-    setCountSeconds(seconds);
-  }, [seconds]);
-
   useInterval(() => {
     if (!isStart) return;
+    if (!needMillisecond) return;
     setMillisecond(getMillisecond());
   }, 1000 / 60);
 
   useInterval(() => {
     if (!isStart) return;
-    setCountSeconds(countSeconds => {
-
+    setCountSeconds((countSeconds) => {
       return countSeconds - 1;
     });
   }, 1000);
@@ -86,6 +86,7 @@ export function useCountdown(
     minute: formatTime(minute),
     second: formatTime(second),
     millisecond: formatTime(millisecond),
-    play
+    play,
+    setCountSeconds,
   };
 }

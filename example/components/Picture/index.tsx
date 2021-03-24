@@ -34,7 +34,14 @@ export function Picture(props: IPictureProps) {
         type='image/webp'
         srcSet={url + '?imageView2/3/q/70/w/750/format/webp'}
       />
-      <img style={{ width: '100%', height: '100%' }} src={url} alt='' />
+      <img
+        style={{
+          width: props.style?.width || '100%',
+          height: props.style?.height || '100%',
+        }}
+        src={url}
+        alt=''
+      />
     </picture>
   );
 }

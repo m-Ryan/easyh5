@@ -10,6 +10,7 @@ import { cloneDeep } from 'lodash';
 import { ExamplePage } from './components/ExamplePage';
 import { VisualEditorProps } from '@/components/VisualEditorProvider';
 import { IPage } from '@/components/core/blocks/basic/Page';
+import { Loading } from '@example/components/loading';
 
 export default function Editor() {
   const dispatch = useDispatch();
@@ -18,7 +19,10 @@ export default function Editor() {
 
   const { id } = useQuery();
   const loading = useLoading(template.loadings.fetchById);
-  const isSubmitting = useLoading([template.loadings.create, template.loadings.updateById]);
+  const isSubmitting = useLoading([
+    template.loadings.create,
+    template.loadings.updateById,
+  ]);
 
   useEffect(() => {
     if (id) {
@@ -26,40 +30,50 @@ export default function Editor() {
     } else {
       dispatch(template.actions.fetchDefaultTemplate(undefined));
     }
-
   }, [dispatch, id]);
 
-  const onSave = useCallback((values: VisualEditorProps) => {
-    const payload = {
-      content: values.pages,
-      title: values.title,
-      picture: values.picture,
-    };
-    if (id) {
-      dispatch(template.actions.updateById({
-        id: +id,
-        template: payload,
-        success() {
-          message.success('更新成功');
-        }
-      }));
-    } else {
-      dispatch(template.actions.create({
-        template: payload,
-        success(templateId) {
-          history.replace(`/editor?id=${templateId}`);
-          message.success('创建成功');
-        }
-      }));
-    }
-  }, [dispatch, history, id]);
+  const onSave = useCallback(
+    (values: VisualEditorProps) => {
+      const payload = {
+        content: values.pages,
+        title: values.title,
+        picture: values.picture,
+      };
+      if (id) {
+        dispatch(
+          template.actions.updateById({
+            id: +id,
+            template: payload,
+            success() {
+              message.success('更新成功');
+            },
+          })
+        );
+      } else {
+        dispatch(
+          template.actions.create({
+            template: payload,
+            success(templateId) {
+              history.replace(`/editor?id=${templateId}`);
+              message.success('创建成功');
+            },
+          })
+        );
+      }
+    },
+    [dispatch, history, id]
+  );
 
-  const initialValues: { title: string; picture: string, content: IPage[]; } = useMemo(() => {
+  const initialValues: {
+    title: string;
+    picture: string;
+    content: IPage[];
+  } = useMemo(() => {
     if (!templateData) {
       return {
         title: '',
         content: [],
-        picture: ''
+        picture: '',
       };
     }
     // because redux object is not extensible
@@ -71,10 +85,21 @@ export default function Editor() {
     };
   }, [templateData]);
 
+  if (loading) {
+    return (
+      <Loading loading={loading}>
+        <div style={{ height: '100vh' }} />
+      </Loading>
+    );
+  }
+
   if (!initialValues) return null;
 
   return (
-    <ExamplePage initialValues={initialValues} onSave={onSave} isSubmitting={isSubmitting} />
+    <ExamplePage
+      initialValues={initialValues}
+      onSave={onSave}
+      isSubmitting={isSubmitting}
+    />
   );
 }
-
