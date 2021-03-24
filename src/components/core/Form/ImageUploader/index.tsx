@@ -7,8 +7,8 @@ import { useFormikContext, withFormik } from 'formik';
 import { uniqueId, isEqual } from 'lodash';
 import { classnames } from '@/utils/classnames';
 
-const ERROR_ICON = 'http://assets.maocanhua.cn/FvIaPNdMk32QDYBmaVJF1S6Q0MAW';
-const LOADING_ICON = 'http://assets.maocanhua.cn/Fi_vI4vyLhTM-Tp6ivq4dR_ieGHk';
+const ERROR_ICON = 'https://assets.maocanhua.cn/FvIaPNdMk32QDYBmaVJF1S6Q0MAW';
+const LOADING_ICON = 'https://assets.maocanhua.cn/Fi_vI4vyLhTM-Tp6ivq4dR_ieGHk';
 
 export interface ImageUploaderProps {
   value?: string | string[];

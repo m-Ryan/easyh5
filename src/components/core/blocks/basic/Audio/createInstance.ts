@@ -3,7 +3,7 @@ import { CreateInstance } from '@/typings';
 import { merge } from 'lodash';
 import { IAudio } from '.';
 
-const musicIcon = 'http://assets.maocanhua.cn/FvNHssKFRQ-sM6Yqus-INfd9pTYj';
+const musicIcon = 'https://assets.maocanhua.cn/FvNHssKFRQ-sM6Yqus-INfd9pTYj';
 
 export const createInstance: CreateInstance<IAudio> = (payload) => {
   const defaultData: IAudio = {
@@ -11,7 +11,7 @@ export const createInstance: CreateInstance<IAudio> = (payload) => {
     data: {
       value: {
         controls: true,
-        src: 'http://assets.maocanhua.cn/llSQJIBwGLZGhowxAi192bkzJav0',
+        src: 'https://assets.maocanhua.cn/llSQJIBwGLZGhowxAi192bkzJav0',
         autoplay: true,
         loop: true,
       },
@@ -25,12 +25,9 @@ export const createInstance: CreateInstance<IAudio> = (payload) => {
       backgroundImage: `url(${musicIcon})`,
       backgroundSize: '100%',
       zIndex: 19,
-      cursor: 'pointer'
+      cursor: 'pointer',
     },
     children: [],
   };
-  return merge(
-    defaultData,
-    payload
-  );
+  return merge(defaultData, payload);
 };

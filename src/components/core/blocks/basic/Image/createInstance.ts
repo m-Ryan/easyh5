@@ -7,7 +7,7 @@ export const createInstance: CreateInstance<IImage> = (payload) => {
   const defaultData: IImage = {
     type: BasicType.IMAGE,
     data: {
-      value: 'http://assets.maocanhua.cn/FkWeSH88STspyZduGtyjYMt4InP4',
+      value: 'https://assets.maocanhua.cn/FkWeSH88STspyZduGtyjYMt4InP4',
     },
     style: {
       position: 'relative',
@@ -18,8 +18,5 @@ export const createInstance: CreateInstance<IImage> = (payload) => {
     },
     children: [],
   };
-  return merge(
-    defaultData,
-    payload
-  );
+  return merge(defaultData, payload);
 };

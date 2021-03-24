@@ -17,7 +17,7 @@ export function Picture(props: IPictureProps) {
   useEffect(() => {
     setUrl(
       (props.src || '').replace(
-        'http://assets.maocanhua.cn',
+        'https://assets.maocanhua.cn',
         'https://assets.maocanhua.cn'
       )
     );

@@ -6,5 +6,5 @@ export const CATEGORY_ID = 87;
 export const PAGE_MAX_WIDTH = 480;
 export const NORMAL_WIDTH = 375;
 export const BASE_NAME = 'h5';
-export const ASSET_DOMAIN = 'http://assets.maocanhua.cn';
+export const ASSET_DOMAIN = 'https://assets.maocanhua.cn';
 export const APP_EDITOR_CONTAINER_ID = 'app-editor-container';
