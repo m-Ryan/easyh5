@@ -1,4 +1,3 @@
-
 import { useDeviceToolbar } from '@/hooks/useDeviceToolbar';
 import { Tabs, Tooltip } from 'antd';
 import React, { useCallback, useState } from 'react';
@@ -16,13 +15,18 @@ import { ToolBar } from './components/ToolBar';
 const TabPane = Tabs.TabPane;
 
 export const Editor = () => {
-
-  const { values: { pageIndex }, } = useEditorContext();
+  const {
+    values: { pageIndex },
+  } = useEditorContext();
   const [activeTab, setActiveTab] = useState('editor');
 
   const { width, height, content } = useDeviceToolbar();
 
-  const innerContainerStyles: React.CSSProperties = { width, height, margin: '0 auto', };
+  const innerContainerStyles: React.CSSProperties = {
+    width,
+    height,
+    margin: '0 auto',
+  };
 
   const { moveByIdx } = useBlock();
 
@@ -39,8 +43,9 @@ export const Editor = () => {
       // 编辑器内移动
       if (result.source.droppableId === 'Editor') {
         const getNodeIdx = (index: number) => {
-          const ele = document.querySelector(`[data-rbd-draggable-id="${index}"]`)
-            ?.firstChild as HTMLDivElement;
+          const ele = document.querySelector(
+            `[data-rbd-draggable-id="${index}"]`
+          )?.firstChild as HTMLDivElement;
           return ele.getAttribute('data-node-idx');
         };
 
@@ -51,7 +56,6 @@ export const Editor = () => {
           moveByIdx(sourceIdx, destinationIdx);
         }
       }
-
     },
     [moveByIdx]
   );
@@ -60,20 +64,27 @@ export const Editor = () => {
     <DragDropContext onDragEnd={onDragEnd}>
       <div style={{ width: '100%' }}>
         {content}
-        <Tabs activeKey={activeTab} tabBarStyle={{ paddingLeft: 20 }} onChange={setActiveTab}>
-          <TabPane tab="编辑" key="editor">
+        <Tabs
+          activeKey={activeTab}
+          tabBarStyle={{ paddingLeft: 20 }}
+          onChange={setActiveTab}
+        >
+          <TabPane tab='编辑' key='editor'>
             <div style={{ position: 'relative' }}>
               <Droppable droppableId='Editor'>
                 {(provided) => (
-                  <div
-                    ref={provided.innerRef}
-                    {...provided.droppableProps}
-                  >
-                    <div className={styles.container}>
-                      <div id='VisualEditorEditMode' style={innerContainerStyles}>
+                  <div ref={provided.innerRef} {...provided.droppableProps}>
+                    <div
+                      className={styles.container}
+                      style={{ paddingTop: window.innerHeight < 900 ? 0 : 20 }}
+                    >
+                      <div
+                        id='VisualEditorEditMode'
+                        style={innerContainerStyles}
+                      >
                         <Tooltip
                           visible
-                          placement="topLeft"
+                          placement='topLeft'
                           title={<ToolBar />}
                         >
                           <EditorItem idx={getPageIdx(pageIndex)} />
@@ -83,33 +94,31 @@ export const Editor = () => {
                     <div style={{ opacity: 0 }}>{provided.placeholder}</div>
                   </div>
                 )}
-
               </Droppable>
 
               <DialogBar />
-
             </div>
           </TabPane>
-          <TabPane tab="预览" key="preview">
-
-            <div className={styles.container}>
-
+          <TabPane tab='预览' key='preview'>
+            <div
+              className={styles.container}
+              style={{ paddingTop: window.innerHeight < 900 ? 0 : 20 }}
+            >
               <div style={innerContainerStyles}>
-
-                <IframeComponent height="100%" width="100%" style={{ border: 'none', paddingTop: -16 }}>
+                <IframeComponent
+                  height='100%'
+                  width='100%'
+                  style={{ border: 'none', paddingTop: -16 }}
+                >
                   <RenderItem idx={getPageIdx(pageIndex)} />
                 </IframeComponent>
 
                 {/* <RenderItem idx={getPageIdx(pageIndex)} /> */}
               </div>
-
             </div>
-
           </TabPane>
         </Tabs>
       </div>
     </DragDropContext>
-
   );
 };
-

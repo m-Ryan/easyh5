@@ -12,15 +12,17 @@ const LOADING_ICON = 'http://assets.maocanhua.cn/Fi_vI4vyLhTM-Tp6ivq4dR_ieGHk';
 
 export interface ImageUploaderProps {
   value?: string | string[];
-  count?: number;
-  onChange?: (url: string[]) => void;
+  limit?: number;
+  onChange?: (url: string | string[]) => void;
   uploadHandler: (file: File) => Promise<string>;
+  multiple?: boolean;
 }
 
 function ImageUploader({
-  count = 1,
+  limit = 1,
   onChange,
   uploadHandler,
+  multiple,
 }: ImageUploaderProps) {
   const [isUploading, setIsUploading] = useState(false);
   const { values, setFormikState, touched } = useFormikContext<UploadItem[]>();
@@ -28,37 +30,40 @@ function ImageUploader({
   const ref = useRef<string[]>([]);
 
   useEffect(() => {
-    const newVals = values.map(item => item.url).filter(url => !!url);
+    const newVals = values.map((item) => item.url).filter((url) => !!url);
     if (!isEqual(ref.current, newVals)) {
       ref.current = newVals;
-      touched && onChange?.(ref.current);
+      if (touched && onChange) {
+        if (multiple) {
+          onChange(ref.current);
+        } else {
+          onChange(ref.current[0] || '');
+        }
+      }
     }
-
-  }, [touched, values, onChange]);
+  }, [touched, values, onChange, multiple]);
 
   const onUpload = () => {
-
     if (isUploading) {
       return message.warning('正在上传中，请等待上传完成');
     }
 
     const uploader = new Uploader(uploadHandler, {
-      count,
-      accept: 'image/*'
+      limit,
+      accept: 'image/*',
     });
 
-    uploader.on('start', photos => {
+    uploader.on('start', (photos) => {
       setIsUploading(true);
       setFormikState((formikState) => {
         formikState.values = [...formikState.values, ...photos];
         return { ...formikState };
       });
 
-      uploader.on('progress', photos => {
-
+      uploader.on('progress', (photos) => {
         setFormikState((formikState) => {
-          formikState.values = formikState.values.map(item => {
-            const photo = photos.find(p => p.idx === item.idx);
+          formikState.values = formikState.values.map((item) => {
+            const photo = photos.find((p) => p.idx === item.idx);
             return photo || item;
           });
           return { ...formikState };
@@ -73,60 +78,66 @@ function ImageUploader({
     uploader.chooseFile();
   };
 
-  const onPaste = useCallback(async (e: React.ClipboardEvent<HTMLInputElement>) => {
-    const clipboardData = e.clipboardData!;
+  const onPaste = useCallback(
+    async (e: React.ClipboardEvent<HTMLInputElement>) => {
+      const clipboardData = e.clipboardData!;
 
-    for (let i = 0; i < clipboardData.items.length; i++) {
-      const item = clipboardData.items[i];
-      if (item.kind == 'file') {
-        const blob = item.getAsFile();
+      for (let i = 0; i < clipboardData.items.length; i++) {
+        const item = clipboardData.items[i];
+        if (item.kind == 'file') {
+          const blob = item.getAsFile();
 
-        if (!blob || blob.size === 0) {
-          return;
-        }
-        message.loading('正在上传粘贴图片');
-        setIsUploading(true);
-        const pastePicture: UploadItem = { url: '', status: 'pending', idx: `paste-${uniqueId()}` };
-        setFormikState((formikState) => {
-          formikState.values = [...formikState.values, pastePicture];
-          return { ...formikState };
-        });
-        try {
-          const url = await uploadHandler(blob);
-          setFormikState(formikState => {
-            formikState.values = formikState.values.map(item => {
-              if (pastePicture.idx === item.idx) {
-
-                return {
-                  ...item,
-                  url,
-                  status: 'done'
-                };
-              }
-              return item;
-            });
-
+          if (!blob || blob.size === 0) {
+            return;
+          }
+          message.loading('正在上传粘贴图片');
+          setIsUploading(true);
+          const pastePicture: UploadItem = {
+            url: '',
+            status: 'pending',
+            idx: `paste-${uniqueId()}`,
+          };
+          setFormikState((formikState) => {
+            formikState.values = [...formikState.values, pastePicture];
             return { ...formikState };
           });
-        } catch (error) {
-          setFormikState(formikState => {
-            formikState.values = formikState.values.map(item => {
-              if (pastePicture.idx === item.idx) {
-                return {
-                  ...item,
-                  status: 'error'
-                };
-              }
-              return item;
+          try {
+            const url = await uploadHandler(blob);
+            setFormikState((formikState) => {
+              formikState.values = formikState.values.map((item) => {
+                if (pastePicture.idx === item.idx) {
+                  return {
+                    ...item,
+                    url,
+                    status: 'done',
+                  };
+                }
+                return item;
+              });
+
+              return { ...formikState };
             });
-            return { ...formikState };
-          });
+          } catch (error) {
+            setFormikState((formikState) => {
+              formikState.values = formikState.values.map((item) => {
+                if (pastePicture.idx === item.idx) {
+                  return {
+                    ...item,
+                    status: 'error',
+                  };
+                }
+                return item;
+              });
+              return { ...formikState };
+            });
+          }
+          setIsUploading(false);
+          message.destroy();
         }
-        setIsUploading(false);
-        message.destroy();
       }
-    }
-  }, [setFormikState, uploadHandler]);
+    },
+    [setFormikState, uploadHandler]
+  );
 
   const onRemove = (index: number) => {
     setFormikState((formikState) => {
@@ -135,21 +146,25 @@ function ImageUploader({
     });
   };
 
-  const showUploader = values.length < count;
+  const showUploader = values.length < limit;
 
   return (
     <div onPaste={onPaste} className={styles.wrap}>
       <div className={styles['container']}>
-        {values.map((item, index) => <ImageUploaderItem key={index} index={index} value={item} remove={onRemove} />)}
-        {
-          showUploader &&
-          (
-            <div className={styles['upload']} onClick={onUpload}>
-              <PlusOutlined />
-              <div className='ant-upload-text'>Upload</div>
-            </div>
-          )
-        }
+        {values.map((item, index) => (
+          <ImageUploaderItem
+            key={index}
+            index={index}
+            value={item}
+            remove={onRemove}
+          />
+        ))}
+        {showUploader && (
+          <div className={styles['upload']} onClick={onUpload}>
+            <PlusOutlined />
+            <div className='ant-upload-text'>Upload</div>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -192,7 +207,10 @@ function ImageUploaderItem(props: ImageUploaderItemProps) {
     return (
       <div className={styles['item']}>
         <div className={classnames(styles['info'])}>
-          <img src={value.status === 'done' ? value.url : ERROR_ICON} alt='标题图：' />
+          <img
+            src={value.status === 'done' ? value.url : ERROR_ICON}
+            alt='标题图：'
+          />
           <div className={styles['btn-wrap']}>
             <a title='预览' onClick={() => setPreview(true)}>
               <EyeOutlined />
@@ -201,23 +219,29 @@ function ImageUploaderItem(props: ImageUploaderItemProps) {
               <DeleteOutlined />
             </a>
           </div>
-
         </div>
 
-        <Modal visible={preview} footer={null} onCancel={() => setPreview(false)}>
+        <Modal
+          visible={preview}
+          footer={null}
+          onCancel={() => setPreview(false)}
+        >
           <img alt='预览图' style={{ width: '100%' }} src={value.url} />
         </Modal>
       </div>
     );
   }
-
 }
 
 export default withFormik<ImageUploaderProps, UploadItem[]>({
-  handleSubmit: () => { },
+  handleSubmit: () => {},
   enableReinitialize: true,
   mapPropsToValues: (props) => {
-    const value = props.value ? Array.isArray(props.value) ? props.value.filter(item => !!item) : [props.value] : [];
-    return value.map(item => ({ url: item, status: 'done', idx: '' }));
-  }
+    const value = props.value
+      ? Array.isArray(props.value)
+        ? props.value.filter((item) => !!item)
+        : [props.value]
+      : [];
+    return value.map((item) => ({ url: item, status: 'done', idx: '' }));
+  },
 })(ImageUploader);
