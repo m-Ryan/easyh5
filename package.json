@@ -50,7 +50,7 @@
     "react-router-dom": "^5.2.0",
     "react-use-localstorage": "^3.5.3",
     "uuid": "^8.3.2",
-    "vite": "^2.0.1",
+    "vite": "^2.9.13",
     "yup": "^0.32.9"
   }
 }
