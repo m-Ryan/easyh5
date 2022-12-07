@@ -41,7 +41,7 @@
     "json-format": "^1.0.1",
     "lodash": "^4.17.20",
     "qrcode-generator": "^1.4.4",
-    "qs": "6.9.6",
+    "qs": "6.9.7",
     "react": "^17.0.1",
     "react-beautiful-dnd": "^13.0.0",
     "react-color": "^2.19.3",
